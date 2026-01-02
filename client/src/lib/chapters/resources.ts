@@ -7,236 +7,346 @@ export const resourcesChapter: Chapter = {
   description: "Curated recovery videos, expert talks, and treatment program resources.",
   icon: "Video",
   order: 12,
-  readingTime: "30 min read",
-  content: `# Recovery Resources & Video Library
+  readingTime: "45 min read",
+  content: `# Recovery & Trauma Treatment YouTube Video Library
 
-This chapter provides a curated collection of educational videos, expert talks, and treatment center resources to support your trauma recovery journey. These resources feature leading experts in trauma treatment and recovery.
+This chapter provides a comprehensive collection of educational videos, expert talks, and treatment center resources to support your trauma recovery journey. These resources feature leading experts in trauma treatment and recovery.
 
-## Featured Trauma Experts
+## Featured Clinicians & Programs
+
+### Dr. Robb Lahore (Meadows Behavioral Health)
+
+Dr. Robb Lahore is a Senior Fellow at Meadows Behavioral Healthcare, specializing in trauma, addiction, PTSD, and attachment disorders.
+
+**Website:** themeadows.com
+
+**Topics:**
+- Trauma and addiction recovery
+- PTSD treatment
+- Attachment disorders
+- Developmental trauma
+
+**Search YouTube:** "Dr. Robb Lahore trauma recovery" or "Meadows Behavioral Health"
+
+**Focus:** Evidence-based trauma treatment, Meadows Model, attachment work
+
+---
+
+### Dr. Kevin McCauley (Institute for Addiction Study)
+
+Dr. Kevin McCauley is a physician and Senior Fellow at Meadows who has made groundbreaking contributions to understanding addiction as a brain disease.
+
+**Website:** drkevinmccauley.com
+
+**Topics:**
+- Neuroscience of addiction
+- Disease model of addiction
+- Recovery management
+
+**Notable Work:**
+- *"Pleasure Unwoven"* - Award-winning documentary on addiction neuroscience
+- *"Memo to Self"* - Recovery management film
+
+**Search YouTube:** "Kevin McCauley Pleasure Unwoven" (available in chapters)
+
+**Trailer:** youtube.com/watch?v=wxiKVQR90VM
+
+**Key Contribution:** Explores whether addiction is a disease through the neuroscience lens
+
+---
 
 ### Dr. Gabor Maté
 
-Dr. Gabor Maté is a renowned physician and author specializing in trauma, addiction, and the mind-body connection. His work emphasizes how childhood experiences shape our physical and mental health.
+Dr. Gabor Maté is a renowned physician and author specializing in trauma, addiction, and the mind-body connection.
 
-**Key Works:**
-- *The Myth of Normal* (2022)
-- *In the Realm of Hungry Ghosts* (2008)
-- *When the Body Says No* (2003)
+**Official YouTube Channel:** youtube.com/@DrGaborMate
 
-**Core Philosophy:**
-- "Trauma is not what happened to you, it's what happened inside of you as a result"
-- Emphasizes compassionate inquiry as a healing approach
-- Connects childhood trauma to adult illness and addiction
+**Website:** drgabormate.com
+
+**Topics:**
+- Trauma and its effects
+- Addiction and recovery
+- Attachment and childhood development
+- Compassionate inquiry
+
+**Key Books:**
+- *The Realm of Hungry Ghosts* (addiction)
+- *The Myth of Normal* (trauma & illness)
+- *When the Body Says No* (stress & disease)
+
+**Notable Videos:**
+- "The Power of Addiction and Addiction to Power" (TEDx)
+- Conversations with Tim Ferriss, Alanis Morissette
+- Various trauma and addiction talks
+
+**Search YouTube:** "Dr. Gabor Maté trauma" or "Gabor Maté addiction"
+
+**Additional Resources:** drgabormate.com/addiction/
 
 ---
 
 ### Dr. Bessel van der Kolk
 
-Dr. Bessel van der Kolk is a psychiatrist, researcher, and author who has been a leader in the field of traumatic stress for over 40 years. He founded the Trauma Center in Boston.
+Dr. Bessel van der Kolk is a psychiatrist and researcher who has been a leader in traumatic stress for over 40 years. He founded the Trauma Research Foundation.
 
-**Key Works:**
-- *The Body Keeps the Score* (2014) - #1 New York Times Bestseller
+**Website:** besselvanderkolk.com
 
-**Core Philosophy:**
-- Trauma lives in the body, not just the mind
-- Traditional talk therapy alone is often insufficient for trauma
-- Body-based interventions are essential for healing
+**Topics:**
+- Trauma and PTSD
+- Body-centered therapy
+- Neuroscience of trauma
 
----
+**Major Work:** *The Body Keeps the Score* (New York Times bestseller)
 
-## YouTube Video Library
+**Organization:** Trauma Research Foundation (Brookline, Massachusetts)
 
-### Dr. Gabor Maté Videos
+**Focus:** How trauma reshapes brain and body; somatic experiencing, EMDR, neurofeedback
 
-| Video Title | Description | Duration | Link |
-|-------------|-------------|----------|------|
-| The Wisdom of Trauma | Documentary exploring trauma's role in health and addiction | Feature film | thewisdomoftrauma.com |
-| Trauma, Shame and Guilt | Understanding how trauma manifests as shame | 45 min | YouTube |
-| When the Body Says No | The connection between stress, emotions, and illness | 1 hr | YouTube |
-| Compassionate Inquiry | Dr. Maté's therapeutic approach to trauma | 30 min | YouTube |
-| Addiction and Trauma | How childhood trauma leads to addictive behaviors | 50 min | YouTube |
+**Notable Podcasts:**
+- Good Life Project
+- Everything Happens (Kate Bowler)
+- For The Love (Jen Hatmaker)
 
-**Recommended Podcast Appearances (2024-2025):**
-- Jay Shetty Podcast: "Why Your Trauma is Showing Up as Guilt, Fear, and Shame"
-- Mel Robbins Podcast: "Healing From Trauma"
-- Theo Von Podcast: Discussion on trauma and recovery
-- Dr. Sanjay Gupta: "Your Trauma May Be Making You Sick" (CNN)
+**Search YouTube:** "Bessel van der Kolk Body Keeps Score" or "Bessel van der Kolk trauma"
 
 ---
 
-### Dr. Bessel van der Kolk Videos
+### Patrick Carnes, PhD
 
-| Video Title | Description | Duration | Link |
-|-------------|-------------|----------|------|
-| The Body Keeps the Score | Lecture on how trauma affects the brain and body | 1.5 hrs | YouTube |
-| When Is It Trauma? | Explaining what qualifies as trauma | 20 min | Psychotherapy Networker |
-| Understanding Trauma | Comprehensive interview on trauma treatment | 1 hr | Psychotherapy.net |
-| Trauma and the Brain | Neuroscience of traumatic stress | 45 min | YouTube |
-| EMDR and Trauma | How EMDR works to process traumatic memories | 30 min | YouTube |
+Dr. Patrick Carnes is a pioneer in the field of sexual addiction and betrayal trauma treatment.
 
-**Key Lectures Available Online:**
-- "How Trauma Affects the Brain" - Various conference talks
-- "The Body Keeps the Score" - Book tour lectures
-- "Trauma, Development and Healing" - Professional training videos
+**Organizations:**
+- International Institute for Trauma and Addiction Professionals (IITAP): iitap.com
+- Gentle Path at The Meadows
 
----
+**Website:** drpatrickcarnes.com
 
-### Dr. K & Triangle Wellness (Dr. Sara Koenig)
+**Topics:**
+- Sexual addiction recovery
+- Betrayal trauma
+- Trauma bonds
+- CSAT certification
 
-Triangle Wellness & Recovery in Cary, North Carolina specializes in trauma-informed care and addiction treatment.
+**Key Books:**
+- *Out of the Shadows*
+- *The Betrayal Bond*
+- *Facing the Shadow*
 
-**Dr. Sara Koenig, MD, MBA:**
-- Triple board-certified in Addiction Medicine
-- Certified Clinical Trauma Professional Level II
-- Specializes in Complex PTSD and co-occurring disorders
+**Created:**
+- CSAT (Certified Sex Addiction Therapist) certification program
+- 30-Task Model for recovery
 
-**Treatment Approaches:**
-- EMDR (Eye Movement Desensitization and Reprocessing)
-- DBT (Dialectical Behavior Therapy)
-- Ketamine-Assisted Psychotherapy
-- Trauma-focused Intensive Outpatient Programs
-
-**Contact:** trianglewellnessandrecovery.com
+**Search YouTube:** "Patrick Carnes recovery" or "Patrick Carnes sex addiction"
 
 ---
 
-## Trauma Treatment Centers
+### Pia Mellody
+
+Pia Mellody is a Senior Fellow at Meadows Behavioral Healthcare and creator of the Developmental Model of Immaturity.
+
+**Affiliation:** Meadows Behavioral Healthcare
+
+**Website:** themeadows.com/about/senior-fellows/
+
+**Topics:**
+- Codependency
+- Childhood trauma
+- Love addiction
+- Developmental trauma
+
+**Key Contributions:**
+- Developmental Model of Immaturity (foundation of Meadows Model)
+- Five core symptoms of codependency
+
+**Books:**
+- *Facing Codependence*
+- *Breaking Free*
+
+**Search YouTube:** "Pia Mellody codependency" or "Pia Mellody Meadows"
+
+---
+
+### Dr. Claudia Black
+
+Dr. Claudia Black is a Senior Fellow at Meadows and pioneer in adult children of alcoholics (ACoA) treatment.
+
+**Website:** themeadows.com
+
+**Topics:**
+- Adult children of alcoholics
+- Family systems
+- Childhood trauma
+- Generational trauma
+
+**Notable:**
+- Clinical architect for Claudia Black Young Adult Center
+
+**Recent Work:** *Undaunted Hope* (featuring 21 recovery stories, foreword by Bessel van der Kolk)
+
+**Search YouTube:** "Dr. Claudia Black recovery" or "Claudia Black ACoA"
+
+---
+
+### Dr. Tian Dayton
+
+Dr. Tian Dayton is a Senior Fellow at Meadows specializing in psychodrama and experiential therapy.
+
+**Affiliation:** Meadows Behavioral Healthcare
+
+**Website:** tiandayton.com
+
+**Topics:**
+- Psychodrama
+- Trauma treatment
+- Family reconstruction
+- Relationship trauma
+
+**Specialty:** Experiential therapy approaches, sociometry, role theory
+
+**Search YouTube:** "Tian Dayton trauma" or "Tian Dayton psychodrama"
+
+---
+
+### Dr. Peter Levine
+
+Dr. Peter Levine is the founder of Somatic Experiencing and a Senior Fellow at Meadows.
+
+**Website:** traumahealing.org
+
+**Topics:**
+- Somatic Experiencing
+- Trauma release
+- Nervous system regulation
+
+**Key Books:**
+- *Waking the Tiger*
+- *In an Unspoken Voice*
+- *Healing Trauma*
+
+**Contribution:** Founded Somatic Experiencing approach to healing trauma
+
+**Search YouTube:** "Peter Levine Somatic Experiencing" or "Peter Levine trauma"
+
+---
+
+## Treatment Centers
 
 ### The Refuge: A Healing Place
 
-**Location:** Ocklawaha, Florida (Ocala National Forest)
-
-**Specializations:**
-- PTSD and Complex Trauma
-- Addiction and Co-occurring Disorders
-- Eating Disorders
-- Self-harm Behaviors
-
-**Treatment Modalities:**
-- 12-step based residential program
-- CBT, DBT, EMDR, Narrative Exposure Therapy
-- Equine therapy
-- Psychodrama and Somatic Experiencing
-- Yoga and meditation
-
-**Program Length:** 30 days to 1 year
-
 **Website:** therefuge-ahealingplace.com
 
-**Founder:** Judy Crane (pioneer in trauma-informed addiction treatment)
+**Location:** Ocala National Forest, Florida
+
+**Topics:**
+- Trauma-informed care
+- PTSD treatment
+- Addiction recovery
+- Eating disorders
+- Co-occurring disorders
+
+**Founded by:** Judy Crane (author of *The Trauma Heart*)
+
+**Specialties:**
+- Somatic Experiencing
+- Trauma recovery
+- Experiential therapies
+
+**Philosophy:** Addiction as failed attempts at addressing underlying unresolved trauma
+
+**Search YouTube:** "The Refuge healing place" or "Judy Crane trauma"
 
 ---
 
 ### Sierra Tucson
 
-**Location:** Tucson, Arizona (160-acre campus)
-
-**Specializations:**
-- PTSD and Trauma Recovery
-- Addiction Treatment
-- Mood Disorders
-- Pain Recovery
-- First Responder Programs
-
-**Treatment Approach:**
-- Integrative medicine model
-- Trauma-informed neuroscience
-- Evidence-based therapies
-- Holistic wellness programs
-
-**Educational Videos:**
-- "The Wounded Warrior: Caring for Invisible Wounds of War"
-- "Understanding the Relationship Between PTSD and Addiction"
-- "The Pain of Trauma, the Trauma of Pain"
-
 **Website:** sierratucson.com
 
----
+**Location:** Tucson, Arizona (160-acre campus)
 
-## Additional Recommended Channels & Resources
+**Topics:**
+- Residential treatment
+- Addiction recovery
+- Mental health
+- Trauma
+- Pain recovery
 
-### YouTube Channels for Trauma Education
+**Content Available:**
+- News & media: sierratucson.com/about/news-media/
+- Podcasts: sierratucson.com/about/news-media/podcasts/
+- Alumni videos: sierratucson.com/about/alumni/my-miracle-is/
 
-| Channel | Focus | Subscribers | Content Type |
-|---------|-------|-------------|--------------|
-| Dr. Gabor Maté | Trauma & Addiction | 500K+ | Lectures, interviews |
-| Therapy in a Nutshell | Mental health education | 2M+ | Short educational videos |
-| Patrick Teahan LICSW | Childhood trauma | 800K+ | Practical healing tools |
-| Crappy Childhood Fairy | CPTSD recovery | 600K+ | Daily practices |
-| The Holistic Psychologist | Trauma healing | 1M+ | Self-healing approaches |
-| Kati Morton | Mental health | 1.5M+ | Therapy education |
+**Special Programs:**
+- Trauma recovery
+- Mood & anxiety
+- Pain recovery
+- Co-occurring disorders
 
-### Podcast Recommendations
-
-**Trauma-Focused Podcasts:**
-- *Trauma Therapist Podcast* - Guy Macpherson, PhD
-- *The Place We Find Ourselves* - Adam Young, LCSW
-- *Biology of Trauma* - Dr. Aimie Apigian
-- *Healing Trauma* - Thomas Hübl
-- *Transforming Trauma* - NICABM
-
-**Recovery Podcasts:**
-- *Recovery Happy Hour* - Tricia Lewis
-- *Since Right Now* - Chris Marshall & Matt Finch
-- *That Sober Guy* - Shane Ramer
-- *The Bubble Hour* - Jean McCarthy
+**Search YouTube:** "Sierra Tucson recovery" or "Sierra Tucson Behind the Miracle"
 
 ---
 
-## Online Courses & Training
+### The Meadows Treatment Centers
 
-### For Individuals
+**Website:** themeadows.com
 
-| Course | Provider | Focus | Format |
-|--------|----------|-------|--------|
-| Healing Trauma & Addiction | Wholehearted.org | Dr. Maté's approach | 8 episodes |
-| The Wisdom of Trauma | drgabormate.com | Documentary + course | Video + materials |
-| The Body Keeps the Score Workshop | The Embody Lab | Dr. van der Kolk | 4-part workshop |
-| DBT Skills Training | Various | Dialectical Behavior Therapy | Self-paced |
+**Locations:** Arizona (flagship), Texas, California, and other locations
 
-### For Professionals
+**Content:**
+- Trauma and addiction treatment
+- Clinical education
+- Senior Fellows presentations
 
-| Course | Provider | Focus | Credits |
-|--------|----------|-------|---------|
-| Compassionate Inquiry | drgabormate.com | Dr. Maté's therapeutic method | CE available |
-| NICABM Trauma Programs | nicabm.com | Evidence-based trauma treatment | CE available |
-| Somatic Experiencing | traumahealing.org | Body-based trauma therapy | Certification |
-| EMDR Training | emdria.org | Eye Movement therapy | Certification |
+**Notable Programs:**
+- The Meadows (flagship)
+- Gentle Path (sexual addiction)
+- Willow House (women's trauma)
+- Claudia Black Young Adult Center
 
----
-
-## Apps for Trauma Recovery
-
-| App | Purpose | Features | Cost |
-|-----|---------|----------|------|
-| Calm | Meditation & sleep | Guided meditations, sleep stories | Subscription |
-| Headspace | Mindfulness | Trauma-sensitive meditations | Subscription |
-| PTSD Coach | PTSD management | VA-developed, evidence-based | Free |
-| Woebot | CBT-based support | AI chatbot for mental health | Free |
-| Insight Timer | Meditation | 100K+ free meditations | Free/Subscription |
-| Finch | Self-care | Daily check-ins, journaling | Free |
+**Search YouTube:** "The Meadows Treatment Center" or "Meadows Behavioral Healthcare"
 
 ---
 
-## Books by Featured Experts
+### Hazelden Betty Ford Foundation
 
-### Dr. Gabor Maté
-- *The Myth of Normal: Trauma, Illness, and Healing in a Toxic Culture* (2022)
-- *In the Realm of Hungry Ghosts: Close Encounters with Addiction* (2008)
-- *When the Body Says No: The Cost of Hidden Stress* (2003)
-- *Scattered Minds: A New Look at the Origins and Healing of Attention Deficit Disorder* (1999)
-- *Hold On to Your Kids: Why Parents Need to Matter More Than Peers* (2004)
+**Website:** hazeldenbettyford.org
 
-### Dr. Bessel van der Kolk
-- *The Body Keeps the Score: Brain, Mind, and Body in the Healing of Trauma* (2014)
-- *Traumatic Stress: The Effects of Overwhelming Experience on Mind, Body, and Society* (1996)
+**Content:**
+- Addiction education
+- Recovery resources
+- Research
+- Evidence-based treatment
 
-### Additional Recommended Reading
-- *Complex PTSD: From Surviving to Thriving* - Pete Walker
-- *Waking the Tiger* - Peter Levine
-- *Healing the Fragmented Selves of Trauma Survivors* - Janina Fisher
-- *The Deepest Well* - Nadine Burke Harris
-- *What Happened to You?* - Bruce Perry & Oprah Winfrey
+**Notable:** Pioneer in 12-step based treatment, extensive educational materials
+
+**Search YouTube:** "Hazelden Betty Ford"
+
+---
+
+### Caron Treatment Centers
+
+**Website:** caron.org
+
+**Content:**
+- Family programs
+- Addiction recovery
+- Mental health education
+
+**Focus:** Comprehensive family involvement in treatment
+
+**Search YouTube:** "Caron Treatment Centers"
+
+---
+
+### Promises Behavioral Health
+
+**Website:** promises.com
+
+**Content:**
+- Treatment insights
+- Recovery stories
+- Clinical education
+
+**Search YouTube:** "Promises Behavioral Health"
 
 ---
 
@@ -261,9 +371,11 @@ Maté, G. (2022). *The myth of normal: Trauma, illness, and healing in a toxic c
 
 van der Kolk, B. (2014). *The body keeps the score: Brain, mind, and body in the healing of trauma*. Viking.
 
-SAMHSA. (2024). *National helpline annual report*. Substance Abuse and Mental Health Services Administration.
+Levine, P. (1997). *Waking the tiger: Healing trauma*. North Atlantic Books.
 
-National Institute of Mental Health. (2024). *Post-traumatic stress disorder (PTSD)*. NIMH.`,
+Mellody, P. (2003). *Facing codependence*. HarperOne.
+
+Carnes, P. (2001). *Out of the shadows: Understanding sexual addiction*. Hazelden.`,
   subchapters: [
     {
       id: "12-1",
@@ -304,18 +416,7 @@ Curated video collections from leading trauma experts organized by topic.
 | Theo Von | Trauma and Humor | Using humor in healing, addiction recovery |
 | Dr. Sanjay Gupta (CNN) | Trauma and Illness | Mind-body connection, chronic disease |
 | Rich Roll | Myth of Normal | Societal trauma, toxic culture |
-
-### Key Lectures
-
-**"When the Body Says No" Lecture Series:**
-- How suppressed emotions lead to illness
-- The role of stress in autoimmune conditions
-- Practical applications for healing
-
-**"In the Realm of Hungry Ghosts" Talks:**
-- Addiction as a response to trauma
-- Compassion vs. punishment approach
-- Working with marginalized populations
+| Tim Ferriss | Compassionate Inquiry | Deep dive into therapeutic method |
 
 ---
 
@@ -348,22 +449,107 @@ Curated video collections from leading trauma experts organized by topic.
 - EMDR demonstrations
 - Neurofeedback explanations
 
-**Neuroscience of Trauma:**
-- Brain imaging findings
-- How trauma changes neural pathways
-- Neuroplasticity and healing
+---
 
-### Conference Presentations
+## Dr. Kevin McCauley - Addiction Neuroscience
 
-**Notable Conference Talks:**
-- Psychotherapy Networker Symposium presentations
-- Evolution of Psychotherapy Conference
-- Trauma Research Foundation events
-- International Society for Traumatic Stress Studies
+### "Pleasure Unwoven" Documentary
+
+Award-winning documentary exploring the neuroscience of addiction.
+
+**Available on YouTube in chapters:**
+- Part 1: The Problem
+- Part 2: Choice
+- Part 3: Disease
+- Part 4: Recovery
+
+**Key Concepts Covered:**
+- Brain reward pathways
+- Dopamine and addiction
+- Frontal cortex impairment
+- Why willpower isn't enough
+
+**Trailer:** youtube.com/watch?v=wxiKVQR90VM
+
+### "Memo to Self"
+
+Dr. McCauley's follow-up work on recovery management and building a sustainable recovery life.
 
 ---
 
-## Patrick Teahan LICSW Videos
+## Meadows Senior Fellows
+
+### Pia Mellody - Codependency
+
+**Key Videos to Search:**
+
+| Topic | Search Terms |
+|-------|--------------|
+| Core Symptoms | "Pia Mellody five symptoms codependency" |
+| Developmental Trauma | "Pia Mellody childhood trauma" |
+| Love Addiction | "Pia Mellody love addiction avoidance" |
+| Boundaries | "Pia Mellody boundaries recovery" |
+
+**Core Teachings:**
+- Five core symptoms of codependency
+- Developmental model of immaturity
+- Carried feelings vs. induced feelings
+- Boundary systems
+
+---
+
+### Dr. Claudia Black - Family Systems
+
+**Key Videos to Search:**
+
+| Topic | Search Terms |
+|-------|--------------|
+| ACoA | "Claudia Black adult children alcoholics" |
+| Family Roles | "Claudia Black family roles" |
+| Generational Trauma | "Claudia Black generational trauma" |
+| Young Adults | "Claudia Black young adult recovery" |
+
+**Core Teachings:**
+- "Don't talk, don't trust, don't feel"
+- Family roles in dysfunction
+- Breaking generational cycles
+- It Will Never Happen to Me
+
+---
+
+### Dr. Peter Levine - Somatic Experiencing
+
+**Key Videos to Search:**
+
+| Topic | Search Terms |
+|-------|--------------|
+| SE Basics | "Peter Levine Somatic Experiencing introduction" |
+| Trauma Release | "Peter Levine trauma release" |
+| Nervous System | "Peter Levine nervous system regulation" |
+| Animals & Trauma | "Peter Levine animals trauma shake" |
+
+**Core Concepts:**
+- Trauma stored in the body
+- Completing the stress response
+- Pendulation technique
+- Titration in trauma work
+
+---
+
+### Dr. Tian Dayton - Psychodrama
+
+**Key Videos to Search:**
+
+| Topic | Search Terms |
+|-------|--------------|
+| Psychodrama Basics | "Tian Dayton psychodrama introduction" |
+| Family Reconstruction | "Tian Dayton family reconstruction" |
+| Experiential Therapy | "Tian Dayton experiential therapy" |
+| Role Theory | "Tian Dayton role theory trauma" |
+
+---
+
+## Patrick Teahan LICSW
 
 Patrick Teahan is a licensed therapist specializing in childhood trauma recovery with over 800K YouTube subscribers.
 
@@ -380,12 +566,6 @@ Patrick Teahan is a licensed therapist specializing in childhood trauma recovery
 - Reparenting techniques
 - Processing childhood wounds
 - Building self-compassion
-
-**Relationship Patterns:**
-- Why we repeat unhealthy patterns
-- Codependency recovery
-- Setting boundaries with family
-- Healing from narcissistic abuse
 
 ### Recommended Playlists
 
@@ -407,12 +587,6 @@ Anna Runkle, founder of Crappy Childhood Fairy, focuses on Complex PTSD recovery
 - Processing emotional dysregulation
 - Calming brain from childhood trauma
 - Simple, accessible approach
-
-**Understanding CPTSD:**
-- Difference from PTSD
-- Emotional flashbacks
-- Relationship difficulties
-- Self-regulation challenges
 
 ### Popular Video Series
 
@@ -443,12 +617,6 @@ Licensed therapist Emma McAdam creates accessible mental health education videos
 - Panic attack management
 - Overcoming avoidance
 
-**Healing and Recovery:**
-- Processing emotions
-- Cognitive restructuring
-- Building resilience
-- Self-compassion practices
-
 ---
 
 ## How to Use Video Resources Effectively
@@ -461,19 +629,6 @@ Licensed therapist Emma McAdam creates accessible mental health education videos
 4. **Review Content** - Watch important videos multiple times
 5. **Discuss with Others** - Share learnings with therapist or support group
 
-### Creating a Viewing Schedule
-
-**Suggested Weekly Plan:**
-
-| Day | Content Type | Duration |
-|-----|--------------|----------|
-| Monday | Educational lecture | 30-60 min |
-| Tuesday | Short practical technique | 10-15 min |
-| Wednesday | Podcast/interview | During commute |
-| Thursday | Practice day | No new content |
-| Friday | Guided meditation/exercise | 15-20 min |
-| Weekend | Longer documentary or workshop | 1-2 hours |
-
 ### Safety Considerations
 
 **If content becomes triggering:**
@@ -483,6 +638,8 @@ Licensed therapist Emma McAdam creates accessible mental health education videos
 - Don't push through dysregulation
 - Return when regulated
 
+**Important:** Videos are educational but not substitutes for therapy. Use them to supplement professional treatment.
+
 ---
 
 ## References
@@ -491,40 +648,34 @@ Maté, G. (2022). *The myth of normal*. Avery.
 
 van der Kolk, B. (2014). *The body keeps the score*. Viking.
 
-Walker, P. (2013). *Complex PTSD: From surviving to thriving*. Azure Coyote Publishing.`,
+Walker, P. (2013). *Complex PTSD: From surviving to thriving*. Azure Coyote Publishing.
+
+Levine, P. (1997). *Waking the tiger*. North Atlantic Books.`,
     },
     {
       id: "12-2",
-      title: "Treatment Center Resources",
+      title: "Treatment Centers & Programs",
       slug: "treatment-centers",
       order: 2,
-      content: `# Trauma Treatment Center Resources
+      content: `# Treatment Centers & Recovery Programs
 
-This section provides detailed information about leading residential and outpatient trauma treatment centers featured in our video library.
+Detailed information about leading residential and outpatient trauma treatment centers, plus recovery-focused YouTube channels and educational resources.
 
-## The Refuge: A Healing Place
+## Residential Treatment Centers
 
-### Overview
+### The Refuge: A Healing Place
 
-The Refuge is a premier residential treatment center specializing in trauma, PTSD, addiction, and co-occurring disorders. Located on 94 acres in the Ocala National Forest, Florida, it offers a serene, healing environment.
-
-**Location:** Ocklawaha, Florida (approximately 1 hour north of Orlando)
+**Location:** Ocklawaha, Florida (Ocala National Forest)
 
 **Capacity:** 61 beds (36 female, 25 male)
 
-### Treatment Philosophy
+**Website:** therefuge-ahealingplace.com
 
-The Refuge uses a trauma-informed, 12-step based approach that recognizes the connection between trauma and addictive behaviors.
+**Founded by:** Judy Crane (author of *The Trauma Heart*)
 
-**Core Beliefs:**
-- Trauma is often at the root of addiction
-- Healing requires addressing underlying wounds
-- Recovery happens in relationship and community
-- The body must be involved in healing
+**Philosophy:** Addiction as failed attempts at addressing underlying unresolved trauma
 
-### Programs Offered
-
-**Primary Treatment:**
+**Specializations:**
 - PTSD and Complex Trauma
 - Substance Use Disorders
 - Process Addictions
@@ -540,57 +691,23 @@ The Refuge uses a trauma-informed, 12-step based approach that recognizes the co
 | CBT | Cognitive Behavioral Therapy |
 | DBT | Dialectical Behavior Therapy skills |
 | EMDR | Eye Movement Desensitization and Reprocessing |
-| Narrative Exposure | Processing traumatic memories |
 | Somatic Experiencing | Body-based trauma work |
 | Equine Therapy | Healing through horse interaction |
 | Psychodrama | Experiential therapy technique |
-| Yoga & Meditation | Mind-body practices |
 
-### Program Structure
+**Program Length:** 30 days to 1 year
 
-**Length of Stay:** 30 days to 1 year
-
-**Typical Day:**
-- Morning meditation
-- Breakfast
-- Morning group therapy
-- Individual therapy
-- Lunch
-- Afternoon group therapy
-- Experiential therapy
-- Dinner
-- Evening 12-step meeting
-- Reflection and journaling
-
-### Contact Information
-
-- **Website:** therefuge-ahealingplace.com
-- **Phone:** (855) 844-9569
-- **Part of:** Acadia Healthcare network
+**Search YouTube:** "The Refuge healing place" or "Judy Crane trauma"
 
 ---
 
-## Sierra Tucson
+### Sierra Tucson
 
-### Overview
+**Location:** Tucson, Arizona (160-acre campus)
 
-Sierra Tucson is a world-renowned integrative treatment center set on 160 acres in the Sonoran Desert outside Tucson, Arizona. It pioneered the integration of traditional and alternative therapies.
+**Website:** sierratucson.com
 
-**Location:** Tucson, Arizona
-
-**Setting:** 160-acre campus in the desert
-
-### Treatment Philosophy
-
-Sierra Tucson uses an integrative medicine model that combines evidence-based treatment with holistic wellness practices.
-
-**Core Approach:**
-- Treat the whole person (mind, body, spirit)
-- Integrate multiple therapeutic modalities
-- Address underlying trauma
-- Build sustainable recovery skills
-
-### Programs Offered
+**Philosophy:** Integrative medicine model combining evidence-based treatment with holistic wellness
 
 **Specialty Programs:**
 
@@ -604,7 +721,6 @@ Sierra Tucson uses an integrative medicine model that combines evidence-based tr
 | Healthcare Professionals | Doctors, nurses, medical staff |
 
 **Treatment Modalities:**
-
 - Trauma-informed neuroscience approach
 - EMDR
 - CBT and DBT
@@ -612,132 +728,274 @@ Sierra Tucson uses an integrative medicine model that combines evidence-based tr
 - Equine therapy
 - Art and music therapy
 - Adventure therapy
-- Acupuncture
-- Massage therapy
+- Acupuncture and massage
 - Nutritional counseling
-- Fitness programming
 
-### Educational Videos
+**Content Available:**
+- News & media: sierratucson.com/about/news-media/
+- Podcasts: sierratucson.com/about/news-media/podcasts/
+- Alumni videos: sierratucson.com/about/alumni/my-miracle-is/
 
-**Available on their website:**
-- "The Wounded Warrior: Caring for Invisible Wounds of War"
-- "Understanding the Relationship Between PTSD and Addiction"
-- "The Pain of Trauma, the Trauma of Pain"
-- Campus tour videos
-- Alumni testimonials
-
-### Contact Information
-
-- **Website:** sierratucson.com
-- **Phone:** (844) 262-7864
-- **Admissions:** Available 24/7
+**Search YouTube:** "Sierra Tucson recovery"
 
 ---
 
-## Triangle Wellness & Recovery
+### The Meadows Treatment Centers
 
-### Overview
+**Locations:** Arizona (flagship), Texas, California
 
-Triangle Wellness & Recovery is an outpatient treatment center in Cary, North Carolina, offering trauma-informed care for addiction and mental health.
+**Website:** themeadows.com
 
-**Location:** Cary, North Carolina (Research Triangle area)
+**Philosophy:** The Meadows Model - addressing developmental trauma, attachment, and codependency
 
-**Type:** Outpatient and Intensive Outpatient
+**Notable Programs:**
 
-### Leadership
+| Program | Focus |
+|---------|-------|
+| The Meadows | Flagship trauma and addiction |
+| Gentle Path | Sexual addiction recovery |
+| Willow House | Women's trauma program |
+| Claudia Black Young Adult Center | Ages 18-26 |
 
-**Dr. Sara Koenig, MD, MBA**
-- Founder and Medical Director
-- Triple board-certified (Addiction Medicine, Transfusion Medicine, Clinical Pathology)
-- Certified Clinical Trauma Professional Level II (CCTP-II)
-- Advanced training in Attachment-Focused EMDR
+**Senior Fellows (Leading Experts):**
+- Pia Mellody - Codependency
+- Dr. Claudia Black - Family systems
+- Dr. Peter Levine - Somatic Experiencing
+- Dr. Tian Dayton - Psychodrama
+- Dr. Kevin McCauley - Addiction neuroscience
+- Dr. Robb Lahore - Trauma treatment
 
-### Services Offered
-
-**Treatment Options:**
-
-| Service | Description |
-|---------|-------------|
-| Individual Therapy | Trauma-focused one-on-one treatment |
-| Couples Therapy | Relationship healing |
-| Intensive Outpatient (IOP) | Structured group program |
-| Medication Management | Psychiatric services |
-| Ketamine-Assisted Psychotherapy | KAP for treatment-resistant conditions |
-| Teletherapy | Virtual sessions available |
-
-**Therapeutic Approaches:**
-- EMDR (Attachment-Focused)
-- DBT skills training
-- CBT
-- Motivational Interviewing
-- Mentalization-based therapy
-- Trauma-informed care
-
-### Insurance
-
-**In-Network With:**
-- Blue Cross Blue Shield
-- Aetna
-- Cigna
-- Medicare
-
-### Contact Information
-
-- **Website:** trianglewellnessandrecovery.com
-- **Phone:** (984) 205-8011
-- **Email:** info@twrnc.com
+**Search YouTube:** "The Meadows Treatment Center" or "Meadows Behavioral Healthcare"
 
 ---
 
-## How to Choose a Treatment Center
+### Hazelden Betty Ford Foundation
 
-### Questions to Ask
+**Website:** hazeldenbettyford.org
 
-**About Treatment Approach:**
-- What trauma treatment modalities do you offer?
-- Is your program trauma-informed?
-- What is the staff-to-patient ratio?
-- What are the credentials of your therapists?
+**Philosophy:** Evidence-based 12-step treatment
 
-**About Logistics:**
-- What insurance do you accept?
-- What is the average length of stay?
-- What aftercare support is provided?
-- Can family be involved in treatment?
+**Notable:**
+- Pioneer in 12-step based treatment
+- Extensive research programs
+- Family programs
+- Youth and young adult programs
 
-**About Environment:**
-- What is the facility like?
-- What amenities are available?
-- How is safety ensured?
-- What is a typical day like?
+**Educational Materials:**
+- Addiction education videos
+- Recovery resources
+- Research publications
 
-### Red Flags to Watch For
+**Search YouTube:** "Hazelden Betty Ford"
 
-- Promises of guaranteed results
-- Pressure to commit immediately
-- Lack of licensed clinical staff
-- No individualized treatment planning
-- Minimal family involvement options
-- Poor reviews or complaints
+---
 
-### Insurance and Financial Considerations
+### Caron Treatment Centers
 
-**Steps to Take:**
-1. Contact your insurance to verify coverage
-2. Ask the treatment center about in-network status
-3. Understand your deductible and co-pay
-4. Ask about payment plans if needed
-5. Explore scholarship or financial assistance options
+**Website:** caron.org
+
+**Philosophy:** Comprehensive family involvement in treatment
+
+**Programs:**
+- Adult treatment
+- Young adult (18-26)
+- Family programs
+- Alumni services
+
+**Focus:** Treating the entire family system
+
+**Search YouTube:** "Caron Treatment Centers"
+
+---
+
+## Recovery-Focused YouTube Channels
+
+### Recovery Elevator
+
+**Topics:** Sobriety stories, alcohol-free living, recovery support
+
+**Focus:** Community-driven content, inspiring stories
+
+**Search YouTube:** "Recovery Elevator"
+
+---
+
+### In The Rooms
+
+**Website:** intherooms.com
+
+**Topics:** 12-step recovery, speaker meetings, various recovery pathways
+
+**Content:** Large library of recovery talks, meetings, and speakers
+
+**Search YouTube:** "In The Rooms recovery"
+
+---
+
+### Recovery Worldwide
+
+**Topics:** Various recovery pathways, international perspectives
+
+**Focus:** Global recovery community content
+
+**Search YouTube:** "Recovery Worldwide"
+
+---
+
+### Celebrate Recovery
+
+**Website:** celebraterecovery.com
+
+**Topics:** Faith-based recovery, Christ-centered 12-steps
+
+**Focus:** Christian alternative to traditional 12-step programs
+
+**Search YouTube:** "Celebrate Recovery"
+
+---
+
+### The One Day at a Time Recovery Podcast
+
+**YouTube:** youtube.com/@theonedayatatimepodcast
+
+**Topics:** All aspects of recovery, trauma, relationships in recovery
+
+**Content:** Interviews, personal stories, recovery tools
+
+---
+
+## Educational & Clinical Channels
+
+### PESI (Professional Education Systems)
+
+**Website:** pesi.com
+
+**Topics:** Clinical training, continuing education
+
+**Features:** Many expert clinicians, evidence-based approaches
+
+**Search YouTube:** "PESI trauma" or "PESI addiction"
+
+---
+
+### NICABM (National Institute for Clinical Application of Behavioral Medicine)
+
+**Website:** nicabm.com
+
+**Topics:** Research-based treatment approaches, neuroscience
+
+**Content:** Expert interviews, clinical training
+
+**Search YouTube:** "NICABM trauma"
+
+---
+
+### Trauma Research Foundation
+
+**Website:** traumaresearchfoundation.org
+
+**Founded by:** Bessel van der Kolk
+
+**Content:** Research insights, clinical applications
+
+**Search YouTube:** "Trauma Research Foundation"
+
+---
+
+### Addiction Education Society
+
+**Website:** addictioneducationsociety.org
+
+**Content:** Dr. Kevin McCauley's "Pleasure Unwoven" and educational materials
+
+**Focus:** Neuroscience of addiction education
+
+**Search YouTube:** "Addiction Education Society"
+
+---
+
+## Recommended Search Terms
+
+### General YouTube Searches
+
+- "[Clinician name] + trauma recovery"
+- "[Program name] + testimonials"
+- "Trauma-informed care"
+- "CPTSD recovery"
+- "Complex PTSD treatment"
+- "Addiction neuroscience"
+- "Somatic therapy trauma"
+- "EMDR therapy explained"
+- "IFS internal family systems"
+- "Attachment theory recovery"
+- "Childhood trauma healing"
+- "Codependency recovery"
+- "Betrayal trauma"
+- "Family systems therapy"
+
+### Finding Specific Content
+
+- **For treatment program videos:** Search program name + "tour" or "testimonials"
+- **For clinical education:** Search clinician name + "lecture" or "presentation"
+- **For personal stories:** Search "recovery story" + specific addiction/trauma type
+- **For therapy explanations:** Search therapy modality + "explained"
+
+---
+
+## Podcast Platforms (Also on YouTube)
+
+Many recovery experts appear on podcasts uploaded to YouTube:
+
+| Podcast | Notable Guests |
+|---------|----------------|
+| Tim Ferriss Show | Gabor Maté, Peter Levine |
+| Rich Roll Podcast | Recovery and wellness focused |
+| On Being (Krista Tippett) | Bessel van der Kolk |
+| Good Life Project | Bessel van der Kolk |
+| Everything Happens (Kate Bowler) | Bessel van der Kolk |
+
+---
+
+## Apps for Trauma Recovery
+
+| App | Purpose | Cost |
+|-----|---------|------|
+| Calm | Meditation & sleep | Subscription |
+| Headspace | Mindfulness | Subscription |
+| PTSD Coach | PTSD management (VA-developed) | Free |
+| Woebot | CBT-based support | Free |
+| Insight Timer | Meditation (100K+ free) | Free/Subscription |
+| Finch | Self-care & journaling | Free |
+
+---
+
+## Tips for Using This Library
+
+1. **Subscribe & Create Playlists** - Subscribe to channels that resonate and create topic-specific playlists
+
+2. **Take Notes & Journal** - Keep a recovery journal noting insights, quotes, and practices to try
+
+3. **Pace Yourself** - Trauma content can be activating. Watch in safe environments and take breaks
+
+4. **Share Mindfully** - Share helpful videos with others, being mindful of where they are in their journey
+
+5. **Verify Current Information** - Treatment approaches evolve. Cross-reference older videos with current practices
+
+6. **Check Video Dates** - Look for recent uploads for current research
+
+7. **Combine with Professional Help** - Videos supplement but don't replace therapy
 
 ---
 
 ## References
 
-Acadia Healthcare. (2024). The Refuge: A healing place program information.
+Maté, G. (2022). *The myth of normal*. Avery.
 
-Sierra Tucson. (2024). Treatment programs and services overview.
+van der Kolk, B. (2014). *The body keeps the score*. Viking.
 
-SAMHSA. (2024). Treatment locator and quality standards.`,
+Levine, P. (1997). *Waking the tiger*. North Atlantic Books.
+
+SAMHSA. (2024). *National helpline annual report*.`,
     },
   ],
 };
