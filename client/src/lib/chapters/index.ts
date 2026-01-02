@@ -12,6 +12,7 @@ import { dbtChapter } from "./dbt";
 import { actChapter } from "./act";
 import { spiritualityChapter } from "./spirituality";
 import { alternativeTherapiesChapter } from "./alternativeTherapies";
+import { resourcesChapter } from "./resources";
 
 export const chapters: Chapter[] = [
   basicRecoveryChapter,
@@ -25,6 +26,7 @@ export const chapters: Chapter[] = [
   actChapter,
   spiritualityChapter,
   alternativeTherapiesChapter,
+  resourcesChapter,
 ];
 
 export type { Chapter } from "./types";

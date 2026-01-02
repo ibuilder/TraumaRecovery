@@ -18,22 +18,24 @@ client/
 │   │   ├── reading-progress.tsx  # Reading progress bar
 │   │   ├── theme-provider.tsx    # Dark/light theme context
 │   │   ├── theme-toggle.tsx      # Theme toggle button
+│   │   ├── trauma-charts.tsx     # Data visualization components
 │   │   └── ui/                   # shadcn/ui components
 │   ├── lib/
 │   │   ├── chapters/             # Book content organized by chapter
 │   │   │   ├── index.ts          # Chapter exports
 │   │   │   ├── types.ts          # Chapter type definitions
-│   │   │   ├── basicRecovery.ts  # Chapter 1
+│   │   │   ├── basicRecovery.ts  # Chapter 1 (6 subchapters)
 │   │   │   ├── addictionRecovery.ts # Chapter 2 (5 subchapters)
 │   │   │   ├── dysfunctionalFamilies.ts # Chapter 3
 │   │   │   ├── childhoodTrauma.ts # Chapter 4
 │   │   │   ├── adultTrauma.ts    # Chapter 5
 │   │   │   ├── relationshipTrauma.ts # Chapter 6
 │   │   │   ├── cbt.ts            # Chapter 7
-│   │   │   ├── dbt.ts            # Chapter 8
+│   │   │   ├── dbt.ts            # Chapter 8 (6 subchapters)
 │   │   │   ├── act.ts            # Chapter 9
 │   │   │   ├── spirituality.ts   # Chapter 10 (4 subchapters)
-│   │   │   └── alternativeTherapies.ts # Chapter 11 (3 subchapters)
+│   │   │   ├── alternativeTherapies.ts # Chapter 11 (3 subchapters)
+│   │   │   └── resources.ts      # Chapter 12 (2 subchapters)
 │   │   ├── queryClient.ts        # React Query setup
 │   │   └── utils.ts              # Utility functions
 │   ├── pages/
@@ -55,7 +57,8 @@ shared/
 ```
 
 ## Key Features
-- **11 comprehensive chapters** covering trauma recovery topics
+- **12 comprehensive chapters** covering trauma recovery topics
+- **18 data visualization charts** using Recharts
 - **Markdown rendering** with react-markdown and remark-gfm
 - **Dark/light theme** with system preference detection
 - **Reading progress bar** for tracking position
@@ -65,17 +68,28 @@ shared/
 - **Crisis resources** in footer
 
 ## Book Chapters
-1. Basic Recovery
-2. Addiction Recovery (5 subchapters: Disease of Addiction, Brain Chemistry, Substance Use Disorder, Recovery Programs, Relapse Prevention)
+1. Basic Recovery (6 subchapters: Four Pillars Framework)
+2. Addiction Recovery (5 subchapters: Disease Model, Brain Chemistry, SUD, Recovery Programs, Relapse Prevention)
 3. Dysfunctional Families
 4. Childhood Trauma
 5. Adult Trauma
 6. Relationship Trauma
 7. CBT (Cognitive Behavioral Therapy)
-8. DBT (Dialectical Behavior Therapy)
+8. DBT (6 subchapters: Mindfulness, Wise Mind, Distress Tolerance, Emotion Regulation, Interpersonal Effectiveness, DBT Acronyms Guide)
 9. ACT (Acceptance and Commitment Therapy)
-10. Spirituality (4 subchapters: Serenity Prayer, Recovery Prayers, Finding Meaning, Spiritual Practices)
+10. Spirituality (4 subchapters: Higher Powers, Serenity Prayer, Recovery Prayers, Spiritual Practices)
 11. Alternative Therapies (3 subchapters: Somatic Therapy, EMDR, TMS)
+12. Resources & Video Library (2 subchapters: Expert Videos, Treatment Centers)
+
+## YouTube Video Library Features
+- Dr. Gabor Maté videos and podcast appearances
+- Dr. Bessel van der Kolk lectures and resources
+- Triangle Wellness / Dr. Sara Koenig information
+- The Refuge trauma treatment center
+- Sierra Tucson treatment programs
+- Additional recommended channels (Patrick Teahan, Crappy Childhood Fairy, Therapy in a Nutshell)
+- Online courses and apps for recovery
+- Crisis resources
 
 ## Tech Stack
 - React 18 with TypeScript
@@ -83,6 +97,7 @@ shared/
 - shadcn/ui component library
 - wouter for routing
 - react-markdown for content rendering
+- Recharts for data visualizations
 - Vite for development
 
 ## Running the Project
