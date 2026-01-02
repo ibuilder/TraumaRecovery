@@ -1,16 +1,53 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import {
+  PTSDPrevalenceChart,
+  ACEsPrevalenceChart,
+  RecoveryTimelineChart,
+  TraumaAddictionChart,
+  TherapyEffectivenessChart,
+  AttachmentStylesChart,
+  ACEsHealthRiskChart,
+  PostTraumaticGrowthChart,
+  IPVPTSDChart,
+  DBTSkillsChart,
+} from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
   content: string;
+  showCharts?: boolean;
+  chapterSlug?: string;
 }
 
-export function MarkdownRenderer({ content }: MarkdownRendererProps) {
+const chartComponents: Record<string, React.ComponentType> = {
+  "PTSDPrevalenceChart": PTSDPrevalenceChart,
+  "ACEsPrevalenceChart": ACEsPrevalenceChart,
+  "RecoveryTimelineChart": RecoveryTimelineChart,
+  "TraumaAddictionChart": TraumaAddictionChart,
+  "TherapyEffectivenessChart": TherapyEffectivenessChart,
+  "AttachmentStylesChart": AttachmentStylesChart,
+  "ACEsHealthRiskChart": ACEsHealthRiskChart,
+  "PostTraumaticGrowthChart": PostTraumaticGrowthChart,
+  "IPVPTSDChart": IPVPTSDChart,
+  "DBTSkillsChart": DBTSkillsChart,
+};
+
+export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendererProps) {
   return (
     <div className="prose prose-lg dark:prose-invert max-w-none">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
+          code: ({ className, children }) => {
+            const match = /language-chart:(\w+)/.exec(className || "");
+            if (match && showCharts) {
+              const ChartComponent = chartComponents[match[1]];
+              if (ChartComponent) {
+                return <ChartComponent />;
+              }
+            }
+            return <code className={className}>{children}</code>;
+          },
           h1: ({ children }) => (
             <h1 className="text-3xl md:text-4xl font-bold mt-0 mb-6 text-foreground" data-testid="text-chapter-title">
               {children}
