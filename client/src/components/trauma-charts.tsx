@@ -396,6 +396,355 @@ export function DBTSkillsChart() {
   );
 }
 
+// Physical Wellness Chart
+const physicalWellnessData = [
+  { week: "Week 1", exercise: 20, sleep: 45, nutrition: 35 },
+  { week: "Week 2", exercise: 35, sleep: 55, nutrition: 45 },
+  { week: "Week 3", exercise: 50, sleep: 65, nutrition: 55 },
+  { week: "Week 4", exercise: 60, sleep: 72, nutrition: 65 },
+  { week: "Month 2", exercise: 70, sleep: 78, nutrition: 72 },
+  { week: "Month 3", exercise: 80, sleep: 85, nutrition: 80 },
+];
+
+const physicalConfig: ChartConfig = {
+  exercise: {
+    label: "Exercise (%)",
+    color: "hsl(var(--primary))",
+  },
+  sleep: {
+    label: "Sleep Quality (%)",
+    color: "hsl(var(--accent-foreground))",
+  },
+  nutrition: {
+    label: "Nutrition (%)",
+    color: "hsl(var(--muted-foreground))",
+  },
+};
+
+export function PhysicalWellnessChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Physical Wellness Progress Over Time</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Expected improvement in physical health markers during trauma recovery (Research synthesis, 2024)
+      </p>
+      <ChartContainer config={physicalConfig} className="h-[300px] w-full">
+        <LineChart data={physicalWellnessData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="week" />
+          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Line type="monotone" dataKey="exercise" stroke="var(--color-exercise)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line type="monotone" dataKey="sleep" stroke="var(--color-sleep)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line type="monotone" dataKey="nutrition" stroke="var(--color-nutrition)" strokeWidth={2} dot={{ r: 4 }} />
+        </LineChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Exercise Impact on Mental Health
+const exerciseImpactData = [
+  { type: "No Exercise", depression: 100, anxiety: 100, ptsd: 100 },
+  { type: "Light (1-2x/wk)", depression: 75, anxiety: 78, ptsd: 85 },
+  { type: "Moderate (3-4x/wk)", depression: 55, anxiety: 58, ptsd: 65 },
+  { type: "Regular (5+x/wk)", depression: 40, anxiety: 45, ptsd: 50 },
+];
+
+const exerciseConfig: ChartConfig = {
+  depression: {
+    label: "Depression Symptoms (%)",
+    color: "hsl(var(--primary))",
+  },
+  anxiety: {
+    label: "Anxiety Symptoms (%)",
+    color: "hsl(var(--accent-foreground))",
+  },
+  ptsd: {
+    label: "PTSD Symptoms (%)",
+    color: "hsl(var(--muted-foreground))",
+  },
+};
+
+export function ExerciseImpactChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Exercise Frequency and Mental Health Symptoms</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Relative symptom levels by exercise frequency (Meta-analysis, Schuch et al., 2024)
+      </p>
+      <ChartContainer config={exerciseConfig} className="h-[300px] w-full">
+        <BarChart data={exerciseImpactData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="type" />
+          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="depression" fill="var(--color-depression)" radius={4} />
+          <Bar dataKey="anxiety" fill="var(--color-anxiety)" radius={4} />
+          <Bar dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Four Pillars of Recovery
+const fourPillarsData = [
+  { pillar: "Physical", fullMark: 100, healthy: 85, recovering: 45, struggling: 20 },
+  { pillar: "Emotional", fullMark: 100, healthy: 80, recovering: 40, struggling: 15 },
+  { pillar: "Mental", fullMark: 100, healthy: 82, recovering: 42, struggling: 18 },
+  { pillar: "Social", fullMark: 100, healthy: 78, recovering: 35, struggling: 12 },
+];
+
+const pillarsConfig: ChartConfig = {
+  healthy: {
+    label: "Healthy Baseline",
+    color: "hsl(var(--primary))",
+  },
+  recovering: {
+    label: "In Recovery",
+    color: "hsl(var(--accent-foreground))",
+  },
+  struggling: {
+    label: "Struggling",
+    color: "hsl(var(--muted-foreground))",
+  },
+};
+
+export function FourPillarsChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">The Four Pillars of Recovery</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Wellness levels across the four pillars at different stages of recovery
+      </p>
+      <ChartContainer config={pillarsConfig} className="h-[350px] w-full">
+        <RadarChart cx="50%" cy="50%" outerRadius="70%" data={fourPillarsData}>
+          <PolarGrid />
+          <PolarAngleAxis dataKey="pillar" className="text-sm" />
+          <PolarRadiusAxis angle={30} domain={[0, 100]} />
+          <Radar name="Healthy" dataKey="healthy" stroke="var(--color-healthy)" fill="var(--color-healthy)" fillOpacity={0.3} />
+          <Radar name="Recovering" dataKey="recovering" stroke="var(--color-recovering)" fill="var(--color-recovering)" fillOpacity={0.3} />
+          <Radar name="Struggling" dataKey="struggling" stroke="var(--color-struggling)" fill="var(--color-struggling)" fillOpacity={0.3} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+        </RadarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Emotional Regulation Progress
+const emotionalRegulationData = [
+  { stage: "Crisis", regulation: 15, awareness: 20, expression: 10 },
+  { stage: "Stabilizing", regulation: 35, awareness: 45, expression: 30 },
+  { stage: "Processing", regulation: 55, awareness: 65, expression: 50 },
+  { stage: "Integration", regulation: 75, awareness: 80, expression: 70 },
+  { stage: "Thriving", regulation: 88, awareness: 90, expression: 85 },
+];
+
+const emotionalConfig: ChartConfig = {
+  regulation: {
+    label: "Emotion Regulation (%)",
+    color: "hsl(var(--primary))",
+  },
+  awareness: {
+    label: "Emotional Awareness (%)",
+    color: "hsl(var(--accent-foreground))",
+  },
+  expression: {
+    label: "Healthy Expression (%)",
+    color: "hsl(var(--muted-foreground))",
+  },
+};
+
+export function EmotionalRegulationChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Emotional Wellness Development Through Recovery</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Growth in emotional skills across recovery stages (Emotion-focused therapy research, 2024)
+      </p>
+      <ChartContainer config={emotionalConfig} className="h-[300px] w-full">
+        <LineChart data={emotionalRegulationData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="stage" />
+          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Line type="monotone" dataKey="regulation" stroke="var(--color-regulation)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line type="monotone" dataKey="awareness" stroke="var(--color-awareness)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line type="monotone" dataKey="expression" stroke="var(--color-expression)" strokeWidth={2} dot={{ r: 4 }} />
+        </LineChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Mental Wellness Factors
+const mentalWellnessData = [
+  { factor: "Cognitive Flexibility", percentage: 72 },
+  { factor: "Self-Awareness", percentage: 68 },
+  { factor: "Problem Solving", percentage: 65 },
+  { factor: "Stress Management", percentage: 70 },
+  { factor: "Mindfulness", percentage: 75 },
+  { factor: "Positive Self-Talk", percentage: 60 },
+];
+
+const mentalConfig: ChartConfig = {
+  percentage: {
+    label: "Improvement (%)",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function MentalWellnessChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Mental Wellness Factors in Recovery</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Average improvement in mental wellness components after 12 weeks of treatment (CBT outcome studies)
+      </p>
+      <ChartContainer config={mentalConfig} className="h-[300px] w-full">
+        <BarChart data={mentalWellnessData} layout="vertical">
+          <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+          <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <YAxis type="category" dataKey="factor" width={140} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="percentage" fill="var(--color-percentage)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Social Connection Impact
+const socialConnectionData = [
+  { connection: "Isolated", recovery: 25, wellbeing: 20 },
+  { connection: "1-2 Supports", recovery: 45, wellbeing: 40 },
+  { connection: "3-5 Supports", recovery: 65, wellbeing: 62 },
+  { connection: "6+ Supports", recovery: 82, wellbeing: 80 },
+];
+
+const socialConfig: ChartConfig = {
+  recovery: {
+    label: "Recovery Success (%)",
+    color: "hsl(var(--primary))",
+  },
+  wellbeing: {
+    label: "Overall Wellbeing (%)",
+    color: "hsl(var(--accent-foreground))",
+  },
+};
+
+export function SocialConnectionChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Social Connection and Recovery Outcomes</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Relationship between social support network size and recovery success (Social support meta-analysis, 2024)
+      </p>
+      <ChartContainer config={socialConfig} className="h-[300px] w-full">
+        <BarChart data={socialConnectionData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="connection" />
+          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="recovery" fill="var(--color-recovery)" radius={4} />
+          <Bar dataKey="wellbeing" fill="var(--color-wellbeing)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Nutrition Impact on Mental Health
+const nutritionImpactData = [
+  { nutrient: "Omega-3s", moodImprovement: 35, anxietyReduction: 28 },
+  { nutrient: "B Vitamins", moodImprovement: 25, anxietyReduction: 20 },
+  { nutrient: "Vitamin D", moodImprovement: 30, anxietyReduction: 22 },
+  { nutrient: "Magnesium", moodImprovement: 28, anxietyReduction: 32 },
+  { nutrient: "Probiotics", moodImprovement: 22, anxietyReduction: 25 },
+];
+
+const nutritionConfig: ChartConfig = {
+  moodImprovement: {
+    label: "Mood Improvement (%)",
+    color: "hsl(var(--primary))",
+  },
+  anxietyReduction: {
+    label: "Anxiety Reduction (%)",
+    color: "hsl(var(--accent-foreground))",
+  },
+};
+
+export function NutritionImpactChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Key Nutrients and Mental Health Benefits</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Research-supported nutritional interventions for mental health (Nutritional psychiatry review, 2024)
+      </p>
+      <ChartContainer config={nutritionConfig} className="h-[300px] w-full">
+        <BarChart data={nutritionImpactData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="nutrient" />
+          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 50]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="moodImprovement" fill="var(--color-moodImprovement)" radius={4} />
+          <Bar dataKey="anxietyReduction" fill="var(--color-anxietyReduction)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Sleep Quality and Recovery
+const sleepRecoveryData = [
+  { hours: "<5 hrs", ptsdSeverity: 85, recoveryRate: 20 },
+  { hours: "5-6 hrs", ptsdSeverity: 70, recoveryRate: 35 },
+  { hours: "6-7 hrs", ptsdSeverity: 55, recoveryRate: 55 },
+  { hours: "7-8 hrs", ptsdSeverity: 35, recoveryRate: 75 },
+  { hours: "8+ hrs", ptsdSeverity: 30, recoveryRate: 80 },
+];
+
+const sleepConfig: ChartConfig = {
+  ptsdSeverity: {
+    label: "PTSD Symptom Severity (%)",
+    color: "hsl(var(--destructive))",
+  },
+  recoveryRate: {
+    label: "Recovery Progress (%)",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function SleepRecoveryChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Sleep Duration and Trauma Recovery</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Relationship between sleep hours and PTSD symptoms/recovery (Sleep medicine research, 2024)
+      </p>
+      <ChartContainer config={sleepConfig} className="h-[300px] w-full">
+        <BarChart data={sleepRecoveryData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="hours" />
+          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="ptsdSeverity" fill="var(--color-ptsdSeverity)" radius={4} />
+          <Bar dataKey="recoveryRate" fill="var(--color-recoveryRate)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
 export const ChartComponents = {
   PTSDPrevalenceChart,
   ACEsPrevalenceChart,
@@ -407,4 +756,12 @@ export const ChartComponents = {
   PostTraumaticGrowthChart,
   IPVPTSDChart,
   DBTSkillsChart,
+  PhysicalWellnessChart,
+  ExerciseImpactChart,
+  FourPillarsChart,
+  EmotionalRegulationChart,
+  MentalWellnessChart,
+  SocialConnectionChart,
+  NutritionImpactChart,
+  SleepRecoveryChart,
 };

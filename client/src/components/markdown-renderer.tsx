@@ -11,6 +11,14 @@ import {
   PostTraumaticGrowthChart,
   IPVPTSDChart,
   DBTSkillsChart,
+  PhysicalWellnessChart,
+  ExerciseImpactChart,
+  FourPillarsChart,
+  EmotionalRegulationChart,
+  MentalWellnessChart,
+  SocialConnectionChart,
+  NutritionImpactChart,
+  SleepRecoveryChart,
 } from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
@@ -30,6 +38,14 @@ const chartComponents: Record<string, React.ComponentType> = {
   "PostTraumaticGrowthChart": PostTraumaticGrowthChart,
   "IPVPTSDChart": IPVPTSDChart,
   "DBTSkillsChart": DBTSkillsChart,
+  "PhysicalWellnessChart": PhysicalWellnessChart,
+  "ExerciseImpactChart": ExerciseImpactChart,
+  "FourPillarsChart": FourPillarsChart,
+  "EmotionalRegulationChart": EmotionalRegulationChart,
+  "MentalWellnessChart": MentalWellnessChart,
+  "SocialConnectionChart": SocialConnectionChart,
+  "NutritionImpactChart": NutritionImpactChart,
+  "SleepRecoveryChart": SleepRecoveryChart,
 };
 
 export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendererProps) {
