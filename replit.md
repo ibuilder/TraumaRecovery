@@ -20,7 +20,20 @@ client/
 │   │   ├── theme-toggle.tsx      # Theme toggle button
 │   │   └── ui/                   # shadcn/ui components
 │   ├── lib/
-│   │   ├── chapters.ts           # Book content and chapter data
+│   │   ├── chapters/             # Book content organized by chapter
+│   │   │   ├── index.ts          # Chapter exports
+│   │   │   ├── types.ts          # Chapter type definitions
+│   │   │   ├── basicRecovery.ts  # Chapter 1
+│   │   │   ├── addictionRecovery.ts # Chapter 2 (5 subchapters)
+│   │   │   ├── dysfunctionalFamilies.ts # Chapter 3
+│   │   │   ├── childhoodTrauma.ts # Chapter 4
+│   │   │   ├── adultTrauma.ts    # Chapter 5
+│   │   │   ├── relationshipTrauma.ts # Chapter 6
+│   │   │   ├── cbt.ts            # Chapter 7
+│   │   │   ├── dbt.ts            # Chapter 8
+│   │   │   ├── act.ts            # Chapter 9
+│   │   │   ├── spirituality.ts   # Chapter 10 (4 subchapters)
+│   │   │   └── alternativeTherapies.ts # Chapter 11 (3 subchapters)
 │   │   ├── queryClient.ts        # React Query setup
 │   │   └── utils.ts              # Utility functions
 │   ├── pages/
@@ -42,7 +55,7 @@ shared/
 ```
 
 ## Key Features
-- **10 comprehensive chapters** covering trauma recovery topics
+- **11 comprehensive chapters** covering trauma recovery topics
 - **Markdown rendering** with react-markdown and remark-gfm
 - **Dark/light theme** with system preference detection
 - **Reading progress bar** for tracking position
@@ -53,7 +66,7 @@ shared/
 
 ## Book Chapters
 1. Basic Recovery
-2. Addiction Recovery
+2. Addiction Recovery (5 subchapters: Disease of Addiction, Brain Chemistry, Substance Use Disorder, Recovery Programs, Relapse Prevention)
 3. Dysfunctional Families
 4. Childhood Trauma
 5. Adult Trauma
@@ -61,7 +74,8 @@ shared/
 7. CBT (Cognitive Behavioral Therapy)
 8. DBT (Dialectical Behavior Therapy)
 9. ACT (Acceptance and Commitment Therapy)
-10. Spirituality
+10. Spirituality (4 subchapters: Serenity Prayer, Recovery Prayers, Finding Meaning, Spiritual Practices)
+11. Alternative Therapies (3 subchapters: Somatic Therapy, EMDR, TMS)
 
 ## Tech Stack
 - React 18 with TypeScript
