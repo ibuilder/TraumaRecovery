@@ -528,5 +528,336 @@ Abramowitz, J. S., Deacon, B. J., & Whiteside, S. P. H. (2019). *Exposure therap
 
 Martell, C. R., Dimidjian, S., & Herman-Dunn, R. (2013). *Behavioral activation for depression: A clinician's guide* (2nd ed.). Guilford Press.`,
     },
+    {
+      id: "7-2",
+      title: "The CBT Triangle",
+      slug: "cbt-triangle",
+      order: 2,
+      content: `# The CBT Triangle: Understanding the Mind-Body Connection
+
+## What Is the CBT Triangle?
+
+The CBT Triangle is one of the most powerful tools for understanding how our inner experiences shape our lives. It illustrates a fundamental truth: our **thoughts**, **feelings**, and **behaviors** are deeply interconnected, constantly influencing each other in a continuous cycle.
+
+This isn't just theory—it's a map of how human experience actually works. Understanding this triangle gives you insight into why you react the way you do and, more importantly, shows you where you have the power to create change.
+
+**The Triangle Structure:**
+
+\`\`\`
+           THOUGHTS
+          (Cognitions)
+         "What I think"
+              /\\
+             /  \\
+            /    \\
+           /      \\
+          /        \\
+         /          \\
+        /            \\
+   FEELINGS -------- BEHAVIORS
+   (Emotions)         (Actions)
+  "What I feel"     "What I do"
+\`\`\`
+
+---
+
+## The Three Components
+
+### Thoughts (Cognitions)
+
+**What they are:** The running commentary in your mind—interpretations, beliefs, assumptions, predictions, and judgments about yourself, others, and the world.
+
+**Examples:**
+- "I'm not good enough"
+- "Something bad is going to happen"
+- "They must think I'm stupid"
+- "I can't handle this"
+- "Nobody understands me"
+
+**Key insight:** Thoughts are not facts. They're interpretations that can be accurate, distorted, or anywhere in between. Many thoughts happen automatically, without conscious choice, especially when we're triggered or stressed.
+
+### Feelings (Emotions)
+
+**What they are:** The emotional experiences in your body—the felt sensations that arise in response to thoughts and situations.
+
+**Examples:**
+- Anxiety (chest tightness, racing heart)
+- Sadness (heaviness, low energy)
+- Anger (heat, tension)
+- Shame (wanting to hide, feeling small)
+- Fear (hyperalert, ready to flee)
+
+**Key insight:** Feelings are valid information about your internal state. They're neither good nor bad—they're messengers. However, feelings don't always reflect reality; they often reflect our thoughts about reality.
+
+### Behaviors (Actions)
+
+**What they are:** What you actually do or don't do—observable actions, as well as avoidance, withdrawal, or patterns of inaction.
+
+**Examples:**
+- Isolating from others
+- Reaching for a substance
+- Snapping at someone
+- Avoiding certain places or situations
+- Checking social media repeatedly
+- Procrastinating on important tasks
+
+**Key insight:** Behaviors are where you often have the most immediate control. Even when thoughts and feelings feel overwhelming, you can choose different actions, which then influences the other two points.
+
+---
+
+## How the Triangle Works: The Interconnected Cycle
+
+The three points of the triangle constantly influence each other, creating cycles that can be either helpful or harmful. Here's the crucial part: **you can enter this cycle at any point, and changing one component affects the others.**
+
+### Example Cycle 1: The Anxiety Spiral
+
+**Situation:** You need to attend a social gathering
+
+**Thought:** "I'll embarrass myself. Everyone will judge me."
+
+**Feeling:** Anxiety (heart racing, stomach churning, sweating)
+
+**Behavior:** Cancel plans, stay home, avoid the situation
+
+**New Thought:** "See, I can't handle social situations. I'm broken."
+
+**Stronger Feeling:** More intense anxiety, plus shame
+
+**Reinforced Behavior:** Avoid even more situations
+
+*This is how patterns become entrenched.* Each cycle reinforces itself, making the thoughts feel more true, the feelings more intense, and the behaviors more automatic.
+
+### Example Cycle 2: Breaking the Pattern
+
+**Situation:** Same social gathering invitation
+
+**Different Thought:** "I feel anxious, but I've handled situations like this before. I can leave if I need to."
+
+**Feeling:** Still some anxiety, but also a bit of hope or determination
+
+**Behavior:** Attend for 30 minutes, use grounding techniques, talk to one person
+
+**New Thought:** "That wasn't as bad as I feared. I actually had a decent conversation."
+
+**New Feeling:** Relief, small sense of accomplishment, reduced anxiety
+
+**New Behavior:** More willing to try again next time
+
+*This is how healing happens.* Small changes in one area create ripples throughout the whole system.
+
+---
+
+## The Power of Awareness
+
+Before you can change any part of the triangle, you need to see it clearly. Most of the time, these three components blur together so quickly that we experience them as one overwhelming wave. Slowing down to identify each piece is the first step.
+
+**Practice identifying the components:**
+
+| Component | Question to Ask |
+|-----------|-----------------|
+| Situation | What actually happened? (just the facts) |
+| Thought | What went through my mind? |
+| Feeling | What emotion(s) did I experience? Where in my body? |
+| Behavior | What did I do (or not do) in response? |
+
+---
+
+## Common Cognitive Distortions
+
+Our thoughts aren't always accurate reflections of reality. Trauma, stress, anxiety, and depression can create distorted thinking patterns that fuel negative cycles.
+
+### All-or-Nothing Thinking
+
+**Pattern:** "If I'm not perfect, I'm a complete failure."
+
+**Reality:** Most things exist on a spectrum. There's vast territory between perfect and failure.
+
+### Catastrophizing
+
+**Pattern:** "This headache means something terrible. Everything is going to fall apart."
+
+**Reality:** Jumping to worst-case scenarios creates unnecessary suffering. Most fears don't materialize.
+
+### Mind Reading
+
+**Pattern:** "They think I'm pathetic. I can tell by how they looked at me."
+
+**Reality:** You can't actually know what others think without asking. Assumptions are often wrong.
+
+### Emotional Reasoning
+
+**Pattern:** "I feel like a failure, so I must be one."
+
+**Reality:** Feelings are real, but they don't define truth. You can feel something intensely and it can still be inaccurate.
+
+### Should Statements
+
+**Pattern:** "I should be over this by now. I shouldn't feel this way."
+
+**Reality:** "Shoulds" create shame and pressure. Working with reality is more effective than demanding it be different.
+
+### Personalization
+
+**Pattern:** "My friend is quiet today. I must have done something to upset them."
+
+**Reality:** Other people's moods and behaviors are usually about their own experiences, not about you.
+
+### Overgeneralization
+
+**Pattern:** "I messed up this presentation. I always fail at everything important."
+
+**Reality:** One event doesn't define a pattern. "Always" and "never" are rarely accurate.
+
+---
+
+## Where to Intervene: Three Points of Entry
+
+The beauty of the CBT triangle is that you can create change by working on any of the three points.
+
+### 1. Changing Thoughts (Cognitive Restructuring)
+
+**Technique:** Question and reframe automatic thoughts
+
+1. Notice the thought
+2. Ask: "Is this thought accurate? What evidence supports or contradicts it?"
+3. Consider alternative interpretations
+4. Create a more balanced thought
+
+**Example:**
+- Automatic thought: "I'm a complete failure"
+- Question: "Am I really a complete failure in every area?"
+- Balanced thought: "I made a mistake in this situation, but I've also handled many things well. I'm learning."
+
+### 2. Changing Feelings (Emotional Regulation)
+
+**Technique:** Work directly with the emotion in your body
+
+1. Name the emotion specifically
+2. Locate it in your body
+3. Use techniques to shift the intensity:
+   - Deep breathing
+   - Progressive muscle relaxation
+   - Grounding exercises
+   - Physical movement
+   - Opposite action
+
+**Example:** When anxiety is high, use box breathing (4 counts in, 4 hold, 4 out, 4 hold) to activate your parasympathetic nervous system.
+
+### 3. Changing Behaviors (Behavioral Activation)
+
+**Technique:** Act differently, even when thoughts and feelings haven't changed yet
+
+1. Identify the behavior you're doing (or avoiding)
+2. Choose a different action, even a small one
+3. Notice what happens to your thoughts and feelings afterward
+
+**Example:** When depression says "stay in bed," getting up and taking a shower might feel impossible—but doing it anyway often shifts mood and thoughts, even slightly.
+
+---
+
+## The CBT Triangle and Trauma
+
+For trauma survivors, the CBT triangle has special considerations.
+
+### Trauma-Conditioned Responses
+
+Trauma creates powerful, automatic connections in the triangle. A trigger can instantly activate all three components simultaneously:
+
+**Trigger:** Someone raises their voice
+
+**Thought:** "I'm in danger" (often unconscious)
+
+**Feeling:** Terror, freeze response
+
+**Behavior:** Dissociation, shutdown, or panic
+
+These responses happen faster than conscious thought because trauma has created neural pathways designed to protect you.
+
+### When Cognitive Work Has Limits
+
+When you're triggered or in a flashback, your prefrontal cortex (rational thinking brain) is often offline. This means:
+
+- In crisis moments, **behavioral and body-based interventions** are usually more effective than trying to change thoughts
+- Cognitive work is most effective when you're in a **window of tolerance**
+- Sometimes thoughts like "I'm in danger" accurately reflect past reality, even if they're not accurate now
+
+### Building New Triangles
+
+Recovery involves creating new, healthier cycles:
+
+**Old Triangle:**
+Trigger - "I'm worthless" - Shame - Isolation - Confirms worthlessness
+
+**New Triangle:**
+Trigger - "This is a trauma response, I'm safe now" - Still uncomfortable, but grounded - Reach out to support - Confirms you can handle hard things
+
+Building these new patterns takes time and repetition. Each time you complete a healthier cycle, you're literally rewiring your brain.
+
+---
+
+## Practical Worksheet: Breaking Down a Situation
+
+Think of a recent difficult situation. Break it down:
+
+**Situation (just the facts):**
+What happened? Where were you?
+
+---
+
+**Thoughts:**
+What went through your mind?
+
+---
+
+**Feelings:**
+What emotions did you experience? Where in your body?
+
+---
+
+**Behaviors:**
+What did you do or not do?
+
+---
+
+**What do you notice?**
+How did these three components influence each other?
+
+---
+
+**Where could you intervene?**
+- Could you challenge or reframe the thought?
+- Could you regulate the feeling with a coping skill?
+- Could you choose a different behavior?
+
+---
+
+## Key Takeaways
+
+1. **Everything is connected:** Your thoughts, feelings, and behaviors form an interconnected system where changing one affects the others.
+
+2. **You have multiple entry points:** You don't have to start with thoughts. Sometimes changing behavior or regulating emotion is easier and more effective.
+
+3. **Awareness is the first step:** Simply noticing the three components separately gives you power over automatic patterns.
+
+4. **Thoughts aren't facts:** Just because you think something doesn't make it true. Thoughts can be questioned, examined, and changed.
+
+5. **Small changes create ripples:** You don't need to transform everything at once. Small shifts in one area will influence the whole system.
+
+6. **Trauma requires extra care:** For trauma survivors, some responses bypass rational thinking. Be patient with yourself and use the right tools for the situation.
+
+7. **New patterns take practice:** Your brain has carved deep grooves for old patterns. Creating new ones requires repetition, not perfection.
+
+---
+
+## References
+
+Beck, J. S. (2020). *Cognitive behavior therapy: Basics and beyond* (3rd ed.). Guilford Press.
+
+Burns, D. D. (1999). *Feeling good: The new mood therapy*. Avon Books.
+
+Greenberger, D., & Padesky, C. A. (2015). *Mind over mood: Change how you feel by changing the way you think* (2nd ed.). Guilford Press.
+
+van der Kolk, B. A. (2014). *The body keeps the score: Brain, mind, and body in the healing of trauma*. Viking.`,
+    },
   ],
 };
