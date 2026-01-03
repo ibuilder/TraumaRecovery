@@ -14,6 +14,8 @@ Beyond traditional talk therapy, several evidence-based alternative treatments h
 
 ## Why Consider Alternative Therapies?
 
+\`\`\`chart:SomaticTherapyChart\`\`\`
+
 Traditional talk therapy is valuable, but trauma is often stored in the body and brain in ways that words alone cannot access. These alternative approaches offer:
 
 - **Body-based healing** - Working with the nervous system directly
@@ -412,6 +414,8 @@ EMDR is based on the Adaptive Information Processing (AIP) model:
 - Creates new, more adaptive perspectives
 
 ## The Eight Phases of EMDR
+
+\`\`\`chart:EMDRPhasesChart\`\`\`
 
 ### Phase 1: History Taking and Treatment Planning
 

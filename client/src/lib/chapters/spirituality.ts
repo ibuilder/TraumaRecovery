@@ -24,6 +24,8 @@ Spirituality is deeply personal and takes many forms. It's not the same as relig
 
 ## The Role of Spirituality in Recovery
 
+\`\`\`chart:SpiritualPracticesChart\`\`\`
+
 Research consistently shows that spirituality—however defined—supports recovery:
 
 - **Connection** reduces isolation (a major relapse risk)
@@ -347,6 +349,8 @@ Pargament, K. I. (2007). *Spiritually integrated psychotherapy: Understanding an
       content: `# The Serenity Prayer
 
 The Serenity Prayer is perhaps the most well-known prayer in recovery. Simple yet profound, it captures essential wisdom for living well—especially for those recovering from trauma and addiction.
+
+\`\`\`chart:RecoveryValuesChart\`\`\`
 
 ## The Common Version
 

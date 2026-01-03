@@ -159,6 +159,8 @@ Linehan, M. M. (2020). *Building a life worth living: A memoir*. Random House.`,
 
 Mindfulness is the foundation upon which all other DBT skills are built. It is the practice of paying attention, on purpose, to the present moment, without judgment.
 
+\`\`\`chart:MindfulnessBenefitsChart\`\`\`
+
 ## What Is Mindfulness?
 
 ### Definition
@@ -698,6 +700,8 @@ Moonshine, C. (2008). *Acquiring competency and achieving proficiency with diale
       content: `# Distress Tolerance Skills
 
 Distress tolerance skills help you survive emotional crises without making things worse. They're not about solving problems—they're about getting through moments when you can't solve the problem.
+
+\`\`\`chart:DistressToleranceSkillsChart\`\`\`
 
 ## When to Use Distress Tolerance
 
@@ -1380,6 +1384,8 @@ Van Dijk, S. (2012). *Calming the emotional storm: Using dialectical behavior th
       content: `# Interpersonal Effectiveness Skills
 
 Interpersonal effectiveness skills help you navigate relationships, get your needs met, maintain self-respect, and build healthy connections with others.
+
+\`\`\`chart:InterpersonalEffectivenessChart\`\`\`
 
 ## Goals of Interpersonal Effectiveness
 

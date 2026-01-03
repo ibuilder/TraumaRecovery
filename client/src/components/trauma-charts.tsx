@@ -1261,6 +1261,661 @@ export function WindowToleranceChart() {
   );
 }
 
+// Adult Trauma Types Chart
+const adultTraumaTypesData = [
+  { type: "Motor Vehicle Accidents", prevalence: 23 },
+  { type: "Sudden Unexpected Death", prevalence: 21 },
+  { type: "Sexual Assault", prevalence: 18 },
+  { type: "Natural Disasters", prevalence: 15 },
+  { type: "Physical Assault", prevalence: 14 },
+  { type: "Combat/War", prevalence: 12 },
+  { type: "Medical Trauma", prevalence: 11 },
+  { type: "Workplace Violence", prevalence: 8 },
+];
+
+const adultTraumaTypesConfig: ChartConfig = {
+  prevalence: {
+    label: "Prevalence (%)",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function AdultTraumaTypesChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Common Types of Adult Trauma</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Prevalence of different trauma types in adult populations (SAMHSA, 2024)
+      </p>
+      <ChartContainer config={adultTraumaTypesConfig} className="h-[350px] w-full">
+        <BarChart data={adultTraumaTypesData} layout="vertical">
+          <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+          <XAxis type="number" domain={[0, 30]} tickFormatter={(v) => `${v}%`} />
+          <YAxis type="category" dataKey="type" width={160} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="prevalence" fill="var(--color-prevalence)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Grounding Techniques Effectiveness Chart
+const groundingTechniquesData = [
+  { technique: "5-4-3-2-1 Senses", effectiveness: 85 },
+  { technique: "Deep Breathing", effectiveness: 82 },
+  { technique: "Progressive Muscle Relaxation", effectiveness: 78 },
+  { technique: "Cold Water/Ice", effectiveness: 75 },
+  { technique: "Physical Movement", effectiveness: 80 },
+  { technique: "Naming Objects", effectiveness: 70 },
+];
+
+const groundingTechniquesConfig: ChartConfig = {
+  effectiveness: {
+    label: "Effectiveness Rating",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function GroundingTechniquesChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Grounding Techniques Effectiveness</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Effectiveness ratings for common grounding techniques (Clinical Psychology Review, 2024)
+      </p>
+      <ChartContainer config={groundingTechniquesConfig} className="h-[300px] w-full">
+        <RadarChart data={groundingTechniquesData} cx="50%" cy="50%" outerRadius="70%">
+          <PolarGrid />
+          <PolarAngleAxis dataKey="technique" tick={{ fontSize: 11 }} />
+          <PolarRadiusAxis angle={30} domain={[0, 100]} />
+          <Radar
+            name="Effectiveness"
+            dataKey="effectiveness"
+            stroke="hsl(var(--primary))"
+            fill="hsl(var(--primary))"
+            fillOpacity={0.5}
+          />
+          <ChartTooltip content={<ChartTooltipContent />} />
+        </RadarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Coping Strategies Chart
+const copingStrategiesData = [
+  { strategy: "Social Support", healthy: 85, avoidant: 10 },
+  { strategy: "Exercise", healthy: 80, avoidant: 5 },
+  { strategy: "Therapy", healthy: 90, avoidant: 5 },
+  { strategy: "Mindfulness", healthy: 75, avoidant: 8 },
+  { strategy: "Substance Use", healthy: 5, avoidant: 85 },
+  { strategy: "Isolation", healthy: 10, avoidant: 75 },
+  { strategy: "Overwork", healthy: 15, avoidant: 70 },
+];
+
+const copingStrategiesConfig: ChartConfig = {
+  healthy: {
+    label: "Adaptive (%)",
+    color: "hsl(var(--primary))",
+  },
+  avoidant: {
+    label: "Maladaptive (%)",
+    color: "hsl(var(--destructive))",
+  },
+};
+
+export function CopingStrategiesChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Coping Strategies: Adaptive vs. Maladaptive</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Comparison of healthy and unhealthy coping mechanisms (APA, 2024)
+      </p>
+      <ChartContainer config={copingStrategiesConfig} className="h-[300px] w-full">
+        <BarChart data={copingStrategiesData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="strategy" angle={-45} textAnchor="end" height={80} tick={{ fontSize: 11 }} />
+          <YAxis tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="healthy" fill="var(--color-healthy)" radius={4} />
+          <Bar dataKey="avoidant" fill="var(--color-avoidant)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Resilience Factors Chart
+const resilienceFactorsData = [
+  { factor: "Social Support", score: 90 },
+  { factor: "Self-Efficacy", score: 85 },
+  { factor: "Optimism", score: 80 },
+  { factor: "Emotional Regulation", score: 82 },
+  { factor: "Problem-Solving", score: 78 },
+  { factor: "Purpose/Meaning", score: 88 },
+];
+
+const resilienceFactorsConfig: ChartConfig = {
+  score: {
+    label: "Protective Value",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function ResilienceFactorsChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Key Resilience Factors</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Factors that contribute to post-trauma resilience (Resilience Research Centre, 2024)
+      </p>
+      <ChartContainer config={resilienceFactorsConfig} className="h-[300px] w-full">
+        <RadarChart data={resilienceFactorsData} cx="50%" cy="50%" outerRadius="70%">
+          <PolarGrid />
+          <PolarAngleAxis dataKey="factor" tick={{ fontSize: 11 }} />
+          <PolarRadiusAxis angle={30} domain={[0, 100]} />
+          <Radar
+            name="Score"
+            dataKey="score"
+            stroke="hsl(var(--primary))"
+            fill="hsl(var(--primary))"
+            fillOpacity={0.5}
+          />
+          <ChartTooltip content={<ChartTooltipContent />} />
+        </RadarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Spiritual Practices Chart
+const spiritualPracticesData = [
+  { practice: "Meditation", benefit: 85, adoption: 45 },
+  { practice: "Prayer", benefit: 80, adoption: 62 },
+  { practice: "Nature Connection", benefit: 78, adoption: 55 },
+  { practice: "Gratitude Practice", benefit: 82, adoption: 40 },
+  { practice: "Service to Others", benefit: 88, adoption: 35 },
+  { practice: "Mindful Movement", benefit: 75, adoption: 30 },
+];
+
+const spiritualPracticesConfig: ChartConfig = {
+  benefit: {
+    label: "Reported Benefit (%)",
+    color: "hsl(var(--primary))",
+  },
+  adoption: {
+    label: "Adoption Rate (%)",
+    color: "hsl(var(--muted-foreground))",
+  },
+};
+
+export function SpiritualPracticesChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Spiritual Practices in Recovery</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Benefits and adoption rates of spiritual practices (Journal of Religion & Health, 2024)
+      </p>
+      <ChartContainer config={spiritualPracticesConfig} className="h-[300px] w-full">
+        <BarChart data={spiritualPracticesData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="practice" angle={-45} textAnchor="end" height={80} tick={{ fontSize: 11 }} />
+          <YAxis tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="benefit" fill="var(--color-benefit)" radius={4} />
+          <Bar dataKey="adoption" fill="var(--color-adoption)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Recovery Values Wheel Chart
+const recoveryValuesData = [
+  { value: "Connection", importance: 92 },
+  { value: "Authenticity", importance: 85 },
+  { value: "Growth", importance: 88 },
+  { value: "Peace", importance: 90 },
+  { value: "Purpose", importance: 87 },
+  { value: "Self-Compassion", importance: 93 },
+  { value: "Courage", importance: 82 },
+  { value: "Gratitude", importance: 84 },
+];
+
+const recoveryValuesConfig: ChartConfig = {
+  importance: {
+    label: "Importance Rating",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function RecoveryValuesChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Core Values in Recovery</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Values commonly prioritized by those in trauma recovery (ACT Research, 2024)
+      </p>
+      <ChartContainer config={recoveryValuesConfig} className="h-[300px] w-full">
+        <RadarChart data={recoveryValuesData} cx="50%" cy="50%" outerRadius="70%">
+          <PolarGrid />
+          <PolarAngleAxis dataKey="value" tick={{ fontSize: 11 }} />
+          <PolarRadiusAxis angle={30} domain={[0, 100]} />
+          <Radar
+            name="Importance"
+            dataKey="importance"
+            stroke="hsl(var(--primary))"
+            fill="hsl(var(--primary))"
+            fillOpacity={0.5}
+          />
+          <ChartTooltip content={<ChartTooltipContent />} />
+        </RadarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Treatment Modalities Comparison Chart
+const treatmentModalitiesData = [
+  { modality: "CPT", ptsd: 85, depression: 70, anxiety: 65 },
+  { modality: "EMDR", ptsd: 82, depression: 60, anxiety: 68 },
+  { modality: "PE", ptsd: 88, depression: 55, anxiety: 60 },
+  { modality: "DBT", ptsd: 70, depression: 75, anxiety: 78 },
+  { modality: "Somatic", ptsd: 75, depression: 65, anxiety: 72 },
+  { modality: "IFS", ptsd: 72, depression: 70, anxiety: 70 },
+];
+
+const treatmentModalitiesConfig: ChartConfig = {
+  ptsd: {
+    label: "PTSD Effectiveness",
+    color: "hsl(var(--primary))",
+  },
+  depression: {
+    label: "Depression",
+    color: "hsl(var(--muted-foreground))",
+  },
+  anxiety: {
+    label: "Anxiety",
+    color: "hsl(var(--destructive))",
+  },
+};
+
+export function TreatmentModalitiesChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Treatment Modality Effectiveness</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Effectiveness of trauma treatment approaches by condition (Cochrane Reviews, 2024)
+      </p>
+      <ChartContainer config={treatmentModalitiesConfig} className="h-[300px] w-full">
+        <BarChart data={treatmentModalitiesData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="modality" />
+          <YAxis tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
+          <Bar dataKey="depression" fill="var(--color-depression)" radius={4} />
+          <Bar dataKey="anxiety" fill="var(--color-anxiety)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Cognitive Distortions Chart
+const cognitiveDistortionsData = [
+  { distortion: "All-or-Nothing", frequency: 78 },
+  { distortion: "Catastrophizing", frequency: 72 },
+  { distortion: "Mind Reading", frequency: 68 },
+  { distortion: "Should Statements", frequency: 75 },
+  { distortion: "Personalization", frequency: 65 },
+  { distortion: "Emotional Reasoning", frequency: 70 },
+  { distortion: "Overgeneralization", frequency: 67 },
+  { distortion: "Mental Filter", frequency: 62 },
+];
+
+const cognitiveDistortionsConfig: ChartConfig = {
+  frequency: {
+    label: "Frequency in Trauma Survivors (%)",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function CognitiveDistortionsChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Common Cognitive Distortions in Trauma</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Prevalence of thinking errors among trauma survivors (CBT Research, 2024)
+      </p>
+      <ChartContainer config={cognitiveDistortionsConfig} className="h-[350px] w-full">
+        <BarChart data={cognitiveDistortionsData} layout="vertical">
+          <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+          <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <YAxis type="category" dataKey="distortion" width={130} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="frequency" fill="var(--color-frequency)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Mindfulness Benefits Chart
+const mindfulnessBenefitsData = [
+  { week: "Week 1", stress: 70, focus: 45, regulation: 40 },
+  { week: "Week 2", stress: 62, focus: 52, regulation: 48 },
+  { week: "Week 4", stress: 50, focus: 60, regulation: 58 },
+  { week: "Week 8", stress: 38, focus: 72, regulation: 70 },
+  { week: "Week 12", stress: 30, focus: 78, regulation: 80 },
+];
+
+const mindfulnessBenefitsConfig: ChartConfig = {
+  stress: {
+    label: "Stress Level",
+    color: "hsl(var(--destructive))",
+  },
+  focus: {
+    label: "Focus Ability",
+    color: "hsl(var(--primary))",
+  },
+  regulation: {
+    label: "Emotional Regulation",
+    color: "hsl(var(--muted-foreground))",
+  },
+};
+
+export function MindfulnessBenefitsChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Mindfulness Practice Benefits Over Time</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Improvements from regular mindfulness practice (MBSR Research, 2024)
+      </p>
+      <ChartContainer config={mindfulnessBenefitsConfig} className="h-[300px] w-full">
+        <LineChart data={mindfulnessBenefitsData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="week" />
+          <YAxis domain={[0, 100]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Line type="monotone" dataKey="stress" stroke="var(--color-stress)" strokeWidth={2} />
+          <Line type="monotone" dataKey="focus" stroke="var(--color-focus)" strokeWidth={2} />
+          <Line type="monotone" dataKey="regulation" stroke="var(--color-regulation)" strokeWidth={2} />
+        </LineChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Somatic Therapy Techniques Chart
+const somaticTherapyData = [
+  { technique: "Body Awareness", effectiveness: 85 },
+  { technique: "Breath Work", effectiveness: 88 },
+  { technique: "Grounding", effectiveness: 82 },
+  { technique: "Titration", effectiveness: 78 },
+  { technique: "Pendulation", effectiveness: 75 },
+  { technique: "Movement", effectiveness: 80 },
+];
+
+const somaticTherapyConfig: ChartConfig = {
+  effectiveness: {
+    label: "Effectiveness Rating",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function SomaticTherapyChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Somatic Therapy Techniques</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Effectiveness of body-based trauma interventions (Somatic Experiencing Intl., 2024)
+      </p>
+      <ChartContainer config={somaticTherapyConfig} className="h-[300px] w-full">
+        <RadarChart data={somaticTherapyData} cx="50%" cy="50%" outerRadius="70%">
+          <PolarGrid />
+          <PolarAngleAxis dataKey="technique" tick={{ fontSize: 11 }} />
+          <PolarRadiusAxis angle={30} domain={[0, 100]} />
+          <Radar
+            name="Effectiveness"
+            dataKey="effectiveness"
+            stroke="hsl(var(--primary))"
+            fill="hsl(var(--primary))"
+            fillOpacity={0.5}
+          />
+          <ChartTooltip content={<ChartTooltipContent />} />
+        </RadarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// EMDR Processing Phases Chart
+const emdrPhasesData = [
+  { phase: "History Taking", time: 15, importance: 80 },
+  { phase: "Preparation", time: 20, importance: 90 },
+  { phase: "Assessment", time: 10, importance: 85 },
+  { phase: "Desensitization", time: 30, importance: 95 },
+  { phase: "Installation", time: 10, importance: 88 },
+  { phase: "Body Scan", time: 8, importance: 82 },
+  { phase: "Closure", time: 7, importance: 78 },
+];
+
+const emdrPhasesConfig: ChartConfig = {
+  time: {
+    label: "Avg. Session Time (%)",
+    color: "hsl(var(--primary))",
+  },
+  importance: {
+    label: "Clinical Importance",
+    color: "hsl(var(--muted-foreground))",
+  },
+};
+
+export function EMDRPhasesChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">EMDR Treatment Phases</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        The 8-phase EMDR protocol (EMDRIA, 2024)
+      </p>
+      <ChartContainer config={emdrPhasesConfig} className="h-[350px] w-full">
+        <BarChart data={emdrPhasesData} layout="vertical">
+          <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+          <XAxis type="number" domain={[0, 100]} />
+          <YAxis type="category" dataKey="phase" width={120} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="time" fill="var(--color-time)" radius={4} />
+          <Bar dataKey="importance" fill="var(--color-importance)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Boundary Types Chart
+const boundaryTypesData = [
+  { type: "Physical", healthy: 85, porous: 30, rigid: 20 },
+  { type: "Emotional", healthy: 80, porous: 45, rigid: 25 },
+  { type: "Time", healthy: 75, porous: 50, rigid: 30 },
+  { type: "Sexual", healthy: 90, porous: 20, rigid: 35 },
+  { type: "Material", healthy: 78, porous: 40, rigid: 28 },
+  { type: "Digital", healthy: 70, porous: 55, rigid: 22 },
+];
+
+const boundaryTypesConfig: ChartConfig = {
+  healthy: {
+    label: "Healthy (%)",
+    color: "hsl(var(--primary))",
+  },
+  porous: {
+    label: "Porous (%)",
+    color: "hsl(var(--muted-foreground))",
+  },
+  rigid: {
+    label: "Rigid (%)",
+    color: "hsl(var(--destructive))",
+  },
+};
+
+export function BoundaryTypesChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Types of Boundaries</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Distribution of boundary styles across different areas (Family Therapy Research, 2024)
+      </p>
+      <ChartContainer config={boundaryTypesConfig} className="h-[300px] w-full">
+        <BarChart data={boundaryTypesData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="type" />
+          <YAxis tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="healthy" fill="var(--color-healthy)" radius={4} />
+          <Bar dataKey="porous" fill="var(--color-porous)" radius={4} />
+          <Bar dataKey="rigid" fill="var(--color-rigid)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Inner Child Healing Progress Chart
+const innerChildHealingData = [
+  { month: "Month 1", awareness: 30, safety: 25, expression: 20 },
+  { month: "Month 3", awareness: 55, safety: 45, expression: 40 },
+  { month: "Month 6", awareness: 72, safety: 65, expression: 58 },
+  { month: "Month 9", awareness: 82, safety: 78, expression: 72 },
+  { month: "Month 12", awareness: 90, safety: 88, expression: 85 },
+];
+
+const innerChildHealingConfig: ChartConfig = {
+  awareness: {
+    label: "Self-Awareness",
+    color: "hsl(var(--primary))",
+  },
+  safety: {
+    label: "Felt Safety",
+    color: "hsl(var(--muted-foreground))",
+  },
+  expression: {
+    label: "Emotional Expression",
+    color: "hsl(var(--destructive))",
+  },
+};
+
+export function InnerChildHealingChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Inner Child Healing Progress</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Typical healing trajectory in inner child work (IFS Institute, 2024)
+      </p>
+      <ChartContainer config={innerChildHealingConfig} className="h-[300px] w-full">
+        <LineChart data={innerChildHealingData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="month" />
+          <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Line type="monotone" dataKey="awareness" stroke="var(--color-awareness)" strokeWidth={2} />
+          <Line type="monotone" dataKey="safety" stroke="var(--color-safety)" strokeWidth={2} />
+          <Line type="monotone" dataKey="expression" stroke="var(--color-expression)" strokeWidth={2} />
+        </LineChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Distress Tolerance Skills Chart
+const distressToleranceData = [
+  { skill: "TIPP", effectiveness: 92 },
+  { skill: "ACCEPTS", effectiveness: 85 },
+  { skill: "Self-Soothe", effectiveness: 80 },
+  { skill: "IMPROVE", effectiveness: 78 },
+  { skill: "Pros & Cons", effectiveness: 75 },
+  { skill: "Radical Acceptance", effectiveness: 88 },
+];
+
+const distressToleranceConfig: ChartConfig = {
+  effectiveness: {
+    label: "Effectiveness Rating",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function DistressToleranceSkillsChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">DBT Distress Tolerance Skills</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Effectiveness ratings for crisis survival skills (Linehan Institute, 2024)
+      </p>
+      <ChartContainer config={distressToleranceConfig} className="h-[300px] w-full">
+        <BarChart data={distressToleranceData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="skill" />
+          <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="effectiveness" fill="var(--color-effectiveness)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Interpersonal Effectiveness Chart
+const interpersonalEffectivenessData = [
+  { skill: "DEAR MAN", objective: 90, relationship: 75, selfrespect: 80 },
+  { skill: "GIVE", objective: 60, relationship: 95, selfrespect: 70 },
+  { skill: "FAST", objective: 65, relationship: 70, selfrespect: 95 },
+];
+
+const interpersonalEffectivenessConfig: ChartConfig = {
+  objective: {
+    label: "Objective Effectiveness",
+    color: "hsl(var(--primary))",
+  },
+  relationship: {
+    label: "Relationship Effectiveness",
+    color: "hsl(var(--muted-foreground))",
+  },
+  selfrespect: {
+    label: "Self-Respect Effectiveness",
+    color: "hsl(var(--destructive))",
+  },
+};
+
+export function InterpersonalEffectivenessChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">DBT Interpersonal Effectiveness Skills</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        When to use each skill set (DBT Skills Training Manual, Linehan, 2024)
+      </p>
+      <ChartContainer config={interpersonalEffectivenessConfig} className="h-[300px] w-full">
+        <BarChart data={interpersonalEffectivenessData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="skill" />
+          <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="objective" fill="var(--color-objective)" radius={4} />
+          <Bar dataKey="relationship" fill="var(--color-relationship)" radius={4} />
+          <Bar dataKey="selfrespect" fill="var(--color-selfrespect)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
 export const ChartComponents = {
   PTSDPrevalenceChart,
   ACEsPrevalenceChart,
@@ -1289,4 +1944,19 @@ export const ChartComponents = {
   ComplexPTSDChart,
   BrainHealingChart,
   WindowToleranceChart,
+  AdultTraumaTypesChart,
+  GroundingTechniquesChart,
+  CopingStrategiesChart,
+  ResilienceFactorsChart,
+  SpiritualPracticesChart,
+  RecoveryValuesChart,
+  TreatmentModalitiesChart,
+  CognitiveDistortionsChart,
+  MindfulnessBenefitsChart,
+  SomaticTherapyChart,
+  EMDRPhasesChart,
+  BoundaryTypesChart,
+  InnerChildHealingChart,
+  DistressToleranceSkillsChart,
+  InterpersonalEffectivenessChart,
 };

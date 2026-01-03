@@ -50,6 +50,8 @@ CBT helps identify and challenge these patterns, replacing them with more accura
 
 ## Cognitive Distortions
 
+\`\`\`chart:CognitiveDistortionsChart\`\`\`
+
 Cognitive distortions are systematic errors in thinking that maintain negative beliefs and emotional distress. Recognizing them is the first step to changing them.
 
 ### Common Cognitive Distortions

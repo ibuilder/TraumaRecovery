@@ -12,6 +12,8 @@ export const resourcesChapter: Chapter = {
 
 This chapter provides a comprehensive collection of educational videos, expert talks, and treatment center resources to support your trauma recovery journey. These resources feature leading experts in trauma treatment and recovery.
 
+\`\`\`chart:TreatmentModalitiesChart\`\`\`
+
 ## Featured Clinicians & Programs
 
 ### Dr. Robb Lahore (Meadows Behavioral Health)

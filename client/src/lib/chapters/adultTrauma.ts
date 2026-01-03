@@ -16,6 +16,8 @@ Trauma can occur at any stage of life. While childhood trauma shapes development
 
 ### Types of Adult Trauma
 
+\`\`\`chart:AdultTraumaTypesChart\`\`\`
+
 **Accidents and Injuries:**
 - Motor vehicle accidents
 - Workplace injuries
@@ -294,6 +296,8 @@ Tedeschi, R. G., & Calhoun, L. G. (2004). Posttraumatic growth: Conceptual found
       content: `# Processing Traumatic Events
 
 After experiencing trauma as an adult, processing the event is essential for healing. This involves making sense of what happened, integrating the experience, and rebuilding your worldview.
+
+\`\`\`chart:CopingStrategiesChart\`\`\`
 
 ## The Natural Recovery Process
 
@@ -633,6 +637,10 @@ Joseph, S. (2011). *What doesn't kill us: The new psychology of posttraumatic gr
       content: `# Effective Coping Strategies for Adult Trauma
 
 Having a toolkit of coping strategies is essential for managing trauma symptoms and navigating recovery. Different strategies work for different situations and individuals.
+
+\`\`\`chart:GroundingTechniquesChart\`\`\`
+
+\`\`\`chart:ResilienceFactorsChart\`\`\`
 
 ## Immediate Coping: Grounding Techniques
 
