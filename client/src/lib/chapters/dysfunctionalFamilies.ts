@@ -1,12 +1,12 @@
 import type { Chapter } from "./types";
 
 export const dysfunctionalFamiliesChapter: Chapter = {
-  id: "3",
+  id: "4",
   title: "Dysfunctional Families",
   slug: "dysfunctional-families",
   description: "Recognize patterns from your family of origin and learn to break generational cycles.",
   icon: "Home",
-  order: 3,
+  order: 4,
   readingTime: "45 min read",
   content: `# Healing from Dysfunctional Families
 
@@ -375,7 +375,7 @@ Forward, S. (1989). *Toxic parents: Overcoming their hurtful legacy and reclaimi
 Gibson, L. C. (2015). *Adult children of emotionally immature parents*. New Harbinger Publications.`,
   subchapters: [
     {
-      id: "3-1",
+      id: "4-1",
       title: "Identifying Family Patterns",
       slug: "family-patterns",
       order: 1,
@@ -566,7 +566,7 @@ McGoldrick, M., Gerson, R., & Petry, S. (2020). *Genograms: Assessment and treat
 Minuchin, S. (1974). *Families and family therapy*. Harvard University Press.`,
     },
     {
-      id: "3-2",
+      id: "4-2",
       title: "Healthy Boundaries",
       slug: "healthy-boundaries",
       order: 2,
@@ -809,7 +809,7 @@ Cloud, H., & Townsend, J. (1992). *Boundaries: When to say yes, how to say no to
 Katherine, A. (1991). *Boundaries: Where you end and I begin*. Hazelden.`,
     },
     {
-      id: "3-3",
+      id: "4-3",
       title: "Healing the Inner Child",
       slug: "healing-inner-child",
       order: 3,
@@ -1061,7 +1061,7 @@ Schwartz, R. C. (2021). *No bad parts: Healing trauma and restoring wholeness wi
 Whitfield, C. L. (1987). *Healing the child within: Discovery and recovery for adult children of dysfunctional families*. Health Communications.`,
     },
     {
-      id: "3-4",
+      id: "4-4",
       title: "Breaking Generational Cycles",
       slug: "breaking-cycles",
       order: 4,

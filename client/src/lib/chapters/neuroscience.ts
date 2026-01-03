@@ -1,13 +1,13 @@
 import type { Chapter } from "./types";
 
 export const neuroscienceChapter: Chapter = {
-  id: "13",
+  id: "2",
   title: "The Neuroscience of Trauma",
   slug: "neuroscience",
   description:
     "Understanding how trauma affects the brain, nervous system, neurochemistry, and the biological basis of mental health disorders.",
   icon: "Brain",
-  order: 13,
+  order: 2,
   readingTime: "75 min read",
   content: `# The Neuroscience of Trauma
 
@@ -48,7 +48,7 @@ This is the science of hope.
 Select a subchapter below to explore the neuroscience of trauma in depth.`,
   subchapters: [
     {
-      id: "13-1",
+      id: "2-1",
       title: "Brain Anatomy & Trauma",
       slug: "brain-anatomy",
       order: 1,
@@ -320,7 +320,7 @@ Shin, L. M., & Liberzon, I. (2010). The neurocircuitry of fear, stress, and anxi
 Maren, S., & Holmes, A. (2024). Stress and fear extinction: From molecules to neural circuits. *Nature Reviews Neuroscience*, 25(1), 1-16.`,
     },
     {
-      id: "13-2",
+      id: "2-2",
       title: "Neurochemistry of Trauma",
       slug: "neurochemistry",
       order: 2,
@@ -628,7 +628,7 @@ Pitman, R. K., et al. (2012). Biological studies of post-traumatic stress disord
 Krystal, J. H., & Bhagwagar, Z. (2024). Neurotransmitter systems in trauma and recovery. *Annual Review of Clinical Psychology*, 20, 1-25.`,
     },
     {
-      id: "13-3",
+      id: "2-3",
       title: "The Nervous System & Polyvagal Theory",
       slug: "nervous-system",
       order: 3,
@@ -1002,7 +1002,7 @@ Porges, S. W., & Dana, D. (2018). *Clinical applications of the polyvagal theory
 Sullivan, M. B., et al. (2024). Vagus nerve stimulation in trauma recovery: A comprehensive review. *Frontiers in Psychiatry*, 15, 1234567.`,
     },
     {
-      id: "13-4",
+      id: "2-4",
       title: "Trauma-Related Disorders",
       slug: "disorders",
       order: 4,
@@ -1415,7 +1415,7 @@ van der Kolk, B. (2005). Developmental trauma disorder. *Psychiatric Annals*, 35
 Cloitre, M., et al. (2024). Complex PTSD: Assessment and treatment considerations. *Journal of Traumatic Stress*, 37(1), 1-15.`,
     },
     {
-      id: "13-5",
+      id: "2-5",
       title: "The Neurobiology of Healing",
       slug: "healing",
       order: 5,

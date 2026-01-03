@@ -1,12 +1,12 @@
 import type { Chapter } from "./types";
 
 export const adultTraumaChapter: Chapter = {
-  id: "5",
+  id: "6",
   title: "Adult Trauma",
   slug: "adult-trauma",
   description: "Navigate trauma that occurs in adulthood and develop resilience.",
   icon: "User",
-  order: 5,
+  order: 6,
   readingTime: "45 min read",
   content: `# Healing from Adult Trauma
 
@@ -287,7 +287,7 @@ Janoff-Bulman, R. (1992). *Shattered assumptions: Towards a new psychology of tr
 Tedeschi, R. G., & Calhoun, L. G. (2004). Posttraumatic growth: Conceptual foundations and empirical evidence. *Psychological Inquiry, 15*(1), 1-18.`,
   subchapters: [
     {
-      id: "5-1",
+      id: "6-1",
       title: "Processing Traumatic Events",
       slug: "processing-trauma",
       order: 1,
@@ -456,7 +456,7 @@ Ehlers, A., & Clark, D. M. (2000). A cognitive model of posttraumatic stress dis
 Foa, E. B., & Rothbaum, B. O. (1998). *Treating the trauma of rape: Cognitive-behavioral therapy for PTSD*. Guilford Press.`,
     },
     {
-      id: "5-2",
+      id: "6-2",
       title: "Rebuilding Your Life",
       slug: "rebuilding-life",
       order: 2,
@@ -626,7 +626,7 @@ Herman, J. L. (2015). *Trauma and recovery*. Basic Books.
 Joseph, S. (2011). *What doesn't kill us: The new psychology of posttraumatic growth*. Basic Books.`,
     },
     {
-      id: "5-3",
+      id: "6-3",
       title: "Coping Strategies",
       slug: "coping-strategies",
       order: 3,

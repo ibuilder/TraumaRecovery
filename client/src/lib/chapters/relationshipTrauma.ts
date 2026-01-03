@@ -1,12 +1,12 @@
 import type { Chapter } from "./types";
 
 export const relationshipTraumaChapter: Chapter = {
-  id: "6",
+  id: "7",
   title: "Relationship Trauma",
   slug: "relationship-trauma",
   description: "Heal from betrayal, abuse, and toxic relationships.",
   icon: "HeartCrack",
-  order: 6,
+  order: 7,
   readingTime: "50 min read",
   content: `# Healing from Relationship Trauma
 
@@ -246,7 +246,7 @@ Stark, E. (2007). *Coercive control: How men entrap women in personal life*. Oxf
 Walker, L. E. (2009). *The battered woman syndrome* (3rd ed.). Springer.`,
   subchapters: [
     {
-      id: "6-1",
+      id: "7-1",
       title: "Recognizing Toxic Patterns",
       slug: "toxic-patterns",
       order: 1,
@@ -403,7 +403,7 @@ Engel, B. (2002). *The emotionally abusive relationship: How to stop being abuse
 Stern, R. (2007). *The gaslight effect: How to spot and survive the hidden manipulation others use to control your life*. Harmony.`,
     },
     {
-      id: "6-2",
+      id: "7-2",
       title: "Rebuilding Trust",
       slug: "rebuilding-trust",
       order: 2,
@@ -574,7 +574,7 @@ Gottman, J. M., & Silver, N. (2015). *The seven principles for making marriage w
 Spring, J. A. (2012). *After the affair: Healing the pain and rebuilding trust when a partner has been unfaithful*. William Morrow.`,
     },
     {
-      id: "6-3",
+      id: "7-3",
       title: "Safety Planning",
       slug: "safety-planning",
       order: 3,
@@ -755,7 +755,7 @@ Walker, L. E. (2024). *The battered woman syndrome* (4th ed.). Springer.
 World Health Organization. (2024). *Violence against women: Key facts*. WHO.`,
     },
     {
-      id: "6-4",
+      id: "7-4",
       title: "Building Healthy Relationships",
       slug: "healthy-relationships",
       order: 4,

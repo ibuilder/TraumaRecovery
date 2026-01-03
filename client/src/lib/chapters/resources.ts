@@ -1,12 +1,12 @@
 import type { Chapter } from "./types";
 
 export const resourcesChapter: Chapter = {
-  id: "12",
+  id: "13",
   title: "Resources & Video Library",
   slug: "resources",
   description: "Curated recovery videos, expert talks, and treatment program resources.",
   icon: "Video",
-  order: 12,
+  order: 13,
   readingTime: "45 min read",
   content: `# Recovery & Trauma Treatment YouTube Video Library
 
@@ -378,7 +378,7 @@ Mellody, P. (2003). *Facing codependence*. HarperOne.
 Carnes, P. (2001). *Out of the shadows: Understanding sexual addiction*. Hazelden.`,
   subchapters: [
     {
-      id: "12-1",
+      id: "13-1",
       title: "Expert Video Playlists",
       slug: "expert-videos",
       order: 1,
@@ -653,7 +653,7 @@ Walker, P. (2013). *Complex PTSD: From surviving to thriving*. Azure Coyote Publ
 Levine, P. (1997). *Waking the tiger*. North Atlantic Books.`,
     },
     {
-      id: "12-2",
+      id: "13-2",
       title: "Treatment Centers & Programs",
       slug: "treatment-centers",
       order: 2,
