@@ -35,7 +35,8 @@ client/
 │   │   │   ├── act.ts            # Chapter 9
 │   │   │   ├── spirituality.ts   # Chapter 10 (4 subchapters)
 │   │   │   ├── alternativeTherapies.ts # Chapter 11 (3 subchapters)
-│   │   │   └── resources.ts      # Chapter 12 (2 subchapters)
+│   │   │   ├── resources.ts      # Chapter 12 (2 subchapters)
+│   │   │   └── neuroscience.ts   # Chapter 13 (5 subchapters)
 │   │   ├── queryClient.ts        # React Query setup
 │   │   └── utils.ts              # Utility functions
 │   ├── pages/
@@ -57,8 +58,8 @@ shared/
 ```
 
 ## Key Features
-- **12 comprehensive chapters** covering trauma recovery topics
-- **18 data visualization charts** using Recharts
+- **13 comprehensive chapters** covering trauma recovery topics
+- **27 data visualization charts** using Recharts
 - **Markdown rendering** with react-markdown and remark-gfm
 - **Dark/light theme** with system preference detection
 - **Reading progress bar** for tracking position
@@ -74,12 +75,13 @@ shared/
 4. Childhood Trauma
 5. Adult Trauma
 6. Relationship Trauma
-7. CBT (Cognitive Behavioral Therapy)
+7. CBT (4 subchapters: CBT Core, The CBT Triangle, Cognitive Distortions, Competent Protectors/IFS)
 8. DBT (6 subchapters: Mindfulness, Wise Mind, Distress Tolerance, Emotion Regulation, Interpersonal Effectiveness, DBT Acronyms Guide)
 9. ACT (Acceptance and Commitment Therapy)
 10. Spirituality (4 subchapters: Higher Powers, Serenity Prayer, Recovery Prayers, Spiritual Practices)
 11. Alternative Therapies (3 subchapters: Somatic Therapy, EMDR, TMS)
 12. Resources & Video Library (2 subchapters: Expert Videos, Treatment Centers)
+13. Neuroscience of Trauma (5 subchapters: Brain Anatomy, Neurochemistry, Nervous System & Polyvagal Theory, Trauma-Related Disorders, Neurobiology of Healing)
 
 ## YouTube Video Library Features
 - Dr. Gabor Maté videos and podcast appearances

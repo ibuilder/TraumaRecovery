@@ -13,6 +13,7 @@ import { actChapter } from "./act";
 import { spiritualityChapter } from "./spirituality";
 import { alternativeTherapiesChapter } from "./alternativeTherapies";
 import { resourcesChapter } from "./resources";
+import { neuroscienceChapter } from "./neuroscience";
 
 export const chapters: Chapter[] = [
   basicRecoveryChapter,
@@ -27,6 +28,7 @@ export const chapters: Chapter[] = [
   spiritualityChapter,
   alternativeTherapiesChapter,
   resourcesChapter,
+  neuroscienceChapter,
 ];
 
 export type { Chapter } from "./types";
