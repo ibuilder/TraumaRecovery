@@ -1,12 +1,12 @@
 import type { Chapter } from "./types";
 
 export const actChapter: Chapter = {
-  id: "9",
+  id: "10",
   title: "Acceptance & Commitment Therapy (ACT)",
   slug: "act",
   description: "Find psychological flexibility through acceptance and values-based living.",
   icon: "Compass",
-  order: 9,
+  order: 10,
   readingTime: "45 min read",
   content: `# Acceptance and Commitment Therapy (ACT)
 
@@ -183,7 +183,7 @@ Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). *Acceptance and commitmen
 Walser, R. D., & Westrup, D. (2007). *Acceptance and commitment therapy for the treatment of post-traumatic stress disorder and trauma-related problems*. New Harbinger Publications.`,
   subchapters: [
     {
-      id: "9-1",
+      id: "10-1",
       title: "Values Clarification",
       slug: "values-clarification",
       order: 1,
@@ -353,7 +353,7 @@ Hayes, S. C. (2019). *A liberated mind: How to pivot toward what matters*. Avery
 Harris, R. (2011). *The confidence gap: A guide to overcoming fear and self-doubt*. Trumpeter.`,
     },
     {
-      id: "9-2",
+      id: "10-2",
       title: "Defusion Techniques",
       slug: "defusion-techniques",
       order: 2,
@@ -538,7 +538,7 @@ Harris, R. (2019). *ACT made simple* (2nd ed.). New Harbinger Publications.
 Hayes, S. C. (2019). *A liberated mind*. Avery.`,
     },
     {
-      id: "9-3",
+      id: "10-3",
       title: "The ACT Hexaflex",
       slug: "hexaflex",
       order: 3,
@@ -714,7 +714,7 @@ Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2024). *Acceptance and commitmen
 Harris, R. (2024). *ACT made simple* (3rd ed.). New Harbinger Publications.`,
     },
     {
-      id: "9-4",
+      id: "10-4",
       title: "Acceptance in Practice",
       slug: "acceptance-practice",
       order: 4,

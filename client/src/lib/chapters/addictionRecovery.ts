@@ -1,12 +1,12 @@
 import type { Chapter } from "./types";
 
 export const addictionRecoveryChapter: Chapter = {
-  id: "2",
+  id: "3",
   title: "Addiction Recovery",
   slug: "addiction-recovery",
   description: "Understand the connection between trauma and addiction, and learn pathways to lasting recovery.",
   icon: "Shield",
-  order: 2,
+  order: 3,
   readingTime: "75 min read",
   content: `# Addiction Recovery
 
@@ -60,7 +60,7 @@ Substance Abuse and Mental Health Services Administration. (2024). *Trauma and v
 van der Kolk, B. A. (2014). *The body keeps the score: Brain, mind, and body in the healing of trauma*. Viking.`,
   subchapters: [
     {
-      id: "2-1",
+      id: "3-1",
       title: "The Disease of Addiction",
       slug: "disease-of-addiction",
       order: 1,
@@ -282,7 +282,7 @@ National Institute on Drug Abuse. (2024). *Drugs, brains, and behavior: The scie
 Volkow, N. D., Koob, G. F., & McLellan, A. T. (2016). Neurobiologic advances from the brain disease model of addiction. *New England Journal of Medicine, 374*(4), 363-371.`,
     },
     {
-      id: "2-2",
+      id: "3-2",
       title: "Brain Chemistry & Chemical Dependency",
       slug: "brain-chemistry",
       order: 2,
@@ -564,7 +564,7 @@ National Institute on Drug Abuse. (2024). *Drugs and the brain*. Retrieved from 
 Volkow, N. D., & Morales, M. (2015). The brain on drugs: From reward to addiction. *Cell, 162*(3), 403-413.`,
     },
     {
-      id: "2-3",
+      id: "3-3",
       title: "Substance Use Disorder",
       slug: "substance-use-disorder",
       order: 3,
@@ -791,7 +791,7 @@ Hasin, D. S., et al. (2013). DSM-5 criteria for substance use disorders: Recomme
 National Institute on Drug Abuse. (2024). *Understanding drug use and addiction*. Retrieved from https://nida.nih.gov`,
     },
     {
-      id: "2-4",
+      id: "3-4",
       title: "Recovery Program Resources",
       slug: "recovery-programs",
       order: 4,
@@ -1139,7 +1139,7 @@ Kelly, J. F., & Yeterian, J. D. (2011). The role of mutual-help groups in extend
 White, W. L. (2014). *Slaying the dragon: The history of addiction treatment and recovery in America* (2nd ed.). Chestnut Health Systems.`,
     },
     {
-      id: "2-5",
+      id: "3-5",
       title: "Relapse Prevention Plan",
       slug: "relapse-prevention",
       order: 5,
@@ -1440,7 +1440,7 @@ Gorski, T. T., & Miller, M. (1986). *Staying sober: A guide for relapse preventi
 National Institute on Drug Abuse. (2024). *Principles of drug addiction treatment: A research-based guide*. Retrieved from https://nida.nih.gov`,
     },
     {
-      id: "2-6",
+      id: "3-6",
       title: "Urge Surfing",
       slug: "urge-surfing",
       order: 6,

@@ -1,12 +1,12 @@
 import type { Chapter } from "./types";
 
 export const cbtChapter: Chapter = {
-  id: "7",
+  id: "8",
   title: "Cognitive Behavioral Therapy (CBT)",
   slug: "cbt",
   description: "Learn practical CBT techniques to change unhelpful thinking patterns.",
   icon: "Brain",
-  order: 7,
+  order: 8,
   readingTime: "45 min read",
   content: `# Cognitive Behavioral Therapy (CBT)
 
@@ -221,7 +221,7 @@ Burns, D. D. (1999). *Feeling good: The new mood therapy*. William Morrow.
 Resick, P. A., Monson, C. M., & Chard, K. M. (2017). *Cognitive processing therapy for PTSD: A comprehensive manual*. Guilford Press.`,
   subchapters: [
     {
-      id: "7-1",
+      id: "8-1",
       title: "Challenging Negative Thoughts",
       slug: "challenging-thoughts",
       order: 1,
@@ -372,7 +372,7 @@ Burns, D. D. (1999). *Feeling good: The new mood therapy*. William Morrow.
 Greenberger, D., & Padesky, C. A. (2015). *Mind over mood* (2nd ed.). Guilford Press.`,
     },
     {
-      id: "7-2",
+      id: "8-2",
       title: "Behavioral Strategies",
       slug: "behavioral-strategies",
       order: 2,
@@ -529,7 +529,7 @@ Abramowitz, J. S., Deacon, B. J., & Whiteside, S. P. H. (2019). *Exposure therap
 Martell, C. R., Dimidjian, S., & Herman-Dunn, R. (2013). *Behavioral activation for depression: A clinician's guide* (2nd ed.). Guilford Press.`,
     },
     {
-      id: "7-2",
+      id: "8-2",
       title: "The CBT Triangle",
       slug: "cbt-triangle",
       order: 2,
@@ -860,7 +860,7 @@ Greenberger, D., & Padesky, C. A. (2015). *Mind over mood: Change how you feel b
 van der Kolk, B. A. (2014). *The body keeps the score: Brain, mind, and body in the healing of trauma*. Viking.`,
     },
     {
-      id: "7-3",
+      id: "8-3",
       title: "Cognitive Distortions",
       slug: "cognitive-distortions",
       order: 3,
@@ -1310,7 +1310,7 @@ Leahy, R. L. (2017). *Cognitive therapy techniques: A practitioner's guide* (2nd
 Wenzel, A. (2024). Cognitive distortions in depression and anxiety: Current trends in research and clinical practice. *Clinical Psychology Review*, 108, 102385.`,
     },
     {
-      id: "7-4",
+      id: "8-4",
       title: "Competent Protectors",
       slug: "competent-protectors",
       order: 4,

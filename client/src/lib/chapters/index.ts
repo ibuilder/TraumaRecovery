@@ -17,6 +17,7 @@ import { neuroscienceChapter } from "./neuroscience";
 
 export const chapters: Chapter[] = [
   basicRecoveryChapter,
+  neuroscienceChapter,
   addictionRecoveryChapter,
   dysfunctionalFamiliesChapter,
   childhoodTraumaChapter,
@@ -25,10 +26,9 @@ export const chapters: Chapter[] = [
   cbtChapter,
   dbtChapter,
   actChapter,
-  spiritualityChapter,
   alternativeTherapiesChapter,
+  spiritualityChapter,
   resourcesChapter,
-  neuroscienceChapter,
 ];
 
 export type { Chapter } from "./types";

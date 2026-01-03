@@ -1,12 +1,12 @@
 import type { Chapter } from "./types";
 
 export const dbtChapter: Chapter = {
-  id: "8",
+  id: "9",
   title: "Dialectical Behavior Therapy (DBT)",
   slug: "dbt",
   description: "Master emotional regulation and distress tolerance with comprehensive DBT skills.",
   icon: "Waves",
-  order: 8,
+  order: 9,
   readingTime: "90 min read",
   content: `# Dialectical Behavior Therapy (DBT)
 
@@ -151,7 +151,7 @@ Linehan, M. M. (2015). *DBT skills training manual* (2nd ed.). Guilford Press.
 Linehan, M. M. (2020). *Building a life worth living: A memoir*. Random House.`,
   subchapters: [
     {
-      id: "8-1",
+      id: "9-1",
       title: "Mindfulness",
       slug: "mindfulness",
       order: 1,
@@ -458,7 +458,7 @@ Linehan, M. M. (2015). *DBT skills training manual* (2nd ed.). Guilford Press.
 Segal, Z. V., Williams, J. M. G., & Teasdale, J. D. (2013). *Mindfulness-based cognitive therapy for depression* (2nd ed.). Guilford Press.`,
     },
     {
-      id: "8-2",
+      id: "9-2",
       title: "Wise Mind",
       slug: "wise-mind",
       order: 2,
@@ -691,7 +691,7 @@ Linehan, M. M. (2015). *DBT skills training manual* (2nd ed.). Guilford Press.
 Moonshine, C. (2008). *Acquiring competency and achieving proficiency with dialectical behavior therapy, Vol. 1: The clinician's guidebook*. PESI Publishing.`,
     },
     {
-      id: "8-3",
+      id: "9-3",
       title: "Distress Tolerance",
       slug: "distress-tolerance",
       order: 3,
@@ -1086,7 +1086,7 @@ Linehan, M. M. (2015). *DBT skills training manual* (2nd ed.). Guilford Press.
 McKay, M., Wood, J. C., & Brantley, J. (2019). *The dialectical behavior therapy skills workbook* (2nd ed.). New Harbinger Publications.`,
     },
     {
-      id: "8-4",
+      id: "9-4",
       title: "Emotion Regulation",
       slug: "emotion-regulation",
       order: 4,
@@ -1373,7 +1373,7 @@ Linehan, M. M. (2015). *DBT skills training manual* (2nd ed.). Guilford Press.
 Van Dijk, S. (2012). *Calming the emotional storm: Using dialectical behavior therapy skills to manage your emotions and balance your life*. New Harbinger Publications.`,
     },
     {
-      id: "8-5",
+      id: "9-5",
       title: "Interpersonal Effectiveness",
       slug: "interpersonal-effectiveness",
       order: 5,
@@ -1650,7 +1650,7 @@ Linehan, M. M. (2015). *DBT skills training manual* (2nd ed.). Guilford Press.
 McKay, M., Wood, J. C., & Brantley, J. (2019). *The dialectical behavior therapy skills workbook* (2nd ed.). New Harbinger Publications.`,
     },
     {
-      id: "8-6",
+      id: "9-6",
       title: "DBT Acronyms Guide",
       slug: "dbt-acronyms",
       order: 6,

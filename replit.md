@@ -70,18 +70,18 @@ shared/
 
 ## Book Chapters
 1. Basic Recovery (8 subchapters: Four Pillars Framework, Addiction & Self-Harm, Understanding Different Types of Trauma)
-2. Addiction Recovery (6 subchapters: Disease Model, Brain Chemistry, SUD, Recovery Programs, Relapse Prevention, Urge Surfing)
-3. Dysfunctional Families (4 subchapters: Family Patterns, Healthy Boundaries, Inner Child Work, Breaking Generational Cycles)
-4. Childhood Trauma (4 subchapters: Inner Child Work, Breaking From Shame, Attachment Healing, Developmental Impact of Trauma)
-5. Adult Trauma (3 subchapters: Processing Trauma, Rebuilding Life, Coping Strategies)
-6. Relationship Trauma (4 subchapters: Toxic Patterns, Rebuilding Trust, Safety Planning, Building Healthy Relationships)
-7. CBT (4 subchapters: CBT Core, The CBT Triangle, Cognitive Distortions, Competent Protectors/IFS)
-8. DBT (6 subchapters: Mindfulness, Wise Mind, Distress Tolerance, Emotion Regulation, Interpersonal Effectiveness, DBT Acronyms Guide)
-9. ACT (4 subchapters: Values Clarification, Defusion Techniques, The ACT Hexaflex, Acceptance in Practice)
-10. Spirituality (4 subchapters: Higher Powers, Serenity Prayer, Recovery Prayers, Spiritual Practices)
+2. Neuroscience of Trauma (5 subchapters: Brain Anatomy, Neurochemistry, Nervous System & Polyvagal Theory, Trauma-Related Disorders, Neurobiology of Healing)
+3. Addiction Recovery (6 subchapters: Disease Model, Brain Chemistry, SUD, Recovery Programs, Relapse Prevention, Urge Surfing)
+4. Dysfunctional Families (4 subchapters: Family Patterns, Healthy Boundaries, Inner Child Work, Breaking Generational Cycles)
+5. Childhood Trauma (4 subchapters: Inner Child Work, Breaking From Shame, Attachment Healing, Developmental Impact of Trauma)
+6. Adult Trauma (3 subchapters: Processing Trauma, Rebuilding Life, Coping Strategies)
+7. Relationship Trauma (4 subchapters: Toxic Patterns, Rebuilding Trust, Safety Planning, Building Healthy Relationships)
+8. CBT (4 subchapters: CBT Core, The CBT Triangle, Cognitive Distortions, Competent Protectors/IFS)
+9. DBT (6 subchapters: Mindfulness, Wise Mind, Distress Tolerance, Emotion Regulation, Interpersonal Effectiveness, DBT Acronyms Guide)
+10. ACT (4 subchapters: Values Clarification, Defusion Techniques, The ACT Hexaflex, Acceptance in Practice)
 11. Alternative Therapies (3 subchapters: Somatic Therapy, EMDR, TMS)
-12. Resources & Video Library (2 subchapters: Expert Videos, Treatment Centers)
-13. Neuroscience of Trauma (5 subchapters: Brain Anatomy, Neurochemistry, Nervous System & Polyvagal Theory, Trauma-Related Disorders, Neurobiology of Healing)
+12. Spirituality (4 subchapters: Higher Powers, Serenity Prayer, Recovery Prayers, Spiritual Practices)
+13. Resources & Video Library (2 subchapters: Expert Videos, Treatment Centers)
 
 ## YouTube Video Library Features
 - Dr. Gabor Maté videos and podcast appearances

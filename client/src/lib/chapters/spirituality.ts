@@ -1,12 +1,12 @@
 import type { Chapter } from "./types";
 
 export const spiritualityChapter: Chapter = {
-  id: "10",
+  id: "12",
   title: "Spirituality in Recovery",
   slug: "spirituality",
   description: "Explore the spiritual dimension of healing and find deeper meaning through various paths.",
   icon: "Sun",
-  order: 10,
+  order: 12,
   readingTime: "60 min read",
   content: `# Spirituality in Recovery
 
@@ -340,7 +340,7 @@ Miller, W. R. (Ed.). (1999). *Integrating spirituality into treatment: Resources
 Pargament, K. I. (2007). *Spiritually integrated psychotherapy: Understanding and addressing the sacred*. Guilford Press.`,
   subchapters: [
     {
-      id: "10-1",
+      id: "12-1",
       title: "The Serenity Prayer",
       slug: "serenity-prayer",
       order: 1,
@@ -687,7 +687,7 @@ Niebuhr, R. (1943). The Serenity Prayer (original version). [Various attribution
 Shapiro, F. R. (2014). Who wrote the Serenity Prayer? *The Chronicle of Higher Education*.`,
     },
     {
-      id: "10-2",
+      id: "12-2",
       title: "Recovery Prayers & Meditations",
       slug: "recovery-prayers",
       order: 2,
@@ -935,7 +935,7 @@ Hanh, T. N. (1995). *Living Buddha, living Christ*. Riverhead Books.
 Levine, N. (2017). *Refuge recovery: A Buddhist path to recovering from addiction*. HarperOne.`,
     },
     {
-      id: "10-3",
+      id: "12-3",
       title: "Finding Meaning",
       slug: "finding-meaning",
       order: 3,
@@ -1032,7 +1032,7 @@ Frankl, V. E. (1959/2006). *Man's search for meaning*. Beacon Press.
 Tedeschi, R. G., & Calhoun, L. G. (2004). Posttraumatic growth: Conceptual foundations and empirical evidence. *Psychological Inquiry, 15*(1), 1-18.`,
     },
     {
-      id: "10-4",
+      id: "12-4",
       title: "Spiritual Practices",
       slug: "spiritual-practices",
       order: 4,

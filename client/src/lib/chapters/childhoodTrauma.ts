@@ -1,12 +1,12 @@
 import type { Chapter } from "./types";
 
 export const childhoodTraumaChapter: Chapter = {
-  id: "4",
+  id: "5",
   title: "Childhood Trauma",
   slug: "childhood-trauma",
   description: "Understand how early experiences shape us and begin healing your inner child.",
   icon: "Baby",
-  order: 4,
+  order: 5,
   readingTime: "50 min read",
   content: `# Healing Childhood Trauma
 
@@ -288,7 +288,7 @@ Perry, B. D. (2021). *What happened to you?*. Flatiron Books.
 van der Kolk, B. A. (2014). *The body keeps the score*. Viking.`,
   subchapters: [
     {
-      id: "4-1",
+      id: "5-1",
       title: "Inner Child Work",
       slug: "inner-child-work",
       order: 1,
@@ -462,7 +462,7 @@ Bradshaw, J. (1990). *Homecoming: Reclaiming and championing your inner child*. 
 Schwartz, R. C. (2021). *No bad parts*. Sounds True.`,
     },
     {
-      id: "4-2",
+      id: "5-2",
       title: "Breaking Free from Shame",
       slug: "breaking-from-shame",
       order: 2,
@@ -660,7 +660,7 @@ Herman, J. L. (2015). *Trauma and recovery*. Basic Books.
 Neff, K. (2011). *Self-compassion*. William Morrow.`,
     },
     {
-      id: "4-3",
+      id: "5-3",
       title: "Attachment Healing",
       slug: "attachment-healing",
       order: 3,
@@ -853,7 +853,7 @@ Levine, A., & Heller, R. (2010). *Attached: The new science of adult attachment*
 Siegel, D. J. (2020). *The developing mind: How relationships and the brain interact to shape who we are* (3rd ed.). Guilford Press.`,
     },
     {
-      id: "4-4",
+      id: "5-4",
       title: "Developmental Impact of Trauma",
       slug: "developmental-impact",
       order: 4,
