@@ -1779,5 +1779,151 @@ Najavits, L. M. (2002). *Seeking safety: A treatment manual for PTSD and substan
 
 Ogden, P., Minton, K., & Pain, C. (2006). *Trauma and the body: A sensorimotor approach to psychotherapy*. W. W. Norton.`,
     },
+    {
+      id: "1-7",
+      title: "Understanding Addiction & Self-Harm",
+      slug: "addiction-self-harm",
+      order: 7,
+      content: `# Understanding Addiction and Self-Harm in Trauma Recovery
+
+## The Connection Between Trauma and Addictive Behaviors
+
+When we experience trauma, our nervous system and emotional regulation capabilities can become deeply impaired. Addiction and self-destructive behaviors often emerge not as character flaws, but as desperate attempts to manage unbearable emotional states that trauma creates.
+
+### Why Trauma Survivors Turn to Addictive Behaviors
+
+Trauma fundamentally disrupts how we process emotions, stress, and safety. Addictive behaviors—whether substance use, gambling, compulsive relationships, or other process addictions—can temporarily provide:
+
+- **Emotional numbing**: Relief from overwhelming feelings of fear, shame, anger, or grief
+- **Predictable control**: In a world that felt chaotic and dangerous, the ritual of addiction offers a sense of control
+- **Biochemical regulation**: Substances or behaviors that trigger dopamine release when the brain's natural reward system is dysregulated
+- **Dissociation**: A way to disconnect from traumatic memories or body sensations
+
+It's crucial to understand that these behaviors began as survival strategies, even if they've become destructive over time.
+
+---
+
+## The Shame-Addiction Cycle
+
+One of the most painful aspects of addiction in trauma survivors is the self-perpetuating cycle of shame:
+
+1. **The behavior occurs**: Using substances, engaging in compulsive behavior, or self-harming
+2. **Temporary relief**: Brief escape from emotional pain or trauma symptoms
+3. **Shame and self-judgment**: "I promised myself I wouldn't do this again"
+4. **Increased emotional pain**: The shame compounds existing trauma-related distress
+5. **Return to the behavior**: To escape the intensified pain
+
+This cycle can create profound self-hatred that has little to do with who someone truly is and everything to do with being trapped in a pattern that feels inescapable.
+
+---
+
+## Understanding Self-Harm in Trauma Recovery
+
+Self-harm takes many forms beyond cutting—it includes burning, hitting oneself, substance abuse, dangerous behaviors, or deliberate self-sabotage. For trauma survivors, self-harm often serves functions that others might not understand:
+
+### Functions of Self-Harm
+
+- **Grounding during dissociation**: Physical pain can bring someone back to their body when they feel disconnected from reality
+- **Expressing the inexpressible**: Making internal pain visible and real
+- **Punishing oneself**: When internalized beliefs say "I deserved what happened" or "I'm bad"
+- **Regaining control**: Choosing to feel pain rather than having it inflicted unexpectedly
+- **Biochemical relief**: Self-harm can trigger endorphin release, creating temporary calm
+
+---
+
+## Breaking Free: Approaches to Healing
+
+### 1. Understanding Without Judgment
+
+Recovery begins with recognizing that these behaviors made sense given what you experienced. This isn't about excusing harm to yourself, but about approaching yourself with compassion rather than condemnation.
+
+### 2. Addressing the Root Trauma
+
+Addiction and self-harm are symptoms, not the core problem. Effective treatment addresses:
+
+- The underlying traumatic experiences
+- Learned beliefs about safety, worth, and trust
+- Nervous system dysregulation
+- Attachment wounds and relational trauma
+
+### 3. Building New Coping Skills
+
+Recovery involves developing alternative ways to regulate emotions and manage triggers:
+
+- **Somatic practices**: Yoga, breathwork, progressive muscle relaxation
+- **Grounding techniques**: Using the five senses to stay present
+- **Emotional awareness**: Learning to identify and name feelings
+- **Self-compassion practices**: Treating yourself as you would a dear friend
+- **Community connection**: Building safe relationships that provide co-regulation
+
+### 4. Professional Support
+
+Healing from trauma-related addiction typically requires professional help:
+
+- **Trauma-informed therapy**: EMDR, somatic experiencing, internal family systems
+- **Addiction specialists**: Who understand the trauma-addiction connection
+- **Medical support**: For safe detoxification when needed
+- **Support groups**: Connecting with others who understand
+
+---
+
+## What Self-Hatred Is Really About
+
+The intense self-hatred many people with addiction experience isn't actually about who they are—it's about:
+
+- **Internalized shame**: From trauma, from society, from repeated cycles of trying and struggling
+- **Loss of self-trust**: The gap between intentions and actions
+- **Grief**: For time lost, relationships damaged, potential unrealized
+- **Exhaustion**: From fighting an internal battle that feels unwinnable
+
+This self-hatred often begins to dissolve when the underlying trauma is addressed and new neural pathways for coping are established.
+
+---
+
+## A Message of Hope
+
+If you're struggling with addiction or self-harm related to trauma, please know:
+
+- Your behaviors make sense in the context of what you've survived
+- The fact that you're seeking understanding shows your resilience
+- Recovery is possible, though it's rarely linear
+- You deserve support, not judgment
+- Healing the trauma can reduce the compulsion toward destructive behaviors
+
+The path forward involves treating yourself with the compassion you deserved when the trauma first occurred, while building practical skills and support systems for a different future.
+
+---
+
+## When to Seek Help Immediately
+
+If you're experiencing:
+
+- Suicidal thoughts or plans
+- Urges to harm yourself that feel uncontrollable
+- Severe withdrawal symptoms
+- A sense that you're in immediate danger
+
+Please reach out to:
+
+| Resource | Contact | Available |
+|----------|---------|-----------|
+| 988 Suicide and Crisis Lifeline | Call or text 988 | 24/7 |
+| Crisis Text Line | Text HOME to 741741 | 24/7 |
+| SAMHSA National Helpline | 1-800-662-4357 | 24/7 |
+
+You don't have to face this alone.
+
+---
+
+## References
+
+Maté, G. (2022). *The myth of normal: Trauma, illness, and healing in a toxic culture*. Avery.
+
+van der Kolk, B. A. (2014). *The body keeps the score: Brain, mind, and body in the healing of trauma*. Viking.
+
+Najavits, L. M. (2002). *Seeking safety: A treatment manual for PTSD and substance abuse*. Guilford Press.
+
+Herman, J. L. (2015). *Trauma and recovery: The aftermath of violence—from domestic abuse to political terror*. Basic Books.`,
+    },
   ],
 };
