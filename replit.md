@@ -68,7 +68,7 @@ shared/
 - **Crisis resources** in footer
 
 ## Book Chapters
-1. Basic Recovery (6 subchapters: Four Pillars Framework)
+1. Basic Recovery (7 subchapters: Four Pillars Framework, Addiction & Self-Harm)
 2. Addiction Recovery (5 subchapters: Disease Model, Brain Chemistry, SUD, Recovery Programs, Relapse Prevention)
 3. Dysfunctional Families
 4. Childhood Trauma
