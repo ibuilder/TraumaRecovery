@@ -630,7 +630,7 @@ Joseph, S. (2011). *What doesn't kill us: The new psychology of posttraumatic gr
       title: "Coping Strategies",
       slug: "coping-strategies",
       order: 3,
-      content: \`# Effective Coping Strategies for Adult Trauma
+      content: `# Effective Coping Strategies for Adult Trauma
 
 Having a toolkit of coping strategies is essential for managing trauma symptoms and navigating recovery. Different strategies work for different situations and individuals.
 
@@ -779,7 +779,7 @@ Coping skills work best when practiced regularly, not just in crisis:
 
 Linehan, M. M. (2024). *DBT skills training manual* (3rd ed.). Guilford Press.
 
-van der Kolk, B. (2024). *The body keeps the score* (updated ed.). Penguin Books.\`,
+van der Kolk, B. (2024). *The body keeps the score* (updated ed.). Penguin Books.`,
     },
   ],
 };
