@@ -625,5 +625,161 @@ Herman, J. L. (2015). *Trauma and recovery*. Basic Books.
 
 Joseph, S. (2011). *What doesn't kill us: The new psychology of posttraumatic growth*. Basic Books.`,
     },
+    {
+      id: "5-3",
+      title: "Coping Strategies",
+      slug: "coping-strategies",
+      order: 3,
+      content: \`# Effective Coping Strategies for Adult Trauma
+
+Having a toolkit of coping strategies is essential for managing trauma symptoms and navigating recovery. Different strategies work for different situations and individuals.
+
+## Immediate Coping: Grounding Techniques
+
+When overwhelmed by trauma symptoms, grounding brings you back to the present moment.
+
+### The 5-4-3-2-1 Technique
+
+**5 things you can SEE:** Look around and name five things you can see right now.
+**4 things you can TOUCH:** Notice four things you can physically feel.
+**3 things you can HEAR:** Listen for three sounds in your environment.
+**2 things you can SMELL:** Identify two scents around you.
+**1 thing you can TASTE:** Notice one thing you can taste.
+
+### Physical Grounding
+
+**Cold water:** Splash cold water on your face or hold ice cubes.
+**Strong sensations:** Snap a rubber band, eat something sour, or smell something strong.
+**Physical movement:** Stomp your feet, push against a wall, or squeeze a stress ball.
+**Body awareness:** Press your feet firmly into the ground, notice your weight in the chair.
+
+### Cognitive Grounding
+
+**Orienting:** State your name, age, the date, where you are, and that you are safe.
+**Categories:** Name types of something (dog breeds, countries, foods).
+**Counting:** Count backwards from 100 by 7s.
+**Describing:** Describe in detail something in your environment.
+
+## Emotional Regulation Strategies
+
+### The STOP Skill
+
+**S** - Stop. Don't react immediately.
+**T** - Take a step back. Breathe.
+**O** - Observe. What's happening inside and outside?
+**P** - Proceed mindfully with awareness.
+
+### Opposite Action
+
+When emotions urge unhealthy behavior, do the opposite:
+- When fear says hide, approach safely
+- When sadness says isolate, connect with others
+- When shame says hide, share with safe people
+- When anger says attack, step back and cool down
+
+### Self-Soothing
+
+Engage each sense to calm your nervous system:
+- **Vision:** Look at beautiful images, nature, or calming colors
+- **Sound:** Listen to soothing music, nature sounds, or silence
+- **Smell:** Use calming scents like lavender or peppermint
+- **Taste:** Sip warm tea, eat something comforting mindfully
+- **Touch:** Wrap in a soft blanket, take a warm bath, pet an animal
+
+## Long-Term Coping Strategies
+
+### Building Routine
+
+Structure provides safety and predictability:
+- Regular sleep and wake times
+- Consistent meal times
+- Scheduled exercise
+- Planned social connection
+- Balanced work and rest
+
+### Physical Self-Care
+
+The body and mind are interconnected:
+- **Exercise:** Regular movement reduces stress hormones and increases endorphins
+- **Sleep:** Prioritize sleep hygiene; trauma often disrupts sleep
+- **Nutrition:** Eat regularly and nourish your body
+- **Substances:** Limit alcohol and avoid drugs that destabilize mood
+
+### Social Support
+
+Connection is healing:
+- Identify your support network
+- Practice asking for help
+- Join a support group
+- Maintain regular contact with safe people
+- Allow yourself to receive support
+
+### Meaning-Making
+
+Finding meaning supports recovery:
+- Journal about what you're learning
+- Consider how you might help others
+- Connect with spirituality if meaningful to you
+- Look for growth alongside the pain
+- Create a narrative that integrates trauma into your life story
+
+## Unhealthy Coping to Watch For
+
+Some coping strategies provide short-term relief but create long-term problems:
+
+**Avoidance:**
+- Completely avoiding trauma reminders
+- Numbing through substances
+- Dissociating
+- Keeping excessively busy to avoid feelings
+
+**Self-Destructive Behaviors:**
+- Substance abuse
+- Self-harm
+- Risky behaviors
+- Neglecting self-care
+
+**Isolation:**
+- Pushing everyone away
+- Refusing all help
+- Hiding what you're going through
+
+**Over-Control:**
+- Trying to control everything
+- Rigid rules and routines
+- Inability to tolerate uncertainty
+
+## Building Your Coping Toolkit
+
+### Create a Personal Plan
+
+**Identify your warning signs:**
+What signals tell you you're becoming overwhelmed?
+
+**List your coping strategies:**
+What helps you specifically? Different strategies for different situations.
+
+**Identify your supports:**
+Who can you call? Where can you go?
+
+**Know your limits:**
+What's a crisis that requires professional help?
+
+### Practice When Calm
+
+Coping skills work best when practiced regularly, not just in crisis:
+- Practice grounding when you're already calm
+- Try different strategies to see what works
+- Build muscle memory for healthy responses
+- Make self-care routine, not reactive
+
+---
+
+## References
+
+Linehan, M. M. (2024). *DBT skills training manual* (3rd ed.). Guilford Press.
+
+van der Kolk, B. (2024). *The body keeps the score* (updated ed.). Penguin Books.\`,
+    },
   ],
 };

@@ -573,5 +573,367 @@ Gottman, J. M., & Silver, N. (2015). *The seven principles for making marriage w
 
 Spring, J. A. (2012). *After the affair: Healing the pain and rebuilding trust when a partner has been unfaithful*. William Morrow.`,
     },
+    {
+      id: "6-3",
+      title: "Safety Planning",
+      slug: "safety-planning",
+      order: 3,
+      content: \`# Safety Planning and Resources
+
+If you're in an abusive relationship, safety planning is essential. This isn't about blaming you or rushing you—it's about empowering you with information and options.
+
+\\\`\\\`\\\`chart:RelationshipSafetyChart\\\`\\\`\\\`
+
+## Understanding Safety
+
+### Why Leaving Is Complicated
+
+Leaving an abusive relationship is the most dangerous time. Research shows:
+- 75% of serious domestic violence injuries occur when victims try to leave
+- Homicide risk increases significantly after separation
+- Abusers often escalate control attempts when they sense loss of control
+
+**Other barriers to leaving:**
+- Financial dependence
+- Fear for children
+- Isolation from support
+- Trauma bonding
+- Cultural or religious pressure
+- Immigration status concerns
+- Believing promises of change
+- Love for the partner despite abuse
+
+### The Most Dangerous Time
+
+Be especially careful during:
+- Initial separation
+- First 3-6 months after leaving
+- Court dates and custody exchanges
+- When abuser uses or drinks heavily
+- Major life changes or losses for the abuser
+
+## Creating a Safety Plan
+
+A safety plan is a personalized guide for how to stay as safe as possible before, during, and after leaving.
+
+### If Staying (for now)
+
+**During an incident:**
+- Know the safest rooms (exits, no weapons)
+- Have an excuse ready to leave
+- Have a code word with someone who can call for help
+- Know your exit routes
+- Keep car keys and essentials accessible
+
+**Documentation:**
+- Keep a journal of incidents (hidden or with someone else)
+- Take photos of injuries
+- Save threatening messages
+- Note dates, times, witnesses
+
+**Connections:**
+- Stay connected to people outside the relationship
+- Tell someone what's happening
+- Know hotline numbers
+- Identify safe places to go
+
+### Preparing to Leave
+
+**Finances:**
+- Open a separate bank account if safe
+- Set aside cash in a safe place
+- Check your credit report
+- Note important account numbers
+
+**Documents to gather (store copies somewhere safe):**
+- ID (driver's license, passport)
+- Social Security cards
+- Birth certificates
+- Protection orders
+- Medical records
+- School records
+- Financial documents
+- Immigration papers
+- Keys
+
+**Planning:**
+- Identify where you'll go
+- Tell only people you completely trust
+- Pack an emergency bag (keep it hidden or with someone)
+- Plan for pets
+- Know how you'll get there
+
+### After Leaving
+
+**Immediate safety:**
+- Change locks
+- Vary your routine
+- Tell employers, schools about the situation
+- Change phone number if needed
+- Document any contact
+
+**Legal protections:**
+- Consider a protection order
+- Know your rights
+- Work with a victim advocate
+- Document violations
+
+**Long-term safety:**
+- Change passwords and accounts
+- Remove location tracking from devices
+- Be cautious on social media
+- Build new routines
+- Continue support and therapy
+
+## Resources
+
+### National Resources
+
+**National Domestic Violence Hotline:** 1-800-799-7233 (SAFE)
+- 24/7 confidential support
+- Safety planning
+- Local resource referrals
+
+**Crisis Text Line:** Text HOME to 741741
+- 24/7 text-based support
+
+**National Sexual Assault Hotline:** 1-800-656-4673 (HOPE)
+- 24/7 support for sexual assault survivors
+
+### What to Expect When You Call
+
+Hotlines are confidential and supportive:
+- You don't have to give your name
+- You won't be pressured to leave
+- They'll help with whatever you need
+- They can provide safety planning
+- They know local resources
+
+### Local Resources
+
+Contact your local:
+- Domestic violence shelter
+- Legal aid organization
+- Victim advocacy program
+- Family court services
+- Social services
+
+## For Friends and Family
+
+If someone you love is in an abusive relationship:
+
+**Do:**
+- Listen without judgment
+- Believe them
+- Express concern for their safety
+- Offer specific help
+- Respect their timeline
+- Stay connected
+- Learn about domestic violence
+
+**Don't:**
+- Criticize their partner (it often backfires)
+- Give ultimatums
+- Make them feel judged or shamed
+- Try to "rescue" them
+- Give up if they're not ready to leave
+
+**Remember:**
+- Leaving takes an average of 7 attempts
+- Your support matters even if they're not ready
+- They know their situation best
+- The abuse is never their fault
+
+---
+
+## References
+
+National Domestic Violence Hotline. (2024). *Safety planning guidelines*. https://www.thehotline.org
+
+Walker, L. E. (2024). *The battered woman syndrome* (4th ed.). Springer.
+
+World Health Organization. (2024). *Violence against women: Key facts*. WHO.\`,
+    },
+    {
+      id: "6-4",
+      title: "Building Healthy Relationships",
+      slug: "healthy-relationships",
+      order: 4,
+      content: \`# Building Healthy Relationships After Trauma
+
+After relationship trauma, building healthy connections can feel both essential and terrifying. This guide helps you recognize healthy patterns and develop the skills for safe, fulfilling relationships.
+
+## What Healthy Relationships Look Like
+
+### Core Characteristics
+
+**Mutual Respect:**
+- Both partners value each other as individuals
+- Differences are accepted, not attacked
+- Autonomy is encouraged
+- Boundaries are honored
+
+**Safety:**
+- Physical safety is never in question
+- Emotional expression is welcomed
+- Disagreements don't lead to fear
+- You feel safe being yourself
+
+**Trust:**
+- Reliability and consistency
+- Honesty and transparency
+- Faith in each other's intentions
+- Trust builds over time
+
+**Good Communication:**
+- Open and honest expression
+- Active listening
+- Ability to discuss difficult topics
+- Repair after conflict
+
+**Equality:**
+- Shared decision-making
+- Fair distribution of power
+- Mutual give and take
+- Both voices matter
+
+**Support:**
+- Encouragement of each other's goals
+- Emotional support during hard times
+- Celebration of successes
+- Respect for individual growth
+
+### Green Flags
+
+Look for partners who:
+- Respect your boundaries consistently
+- Encourage your other relationships
+- Take responsibility for their behavior
+- Communicate openly and honestly
+- Handle conflict calmly
+- Support your goals and interests
+- Are consistent over time
+- Make you feel safe and valued
+
+### Red Flags to Avoid
+
+Be cautious of partners who:
+- Push boundaries or ignore "no"
+- Move too fast or "love bomb"
+- Isolate you from friends and family
+- Criticize you frequently
+- Have explosive anger
+- Blame you for their behavior
+- Make you feel confused about reality
+- Create fear or walking on eggshells
+
+## Skills for Healthy Relating
+
+### Communication Skills
+
+**"I" Statements:**
+Express feelings without blame:
+- "I feel hurt when plans change without notice"
+- NOT "You never consider my feelings"
+
+**Active Listening:**
+- Give full attention
+- Reflect back what you hear
+- Ask clarifying questions
+- Validate emotions
+
+**Expressing Needs:**
+- Know and articulate what you need
+- Make clear, specific requests
+- Accept that needs won't always be met
+- Negotiate compromises
+
+### Conflict Resolution
+
+Healthy conflict:
+- Focuses on the issue, not attacking the person
+- Stays calm and respectful
+- Takes breaks when needed
+- Ends in repair and resolution
+
+**The repair process:**
+1. Cool down before discussing
+2. Take responsibility for your part
+3. Express what you need
+4. Listen to their perspective
+5. Find solutions together
+6. Reconnect emotionally
+
+### Setting Boundaries
+
+**In healthy relationships:**
+- Boundaries are respected without pushback
+- Both partners have boundaries
+- Boundaries can be discussed openly
+- Violations are rare and repaired
+
+**How to set boundaries:**
+- Be clear and specific
+- Use a calm, firm tone
+- Don't over-explain or justify
+- Follow through with consequences
+
+## Growing Into Healthy Relationship
+
+### Taking It Slow
+
+After trauma, slow is safe:
+- Get to know someone over time
+- Watch for consistency
+- Don't move in together too quickly
+- Keep your own life and interests
+- Trust your instincts
+
+### Maintaining Yourself
+
+Keep your identity intact:
+- Maintain friendships
+- Continue your interests
+- Have your own goals
+- Spend time alone
+- Don't lose yourself in the relationship
+
+### When Past Trauma Shows Up
+
+**Communicate with your partner:**
+- Share your history (when ready)
+- Explain your triggers
+- Ask for what you need
+- Thank them for understanding
+
+**Take responsibility:**
+- Your reactions may be about the past
+- You're still responsible for your behavior
+- Seek therapy for ongoing healing
+- Don't expect your partner to "fix" you
+
+**Distinguish past from present:**
+- Is this current behavior concerning, or a trigger?
+- Is this person safe, even if it feels scary?
+- Am I reacting to now or then?
+
+## Professional Support
+
+Consider couples therapy if:
+- Communication is consistently difficult
+- You're repeating unhealthy patterns
+- Past trauma is affecting the relationship
+- You want to build stronger skills together
+
+---
+
+## References
+
+Gottman, J. M. (2024). *The seven principles for making marriage work* (3rd ed.). Harmony Books.
+
+Johnson, S. M. (2024). *Hold me tight: Seven conversations for a lifetime of love* (updated ed.). Little, Brown Spark.
+
+Tatkin, S. (2024). *Wired for love: How understanding your partner's brain and attachment style can help you defuse conflict and build a secure relationship*. New Harbinger Publications.\`,
+    },
   ],
 };

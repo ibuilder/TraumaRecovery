@@ -537,5 +537,340 @@ Harris, R. (2019). *ACT made simple* (2nd ed.). New Harbinger Publications.
 
 Hayes, S. C. (2019). *A liberated mind*. Avery.`,
     },
+    {
+      id: "9-3",
+      title: "The ACT Hexaflex",
+      slug: "hexaflex",
+      order: 3,
+      content: \`# Understanding the ACT Hexaflex
+
+The ACT Hexaflex is a visual representation of the six core processes of Acceptance and Commitment Therapy, all working together to create psychological flexibility.
+
+\\\`\\\`\\\`chart:ACTHexaflexChart\\\`\\\`\\\`
+
+## The Hexaflex Model
+
+### Visual Structure
+
+Imagine a hexagon with six points, each representing one of the core ACT processes:
+
+**Top:** Present Moment Awareness
+**Upper Left:** Acceptance
+**Upper Right:** Cognitive Defusion
+**Lower Left:** Values
+**Lower Right:** Self-as-Context
+**Bottom:** Committed Action
+
+At the center of the hexaflex is **Psychological Flexibility**—the goal of all ACT work.
+
+### Why a Hexaflex?
+
+The hexagonal shape illustrates several key principles:
+
+**Interconnection:**
+All six processes connect to each other and to the center. Strengthening one process supports the others.
+
+**Balance:**
+No single process is more important. Psychological flexibility requires all six.
+
+**Dynamic relationship:**
+The processes interact continuously, not in a linear sequence.
+
+## The Six Processes in Depth
+
+### 1. Present Moment Awareness (Top)
+
+**Definition:** Flexible attention to what's happening right now.
+
+**Key practices:**
+- Mindfulness meditation
+- Bringing attention to the present during daily activities
+- Noticing when you're lost in past or future
+- Using breath as an anchor
+
+**Questions to ask:**
+- "What am I experiencing right now?"
+- "Where is my attention?"
+- "Can I fully engage with this moment?"
+
+### 2. Acceptance (Upper Left)
+
+**Definition:** Willingness to experience inner events (thoughts, feelings, sensations) without trying to change, avoid, or control them.
+
+**Key practices:**
+- Making room for difficult emotions
+- Dropping the struggle with internal experiences
+- Allowing discomfort to be present
+- Opening up rather than closing down
+
+**Questions to ask:**
+- "Can I make room for this feeling?"
+- "What would it mean to drop the struggle?"
+- "Am I willing to have this experience?"
+
+### 3. Cognitive Defusion (Upper Right)
+
+**Definition:** Stepping back from thoughts to see them as mental events rather than facts.
+
+**Key practices:**
+- "I'm having the thought that..."
+- Naming stories ("There's the 'I'm not good enough' story")
+- Thanking your mind
+- Seeing thoughts as passing events
+
+**Questions to ask:**
+- "Is this a thought or a fact?"
+- "What happens if I hold this thought lightly?"
+- "Is this thought helpful right now?"
+
+### 4. Self-as-Context (Lower Right)
+
+**Definition:** Connecting with the observing self—the unchanging awareness that witnesses all experiences.
+
+**Key practices:**
+- Noticing the observer within
+- Recognizing "you" are not your thoughts or feelings
+- Connecting with continuity across time
+- "Sky and weather" metaphor
+
+**Questions to ask:**
+- "Who is aware of this experience?"
+- "What part of me has been present through all my experiences?"
+- "Can I notice the 'I' that is beyond this experience?"
+
+### 5. Values (Lower Left)
+
+**Definition:** Clarifying what matters most—the directions you want to move in life.
+
+**Key practices:**
+- Values clarification exercises
+- Distinguishing values from goals
+- Connecting daily actions to deeper values
+- Using values as compass points
+
+**Questions to ask:**
+- "What kind of person do I want to be?"
+- "What matters most to me?"
+- "What do I want my life to stand for?"
+
+### 6. Committed Action (Bottom)
+
+**Definition:** Taking concrete steps guided by values, even when difficult.
+
+**Key practices:**
+- Setting values-based goals
+- Taking small, consistent steps
+- Getting back on track after setbacks
+- Building behavioral patterns
+
+**Questions to ask:**
+- "What can I do right now that moves toward my values?"
+- "What small step can I take today?"
+- "How will I handle obstacles?"
+
+## Working with the Hexaflex
+
+### Assessment
+
+Use the hexaflex to identify which processes need strengthening:
+
+**Where are you strong?**
+Which processes come more naturally to you?
+
+**Where do you struggle?**
+Which processes are more challenging?
+
+**Current patterns:**
+Which processes tend to break down when you're stressed?
+
+### Balance and Integration
+
+All six processes support each other:
+
+**Acceptance + Values:**
+Willingness to experience discomfort in service of what matters.
+
+**Defusion + Present Moment:**
+Seeing thoughts as thoughts while staying engaged with now.
+
+**Self-as-Context + Committed Action:**
+Acting from your larger self rather than reactive parts.
+
+### The Center: Psychological Flexibility
+
+When all six processes work together, you can:
+- Be present to what life offers
+- Open up to your full experience
+- Do what matters to you
+- Respond to life rather than react
+- Live a rich, meaningful life despite pain
+
+---
+
+## References
+
+Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2024). *Acceptance and commitment therapy: The process and practice of mindful change* (3rd ed.). Guilford Press.
+
+Harris, R. (2024). *ACT made simple* (3rd ed.). New Harbinger Publications.\`,
+    },
+    {
+      id: "9-4",
+      title: "Acceptance in Practice",
+      slug: "acceptance-practice",
+      order: 4,
+      content: \`# Practicing Acceptance
+
+Acceptance is often misunderstood. It doesn't mean liking, wanting, or approving of painful experiences. It means opening up to what's there rather than struggling against it.
+
+## What Acceptance Is and Isn't
+
+### What Acceptance IS:
+
+**Willingness:** Choosing to make room for experience.
+**Opening up:** Creating space for difficult feelings.
+**Allowing:** Letting experiences be present without fighting.
+**Making contact:** Fully experiencing what's there.
+**Dropping the struggle:** Stopping the war with your inner experience.
+
+### What Acceptance ISN'T:
+
+**Resignation:** "I give up; nothing will ever change."
+**Approval:** "I think this is good or okay."
+**Wanting:** "I like feeling this way."
+**Tolerating:** "I'll just put up with this."
+**Passive acceptance of external situations:** Acceptance is about internal experience, not external circumstances you can change.
+
+### The Key Distinction
+
+You can accept your internal experience (feelings, thoughts, sensations) while taking action to change external circumstances.
+
+**Example:**
+- Accept the anxiety you feel about confronting a problem
+- While taking action to address the problem
+
+## Why Acceptance Matters
+
+### The Problem with Non-Acceptance
+
+When we fight against internal experiences:
+- We use energy that could go elsewhere
+- The struggle often intensifies the experience
+- We become focused on the pain rather than our lives
+- We limit our lives to avoid triggering experiences
+- We develop secondary suffering (suffering about our suffering)
+
+### The Paradox of Acceptance
+
+Often, when we stop fighting an experience and truly accept it:
+- It loses some of its power
+- It may naturally shift or change
+- We can function despite its presence
+- We have more energy for what matters
+
+**Important:** This is a byproduct, not the goal. Acceptance for the purpose of getting rid of something isn't true acceptance.
+
+## Practicing Acceptance
+
+### Expansion Exercise
+
+**1. Notice the sensation:**
+Where do you feel the difficult emotion in your body? Describe its physical qualities.
+
+**2. Observe without judgment:**
+Simply notice what's there. "There is tension in my chest."
+
+**3. Breathe into it:**
+Imagine breathing into and around the sensation, creating space.
+
+**4. Make room:**
+Imagine expanding the space around the sensation. Don't try to push it away—give it room to be there.
+
+**5. Allow:**
+Give the sensation permission to be there. You don't have to like it—just allow it.
+
+**6. Continue:**
+Stay with this process, returning to it when you get caught up in thoughts.
+
+### The Willingness Question
+
+When facing a difficult experience, ask yourself:
+
+"Am I willing to have this experience fully and completely, without defense, as it is and not as I say it is, if doing so allows me to take action in the direction of my values?"
+
+This question clarifies that acceptance is in service of living well, not suffering for its own sake.
+
+### Acceptance Metaphors
+
+**The Quicksand Metaphor:**
+In quicksand, struggling makes you sink faster. Lying back and spreading out (accepting) allows you to float. Fighting difficult emotions often makes them worse; making room for them allows you to navigate.
+
+**The Uninvited Guest:**
+Imagine hosting a party when an unwanted guest arrives. You can fight to keep them out (exhausting, disruptive) or let them in while focusing on your party. The guest is there either way—acceptance lets you focus on what matters.
+
+**Holding Loosely:**
+Imagine holding a fragile bird—grip too tightly and you harm it; too loosely and it flies away. Hold experiences gently, neither grasping nor pushing away.
+
+## Acceptance and Trauma
+
+### Special Considerations
+
+For trauma survivors, acceptance can be complicated:
+
+**What acceptance means for trauma:**
+- Accepting that the trauma happened (not approving of it)
+- Accepting the emotions that arise now
+- Accepting the healing process takes time
+- Making room for difficult memories without drowning in them
+
+**What acceptance does NOT mean:**
+- Accepting abuse or mistreatment
+- Staying in harmful situations
+- Forgiving before you're ready
+- "Getting over it"
+
+### Pacing and Safety
+
+Acceptance work should be:
+- Paced appropriately
+- Done with support if needed
+- Balanced with grounding and stabilization
+- Never rushed or forced
+
+You don't have to accept everything at once. Acceptance is a practice, not a requirement.
+
+## Building an Acceptance Practice
+
+### Daily Practice
+
+**Morning:**
+Set an intention to practice acceptance today.
+
+**Throughout the day:**
+Notice when you're struggling with internal experiences. Practice making room.
+
+**Evening:**
+Reflect on moments of acceptance and resistance.
+
+### Start Small
+
+Begin with mild discomfort:
+- Accept minor frustrations
+- Make room for small anxieties
+- Practice with everyday emotions
+
+Build up to more difficult experiences as the skill develops.
+
+### Remember
+
+Acceptance is a skill that develops over time. You will sometimes struggle, avoid, or fight with your experience. That's normal. Notice it, and gently return to acceptance when you can.
+
+---
+
+## References
+
+Harris, R. (2024). *The happiness trap: How to stop struggling and start living* (3rd ed.). Shambhala.
+
+Hayes, S. C. (2024). *A liberated mind: How to pivot toward what matters* (updated ed.). Avery.\`,
+    },
   ],
 };

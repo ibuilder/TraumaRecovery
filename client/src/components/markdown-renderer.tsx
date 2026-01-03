@@ -28,6 +28,10 @@ import {
   ComplexPTSDChart,
   BrainHealingChart,
   WindowToleranceChart,
+  ACTHexaflexChart,
+  FamilyDysfunctionChart,
+  ChildhoodTraumaTimelineChart,
+  RelationshipSafetyChart,
 } from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
@@ -64,6 +68,10 @@ const chartComponents: Record<string, React.ComponentType> = {
   "ComplexPTSDChart": ComplexPTSDChart,
   "BrainHealingChart": BrainHealingChart,
   "WindowToleranceChart": WindowToleranceChart,
+  "ACTHexaflexChart": ACTHexaflexChart,
+  "FamilyDysfunctionChart": FamilyDysfunctionChart,
+  "ChildhoodTraumaTimelineChart": ChildhoodTraumaTimelineChart,
+  "RelationshipSafetyChart": RelationshipSafetyChart,
 };
 
 export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendererProps) {
