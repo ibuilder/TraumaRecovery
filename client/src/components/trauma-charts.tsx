@@ -745,6 +745,365 @@ export function SleepRecoveryChart() {
   );
 }
 
+// Neuroscience Chapter Charts
+
+// Amygdala Activity in PTSD
+const amygdalaActivityData = [
+  { condition: "Control", activity: 35 },
+  { condition: "Trauma Reminder", activity: 82 },
+  { condition: "After EMDR", activity: 48 },
+  { condition: "After CBT", activity: 45 },
+];
+
+const amygdalaConfig: ChartConfig = {
+  activity: {
+    label: "Amygdala Activity (%)",
+    color: "hsl(var(--destructive))",
+  },
+};
+
+export function AmygdalaActivityChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Amygdala Hyperactivity in PTSD</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Amygdala activation levels during trauma reminders vs. baseline and after treatment (Shin & Liberzon, 2024)
+      </p>
+      <ChartContainer config={amygdalaConfig} className="h-[300px] w-full">
+        <BarChart data={amygdalaActivityData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="condition" />
+          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="activity" fill="var(--color-activity)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Brain Regions Affected by Trauma
+const brainRegionsData = [
+  { region: "Amygdala", effect: "Hyperactive", change: 45 },
+  { region: "Hippocampus", effect: "Volume Loss", change: -18 },
+  { region: "Prefrontal Cortex", effect: "Underactive", change: -25 },
+  { region: "Insula", effect: "Dysregulated", change: 30 },
+];
+
+const brainRegionsConfig: ChartConfig = {
+  change: {
+    label: "% Change from Baseline",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function BrainRegionsTraumaChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Brain Region Changes in PTSD</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Percentage change in activity/volume compared to non-traumatized controls (van der Kolk, 2024)
+      </p>
+      <ChartContainer config={brainRegionsConfig} className="h-[300px] w-full">
+        <BarChart data={brainRegionsData} layout="vertical">
+          <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+          <XAxis type="number" domain={[-30, 50]} tickFormatter={(v) => `${v}%`} />
+          <YAxis type="category" dataKey="region" width={120} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="change" fill="var(--color-change)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Neurotransmitter Levels in Trauma
+const neurotransmitterData = [
+  { chemical: "Dopamine", normal: 100, ptsd: 68 },
+  { chemical: "Serotonin", normal: 100, ptsd: 69 },
+  { chemical: "GABA", normal: 100, ptsd: 72 },
+  { chemical: "Norepinephrine", normal: 100, ptsd: 145 },
+  { chemical: "Cortisol (baseline)", normal: 100, ptsd: 78 },
+];
+
+const neurotransmitterConfig: ChartConfig = {
+  normal: {
+    label: "Normal Levels (%)",
+    color: "hsl(var(--primary))",
+  },
+  ptsd: {
+    label: "PTSD Levels (%)",
+    color: "hsl(var(--destructive))",
+  },
+};
+
+export function NeurotransmitterLevelsChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Neurotransmitter Levels: Normal vs. PTSD</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Comparison of neurochemical levels (100% = healthy baseline) (Sherin & Nemeroff, 2024)
+      </p>
+      <ChartContainer config={neurotransmitterConfig} className="h-[300px] w-full">
+        <BarChart data={neurotransmitterData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="chemical" />
+          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 160]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="normal" fill="var(--color-normal)" radius={4} />
+          <Bar dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Cortisol Pattern
+const cortisolPatternData = [
+  { time: "6 AM", normal: 18, ptsd: 12 },
+  { time: "9 AM", normal: 15, ptsd: 14 },
+  { time: "12 PM", normal: 10, ptsd: 12 },
+  { time: "3 PM", normal: 8, ptsd: 11 },
+  { time: "6 PM", normal: 6, ptsd: 10 },
+  { time: "9 PM", normal: 4, ptsd: 9 },
+  { time: "12 AM", normal: 3, ptsd: 8 },
+];
+
+const cortisolConfig: ChartConfig = {
+  normal: {
+    label: "Normal Pattern",
+    color: "hsl(var(--primary))",
+  },
+  ptsd: {
+    label: "PTSD Pattern",
+    color: "hsl(var(--destructive))",
+  },
+};
+
+export function CortisolPatternChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Daily Cortisol Patterns</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Normal vs. PTSD cortisol rhythms throughout the day (Yehuda, 2024)
+      </p>
+      <ChartContainer config={cortisolConfig} className="h-[300px] w-full">
+        <LineChart data={cortisolPatternData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="time" />
+          <YAxis label={{ value: 'Cortisol (mcg/dL)', angle: -90, position: 'insideLeft' }} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Line type="monotone" dataKey="normal" stroke="var(--color-normal)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line type="monotone" dataKey="ptsd" stroke="var(--color-ptsd)" strokeWidth={2} dot={{ r: 4 }} />
+        </LineChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Polyvagal States Chart
+const polyvagalStatesData = [
+  { state: "Ventral Vagal", safetyLevel: 90, socialEngagement: 85, energyLevel: 70 },
+  { state: "Sympathetic", safetyLevel: 30, socialEngagement: 25, energyLevel: 95 },
+  { state: "Dorsal Vagal", safetyLevel: 10, socialEngagement: 5, energyLevel: 15 },
+];
+
+const polyvagalConfig: ChartConfig = {
+  safetyLevel: {
+    label: "Sense of Safety",
+    color: "hsl(var(--primary))",
+  },
+  socialEngagement: {
+    label: "Social Engagement",
+    color: "hsl(var(--accent-foreground))",
+  },
+  energyLevel: {
+    label: "Energy Level",
+    color: "hsl(var(--destructive))",
+  },
+};
+
+export function PolyvagalStatesChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Polyvagal Theory: The Three States</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Characteristics of each autonomic nervous system state (Porges, 2024)
+      </p>
+      <ChartContainer config={polyvagalConfig} className="h-[300px] w-full">
+        <BarChart data={polyvagalStatesData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="state" />
+          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="safetyLevel" fill="var(--color-safetyLevel)" radius={4} />
+          <Bar dataKey="socialEngagement" fill="var(--color-socialEngagement)" radius={4} />
+          <Bar dataKey="energyLevel" fill="var(--color-energyLevel)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// PTSD Symptoms Distribution
+const ptsdSymptomsData = [
+  { category: "Intrusion", value: 85 },
+  { category: "Avoidance", value: 78 },
+  { category: "Negative Cognitions", value: 72 },
+  { category: "Hyperarousal", value: 88 },
+];
+
+const ptsdSymptomsConfig: ChartConfig = {
+  value: {
+    label: "Prevalence (%)",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function PTSDSymptomsChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">PTSD Symptom Clusters</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Prevalence of each symptom cluster in PTSD patients (DSM-5 criteria, APA 2024)
+      </p>
+      <ChartContainer config={ptsdSymptomsConfig} className="h-[300px] w-full">
+        <BarChart data={ptsdSymptomsData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="category" />
+          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="value" fill="var(--color-value)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Complex PTSD Additional Symptoms
+const complexPTSDData = [
+  { symptom: "Affective Dysregulation", cptsd: 92, ptsd: 45 },
+  { symptom: "Negative Self-Concept", cptsd: 88, ptsd: 55 },
+  { symptom: "Relationship Difficulties", cptsd: 85, ptsd: 40 },
+];
+
+const complexPTSDConfig: ChartConfig = {
+  cptsd: {
+    label: "Complex PTSD (%)",
+    color: "hsl(var(--destructive))",
+  },
+  ptsd: {
+    label: "Standard PTSD (%)",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function ComplexPTSDChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Complex PTSD vs. Standard PTSD</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Disturbances in Self-Organization (DSO) symptoms (ICD-11 criteria, Cloitre 2024)
+      </p>
+      <ChartContainer config={complexPTSDConfig} className="h-[300px] w-full">
+        <BarChart data={complexPTSDData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="symptom" />
+          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="cptsd" fill="var(--color-cptsd)" radius={4} />
+          <Bar dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Brain Healing with Treatment
+const brainHealingData = [
+  { measure: "Hippocampal Volume", before: 82, after: 95 },
+  { measure: "PFC Activity", before: 65, after: 88 },
+  { measure: "Amygdala Reactivity", before: 145, after: 108 },
+  { measure: "HRV (Vagal Tone)", before: 68, after: 92 },
+];
+
+const brainHealingConfig: ChartConfig = {
+  before: {
+    label: "Before Treatment",
+    color: "hsl(var(--destructive))",
+  },
+  after: {
+    label: "After Treatment",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function BrainHealingChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Brain Changes with Trauma Treatment</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Neurological measures before and after evidence-based trauma therapy (100% = healthy baseline)
+      </p>
+      <ChartContainer config={brainHealingConfig} className="h-[300px] w-full">
+        <BarChart data={brainHealingData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="measure" />
+          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 160]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="before" fill="var(--color-before)" radius={4} />
+          <Bar dataKey="after" fill="var(--color-after)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Window of Tolerance
+const windowToleranceData = [
+  { state: "Hyperarousal Zone", intensity: 90, optimal: 0 },
+  { state: "Window of Tolerance", intensity: 0, optimal: 70 },
+  { state: "Hypoarousal Zone", intensity: 85, optimal: 0 },
+];
+
+const windowToleranceConfig: ChartConfig = {
+  intensity: {
+    label: "Dysregulation Intensity",
+    color: "hsl(var(--destructive))",
+  },
+  optimal: {
+    label: "Optimal Functioning",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function WindowToleranceChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">The Window of Tolerance</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Arousal states and optimal functioning zones (Siegel, 2024)
+      </p>
+      <ChartContainer config={windowToleranceConfig} className="h-[300px] w-full">
+        <BarChart data={windowToleranceData} layout="vertical">
+          <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+          <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <YAxis type="category" dataKey="state" width={140} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="intensity" fill="var(--color-intensity)" radius={4} stackId="a" />
+          <Bar dataKey="optimal" fill="var(--color-optimal)" radius={4} stackId="a" />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
 export const ChartComponents = {
   PTSDPrevalenceChart,
   ACEsPrevalenceChart,
@@ -764,4 +1123,13 @@ export const ChartComponents = {
   SocialConnectionChart,
   NutritionImpactChart,
   SleepRecoveryChart,
+  AmygdalaActivityChart,
+  BrainRegionsTraumaChart,
+  NeurotransmitterLevelsChart,
+  CortisolPatternChart,
+  PolyvagalStatesChart,
+  PTSDSymptomsChart,
+  ComplexPTSDChart,
+  BrainHealingChart,
+  WindowToleranceChart,
 };
