@@ -19,6 +19,15 @@ import {
   SocialConnectionChart,
   NutritionImpactChart,
   SleepRecoveryChart,
+  AmygdalaActivityChart,
+  BrainRegionsTraumaChart,
+  NeurotransmitterLevelsChart,
+  CortisolPatternChart,
+  PolyvagalStatesChart,
+  PTSDSymptomsChart,
+  ComplexPTSDChart,
+  BrainHealingChart,
+  WindowToleranceChart,
 } from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
@@ -46,6 +55,15 @@ const chartComponents: Record<string, React.ComponentType> = {
   "SocialConnectionChart": SocialConnectionChart,
   "NutritionImpactChart": NutritionImpactChart,
   "SleepRecoveryChart": SleepRecoveryChart,
+  "AmygdalaActivityChart": AmygdalaActivityChart,
+  "BrainRegionsTraumaChart": BrainRegionsTraumaChart,
+  "NeurotransmitterLevelsChart": NeurotransmitterLevelsChart,
+  "CortisolPatternChart": CortisolPatternChart,
+  "PolyvagalStatesChart": PolyvagalStatesChart,
+  "PTSDSymptomsChart": PTSDSymptomsChart,
+  "ComplexPTSDChart": ComplexPTSDChart,
+  "BrainHealingChart": BrainHealingChart,
+  "WindowToleranceChart": WindowToleranceChart,
 };
 
 export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendererProps) {
