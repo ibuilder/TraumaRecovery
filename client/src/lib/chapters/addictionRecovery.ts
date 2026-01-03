@@ -1439,5 +1439,279 @@ Gorski, T. T., & Miller, M. (1986). *Staying sober: A guide for relapse preventi
 
 National Institute on Drug Abuse. (2024). *Principles of drug addiction treatment: A research-based guide*. Retrieved from https://nida.nih.gov`,
     },
+    {
+      id: "2-6",
+      title: "Urge Surfing",
+      slug: "urge-surfing",
+      order: 6,
+      content: `# Urge Surfing: Riding the Wave of Cravings
+
+## What Is Urge Surfing?
+
+Urge surfing is a mindfulness-based technique developed by Dr. Alan Marlatt, a pioneer in relapse prevention. Rather than fighting or suppressing cravings, urge surfing teaches you to observe them with curiosity and ride them out like a wave—knowing they will rise, peak, and eventually subside.
+
+> "You can't stop the waves, but you can learn to surf." — Jon Kabat-Zinn
+
+### The Science Behind Urges
+
+Cravings and urges are temporary neurological events. Research shows that most urges:
+
+- **Peak within 20-30 minutes** if not acted upon
+- **Follow a wave pattern**: rising, cresting, and falling
+- **Cannot be eliminated** but can be managed
+- **Weaken over time** when not reinforced by the addictive behavior
+
+Understanding this science is crucial: you don't have to act on an urge. If you can ride it out, it will pass.
+
+---
+
+## Why Traditional "Fighting" Doesn't Work
+
+Many people try to combat urges through:
+
+- **Suppression**: Trying not to think about the craving
+- **Distraction**: Desperately looking for something else to focus on
+- **White-knuckling**: Using pure willpower to resist
+
+Research consistently shows these approaches often backfire:
+
+- **Thought suppression paradox**: Trying not to think about something makes you think about it more
+- **Willpower fatigue**: Willpower is a limited resource that depletes with use
+- **Increased intensity**: Fighting urges can make them feel stronger and more urgent
+
+Urge surfing takes a radically different approach: observation without resistance.
+
+---
+
+## The Urge Surfing Technique
+
+### Step 1: Notice the Urge
+
+When a craving arises, pause and acknowledge it:
+
+- "I'm noticing an urge to use"
+- "There's a craving present right now"
+- "My mind is telling me I need [substance/behavior]"
+
+Simply naming the experience creates distance between you and the urge.
+
+### Step 2: Locate It in Your Body
+
+Urges always have physical components. Scan your body and notice:
+
+- Where do you feel the urge? (chest, stomach, throat, etc.)
+- What does it feel like? (tightness, heat, pressure, restlessness)
+- How intense is it on a scale of 1-10?
+
+Common physical locations of urges:
+- **Chest**: Tightness, pressure, racing heart
+- **Stomach**: Butterflies, nausea, hollowness
+- **Throat**: Dryness, constriction
+- **Hands**: Restlessness, tingling
+- **Jaw**: Clenching, tension
+
+### Step 3: Focus on Your Breath
+
+Bring attention to your breathing without trying to change it:
+
+- Notice the natural rhythm of inhale and exhale
+- Feel the breath moving in and out of your body
+- Let breathing be an anchor as you observe the urge
+
+### Step 4: Surf the Wave
+
+Now, observe the urge as if you're watching a wave:
+
+- Notice as it rises in intensity
+- Watch it reach its peak
+- Observe as it begins to subside
+- Continue watching until it passes
+
+**Key mindset shifts:**
+- "I am not the urge—I am the observer of the urge"
+- "This feeling is temporary"
+- "I don't have to do anything about this"
+- "I can feel uncomfortable without acting"
+
+### Step 5: Repeat as Needed
+
+Urges may come in multiple waves. Each time:
+
+- Return to observing
+- Notice any changes in location or intensity
+- Continue surfing until the wave passes
+
+---
+
+## Guided Urge Surfing Script
+
+Use this script during a craving (read slowly, pausing between sentences):
+
+*"I'm noticing an urge right now. I don't have to act on it—I can just observe it.*
+
+*I'll take a moment to find where this urge lives in my body. Scanning from my head down to my toes... Where do I feel it most strongly?*
+
+*I notice it in my [body location]. It feels like [description]. On a scale of 1-10, the intensity is about [number].*
+
+*Now I'll bring attention to my breathing. Feeling my breath come in... and go out. Not trying to change anything, just noticing.*
+
+*I'll imagine this urge is like a wave in the ocean. Right now, it's rising. I can feel its intensity building.*
+
+*I don't have to fight it. I can just watch it, like watching a wave from the shore.*
+
+*The wave is peaking now. This is the most intense it will get.*
+
+*Now I notice it beginning to subside. The intensity is decreasing.*
+
+*I'm still here. I didn't act on the urge. It's passing on its own.*
+
+*I'll continue watching until the wave is gone, knowing another may come—and I can surf that one too."*
+
+---
+
+## When to Use Urge Surfing
+
+### Ideal Situations
+
+- Early in a craving, before intensity builds
+- When you have a few minutes to focus
+- In a relatively safe environment
+- When you can sit or stand quietly
+
+### Challenging Situations
+
+- High-stress environments (may need to combine with other techniques)
+- Very intense cravings (start with grounding first)
+- Social pressure situations (may need to remove yourself first)
+
+---
+
+## Combining Urge Surfing with Other Techniques
+
+### HALT Check First
+
+Before surfing, quickly assess:
+- **H**ungry? Eat something first
+- **A**ngry? Acknowledge the emotion
+- **L**onely? Reach out to someone
+- **T**ired? Rest if possible
+
+Addressing these basic needs can reduce urge intensity before you begin surfing.
+
+### Grounding Before Surfing
+
+If the urge feels overwhelming, ground yourself first:
+- 5-4-3-2-1 technique (5 things you see, 4 you hear, etc.)
+- Cold water on wrists or face
+- Feel your feet on the ground
+
+Then transition to urge surfing.
+
+### After the Wave Passes
+
+Once the urge subsides:
+- Acknowledge your success: "I rode that out"
+- Notice how you feel now
+- Consider what triggered the urge
+- Engage in a recovery-supportive activity
+
+---
+
+## Building Your Urge Surfing Practice
+
+### Daily Practice (Even Without Urges)
+
+Practice with smaller discomforts to build the skill:
+- Observe the urge to scratch an itch
+- Watch the impulse to check your phone
+- Notice the desire to eat something when not hungry
+
+These low-stakes practices build the muscle for higher-stakes moments.
+
+### Keep a Craving Log
+
+Track your urges to learn patterns:
+
+| Date/Time | Trigger | Intensity (1-10) | Duration | Surfed? | Notes |
+|-----------|---------|------------------|----------|---------|-------|
+| | | | | | |
+
+Over time, you'll notice:
+- Common triggers
+- Typical duration
+- What helps and what doesn't
+- Progress in your ability to surf
+
+---
+
+## Common Challenges and Solutions
+
+### "The urge feels too strong"
+
+- Start with grounding techniques first
+- Focus on just one breath at a time
+- Remind yourself: "This will pass"
+- Call your sponsor or support person
+
+### "I can't focus on breathing"
+
+- Try opening your eyes and focusing on an object
+- Use a physical anchor (holding something textured)
+- Count your breaths to maintain focus
+
+### "Multiple waves keep coming"
+
+- This is normal, especially early in recovery
+- Each wave you surf without using weakens the next
+- Persistence pays off—cravings diminish over time
+
+### "I'm too anxious to sit still"
+
+- Try walking urge surfing—observe while moving slowly
+- Focus on the physical sensations of walking
+- Return to breath when possible
+
+---
+
+## The Neuroscience of Urge Surfing
+
+### How It Rewires the Brain
+
+Each time you surf an urge without acting on it:
+
+1. **Weakens the addiction pathway**: The neural connection between trigger and behavior weakens when not reinforced
+2. **Strengthens prefrontal cortex**: The "thinking brain" gains more control over impulsive responses
+3. **Builds distress tolerance**: Your nervous system learns it can handle discomfort
+4. **Creates new neural pathways**: Alternative responses become more automatic over time
+
+### Neuroplasticity in Action
+
+Research shows that consistent urge surfing practice leads to measurable changes in brain function within weeks. The more you practice, the easier it becomes—not just psychologically, but neurologically.
+
+---
+
+## A Message of Hope
+
+Urge surfing is a skill that improves with practice. Early in recovery, urges may feel overwhelming and endless. But each time you surf an urge:
+
+- You prove you're stronger than you thought
+- You weaken the craving's power over you
+- You build confidence for the next wave
+- You move closer to freedom
+
+Remember: You are not your urges. You are the person who can observe them, understand them, and let them pass.
+
+---
+
+## References
+
+Bowen, S., Chawla, N., & Marlatt, G. A. (2011). *Mindfulness-based relapse prevention for addictive behaviors: A clinician's guide*. Guilford Press.
+
+Marlatt, G. A., & Gordon, J. R. (1985). *Relapse prevention: Maintenance strategies in the treatment of addictive behaviors*. Guilford Press.
+
+Witkiewitz, K., & Bowen, S. (2010). Depression, craving, and substance use following a randomized trial of mindfulness-based relapse prevention. *Journal of Consulting and Clinical Psychology, 78*(3), 362-374.
+
+Brewer, J. A. (2017). *The craving mind: From cigarettes to smartphones to love—why we get hooked and how we can break bad habits*. Yale University Press.`,
+    },
   ],
 };
