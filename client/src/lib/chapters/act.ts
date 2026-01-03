@@ -542,11 +542,11 @@ Hayes, S. C. (2019). *A liberated mind*. Avery.`,
       title: "The ACT Hexaflex",
       slug: "hexaflex",
       order: 3,
-      content: \`# Understanding the ACT Hexaflex
+      content: `# Understanding the ACT Hexaflex
 
 The ACT Hexaflex is a visual representation of the six core processes of Acceptance and Commitment Therapy, all working together to create psychological flexibility.
 
-\\\`\\\`\\\`chart:ACTHexaflexChart\\\`\\\`\\\`
+\`\`\`chart:ACTHexaflexChart\`\`\`
 
 ## The Hexaflex Model
 
@@ -711,14 +711,14 @@ When all six processes work together, you can:
 
 Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2024). *Acceptance and commitment therapy: The process and practice of mindful change* (3rd ed.). Guilford Press.
 
-Harris, R. (2024). *ACT made simple* (3rd ed.). New Harbinger Publications.\`,
+Harris, R. (2024). *ACT made simple* (3rd ed.). New Harbinger Publications.`,
     },
     {
       id: "9-4",
       title: "Acceptance in Practice",
       slug: "acceptance-practice",
       order: 4,
-      content: \`# Practicing Acceptance
+      content: `# Practicing Acceptance
 
 Acceptance is often misunderstood. It doesn't mean liking, wanting, or approving of painful experiences. It means opening up to what's there rather than struggling against it.
 
@@ -870,7 +870,7 @@ Acceptance is a skill that develops over time. You will sometimes struggle, avoi
 
 Harris, R. (2024). *The happiness trap: How to stop struggling and start living* (3rd ed.). Shambhala.
 
-Hayes, S. C. (2024). *A liberated mind: How to pivot toward what matters* (updated ed.). Avery.\`,
+Hayes, S. C. (2024). *A liberated mind: How to pivot toward what matters* (updated ed.). Avery.`,
     },
   ],
 };

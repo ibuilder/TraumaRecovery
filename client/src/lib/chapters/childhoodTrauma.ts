@@ -857,11 +857,11 @@ Siegel, D. J. (2020). *The developing mind: How relationships and the brain inte
       title: "Developmental Impact of Trauma",
       slug: "developmental-impact",
       order: 4,
-      content: \`# Understanding the Developmental Impact of Trauma
+      content: `# Understanding the Developmental Impact of Trauma
 
 Trauma during childhood affects development differently depending on when it occurs. Earlier trauma during critical periods of brain development typically has more profound and lasting effects.
 
-\\\`\\\`\\\`chart:ChildhoodTraumaTimelineChart\\\`\\\`\\\`
+\`\`\`chart:ChildhoodTraumaTimelineChart\`\`\`
 
 ## Critical Periods in Development
 
@@ -1013,7 +1013,7 @@ Perry, B. D., & Winfrey, O. (2024). *What happened to you? Conversations on trau
 
 Schore, A. N. (2024). *The development of the unconscious mind*. W. W. Norton & Company.
 
-Siegel, D. J. (2024). *Brainstorm: The power and purpose of the teenage brain* (revised ed.). TarcherPerigee.\`,
+Siegel, D. J. (2024). *Brainstorm: The power and purpose of the teenage brain* (revised ed.). TarcherPerigee.`,
     },
   ],
 };

@@ -578,11 +578,11 @@ Spring, J. A. (2012). *After the affair: Healing the pain and rebuilding trust w
       title: "Safety Planning",
       slug: "safety-planning",
       order: 3,
-      content: \`# Safety Planning and Resources
+      content: `# Safety Planning and Resources
 
 If you're in an abusive relationship, safety planning is essential. This isn't about blaming you or rushing you—it's about empowering you with information and options.
 
-\\\`\\\`\\\`chart:RelationshipSafetyChart\\\`\\\`\\\`
+\`\`\`chart:RelationshipSafetyChart\`\`\`
 
 ## Understanding Safety
 
@@ -752,14 +752,14 @@ National Domestic Violence Hotline. (2024). *Safety planning guidelines*. https:
 
 Walker, L. E. (2024). *The battered woman syndrome* (4th ed.). Springer.
 
-World Health Organization. (2024). *Violence against women: Key facts*. WHO.\`,
+World Health Organization. (2024). *Violence against women: Key facts*. WHO.`,
     },
     {
       id: "6-4",
       title: "Building Healthy Relationships",
       slug: "healthy-relationships",
       order: 4,
-      content: \`# Building Healthy Relationships After Trauma
+      content: `# Building Healthy Relationships After Trauma
 
 After relationship trauma, building healthy connections can feel both essential and terrifying. This guide helps you recognize healthy patterns and develop the skills for safe, fulfilling relationships.
 
@@ -933,7 +933,7 @@ Gottman, J. M. (2024). *The seven principles for making marriage work* (3rd ed.)
 
 Johnson, S. M. (2024). *Hold me tight: Seven conversations for a lifetime of love* (updated ed.). Little, Brown Spark.
 
-Tatkin, S. (2024). *Wired for love: How understanding your partner's brain and attachment style can help you defuse conflict and build a secure relationship*. New Harbinger Publications.\`,
+Tatkin, S. (2024). *Wired for love: How understanding your partner's brain and attachment style can help you defuse conflict and build a secure relationship*. New Harbinger Publications.`,
     },
   ],
 };
