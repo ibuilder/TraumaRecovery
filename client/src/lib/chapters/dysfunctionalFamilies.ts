@@ -574,6 +574,8 @@ Minuchin, S. (1974). *Families and family therapy*. Harvard University Press.`,
 
 Boundaries define where you end and others begin. For those from dysfunctional families, learning to set and maintain healthy boundaries is essential—and often challenging.
 
+\`\`\`chart:BoundaryTypesChart\`\`\`
+
 ## Understanding Boundaries
 
 ### What Are Healthy Boundaries?

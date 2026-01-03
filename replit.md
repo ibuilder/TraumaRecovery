@@ -59,7 +59,7 @@ shared/
 
 ## Key Features
 - **13 comprehensive chapters** covering trauma recovery topics
-- **31 data visualization charts** using Recharts (added ACTHexaflexChart, FamilyDysfunctionChart, ChildhoodTraumaTimelineChart, RelationshipSafetyChart)
+- **46 data visualization charts** using Recharts covering all chapters and subchapters
 - **Markdown rendering** with react-markdown and remark-gfm
 - **Dark/light theme** with system preference detection
 - **Reading progress bar** for tracking position

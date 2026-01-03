@@ -296,6 +296,8 @@ van der Kolk, B. A. (2014). *The body keeps the score*. Viking.`,
 
 These exercises help you connect with and heal your wounded inner child. Approach them gently and consider working with a therapist if they bring up intense emotions.
 
+\`\`\`chart:InnerChildHealingChart\`\`\`
+
 ## Letter Writing Exercises
 
 ### Letter to Your Inner Child

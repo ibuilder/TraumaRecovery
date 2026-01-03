@@ -32,6 +32,21 @@ import {
   FamilyDysfunctionChart,
   ChildhoodTraumaTimelineChart,
   RelationshipSafetyChart,
+  AdultTraumaTypesChart,
+  GroundingTechniquesChart,
+  CopingStrategiesChart,
+  ResilienceFactorsChart,
+  SpiritualPracticesChart,
+  RecoveryValuesChart,
+  TreatmentModalitiesChart,
+  CognitiveDistortionsChart,
+  MindfulnessBenefitsChart,
+  SomaticTherapyChart,
+  EMDRPhasesChart,
+  BoundaryTypesChart,
+  InnerChildHealingChart,
+  DistressToleranceSkillsChart,
+  InterpersonalEffectivenessChart,
 } from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
@@ -72,6 +87,21 @@ const chartComponents: Record<string, React.ComponentType> = {
   "FamilyDysfunctionChart": FamilyDysfunctionChart,
   "ChildhoodTraumaTimelineChart": ChildhoodTraumaTimelineChart,
   "RelationshipSafetyChart": RelationshipSafetyChart,
+  "AdultTraumaTypesChart": AdultTraumaTypesChart,
+  "GroundingTechniquesChart": GroundingTechniquesChart,
+  "CopingStrategiesChart": CopingStrategiesChart,
+  "ResilienceFactorsChart": ResilienceFactorsChart,
+  "SpiritualPracticesChart": SpiritualPracticesChart,
+  "RecoveryValuesChart": RecoveryValuesChart,
+  "TreatmentModalitiesChart": TreatmentModalitiesChart,
+  "CognitiveDistortionsChart": CognitiveDistortionsChart,
+  "MindfulnessBenefitsChart": MindfulnessBenefitsChart,
+  "SomaticTherapyChart": SomaticTherapyChart,
+  "EMDRPhasesChart": EMDRPhasesChart,
+  "BoundaryTypesChart": BoundaryTypesChart,
+  "InnerChildHealingChart": InnerChildHealingChart,
+  "DistressToleranceSkillsChart": DistressToleranceSkillsChart,
+  "InterpersonalEffectivenessChart": InterpersonalEffectivenessChart,
 };
 
 export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendererProps) {
