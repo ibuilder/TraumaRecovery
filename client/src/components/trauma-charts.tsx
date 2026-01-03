@@ -1064,6 +1064,163 @@ export function BrainHealingChart() {
   );
 }
 
+// ACT Hexaflex Chart
+const actHexaflexData = [
+  { process: "Present Moment", importance: 85, fullMark: 100 },
+  { process: "Acceptance", importance: 80, fullMark: 100 },
+  { process: "Defusion", importance: 78, fullMark: 100 },
+  { process: "Self-as-Context", importance: 75, fullMark: 100 },
+  { process: "Values", importance: 90, fullMark: 100 },
+  { process: "Committed Action", importance: 88, fullMark: 100 },
+];
+
+const actHexaflexConfig: ChartConfig = {
+  importance: {
+    label: "Core Process Strength (%)",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function ACTHexaflexChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">The ACT Hexaflex: Six Core Processes</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Psychological flexibility develops through strengthening all six interconnected processes (Hayes et al., 2024)
+      </p>
+      <ChartContainer config={actHexaflexConfig} className="h-[350px] w-full">
+        <RadarChart cx="50%" cy="50%" outerRadius="70%" data={actHexaflexData}>
+          <PolarGrid />
+          <PolarAngleAxis dataKey="process" className="text-xs" />
+          <PolarRadiusAxis angle={30} domain={[0, 100]} />
+          <Radar name="Process Strength" dataKey="importance" stroke="var(--color-importance)" fill="var(--color-importance)" fillOpacity={0.5} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+        </RadarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Family Dysfunction Patterns Chart
+const familyDysfunctionData = [
+  { pattern: "Enmeshment", prevalence: 35 },
+  { pattern: "Disengagement", prevalence: 28 },
+  { pattern: "Triangulation", prevalence: 42 },
+  { pattern: "Parentification", prevalence: 31 },
+  { pattern: "Scapegoating", prevalence: 25 },
+  { pattern: "Denial", prevalence: 48 },
+];
+
+const familyDysfunctionConfig: ChartConfig = {
+  prevalence: {
+    label: "Prevalence (%)",
+    color: "hsl(var(--primary))",
+  },
+};
+
+export function FamilyDysfunctionChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Common Dysfunctional Family Patterns</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Prevalence of dysfunctional patterns in families with identified dysfunction (Family Systems Research, 2024)
+      </p>
+      <ChartContainer config={familyDysfunctionConfig} className="h-[300px] w-full">
+        <BarChart data={familyDysfunctionData} layout="vertical">
+          <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+          <XAxis type="number" domain={[0, 60]} tickFormatter={(v) => `${v}%`} />
+          <YAxis type="category" dataKey="pattern" width={120} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="prevalence" fill="var(--color-prevalence)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Childhood Trauma Timeline Chart
+const childhoodTraumaTimelineData = [
+  { age: "0-2 years", impact: 95, description: "Attachment formation" },
+  { age: "3-5 years", impact: 88, description: "Brain development" },
+  { age: "6-10 years", impact: 75, description: "Social development" },
+  { age: "11-14 years", impact: 70, description: "Identity formation" },
+  { age: "15-18 years", impact: 65, description: "Independence" },
+];
+
+const childhoodTimelineConfig: ChartConfig = {
+  impact: {
+    label: "Developmental Impact (%)",
+    color: "hsl(var(--destructive))",
+  },
+};
+
+export function ChildhoodTraumaTimelineChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Trauma Impact by Developmental Stage</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Earlier trauma during critical periods has greater developmental impact (Perry, 2024)
+      </p>
+      <ChartContainer config={childhoodTimelineConfig} className="h-[300px] w-full">
+        <LineChart data={childhoodTraumaTimelineData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="age" />
+          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Line type="monotone" dataKey="impact" stroke="var(--color-impact)" strokeWidth={3} dot={{ r: 6 }} />
+        </LineChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+// Relationship Safety Assessment Chart
+const relationshipSafetyData = [
+  { indicator: "Physical Safety", healthy: 95, concerning: 40, dangerous: 10 },
+  { indicator: "Emotional Safety", healthy: 90, concerning: 35, dangerous: 15 },
+  { indicator: "Financial Freedom", healthy: 88, concerning: 45, dangerous: 20 },
+  { indicator: "Social Connection", healthy: 85, concerning: 30, dangerous: 10 },
+  { indicator: "Autonomy", healthy: 92, concerning: 38, dangerous: 12 },
+];
+
+const relationshipSafetyConfig: ChartConfig = {
+  healthy: {
+    label: "Healthy Relationship",
+    color: "hsl(var(--primary))",
+  },
+  concerning: {
+    label: "Concerning Signs",
+    color: "hsl(var(--accent-foreground))",
+  },
+  dangerous: {
+    label: "Dangerous",
+    color: "hsl(var(--destructive))",
+  },
+};
+
+export function RelationshipSafetyChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Relationship Safety Indicators</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Comparison of safety indicators across relationship health levels (National DV Hotline, 2024)
+      </p>
+      <ChartContainer config={relationshipSafetyConfig} className="h-[300px] w-full">
+        <BarChart data={relationshipSafetyData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="indicator" angle={-15} textAnchor="end" height={60} />
+          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="healthy" fill="var(--color-healthy)" radius={4} />
+          <Bar dataKey="concerning" fill="var(--color-concerning)" radius={4} />
+          <Bar dataKey="dangerous" fill="var(--color-dangerous)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
 // Window of Tolerance
 const windowToleranceData = [
   { state: "Hyperarousal Zone", intensity: 90, optimal: 0 },
