@@ -859,5 +859,455 @@ Greenberger, D., & Padesky, C. A. (2015). *Mind over mood: Change how you feel b
 
 van der Kolk, B. A. (2014). *The body keeps the score: Brain, mind, and body in the healing of trauma*. Viking.`,
     },
+    {
+      id: "7-3",
+      title: "Cognitive Distortions",
+      slug: "cognitive-distortions",
+      order: 3,
+      content: `# Cognitive Distortions: When Your Mind Lies to You
+
+## Understanding Cognitive Distortions
+
+Your mind is incredibly powerful, but it's not always accurate. Cognitive distortions are systematic errors in thinking—mental shortcuts and patterns that twist reality in ways that usually make you feel worse. They're like faulty lenses that color how you see yourself, others, and the world.
+
+These aren't occasional mistakes. They're habitual thinking patterns that can become so automatic you don't even notice them. They feel true, they sound like your own voice, and they're often completely convincing. But just because a thought feels real doesn't mean it reflects reality.
+
+**Important context:** Everyone experiences cognitive distortions sometimes. They become problematic when they're frequent, intense, or significantly impact your wellbeing and functioning. For trauma survivors, depression, anxiety, and other mental health challenges, these distortions can be especially pronounced and deeply ingrained.
+
+---
+
+## Why Do We Have Cognitive Distortions?
+
+Cognitive distortions aren't random. They often develop as protective mechanisms:
+
+**Evolutionary purpose:** Our brains evolved to keep us alive, not happy. It's safer to assume the rustling bush is a predator (and be wrong) than to assume it's just wind (and be eaten). This negativity bias served our ancestors well but can make modern life unnecessarily stressful.
+
+**Trauma and survival:** If you experienced trauma, especially in childhood, your brain learned to scan for danger constantly. Distortions like catastrophizing or mind-reading may have helped you predict and prepare for threats. These patterns saved you once—they just don't serve you anymore.
+
+**Cognitive efficiency:** Your brain processes millions of pieces of information every second. It creates shortcuts (heuristics) to make quick decisions. Sometimes these shortcuts are helpful; sometimes they lead you astray.
+
+**Emotional reasoning:** When you're in an intense emotional state, your brain tends to gather evidence that confirms that emotion. Feeling anxious? Your brain will highlight everything threatening and ignore everything safe.
+
+Understanding why these distortions exist can help you approach them with compassion rather than judgment. Your mind isn't broken—it's using strategies that once made sense.
+
+---
+
+## The 14 Major Cognitive Distortions
+
+### 1. All-or-Nothing Thinking (Black-and-White Thinking)
+
+**What it is:** Seeing things in extremes with no middle ground. Everything is success or failure, perfect or terrible, safe or dangerous.
+
+**Examples:**
+- "If I don't get an A, I'm a complete failure"
+- "I ate one cookie, so I've completely blown my diet"
+- "Since I made one mistake in the presentation, the whole thing was a disaster"
+
+**Why it's distorted:** Reality exists on a spectrum. Most outcomes fall somewhere between the extremes.
+
+**Reframe:** Look for the gray areas. Ask yourself, "What percentage of this was actually positive?"
+
+---
+
+### 2. Overgeneralization
+
+**What it is:** Taking one event and turning it into a permanent pattern using words like "always," "never," "everyone," or "no one."
+
+**Examples:**
+- "I failed this test. I always fail at everything important"
+- "She didn't text back. No one ever wants to spend time with me"
+- "I got rejected from that job. I'll never find employment"
+
+**Why it's distorted:** One data point doesn't create a pattern. A single event tells you about that specific situation, not your entire future.
+
+**Reframe:** Challenge absolutes. "Is this really always true? What are specific times when the opposite was true?"
+
+---
+
+### 3. Mental Filter (Selective Attention)
+
+**What it is:** Focusing exclusively on negative details while filtering out positive ones, like wearing sunglasses that only let through dark light.
+
+**Examples:**
+- Receiving 10 compliments and 1 criticism, and obsessing only about the criticism
+- Having a good day with one frustrating moment, and remembering the day as "terrible"
+- Accomplishing 9 tasks but fixating on the 1 you didn't complete
+
+**Why it's distorted:** You're looking at a tiny slice of reality and treating it as the whole picture.
+
+**Reframe:** Deliberately search for the full picture. "What am I filtering out? What would a balanced view include?"
+
+---
+
+### 4. Disqualifying the Positive
+
+**What it is:** Acknowledging positive experiences but immediately dismissing them as not counting, flukes, or meaningless.
+
+**Examples:**
+- "They only said I did well to be nice"
+- "That success was just luck, not my ability"
+- "Anyone could have done what I did"
+
+**Why it's distorted:** You're selectively applying impossible standards to positive information while accepting negative information at face value.
+
+**Reframe:** "What evidence do I have that this positive thing doesn't count? Would I dismiss someone else's success this way?"
+
+---
+
+### 5. Jumping to Conclusions
+
+This distortion has two main types:
+
+#### Mind Reading
+
+**What it is:** Assuming you know what others are thinking without checking.
+
+**Examples:**
+- "She didn't smile at me. She must think I'm annoying"
+- "They're whispering. They're definitely talking about me"
+- "My boss wants to meet. I'm definitely getting fired"
+
+#### Fortune Telling
+
+**What it is:** Predicting the future negatively with complete certainty.
+
+**Examples:**
+- "I know this date will be a disaster"
+- "I'll definitely fail the exam"
+- "I'll never get better"
+
+**Why it's distorted:** You literally cannot read minds, and the future hasn't happened yet.
+
+**Reframe:** "I don't actually know what they're thinking. What else could be true?"
+
+---
+
+### 6. Magnification and Minimization
+
+**What it is:** Exaggerating the importance of negative things while shrinking positive things. Like looking through binoculars the wrong way.
+
+**Examples:**
+- "I made a tiny mistake and now everything is ruined" (magnification)
+- "Sure I graduated with honors, but that's not a big deal" (minimization)
+
+**Why it's distorted:** You're applying different standards to positive and negative events.
+
+**Reframe:** "Am I blowing this out of proportion? In a year, will this matter as much?"
+
+---
+
+### 7. Emotional Reasoning
+
+**What it is:** Believing that your feelings reflect objective reality. "I feel it, therefore it must be true."
+
+**Examples:**
+- "I feel stupid, so I must be stupid"
+- "I feel like a burden, so I am a burden"
+- "I feel hopeless, so there is no hope"
+
+**Why it's distorted:** Emotions are real experiences, but they're not facts about external reality. Feelings are influenced by brain chemistry, past experiences, sleep, and countless other factors.
+
+**Reframe:** "I feel this way, and that's real. But is this feeling an accurate reflection of facts?"
+
+---
+
+### 8. Should Statements
+
+**What it is:** Operating from rigid rules about how you, others, or the world "should" be.
+
+**Examples:**
+- "I should be over this trauma by now"
+- "I shouldn't need help"
+- "They should understand what I need without me explaining"
+- "Life shouldn't be this hard"
+
+**Why it's distorted:** "Should" implies there's one correct way things must be, regardless of context or reality.
+
+**The cost:** "Shoulds" create constant shame (when directed at yourself), resentment (when directed at others), and frustration (when directed at life).
+
+**Reframe:** Replace "should" with "I would prefer" or "it would be nice if."
+
+---
+
+### 9. Labeling
+
+**What it is:** Assigning a global, fixed label to yourself or others based on one action or trait.
+
+**Examples:**
+- "I'm a loser" (instead of "I lost this time")
+- "She's toxic" (instead of "She behaved hurtfully")
+- "I'm broken" (instead of "I'm struggling")
+
+**Why it's distorted:** People are complex and ever-changing. A label collapses all that complexity into one fixed identity.
+
+**Reframe:** Describe the behavior, not the person. "I acted in a way I regret" instead of "I'm a terrible person."
+
+---
+
+### 10. Personalization and Blame
+
+**What it is:** Holding yourself responsible for things outside your control, or blaming others while ignoring your own role.
+
+**Examples (Personalization):**
+- "My child is struggling in school. I must be a bad parent"
+- "My friend is sad. I should have prevented it"
+- "My partner is in a bad mood. What did I do wrong?"
+
+**Examples (Blame):**
+- "I'm depressed because my parents were terrible"
+- "I can't succeed because society is rigged against me"
+
+**Why it's distorted:** Most outcomes have multiple causes. Taking complete responsibility or assigning complete blame both oversimplify complex situations.
+
+**Reframe:** "What factors contributed to this outcome? What was in my control and what wasn't?"
+
+---
+
+### 11. Catastrophizing
+
+**What it is:** Automatically jumping to the worst possible outcome and treating it as inevitable.
+
+**Examples:**
+- "I feel chest pain. I'm definitely having a heart attack"
+- "My boss wants to talk. I'm getting fired"
+- "I made a mistake. My entire career is ruined"
+
+**Why it's distorted:** You're skipping over dozens of more likely explanations and landing on disaster.
+
+**Reframe:** "What's the worst that could happen? What's the best? What's most likely?"
+
+---
+
+### 12. Control Fallacies
+
+This comes in two forms:
+
+#### External Control
+
+**What it is:** Seeing yourself as completely controlled by external forces.
+
+**Examples:**
+- "I can't be happy until my circumstances change"
+- "Other people make me angry"
+
+#### Internal Control
+
+**What it is:** Believing you're responsible for everyone else's happiness.
+
+**Examples:**
+- "If I don't fix everyone's problems, I'm selfish"
+- "Their happiness depends on me"
+
+**Reframe:** "What is actually within my control here? Where do I have choice, even if limited?"
+
+---
+
+### 13. Fallacy of Fairness
+
+**What it is:** Believing life should be fair and feeling resentful when it's not.
+
+**Examples:**
+- "It's not fair that I have to deal with this trauma"
+- "Other people have it easier"
+- "Bad things shouldn't happen to good people"
+
+**Why it's distorted:** While fairness is a beautiful ideal, reality itself is not inherently fair.
+
+**Reframe:** "Fair or not, this is what is. Can I grieve the unfairness while also moving forward?"
+
+---
+
+### 14. Heaven's Reward Fallacy
+
+**What it is:** Believing that sacrifice and suffering will eventually be rewarded.
+
+**Examples:**
+- "I've worked so hard, so I should succeed"
+- "I've been good, so bad things shouldn't happen to me"
+- "I sacrificed everything for them, so they should appreciate me"
+
+**Why it's distorted:** There's no cosmic accounting system guaranteeing rewards for good behavior.
+
+**Reframe:** "My worth isn't determined by outcomes. What matters is whether my actions align with my values."
+
+---
+
+## Cognitive Distortions and Trauma
+
+For trauma survivors, cognitive distortions often have an extra layer of complexity.
+
+### Trauma-Informed Distortions
+
+Some "distorted" thoughts may have been accurate during the trauma:
+
+- "I'm not safe" was true then
+- "I can't trust anyone" protected you
+- "I have to be hypervigilant" kept you alive
+
+These thoughts become distortions when they persist in contexts where they're no longer accurate. The work isn't just challenging the thought—it's helping your nervous system recognize that the danger has passed.
+
+### When Distortions Feel Like Truth
+
+If you grew up hearing "you're worthless" or "you're too much," these beliefs can feel like fundamental truths rather than distortions. They may be the water you've been swimming in your whole life.
+
+This requires deeper work than simple cognitive restructuring:
+
+- Trauma processing (EMDR, somatic work, IFS)
+- Developing compassionate self-parts that can challenge internalized critical voices
+- Repeated experiences that contradict the old narratives
+- Patience with yourself as your brain slowly rewires
+
+### Distortions as Protection
+
+Sometimes distortions serve a protective function:
+
+- Catastrophizing keeps you prepared
+- Mind-reading helps you anticipate others' needs
+- All-or-nothing thinking creates clear rules in a chaotic world
+- Emotional reasoning validates your pain when others dismissed it
+
+Recognizing what a distortion does for you helps you address the underlying need rather than just trying to eliminate the thought.
+
+---
+
+## How to Challenge Cognitive Distortions
+
+### Step 1: Notice and Name
+
+You can't change what you don't see. Start building awareness:
+
+- Keep a thought log
+- Notice when you feel a sudden mood shift
+- Pay attention to thoughts that start with "always," "never," "should," or "I'm"
+- Identify which distortions you use most often
+
+### Step 2: Examine the Evidence
+
+Ask yourself:
+
+- What evidence supports this thought?
+- What evidence contradicts it?
+- Am I looking at the full picture or filtering?
+- Would a fair judge agree with my interpretation?
+- What would I tell a friend who had this thought?
+
+### Step 3: Generate Alternatives
+
+- What are other possible explanations?
+- What's the most realistic interpretation?
+- What's a more balanced way to view this?
+- What would be a compassionate perspective?
+
+### Step 4: Test It Out
+
+- What would happen if I acted as if the alternative thought were true?
+- Can I run an experiment to gather more information?
+- What have similar situations taught me in the past?
+
+### Step 5: Create a Balanced Thought
+
+The goal isn't toxic positivity—it's accuracy. A balanced thought:
+
+- Acknowledges your feelings
+- Considers multiple perspectives
+- Is based on evidence
+- Helps you move forward
+
+**Example:**
+- Distorted: "I'm a complete failure who ruins everything"
+- Balanced: "I made a mistake here, which feels really painful. I've also succeeded at many things. One mistake doesn't define me. I can learn from this."
+
+---
+
+## Common Pitfalls
+
+### Pitfall 1: Using Challenging Distortions as Self-Attack
+
+"I shouldn't think this way. What's wrong with me?" is just another distortion. Approach your thoughts with curiosity, not judgment.
+
+### Pitfall 2: Expecting Immediate Belief
+
+You don't have to fully believe the balanced thought at first. Your emotional brain needs time to catch up. Keep practicing.
+
+### Pitfall 3: Forgetting Context
+
+When you're triggered, exhausted, hungry, or in pain, cognitive work is harder. Sometimes you need to regulate your body first, then challenge thoughts later.
+
+### Pitfall 4: Trying to Eliminate All Negative Thoughts
+
+The goal isn't to only think positive thoughts. Negative thoughts are normal. The goal is to not let distorted thoughts run your life unchecked.
+
+---
+
+## Practice Exercise: Your Distortion Pattern
+
+Choose a recent situation where you felt intense negative emotion:
+
+**Situation:**
+
+---
+
+**Automatic Thought:**
+
+---
+
+**Which distortion(s) is this?**
+
+---
+
+**Evidence for this thought:**
+
+---
+
+**Evidence against this thought:**
+
+---
+
+**Alternative interpretation:**
+
+---
+
+**Balanced thought:**
+
+---
+
+**How do you feel after examining it?**
+
+---
+
+## Key Takeaways
+
+1. **Cognitive distortions are normal:** Everyone has them. They become problematic when they're frequent or significantly impact your wellbeing.
+
+2. **They're not character flaws:** These are learned patterns, often from trauma or your environment. You can unlearn them.
+
+3. **Awareness is the first step:** Simply noticing "I'm catastrophizing" creates distance from the thought.
+
+4. **They often come in clusters:** One distortion tends to trigger others. Notice your personal patterns.
+
+5. **Challenge with compassion, not criticism:** Be curious about your thoughts, not harsh.
+
+6. **Balanced thinking, not positive thinking:** The goal is accuracy, not pretending everything is great.
+
+7. **Your feelings are still valid:** Challenging distorted thoughts doesn't mean your emotions aren't real or important.
+
+8. **This takes practice:** Your brain has been thinking these patterns for years. Rewiring takes time.
+
+9. **Some thoughts need more than reframing:** Deep trauma-related beliefs may need professional processing, not just cognitive restructuring.
+
+10. **You're not your thoughts:** You're the awareness that notices them. That's where your freedom lives.
+
+---
+
+## References
+
+Beck, A. T. (1976). *Cognitive therapy and the emotional disorders*. International Universities Press.
+
+Burns, D. D. (2020). *Feeling great: The revolutionary new treatment for depression and anxiety*. PESI Publishing.
+
+Leahy, R. L. (2017). *Cognitive therapy techniques: A practitioner's guide* (2nd ed.). Guilford Press.
+
+Wenzel, A. (2024). Cognitive distortions in depression and anxiety: Current trends in research and clinical practice. *Clinical Psychology Review*, 108, 102385.`,
+    },
   ],
 };
