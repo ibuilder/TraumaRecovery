@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import { ChapterCard } from "@/components/chapter-card";
 import { chapters, bookInfo } from "@/lib/chapters";
 
 export default function Chapters() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   return (
     <div className="min-h-screen py-12 md:py-20">
       <div className="container px-4 md:px-6">
