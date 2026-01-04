@@ -69,7 +69,7 @@ shared/
 - **Crisis resources** in footer
 
 ## Book Chapters
-1. Basic Recovery (8 subchapters: Four Pillars Framework, Addiction & Self-Harm, Understanding Different Types of Trauma)
+1. Basic Recovery (9 subchapters: Four Pillars Framework, Addiction & Self-Harm, Understanding Different Types of Trauma, Window of Tolerance)
 2. Neuroscience of Trauma (5 subchapters: Brain Anatomy, Neurochemistry, Nervous System & Polyvagal Theory, Trauma-Related Disorders, Neurobiology of Healing)
 3. Addiction Recovery (6 subchapters: Disease Model, Brain Chemistry, SUD, Recovery Programs, Relapse Prevention, Urge Surfing)
 4. Dysfunctional Families (4 subchapters: Family Patterns, Healthy Boundaries, Inner Child Work, Breaking Generational Cycles)
