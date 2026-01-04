@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, Link } from "wouter";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,10 @@ import { chapters } from "@/lib/chapters";
 export default function Chapter() {
   const params = useParams<{ slug: string; subSlug?: string }>();
   const { slug, subSlug } = params;
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [slug, subSlug]);
 
   const chapter = chapters.find((c) => c.slug === slug);
   
