@@ -111,13 +111,25 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
         remarkPlugins={[remarkGfm]}
         components={{
           code: ({ className, children }) => {
-            const match = /language-chart:(\w+)/.exec(className || "");
-            if (match && showCharts) {
-              const ChartComponent = chartComponents[match[1]];
+            // Check for fenced code block with language identifier
+            const fencedMatch = /language-chart:(\w+)/.exec(className || "");
+            if (fencedMatch && showCharts) {
+              const ChartComponent = chartComponents[fencedMatch[1]];
               if (ChartComponent) {
                 return <ChartComponent />;
               }
             }
+            
+            // Check for inline code with chart syntax (e.g., ```chart:ChartName```)
+            const childText = String(children).trim();
+            const inlineMatch = /^chart:(\w+)$/.exec(childText);
+            if (inlineMatch && showCharts) {
+              const ChartComponent = chartComponents[inlineMatch[1]];
+              if (ChartComponent) {
+                return <ChartComponent />;
+              }
+            }
+            
             return <code className={className}>{children}</code>;
           },
           h1: ({ children }) => (
