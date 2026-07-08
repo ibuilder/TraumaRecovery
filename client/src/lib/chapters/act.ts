@@ -18,20 +18,9 @@ ACT differs from some other approaches in an important way: the goal isn't to fe
 
 ### The Goal of ACT
 
-**Psychological Flexibility:** The ability to be present, open up to difficult experiences, and take action guided by your values.
+The primary goal of Acceptance and Commitment Therapy is to foster "psychological flexibility," which Steven Hayes defines as the ability to be present in the moment and open to difficult experiences while taking action guided by one's values. For trauma survivors, this is particularly critical because they often get caught in a cycle of experiential avoidance—attempting to suppress or escape painful memories, flashbacks, and intense emotions. This avoidance, while providing temporary relief, ultimately narrows the survivor's life and creates a profound disconnection from the present moment and their own meaningful direction.
 
-This involves:
-- Being in the present moment
-- Opening up to internal experiences (thoughts, feelings, sensations)
-- Doing what matters based on your values
-
-### Why ACT Works for Trauma
-
-Trauma survivors often get caught in:
-- Avoidance of painful memories and emotions
-- Fusion with negative thoughts about self and world
-- Disconnection from the present moment
-- Loss of meaningful direction in life
+ACT directly addresses these challenges by teaching individuals how to remain grounded in the present, even when distressing internal experiences arise. By cultivating a sense of openness and curiosity toward their thoughts and feelings, survivors can begin to move toward what truly matters to them, rather than being constantly driven by the need to escape discomfort. This shift from avoidance to engagement is the foundation of long-term healing and personal growth.
 
 ACT directly addresses each of these through its six core processes.
 
@@ -44,11 +33,9 @@ ACT is built around six interconnected processes that together create psychologi
 **What It Is:**
 Willingness to experience internal events (thoughts, feelings, memories, sensations) without trying to change, avoid, or control them.
 
-**What It Isn't:**
-- Liking or wanting the experience
-- Resignation or giving up
-- Enduring or tolerating
-- Approving of what happened
+In ACT, acceptance is not a form of resignation, nor does it imply that an individual likes or approves of their traumatic past. As Russ Harris emphasizes, acceptance is the active and willing embrace of internal events—thoughts, feelings, and memories—without attempting to change or avoid them. It is distinctly different from simply "tolerating" pain; rather, it is about making room for the experience to be exactly what it is so that it no longer serves as a barrier to taking values-aligned action.
+
+This process involves a fundamental shift in how one relates to their inner world. Instead of fighting against painful emotions or trying to suppress traumatic memories, the individual learns to allow them to exist without being controlled by them. This willingness to experience the full range of human internal states creates the necessary psychological space to focus on building a life of meaning and purpose, even in the presence of discomfort.
 
 **Why It Matters:**
 Fighting against internal experiences often makes them worse and uses energy that could go toward living well. Acceptance creates space for experiences to be there while you focus on what matters.
@@ -64,9 +51,9 @@ Fighting against internal experiences often makes them worse and uses energy tha
 **What It Is:**
 Stepping back from thoughts rather than being fused with them. Seeing thoughts as thoughts rather than as facts or commands.
 
-**Fusion vs. Defusion:**
-- **Fused:** "I am worthless" (the thought is experienced as a fact about you)
-- **Defused:** "I'm having the thought that I am worthless" (the thought is recognized as a mental event)
+When an individual is "fused" with their thoughts, they experience them as literal truths or commands that must be obeyed, often leading to a sense of being overwhelmed or defined by their trauma-related narratives. In this state, there is no separation between the person and the thought, and the narrative dictated by the mind exerts total control over their actions and self-perception. This can result in a rigid adherence to self-limiting beliefs, such as "I am broken" or "I am unsafe," which further entrench the survivor in a cycle of avoidance and distress.
+
+In contrast, becoming "defused" involves stepping back from thoughts to recognize them as mere mental events—passing bits of language or images that do not have to dictate one's reality. When defused, the person can notice the thought "I am worthless" without being consumed by it, understanding it as a product of their mind rather than an objective fact. This shift in perspective creates the psychological flexibility necessary to choose how to respond, allowing the individual to take actions aligned with their values even when distressing thoughts are present.
 
 **Why It Matters:**
 When we're fused with thoughts, they control our behavior. When we're defused, we can notice thoughts without automatically acting on them or being overwhelmed by them.
@@ -113,13 +100,9 @@ When you identify as the context (the observer) rather than the content (the tho
 **What It Is:**
 Clarifying what matters most to you—what kind of person you want to be and what you want your life to stand for.
 
-**Values vs. Goals:**
-- **Values:** Directions, like "North"—ongoing, never fully achieved
-- **Goals:** Destinations—specific, achievable, completable
+Values in ACT are considered chosen directions for life, much like the points on a compass that guide a journey without ever being a final destination. Unlike goals, which are specific, achievable, and completable, values are ongoing qualities of action that are intrinsically rewarding. Kelly Wilson highlights that values are not moral rules or expectations imposed by others, but are freely chosen expressions of what a person wants their life to stand for, providing a sense of purpose even in the midst of extreme suffering.
 
-*Example:*
-- Value: Being a loving parent
-- Goals: Attend my child's recital, have dinner with family three times a week
+The distinction between values and goals is essential for maintaining motivation during the long process of recovery. While a goal such as "attending a meeting" can be checked off a list, the underlying value of "being a supportive member of a community" is something that can be lived out in every moment. This perspective ensures that survivors always have a meaningful direction to move in, regardless of whether their specific immediate goals have been met or delayed.
 
 **Why It Matters:**
 Values provide direction and motivation. When life is painful, values give a reason to keep moving. Trauma can disconnect us from what matters; values reconnection restores meaning.
@@ -195,20 +178,9 @@ Values are your heart's deepest desires for how you want to be in the world. The
 
 ### What Values Are
 
-**Values Are:**
-- Directions, like compass points
-- Ongoing, never fully achieved
-- About who you want to be
-- Freely chosen by you
-- Not dependent on outcomes
-- Intrinsically rewarding
+Values in ACT are considered chosen directions for life, much like the points on a compass that guide a journey without ever being a final destination. Unlike goals, which are specific, achievable, and completable, values are ongoing qualities of action that are intrinsically rewarding. Kelly Wilson highlights that values are not moral rules or expectations imposed by others, but are freely chosen expressions of what a person wants their life to stand for, providing a sense of purpose even in the midst of extreme suffering.
 
-**Values Are Not:**
-- Goals (which are achievable destinations)
-- Feelings (values can guide action even when feelings are difficult)
-- Moral rules imposed from outside
-- Things you "should" care about
-- Dependent on others' approval
+Reconnecting with values is a dynamic and personal process that involves identifying what truly matters across different life domains. Because values are not dependent on external outcomes or others' approval, they offer a stable source of direction that can be accessed at any time. This ongoing commitment to living according to one's values is what allows for a sense of vitality and fulfillment, regardless of the challenges that may arise on the path of recovery.
 
 ### Values vs. Goals
 
@@ -224,17 +196,9 @@ Values are your heart's deepest desires for how you want to be in the world. The
 
 ### Why Values Matter for Trauma Recovery
 
-Trauma often disconnects us from what matters:
-- Survival mode crowds out meaning
-- Depression numbs desire
-- Shame tells us we don't deserve good things
-- Avoidance shrinks our lives
+Trauma often disconnects us from what matters most, as survival mode often crowds out meaning and shame tells the survivor they no longer deserve a "good" life. Reconnecting with values is essential for recovery because it provides a reliable direction when life feels directionless and a powerful motivation when energy is low. By identifying what truly matters, survivors find a compelling reason to face their difficult internal experiences, shifting their focus from avoiding pain to approaching a life of significance.
 
-Reconnecting with values provides:
-- Direction when life feels directionless
-- Motivation when energy is low
-- Meaning even in pain
-- Reason to face difficult experiences
+When life is painful, values give a reason to keep moving, restoring meaning that trauma may have obscured. This values-based approach provides a compass for navigating the difficult terrain of recovery, allowing individuals to make choices that lead toward a more vital and purpose-driven existence, even while they continue to carry the weight of their past experiences.
 
 ## Exploring Your Values
 
@@ -365,24 +329,9 @@ Defusion helps you step back from thoughts so they have less power over your beh
 
 ### What Is Fusion?
 
-When we're "fused" with thoughts:
-- We believe thoughts are literally true
-- We take thoughts very seriously
-- We let thoughts dictate our actions
-- We see thoughts as commands or threats
-- We can't separate ourselves from our thoughts
+When an individual is "fused" with their thoughts, they experience them as literal truths or commands that must be obeyed, often leading to a sense of being overwhelmed or defined by their trauma-related narratives. In this state, there is no separation between the person and the thought, and the narrative dictated by the mind exerts total control over their actions and self-perception.
 
-**Fusion example:**
-The thought "I'm worthless" is experienced as a fact about who you are. You feel crushed by it, and it controls your behavior.
-
-### What Is Defusion?
-
-When we're "defused" from thoughts:
-- We see thoughts as mental events, not facts
-- We can notice thoughts without buying into them
-- Thoughts have less power over our behavior
-- We can choose how to respond to thoughts
-- We create space between ourselves and our thoughts
+Cognitive defusion, a core ACT process, involves stepping back from these thoughts to see them simply as mental events—bits of language or images passing through the mind. This process reduces the power that negative thoughts have over behavior, allowing the person to choose how to respond rather than being dictated to by their "mind's" production. By noticing thoughts as they are, rather than as they claim to be, individuals create the psychological space necessary for values-based action.
 
 **Defusion example:**
 The thought "I'm worthless" is noticed as a thought. You observe it with curiosity: "Interesting—there's that thought again." It's present, but it doesn't control you.
@@ -500,20 +449,9 @@ When a thought arises, ask:
 
 **Note:** This isn't about whether the thought is true—it's about whether engaging with it helps you.
 
-## The Goal of Defusion
+The goal of cognitive defusion is not to get rid of unwanted thoughts or to replace them with positive ones, but rather to change the individual's relationship with their internal narrative. By creating a healthy distance, defusion helps to reduce the "literality" and impact of thoughts, so they no longer function as obstacles to effective action. As Steven Hayes notes, it is about noticing the process of thinking itself, rather than getting lost in the content of the thoughts, thereby increasing psychological flexibility.
 
-Defusion is **NOT** about:
-- Getting rid of thoughts
-- Making thoughts go away
-- Replacing negative thoughts with positive ones
-- Pretending you don't have these thoughts
-
-Defusion **IS** about:
-- Changing your relationship to thoughts
-- Creating distance
-- Reducing the power thoughts have over you
-- Choosing whether and how to respond to thoughts
-- Acting on your values regardless of what your mind says
+Ultimately, defusion is about changing your relationship to your thoughts, creating distance so they have less power over your behavior. It allows you to choose whether and how to respond to what your mind says, enabling you to act on your values regardless of the negative or distressing narratives that may arise. This shift in perspective is essential for navigating the complex emotional landscape of trauma recovery.
 
 ## Practice
 
@@ -565,16 +503,9 @@ At the center of the hexaflex is **Psychological Flexibility**—the goal of all
 
 ### Why a Hexaflex?
 
-The hexagonal shape illustrates several key principles:
+The "Hexaflex" model is used in ACT to illustrate the six core processes that together create psychological flexibility: acceptance, defusion, present-moment awareness, self-as-context, values, and committed action. This hexagonal structure emphasizes the dynamic interconnection between these processes, suggesting that they are not a linear sequence but a holistic system where strengthening one area naturally supports the others.
 
-**Interconnection:**
-All six processes connect to each other and to the center. Strengthening one process supports the others.
-
-**Balance:**
-No single process is more important. Psychological flexibility requires all six.
-
-**Dynamic relationship:**
-The processes interact continuously, not in a linear sequence.
+This integrated approach ensures that the survivor has a comprehensive set of tools to navigate the complexities of trauma recovery. The hexagonal shape serves as a reminder that no single process is more important than the others, and that psychological flexibility arises from the balanced and dynamic interplay of all six elements, all connecting to the common goal of a vital and meaningful life.
 
 ## The Six Processes in Depth
 
@@ -724,21 +655,11 @@ Acceptance is often misunderstood. It doesn't mean liking, wanting, or approving
 
 ## What Acceptance Is and Isn't
 
-### What Acceptance IS:
+In ACT, acceptance is not a form of resignation, nor does it imply that an individual likes or approves of their traumatic past. As Russ Harris emphasizes, acceptance is the active and willing embrace of internal events—thoughts, feelings, and memories—without attempting to change or avoid them. It is distinctly different from simply "tolerating" pain; rather, it is about making room for the experience to be exactly what it is so that it no longer serves as a barrier to taking values-aligned action.
 
-**Willingness:** Choosing to make room for experience.
-**Opening up:** Creating space for difficult feelings.
-**Allowing:** Letting experiences be present without fighting.
-**Making contact:** Fully experiencing what's there.
-**Dropping the struggle:** Stopping the war with your inner experience.
+This process involves a fundamental shift in how one relates to their inner world. Instead of fighting against painful emotions or trying to suppress traumatic memories, the individual learns to allow them to exist without being controlled by them. This willingness to experience the full range of human internal states creates the necessary psychological space to focus on building a life of meaning and purpose, even in the presence of discomfort.
 
-### What Acceptance ISN'T:
-
-**Resignation:** "I give up; nothing will ever change."
-**Approval:** "I think this is good or okay."
-**Wanting:** "I like feeling this way."
-**Tolerating:** "I'll just put up with this."
-**Passive acceptance of external situations:** Acceptance is about internal experience, not external circumstances you can change.
+The key distinction lies in the separation of internal experience from external action. While a survivor may choose to accept the presence of anxiety or fear, this acceptance does not mean they must accept a harmful external situation. Rather, by making room for the internal discomfort, they gain the clarity and energy needed to take effective action toward safety and well-being, effectively decoupling their behavior from the dictates of their traumatic symptoms.
 
 ### The Key Distinction
 

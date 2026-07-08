@@ -18,57 +18,17 @@ Trauma can occur at any stage of life. While childhood trauma shapes development
 
 \`\`\`chart:AdultTraumaTypesChart\`\`\`
 
-**Accidents and Injuries:**
-- Motor vehicle accidents
-- Workplace injuries
-- Sports injuries
-- Falls and physical harm
+**Accidents, Injuries, and Violent Crimes:**
+Sudden physical trauma, such as motor vehicle accidents or workplace injuries, can shatter an adult's sense of physical safety and bodily integrity. Violent crimes—including assault, robbery, or the profound violation of sexual assault—add a layer of interpersonal betrayal and intentional harm. Judith Herman notes that when trauma is inflicted by another human being, the recovery process often involves navigating a deeper sense of injustice and a more significant disruption of one's ability to trust others.
 
-**Violent Crimes:**
-- Assault and battery
-- Robbery and mugging
-- Sexual assault and rape
-- Attempted murder
-- Witness to violence
+**Natural Disasters and Medical Trauma:**
+Large-scale events like earthquakes, hurricanes, or pandemics can lead to "community trauma," where the collective sense of safety is destroyed. Similarly, medical trauma—stemming from life-threatening diagnoses, traumatic surgeries, or the harrowing experience of an ICU stay—can leave individuals feeling profoundly vulnerable. These experiences often force a confrontation with mortality and can shatter the assumption that the world is a predictable and safe place.
 
-**Natural Disasters:**
-- Earthquakes and tsunamis
-- Hurricanes and tornadoes
-- Floods and fires
-- Pandemics
+**Workplace, Military, and Community Trauma:**
+For first responders and military personnel, trauma is often a cumulative result of repeated exposure to death, injury, and high-stress environments. Military combat and workplace violence can lead to "moral injury," where an individual's core values are violated by their own actions or the actions of others. Community-wide events, such as mass shootings or hate crimes, create a pervasive sense of threat that impacts not just individuals but entire social networks, requiring a collective approach to healing.
 
-**Medical Trauma:**
-- Life-threatening diagnoses
-- Traumatic surgeries or procedures
-- ICU experiences
-- Chronic illness onset
-- Medical errors
-- Pregnancy loss and birth trauma
-
-**Sudden Loss:**
-- Unexpected death of loved ones
-- Traumatic deaths (suicide, homicide, accident)
-- Multiple losses
-
-**Workplace Trauma:**
-- First responder trauma (police, fire, EMT)
-- Healthcare worker trauma
-- Workplace violence
-- Severe harassment or bullying
-- Traumatic job loss
-
-**Military and Combat:**
-- Combat exposure
-- Military sexual trauma
-- Witnessing death and injury
-- Killing in line of duty
-- Moral injury
-
-**Community Trauma:**
-- Mass shootings
-- Terrorist attacks
-- Community violence
-- Hate crimes
+**Sudden Loss and Life Transitions:**
+The unexpected death of a loved one, especially through suicide or accident, can be a primary source of adult trauma. Unlike the natural grieving process, traumatic loss is often complicated by shock and a search for meaning. As Richard Tedeschi and Lawrence Calhoun’s research on Post-Traumatic Growth suggests, these profound disruptions can eventually lead to a reorganization of life priorities, though the initial experience is one of devastating fragmentation.
 
 ### What Makes Adult Trauma Unique
 
@@ -508,13 +468,9 @@ Trauma can erode confidence. Rebuild it by:
 
 ### How Trauma Affects Relationships
 
-Trauma can impact relationships through:
-- Withdrawal and isolation
-- Irritability and anger
-- Difficulty trusting
-- Changes in intimacy
-- Misunderstandings by loved ones
-- Role changes
+Trauma can profoundly impact an individual's relationships, often leading to a cycle of withdrawal and isolation. Survivors may experience increased irritability and anger, which can create significant strain on their connections with loved ones. Judith Herman notes that the disruption of trust is a core consequence of trauma, making it difficult for individuals to feel safe in intimate settings. Furthermore, changes in physical and emotional intimacy, combined with misunderstandings from family members who may not grasp the depth of the trauma, can lead to significant role changes and relational tension.
+
+Addressing these impacts involves clear and compassionate communication. Helping loved ones understand the nature of the recovery process—including what is helpful and what is not—is essential for rebuilding a supportive environment. Judith Herman emphasizes that because trauma is inherently isolating, the process of reconnecting with others and accepting support is a vital component of the healing journey. This may involve setting clear limits to protect oneself from unhelpful responses while gradually re-engaging with those who provide genuine safety and empathy.
 
 ### Communicating with Loved Ones
 

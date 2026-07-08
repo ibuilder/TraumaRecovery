@@ -16,13 +16,9 @@ Beyond traditional talk therapy, several evidence-based alternative treatments h
 
 \`\`\`chart:SomaticTherapyChart\`\`\`
 
-Traditional talk therapy is valuable, but trauma is often stored in the body and brain in ways that words alone cannot access. These alternative approaches offer:
+While traditional talk therapy provides a vital foundation for recovery, research by pioneers like Bessel van der Kolk and Peter Levine suggests that trauma is often stored in the body's nervous system and the brain's subcortical regions in ways that verbal communication alone cannot fully access. These alternative therapies offer a body-based healing approach that works directly with the nervous system, providing a more efficient means of processing traumatic memories that have become "stuck" as implicit, sensory experiences.
 
-- **Body-based healing** - Working with the nervous system directly
-- **Efficient processing** - Often faster than traditional talk therapy
-- **Access to implicit memory** - Reaching what words cannot
-- **Neurobiological change** - Rewiring trauma responses
-- **Options when talk therapy isn't enough** - Additional tools for recovery
+By reaching what words cannot, these approaches facilitate neurobiological change, effectively rewiring the trauma response and offering essential options when traditional talk therapy isn't enough. As clinical research from the World Health Organization and the American Psychological Association highlights, integrating these modalities allows for a more holistic recovery plan that addresses the physiological as well as the psychological impacts of trauma.
 
 ## Overview of Alternative Approaches
 
@@ -149,88 +145,11 @@ The brain and nervous system can change. Through repeated new experiences, we ca
 - **Discharge**: Releasing trapped survival energy (trembling, heat, etc.)
 - **Resourcing**: Building capacity through positive sensations
 
-**What to Expect:**
-- Focus on bodily sensations rather than story
-- Slow, careful approach
-- Attention to nervous system states
-- Physical sensations may arise (tingling, warmth, trembling)
-- Gradual increase in capacity for regulation
+In a Somatic Experiencing (SE) session, developed by Dr. Peter Levine, you can expect a slow and careful focus on bodily sensations rather than a primary emphasis on the narrative story of the trauma. The therapeutic process centers on building a gradual increase in your capacity for self-regulation by paying close attention to nervous system states. This approach often leads to the emergence of physical sensations such as tingling, warmth, or subtle trembling, which indicate the release of trapped survival energy and the completion of previously interrupted defensive responses.
 
----
+The Hakomi Method, created by Ron Kurtz, is built upon the core concepts of mindfulness, non-violence, and a deep respect for the individual's innate wisdom. It views the body as a doorway to unconscious material, using present-moment body awareness to reveal and transform long-held character patterns that act as psychological armor. By maintaining a highly attuned therapeutic relationship, Hakomi facilitates the integration of new, healing experiences that support the unity of mind and body.
 
-### Sensorimotor Psychotherapy
-
-**Developed by:** Dr. Pat Ogden
-
-**Core Concepts:**
-- Body is central to processing trauma
-- Movement patterns hold trauma information
-- Physical actions complete incomplete responses
-- Integration of body, emotion, and cognition
-
-**Key Techniques:**
-- **Body awareness**: Noticing physical sensations
-- **Tracking**: Following sensations through the body
-- **Movement**: Exploring and completing physical impulses
-- **Boundary work**: Physical establishment of boundaries
-- **Core regulation**: Building somatic resources
-
-**What to Expect:**
-- Attention to posture, movement, and sensation
-- Experiments with new movements
-- Integration of talk and body work
-- Exploration of trauma-related physical patterns
-
----
-
-### The Hakomi Method
-
-**Developed by:** Ron Kurtz
-
-**Core Concepts:**
-- Mindfulness as foundation
-- Non-violence and respect
-- Unity of mind and body
-- Character as armor
-- The body reveals unconscious material
-
-**Key Techniques:**
-- **Mindfulness**: Present-moment body awareness
-- **Probes**: Gentle experiments with statements or touch
-- **Contact**: Attuned therapeutic relationship
-- **Taking over**: Therapist temporarily holds tension
-- **Transformation**: Integrating new experiences
-
----
-
-### Body-Mind Centering (BMC)
-
-**Developed by:** Bonnie Bainbridge Cohen
-
-**Core Concepts:**
-- Each body system has unique expression
-- Development stages affect current function
-- Embodiment of all tissues (bone, muscle, organs, fluids)
-- Movement education as healing
-
-**Applications for Trauma:**
-- Re-patterning developmental movements
-- Organ awareness and expression
-- Fluid system work for regulation
-- Integration of reflexes and responses
-
-## Common Somatic Techniques
-
-### Grounding and Orienting
-
-**Purpose:** Establishing safety and present-moment awareness
-
-**Techniques:**
-- Feeling feet on the ground
-- Sensing the support of the chair
-- Looking around the room slowly
-- Noticing what draws your attention
-- Feeling your body in space
+Grounding and orienting techniques are essential for establishing a physical sense of safety and present-moment awareness during somatic work. These practices involve deliberately feeling the weight of your feet on the ground, sensing the support of the chair beneath you, and slowly looking around the room to notice what draws your attention in a non-threatening way. By consistently returning to these tangible physical sensations, you can anchor yourself in the safety of the present moment, which is a prerequisite for processing more challenging traumatic material.
 
 ### Tracking Sensations
 
@@ -386,135 +305,21 @@ EMDR was developed in 1987 by psychologist Dr. Francine Shapiro. While walking i
 
 EMDR uses bilateral stimulation (typically eye movements, but also taps or auditory tones) while the client briefly focuses on a traumatic memory. This appears to help the brain process "stuck" memories and integrate them in a healthier way.
 
-**The Theory:**
-- Traumatic memories are stored differently than normal memories
-- They remain "unprocessed" with original disturbing emotions and sensations
-- Bilateral stimulation helps the brain's natural processing system
-- Memories become integrated and lose their disturbing charge
+The theory behind EMDR is based on the Adaptive Information Processing (AIP) model, which suggests that traumatic memories are stored differently than normal, adaptive memories. Overwhelming experiences may fail to process fully, remaining "stuck" in the nervous system with their original disturbing images, thoughts, emotions, and sensations intact. These isolated memory fragments can be easily triggered by current events, causing the survivor to experience them with the same intensity as the original event because they are not connected to healthier, more adaptive neural networks.
 
-### The Adaptive Information Processing Model
-
-EMDR is based on the Adaptive Information Processing (AIP) model:
-
-**Normal Memory Processing:**
-- Experiences are processed and stored with appropriate meaning
-- Connected to other memories and learning
-- Available for future reference without disturbance
-
-**Trauma Memory Storage:**
-- Overwhelming experiences may not process fully
-- Stored with original images, thoughts, emotions, and sensations
-- Can be triggered and feel as distressing as the original event
-- Not connected to adaptive information
-
-**EMDR Processing:**
-- Activates the brain's natural healing capacity
-- Links traumatic memories to adaptive networks
-- Reduces the emotional charge
-- Creates new, more adaptive perspectives
+EMDR processing activates the brain's natural capacity for healing by linking these traumatic memories to adaptive information networks. Through the use of bilateral stimulation, the emotional charge of the trauma is significantly reduced, and the memory becomes integrated into the broader life narrative. This allows for the creation of new, more helpful perspectives, ensuring that the memory is stored in a way that is no longer distressing and is available for future reference without triggering a traumatic response.
 
 ## The Eight Phases of EMDR
 
 \`\`\`chart:EMDRPhasesChart\`\`\`
 
-### Phase 1: History Taking and Treatment Planning
+The eight-phase protocol of EMDR begins with history taking and treatment planning, where the therapist and client collaborate to identify specific traumatic memories—often called "targets"—that are driving current symptoms. This phase also involves assessing the client's readiness for trauma processing and ensuring they have sufficient stability. As Francine Shapiro emphasizes, this initial stage is critical for developing a comprehensive roadmap for healing that addresses both past events and current triggers.
 
-**Purpose:** Understand your history and identify targets for treatment
+In the preparation phase, the focus shifts to building the client's internal resources and emotional management skills. This involves explaining the EMDR process in detail and teaching self-calming techniques, such as the "Safe Place" or "Calm Place" exercise. By establishing a strong foundation of safety and trust, the therapist ensures that the survivor has the necessary tools to handle the intense emotions that may arise during the desensitization phase, creating a secure environment for deep psychological work.
 
-**Activities:**
-- Discuss presenting problems and symptoms
-- Gather trauma history
-- Identify specific memories to target
-- Develop a treatment plan
-- Assess readiness for trauma processing
+The assessment and desensitization phases represent the core of the EMDR processing work. During assessment, the specific components of the traumatic memory—including the primary image, negative self-belief, and physical sensations—are identified. Desensitization then uses bilateral stimulation to activate the brain's information processing system, allowing the traumatic memory to be integrated with more adaptive neural networks. As the survivor focuses on the memory while following the therapist's guidance, the subjective distress typically decreases, and new, healthier perspectives begin to emerge.
 
-### Phase 2: Preparation
-
-**Purpose:** Prepare you for processing and build resources
-
-**Activities:**
-- Explain the EMDR process
-- Establish safety and trust
-- Teach self-calming techniques
-- Develop a "safe place" or "calm place" resource
-- Address questions and concerns
-
-**Safe Place Exercise:**
-- Imagine a place (real or imagined) where you feel completely safe
-- Notice details: what you see, hear, feel
-- Add bilateral stimulation to strengthen the resource
-- Practice accessing this resource
-
-### Phase 3: Assessment
-
-**Purpose:** Identify all components of the target memory
-
-**Components Identified:**
-- **Image**: The picture that represents the worst part
-- **Negative Cognition (NC)**: The negative self-belief connected to the memory (e.g., "I am not safe")
-- **Positive Cognition (PC)**: What you'd prefer to believe (e.g., "I am safe now")
-- **Validity of Cognition (VoC)**: How true the positive cognition feels (1-7)
-- **Emotions**: What emotions arise with the memory
-- **Subjective Units of Disturbance (SUD)**: Distress level (0-10)
-- **Body Sensation**: Where you feel it in your body
-
-### Phase 4: Desensitization
-
-**Purpose:** Process the traumatic memory
-
-**Process:**
-1. Focus on the memory (image, negative cognition, body sensation)
-2. Follow the therapist's moving fingers (or experience taps/tones)
-3. Let whatever comes up happen without judgment
-4. After each set of bilateral stimulation, report what you noticed
-5. Continue until distress (SUD) reaches 0 or 1
-
-**What Happens:**
-- Memories may shift or change
-- New insights may arise
-- Emotions may intensify then decrease
-- Physical sensations may emerge and release
-- Related memories may surface
-
-### Phase 5: Installation
-
-**Purpose:** Strengthen the positive cognition
-
-**Process:**
-1. Pair the original memory with the positive cognition
-2. Use bilateral stimulation to strengthen this connection
-3. Continue until the positive cognition feels completely true (VoC = 7)
-
-### Phase 6: Body Scan
-
-**Purpose:** Address any remaining physical disturbance
-
-**Process:**
-1. Think of the original memory and positive cognition
-2. Scan your body for any remaining tension or disturbance
-3. If found, use bilateral stimulation to process
-4. Continue until body is clear
-
-### Phase 7: Closure
-
-**Purpose:** Ensure stability before ending the session
-
-**Activities:**
-- Return to calm state
-- Use safe place if needed
-- Discuss what to expect between sessions
-- Provide self-care instructions
-- Keep a journal of any disturbances that arise
-
-### Phase 8: Reevaluation
-
-**Purpose:** Assess progress and identify next targets
-
-**At the Next Session:**
-- Check on processed memories
-- Assess if gains have held
-- Identify any new material that has emerged
-- Plan next treatment targets
+Following processing, the installation and body scan phases focus on solidifying the gains made during desensitization. Installation involves pairing the original memory with a new, positive self-belief, such as "I am safe now" or "I am worthy," and strengthening this connection through further bilateral stimulation. The body scan then ensures that any remaining physical tension related to the trauma is cleared. The process concludes with closure and re-evaluation, ensuring that the client feels stable at the end of each session and that progress is consistently monitored and built upon in subsequent meetings.
 
 ## What Does EMDR Feel Like?
 
@@ -601,19 +406,11 @@ Research also supports EMDR for:
 
 EMDR is one of the most researched trauma treatments:
 
-- **Over 30 randomized controlled trials** supporting its effectiveness
-- **Recognized by WHO** as treatment for PTSD
-- **Recognized by APA** as effective for PTSD
-- **Recognized by VA/DoD** for military PTSD
-- **Comparable to trauma-focused CBT** in effectiveness
+EMDR is one of the most rigorously researched trauma treatments, supported by over thirty randomized controlled trials that demonstrate its effectiveness across diverse populations. It has received high-level endorsements from the World Health Organization (WHO) and the American Psychological Association (APA) as a first-line treatment for PTSD. Furthermore, the Department of Veterans Affairs and the Department of Defense recognize EMDR as an effective intervention for military-related trauma, with research showing its efficacy is comparable to trauma-focused CBT while often achieving results in a shorter time frame.
 
-### Typical Results
+Most individuals who undergo EMDR see significant improvement in their symptoms, with single-incident traumas often being addressed in as few as three to six sessions. For those with complex or developmental trauma, a longer course of treatment is typically required to achieve full integration. Clinical data indicates that the gains made during EMDR processing tend to be durable over time, with many survivors experiencing a complete resolution of their PTSD symptoms and a profound shift in their self-perception.
 
-- Most people see significant improvement
-- Single-incident trauma: 3-6 sessions often sufficient
-- Complex trauma: Longer treatment needed
-- Gains tend to be maintained over time
-- Many experience complete resolution of PTSD symptoms
+During the processing phase, it is common for traumatic memories to initially feel vivid, with emotions intensifying before they begin to release. As the brain's information processing system activates, individuals often report new insights, spontaneous shifts in perspective, and a gradual decrease in the memory's distressing charge. This process can feel as though time is passing quickly or slowly, eventually leading to a deep sense of relief and emotional lightness as the memory is finally integrated into the survivor's life story in a healthy way.
 
 ---
 

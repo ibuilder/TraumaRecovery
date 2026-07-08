@@ -40,13 +40,9 @@ The key insight: by changing our thoughts, we can influence our feelings and beh
 
 ### Why CBT Works for Trauma
 
-Trauma often creates or reinforces distorted thinking patterns:
-- Self-blame ("It was my fault")
-- Overgeneralization ("No one can be trusted")
-- Catastrophizing ("I'll never recover")
-- All-or-nothing thinking ("If I'm not perfect, I'm worthless")
+Trauma often creates or reinforces distorted thinking patterns that significantly impact a survivor's worldview. Research by Aaron Beck and Albert Ellis suggests that these cognitive distortions, such as intense self-blame or the belief that no one can be trusted, act as filters that prevent accurate information processing. When a survivor experiences catastrophizing, they may feel as though they will never recover, a sentiment that Christine Padesky emphasizes must be identified and challenged to allow for the development of more balanced and helpful cognitive schemas.
 
-CBT helps identify and challenge these patterns, replacing them with more accurate, helpful thoughts.
+These unhelpful thinking patterns are not mere accidents but are systematic errors that maintain emotional distress. By applying classic CBT research, we can see that addressing all-or-nothing thinking—where the world is seen as either completely safe or completely dangerous—is essential for trauma recovery. CBT provides the tools to replace these rigid interpretations with nuanced perspectives, helping individuals move away from the "should" statements and mental filtering that often keep them stuck in a cycle of trauma-related distress.
 
 ## Cognitive Distortions
 
@@ -174,12 +170,9 @@ Test your beliefs in real life to see if they hold up.
 When we're depressed or anxious, we tend to withdraw. This creates a downward spiral:
 Less activity → Lower mood → Less motivation → Even less activity
 
-**Breaking the Cycle:**
-1. **Track activities:** Note what you do and how you feel
-2. **Identify patterns:** What activities boost your mood?
-3. **Schedule activities:** Plan enjoyable and meaningful activities
-4. **Start small:** Even tiny steps count
-5. **Do it anyway:** Don't wait for motivation
+To break this cycle, individuals must engage in a systematic process of tracking their activities and mood to identify specific patterns of withdrawal and engagement. Research indicates that by noting which activities boost mood or provide a sense of mastery, survivors can begin to schedule enjoyable and meaningful actions even when they lack initial motivation. This approach, emphasized in classic behavioral research, suggests that starting with tiny, manageable steps is more effective than waiting for a shift in feeling, as the action itself often triggers the necessary emotional change.
+
+Breaking the cycle of inactivity involves a commitment to doing scheduled activities regardless of the current emotional state. This "action-first" principle is a cornerstone of Behavioral Activation, allowing individuals to experience a shift in their internal environment through external engagement. By focusing on pleasure, mastery, and values-based activities, survivors can build a new upward spiral where increased activity leads to improved mood and greater motivation, ultimately fostering a more resilient and active lifestyle.
 
 **Activity Categories:**
 - **Pleasure activities:** Things you enjoy
@@ -190,21 +183,9 @@ Less activity → Lower mood → Less motivation → Even less activity
 
 ### Challenging Trauma-Related Beliefs
 
-CBT for trauma specifically addresses beliefs about:
-- **The self:** "I am damaged," "I am to blame"
-- **Others:** "No one can be trusted," "People are dangerous"
-- **The world:** "The world is completely unsafe," "Bad things always happen"
-- **The future:** "I'll never get better," "I can't handle anything"
+CBT for trauma specifically addresses deeply held beliefs about the self, others, and the world that have been shattered or warped by the traumatic event. Research by Patricia Resick in Cognitive Processing Therapy (CPT) highlights that survivors often grapple with beliefs such as "I am damaged" or "the world is completely unsafe." These global, negative appraisals can lead to a sense of permanent brokenness and a profound lack of trust in others, which directly interferes with the ability to form healthy connections and feel secure in the future.
 
-### Cognitive Processing Therapy (CPT)
-
-CPT is a specific CBT protocol for PTSD that focuses on "stuck points"—problematic beliefs about the trauma.
-
-**Stuck Point Examples:**
-- "It was my fault because I didn't fight back"
-- "I should have known better"
-- "I'm damaged forever"
-- "I can't trust anyone ever again"
+Challenging these trauma-related beliefs requires a focused examination of "stuck points"—specific, problematic thoughts that prevent emotional processing. Common examples include self-blame for not fighting back or the conviction that "I'll never get better." By systematically examining the evidence for and against these beliefs, CPT helps survivors move toward more balanced perspectives, such as recognizing that responsibility lies with the perpetrator rather than the victim, and that healing, while difficult, is a dynamic and achievable process.
 
 **CPT Process:**
 1. Identify stuck points
@@ -235,19 +216,9 @@ Learning to identify and challenge unhelpful thoughts is a core CBT skill. This 
 
 ### What Are Automatic Thoughts?
 
-Automatic thoughts are the quick, spontaneous thoughts that pop into our minds in response to situations. They're called "automatic" because:
-- They happen instantly
-- They often go unnoticed
-- They feel like facts rather than thoughts
-- They're influenced by underlying beliefs
+Automatic thoughts are characterized by their rapid, spontaneous nature, often appearing in the mind instantly in response to specific triggers. As Aaron Beck identified, these thoughts often go unnoticed because they are so brief, yet they carry a heavy emotional weight, feeling like objective facts rather than subjective interpretations. They are deeply influenced by our underlying schemas—the core beliefs we hold about ourselves and the world—which means they can be highly distorted yet remain completely believable in the moment of distress.
 
-### Characteristics of Automatic Thoughts
-
-- Brief and rapid
-- Can be words, images, or memories
-- Often negative when struggling
-- Feel believable in the moment
-- Connected to emotions
+These thoughts often manifest as quick mental images, words, or even brief memories that flash through the mind before one has a chance to evaluate them. Because they are so closely connected to our emotional states, they can trigger intense feelings of anxiety or sadness before we are even fully aware of what we are thinking. Learning to catch these thoughts involves slowing down during moments of high emotion and questioning the spontaneous narratives our minds produce, recognizing them as products of past conditioning rather than absolute truths about the present.
 
 ### Catching Automatic Thoughts
 
@@ -449,22 +420,9 @@ Avoiding trauma reminders feels protective but actually keeps fear alive. Exposu
 
 ### How Avoidance Maintains Fear
 
-When we avoid something, we:
-- Never learn it's not dangerous
-- Reinforce the belief that we can't handle it
-- Narrow our lives around the avoidance
-- Feel temporary relief that reinforces avoiding
+Avoidance is a primary mechanism that maintains trauma-related fear, as it prevents the individual from learning that the feared situation is no longer dangerous. When we avoid triggers, we reinforce the belief that we are unable to handle the distress, which narrows our lives and creates a temporary sense of relief that paradoxically strengthens the cycle of fear. Research by Edna Foa on Prolonged Exposure (PE) emphasizes that this avoidance keeps the trauma memory "stuck" and unprocessed, as the survivor never gets the chance to integrate the experience into their broader life narrative.
 
-### How Exposure Works
-
-**Habituation:**
-With repeated, prolonged exposure, anxiety naturally decreases.
-
-**Learning:**
-We learn that the feared outcome doesn't happen, or that we can cope.
-
-**Self-efficacy:**
-We learn we're capable of facing difficult things.
+Exposure therapy works through the process of habituation, where repeated and prolonged contact with a feared stimulus leads to a natural decrease in anxiety. By staying in the presence of a trigger without engaging in safety behaviors, the survivor's nervous system eventually learns that the danger has passed, allowing the brain to process the memory more adaptively. This process also builds self-efficacy, as individuals discover they are capable of facing their most difficult emotions and situations, ultimately leading to a significant reduction in PTSD symptoms and an increased sense of personal agency.
 
 ### The Exposure Process
 
@@ -494,14 +452,9 @@ Gradually work up to more challenging items.
 
 ### Types of Exposure
 
-**In Vivo Exposure:**
-Real-life exposure to feared situations.
+Exposure therapy utilizes several different modalities to help survivors confront their fears in a controlled and therapeutic manner. In vivo exposure involves direct, real-life contact with feared situations or objects, such as driving a car again after an accident or visiting a place that was previously avoided. This helps the individual break the cycle of avoidance by demonstrating through direct experience that the situation is now safe.
 
-**Imaginal Exposure:**
-Vividly imagining the feared situation or memory.
-
-**Interoceptive Exposure:**
-Exposure to physical sensations of anxiety (heart racing, shortness of breath).
+In addition to real-life encounters, imaginal exposure involves vividly recounting the traumatic event in the present tense within the safety of the therapeutic environment. This allows the survivor to process the emotional and cognitive aspects of the memory that are too painful to face directly. Interoceptive exposure is another critical tool, focusing on the physical sensations of anxiety themselves—such as a racing heart or shortness of breath—to help the individual learn that these bodily responses are not dangerous, thereby reducing the fear of the fear itself.
 
 ### Safety Notes
 
