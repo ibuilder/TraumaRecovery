@@ -16,27 +16,9 @@ This chapter provides a comprehensive collection of educational videos, expert t
 
 ## Featured Clinicians & Programs
 
-### Dr. Robb Lahore (Meadows Behavioral Health)
-
-Dr. Robb Lahore is a Senior Fellow at Meadows Behavioral Healthcare, specializing in trauma, addiction, PTSD, and attachment disorders.
-
-**Website:** themeadows.com
-
-**Topics:**
-- Trauma and addiction recovery
-- PTSD treatment
-- Attachment disorders
-- Developmental trauma
-
-**Search YouTube:** "Dr. Robb Lahore trauma recovery" or "Meadows Behavioral Health"
-
-**Focus:** Evidence-based trauma treatment, Meadows Model, attachment work
-
----
-
 ### Dr. Kevin McCauley (Institute for Addiction Study)
 
-Dr. Kevin McCauley is a physician and Senior Fellow at Meadows who has made groundbreaking contributions to understanding addiction as a brain disease.
+Dr. Kevin McCauley is a physician who has made groundbreaking contributions to understanding addiction as a brain disease.
 
 **Website:** drkevinmccauley.com
 
@@ -119,7 +101,6 @@ Dr. Patrick Carnes is a pioneer in the field of sexual addiction and betrayal tr
 
 **Organizations:**
 - International Institute for Trauma and Addiction Professionals (IITAP): iitap.com
-- Gentle Path at The Meadows
 
 **Website:** drpatrickcarnes.com
 
@@ -144,11 +125,9 @@ Dr. Patrick Carnes is a pioneer in the field of sexual addiction and betrayal tr
 
 ### Pia Mellody
 
-Pia Mellody is a Senior Fellow at Meadows Behavioral Healthcare and creator of the Developmental Model of Immaturity.
+Pia Mellody is a pioneering clinician and creator of the Developmental Model of Immaturity.
 
-**Affiliation:** Meadows Behavioral Healthcare
-
-**Website:** themeadows.com/about/senior-fellows/
+**Website:** piamellody.com
 
 **Topics:**
 - Codependency
@@ -157,22 +136,22 @@ Pia Mellody is a Senior Fellow at Meadows Behavioral Healthcare and creator of t
 - Developmental trauma
 
 **Key Contributions:**
-- Developmental Model of Immaturity (foundation of Meadows Model)
+- Developmental Model of Immaturity
 - Five core symptoms of codependency
 
 **Books:**
 - *Facing Codependence*
 - *Breaking Free*
 
-**Search YouTube:** "Pia Mellody codependency" or "Pia Mellody Meadows"
+**Search YouTube:** "Pia Mellody codependency" or "Pia Mellody love addiction"
 
 ---
 
 ### Dr. Claudia Black
 
-Dr. Claudia Black is a Senior Fellow at Meadows and pioneer in adult children of alcoholics (ACoA) treatment.
+Dr. Claudia Black is a pioneer in adult children of alcoholics (ACoA) treatment.
 
-**Website:** themeadows.com
+**Website:** claudiablack.com
 
 **Topics:**
 - Adult children of alcoholics
@@ -191,9 +170,7 @@ Dr. Claudia Black is a Senior Fellow at Meadows and pioneer in adult children of
 
 ### Dr. Tian Dayton
 
-Dr. Tian Dayton is a Senior Fellow at Meadows specializing in psychodrama and experiential therapy.
-
-**Affiliation:** Meadows Behavioral Healthcare
+Dr. Tian Dayton is a leading specialist in psychodrama and experiential therapy.
 
 **Website:** tiandayton.com
 
@@ -211,7 +188,7 @@ Dr. Tian Dayton is a Senior Fellow at Meadows specializing in psychodrama and ex
 
 ### Dr. Peter Levine
 
-Dr. Peter Levine is the founder of Somatic Experiencing and a Senior Fellow at Meadows.
+Dr. Peter Levine is the founder of Somatic Experiencing.
 
 **Website:** traumahealing.org
 
@@ -284,27 +261,6 @@ Dr. Peter Levine is the founder of Somatic Experiencing and a Senior Fellow at M
 - Co-occurring disorders
 
 **Search YouTube:** "Sierra Tucson recovery" or "Sierra Tucson Behind the Miracle"
-
----
-
-### The Meadows Treatment Centers
-
-**Website:** themeadows.com
-
-**Locations:** Arizona (flagship), Texas, California, and other locations
-
-**Content:**
-- Trauma and addiction treatment
-- Clinical education
-- Senior Fellows presentations
-
-**Notable Programs:**
-- The Meadows (flagship)
-- Gentle Path (sexual addiction)
-- Willow House (women's trauma)
-- Claudia Black Young Adult Center
-
-**Search YouTube:** "The Meadows Treatment Center" or "Meadows Behavioral Healthcare"
 
 ---
 
@@ -479,7 +435,7 @@ Dr. McCauley's follow-up work on recovery management and building a sustainable 
 
 ---
 
-## Meadows Senior Fellows
+## Clinician Video Resources
 
 ### Pia Mellody - Codependency
 
@@ -739,35 +695,6 @@ Detailed information about leading residential and outpatient trauma treatment c
 - Alumni videos: sierratucson.com/about/alumni/my-miracle-is/
 
 **Search YouTube:** "Sierra Tucson recovery"
-
----
-
-### The Meadows Treatment Centers
-
-**Locations:** Arizona (flagship), Texas, California
-
-**Website:** themeadows.com
-
-**Philosophy:** The Meadows Model - addressing developmental trauma, attachment, and codependency
-
-**Notable Programs:**
-
-| Program | Focus |
-|---------|-------|
-| The Meadows | Flagship trauma and addiction |
-| Gentle Path | Sexual addiction recovery |
-| Willow House | Women's trauma program |
-| Claudia Black Young Adult Center | Ages 18-26 |
-
-**Senior Fellows (Leading Experts):**
-- Pia Mellody - Codependency
-- Dr. Claudia Black - Family systems
-- Dr. Peter Levine - Somatic Experiencing
-- Dr. Tian Dayton - Psychodrama
-- Dr. Kevin McCauley - Addiction neuroscience
-- Dr. Robb Lahore - Trauma treatment
-
-**Search YouTube:** "The Meadows Treatment Center" or "Meadows Behavioral Healthcare"
 
 ---
 
