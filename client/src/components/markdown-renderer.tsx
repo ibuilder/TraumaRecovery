@@ -47,6 +47,19 @@ import {
   InnerChildHealingChart,
   DistressToleranceSkillsChart,
   InterpersonalEffectivenessChart,
+  SexAddictionPrevalenceChart,
+  SexAddictionBrainChart,
+  SexAddictionTraumaChart,
+  CarnesAddictionCycleChart,
+  SexAddictionBeliefsChart,
+  ThreeCirclesChart,
+  LoveAddictionPatternsChart,
+  TraumaBondingCycleChart,
+  MeadowsTreatmentModelChart,
+  MeadowsOutcomeChart,
+  SexAddictionRecoveryProgressChart,
+  SexAddictionRecoveryRoadmapChart,
+  TreatmentAccessChart,
 } from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
@@ -102,9 +115,28 @@ const chartComponents: Record<string, React.ComponentType> = {
   "InnerChildHealingChart": InnerChildHealingChart,
   "DistressToleranceSkillsChart": DistressToleranceSkillsChart,
   "InterpersonalEffectivenessChart": InterpersonalEffectivenessChart,
+  "SexAddictionPrevalenceChart": SexAddictionPrevalenceChart,
+  "SexAddictionBrainChart": SexAddictionBrainChart,
+  "SexAddictionTraumaChart": SexAddictionTraumaChart,
+  "CarnesAddictionCycleChart": CarnesAddictionCycleChart,
+  "SexAddictionBeliefsChart": SexAddictionBeliefsChart,
+  "ThreeCirclesChart": ThreeCirclesChart,
+  "LoveAddictionPatternsChart": LoveAddictionPatternsChart,
+  "TraumaBondingCycleChart": TraumaBondingCycleChart,
+  "MeadowsTreatmentModelChart": MeadowsTreatmentModelChart,
+  "MeadowsOutcomeChart": MeadowsOutcomeChart,
+  "SexAddictionRecoveryProgressChart": SexAddictionRecoveryProgressChart,
+  "SexAddictionRecoveryRoadmapChart": SexAddictionRecoveryRoadmapChart,
+  "TreatmentAccessChart": TreatmentAccessChart,
 };
 
+function preprocessChartSyntax(content: string): string {
+  // Convert inline ```chart:Name``` to fenced blocks so react-markdown uses pre/code (not inline p)
+  return content.replace(/```chart:(\w+)```/g, (_, name) => `\`\`\`chart:${name}\n\`\`\``);
+}
+
 export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendererProps) {
+  const processedContent = preprocessChartSyntax(content);
   return (
     <div className="prose prose-lg dark:prose-invert max-w-none">
       <ReactMarkdown
@@ -120,7 +152,7 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
               }
             }
             
-            // Check for inline code with chart syntax (e.g., ```chart:ChartName```)
+            // Check for inline code with chart syntax (e.g., `chart:ChartName`)
             const childText = String(children).trim();
             const inlineMatch = /^chart:(\w+)$/.exec(childText);
             if (inlineMatch && showCharts) {
@@ -152,11 +184,20 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
               {children}
             </h4>
           ),
-          p: ({ children }) => (
-            <p className="mb-6 leading-relaxed text-foreground/90">
-              {children}
-            </p>
-          ),
+          p: ({ children }) => {
+            const childArr = Array.isArray(children) ? children : [children];
+            const hasBlock = childArr.some(
+              (child) =>
+                child &&
+                typeof child === "object" &&
+                "type" in (child as any) &&
+                typeof (child as any).type !== "string"
+            );
+            if (hasBlock) {
+              return <div className="mb-6">{children}</div>;
+            }
+            return <p className="mb-6 leading-relaxed text-foreground/90">{children}</p>;
+          },
           ul: ({ children }) => (
             <ul className="mb-6 ml-6 space-y-2 list-disc marker:text-primary/60">
               {children}

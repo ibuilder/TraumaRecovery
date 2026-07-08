@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ChapterCard } from "@/components/chapter-card";
 import { bookInfo, chapters } from "@/lib/chapters";
+import { PDFDownloadButton } from "@/components/pdf-generator";
 import { ArrowRight, BookOpen, Heart, Users, Shield } from "lucide-react";
 
 export default function Home() {
@@ -30,7 +31,7 @@ export default function Home() {
               {bookInfo.description}
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 flex-wrap">
               <Link href={`/chapter/${chapters[0].slug}`}>
                 <Button size="lg" className="gap-2" data-testid="button-begin-reading">
                   Begin Reading
@@ -42,6 +43,7 @@ export default function Home() {
                   View All Chapters
                 </Button>
               </Link>
+              <PDFDownloadButton />
             </div>
           </div>
         </div>

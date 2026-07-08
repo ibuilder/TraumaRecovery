@@ -1916,6 +1916,448 @@ export function InterpersonalEffectivenessChart() {
   );
 }
 
+const sexAddictionPrevalenceData = [
+  { group: "General Adults", rate: 4.5 },
+  { group: "Men", rate: 6.0 },
+  { group: "Women", rate: 3.0 },
+  { group: "Trauma History", rate: 14.0 },
+  { group: "Childhood Sex Abuse", rate: 22.0 },
+  { group: "Co-occurring Addiction", rate: 28.0 },
+];
+
+const sexAddictionPrevalenceConfig: ChartConfig = {
+  rate: { label: "Prevalence (%)", color: "hsl(var(--primary))" },
+};
+
+export function SexAddictionPrevalenceChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Sex Addiction Prevalence by Population</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Estimated prevalence of compulsive sexual behavior disorder across populations (Kraus et al., 2016; WHO, 2019)
+      </p>
+      <ChartContainer config={sexAddictionPrevalenceConfig} className="h-[300px] w-full">
+        <BarChart data={sexAddictionPrevalenceData} layout="vertical">
+          <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+          <XAxis type="number" domain={[0, 35]} tickFormatter={(v) => `${v}%`} />
+          <YAxis type="category" dataKey="group" width={160} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="rate" fill="var(--color-rate)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+const sexAddictionBrainData = [
+  { region: "Nucleus Accumbens", addiction: 95, healthy: 40 },
+  { region: "Prefrontal Cortex", addiction: 35, healthy: 85 },
+  { region: "Amygdala", addiction: 90, healthy: 50 },
+  { region: "Anterior Cingulate", addiction: 45, healthy: 80 },
+  { region: "Ventral Striatum", addiction: 88, healthy: 45 },
+];
+
+const sexAddictionBrainConfig: ChartConfig = {
+  addiction: { label: "Sex Addiction (%)", color: "hsl(var(--chart-1))" },
+  healthy: { label: "Healthy Control (%)", color: "hsl(var(--chart-2))" },
+};
+
+export function SexAddictionBrainChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Brain Region Activity: Sex Addiction vs. Healthy Controls</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Relative activation levels in key brain regions during sexual cue exposure (Kühn & Gallinat, 2014)
+      </p>
+      <ChartContainer config={sexAddictionBrainConfig} className="h-[300px] w-full">
+        <BarChart data={sexAddictionBrainData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="region" tick={{ fontSize: 11 }} />
+          <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="addiction" fill="var(--color-addiction)" radius={4} />
+          <Bar dataKey="healthy" fill="var(--color-healthy)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+const sexAddictionTraumaData = [
+  { trauma: "Emotional Abuse", percentage: 97 },
+  { trauma: "Sexual Abuse", percentage: 83 },
+  { trauma: "Physical Abuse", percentage: 71 },
+  { trauma: "Family Dysfunction", percentage: 97 },
+  { trauma: "Neglect", percentage: 68 },
+  { trauma: "Witnessing Violence", percentage: 59 },
+];
+
+const sexAddictionTraumaConfig: ChartConfig = {
+  percentage: { label: "Reporting Childhood Trauma (%)", color: "hsl(var(--chart-3))" },
+};
+
+export function SexAddictionTraumaChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Childhood Trauma in Sex Addiction</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Percentage of sex addicts reporting specific childhood trauma types (Carnes, 2001)
+      </p>
+      <ChartContainer config={sexAddictionTraumaConfig} className="h-[300px] w-full">
+        <BarChart data={sexAddictionTraumaData} layout="vertical">
+          <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+          <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <YAxis type="category" dataKey="trauma" width={150} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="percentage" fill="var(--color-percentage)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+const carnesCycleData = [
+  { phase: "Preoccupation", intensity: 65, duration: 40 },
+  { phase: "Ritualization", intensity: 80, duration: 25 },
+  { phase: "Acting Out", intensity: 95, duration: 15 },
+  { phase: "Shame & Despair", intensity: 85, duration: 20 },
+];
+
+const carnesCycleConfig: ChartConfig = {
+  intensity: { label: "Neurochemical Intensity (%)", color: "hsl(var(--chart-1))" },
+  duration: { label: "Relative Duration (%)", color: "hsl(var(--chart-2))" },
+};
+
+export function CarnesAddictionCycleChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Carnes' Four-Phase Addiction Cycle</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Relative neurochemical intensity and duration of each phase (Carnes, 1983)
+      </p>
+      <ChartContainer config={carnesCycleConfig} className="h-[300px] w-full">
+        <BarChart data={carnesCycleData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="phase" />
+          <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="intensity" fill="var(--color-intensity)" radius={4} />
+          <Bar dataKey="duration" fill="var(--color-duration)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+const sexAddictionBeliefsData = [
+  { belief: "I am worthless", percentage: 91 },
+  { belief: "No one could love me", percentage: 87 },
+  { belief: "Sex is my primary need", percentage: 84 },
+  { belief: "Others can't meet my needs", percentage: 79 },
+  { belief: "I don't deserve recovery", percentage: 72 },
+];
+
+const sexAddictionBeliefsConfig: ChartConfig = {
+  percentage: { label: "Sex Addicts Endorsing (%)", color: "hsl(var(--chart-4))" },
+};
+
+export function SexAddictionBeliefsChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Core Belief System in Sex Addiction</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Percentage of sex addicts endorsing core distorted beliefs (Carnes, 2001)
+      </p>
+      <ChartContainer config={sexAddictionBeliefsConfig} className="h-[300px] w-full">
+        <BarChart data={sexAddictionBeliefsData} layout="vertical">
+          <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+          <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <YAxis type="category" dataKey="belief" width={175} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="percentage" fill="var(--color-percentage)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+const threeCirclesData = [
+  { name: "Inner Circle (Addictive)", value: 20, fill: "hsl(var(--destructive))" },
+  { name: "Middle Circle (Caution)", value: 35, fill: "hsl(var(--chart-4))" },
+  { name: "Outer Circle (Healthy)", value: 45, fill: "hsl(var(--chart-2))" },
+];
+
+export function ThreeCirclesChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Three Circles Model of Sexual Recovery</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Framework for defining personal sexual sobriety (SAA / Carnes model)
+      </p>
+      <ChartContainer config={{}} className="h-[300px] w-full">
+        <PieChart>
+          <Pie data={threeCirclesData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} label={({ name }) => name}>
+            {threeCirclesData.map((entry, index) => (
+              <Cell key={index} fill={entry.fill} />
+            ))}
+          </Pie>
+          <ChartTooltip content={<ChartTooltipContent />} />
+        </PieChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+const loveAddictionPatternsData = [
+  { pattern: "Fear of abandonment", loveAddict: 92, loveAvoidant: 35 },
+  { pattern: "Loss of self in relationship", loveAddict: 88, loveAvoidant: 20 },
+  { pattern: "Tolerating abuse", loveAddict: 76, loveAvoidant: 25 },
+  { pattern: "Fear of engulfment", loveAddict: 28, loveAvoidant: 89 },
+  { pattern: "Emotional withdrawal", loveAddict: 22, loveAvoidant: 84 },
+];
+
+const loveAddictionPatternsConfig: ChartConfig = {
+  loveAddict: { label: "Love Addict (%)", color: "hsl(var(--chart-1))" },
+  loveAvoidant: { label: "Love Avoidant (%)", color: "hsl(var(--chart-3))" },
+};
+
+export function LoveAddictionPatternsChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Love Addiction vs. Love Avoidance Patterns</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Comparison of behavioral patterns in love addiction and love avoidance (Mellody, 2003)
+      </p>
+      <ChartContainer config={loveAddictionPatternsConfig} className="h-[320px] w-full">
+        <BarChart data={loveAddictionPatternsData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="pattern" tick={{ fontSize: 10 }} />
+          <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="loveAddict" fill="var(--color-loveAddict)" radius={4} />
+          <Bar dataKey="loveAvoidant" fill="var(--color-loveAvoidant)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+const traumaBondingData = [
+  { phase: "Love Bombing", intensity: 90 },
+  { phase: "Devaluation Begins", intensity: 65 },
+  { phase: "Abuse/Withdrawal", intensity: 30 },
+  { phase: "Relief/Reconciliation", intensity: 88 },
+  { phase: "Honeymoon", intensity: 85 },
+  { phase: "Tension Builds", intensity: 50 },
+  { phase: "Abuse Repeats", intensity: 25 },
+];
+
+const traumaBondingConfig: ChartConfig = {
+  intensity: { label: "Emotional Intensity", color: "hsl(var(--chart-1))" },
+};
+
+export function TraumaBondingCycleChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Trauma Bonding Cycle</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Intermittent reinforcement patterns that create powerful trauma bonds (Dutton & Hart, 1994)
+      </p>
+      <ChartContainer config={traumaBondingConfig} className="h-[300px] w-full">
+        <LineChart data={traumaBondingData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="phase" tick={{ fontSize: 10 }} />
+          <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Line type="monotone" dataKey="intensity" stroke="var(--color-intensity)" strokeWidth={3} dot={{ r: 5 }} />
+        </LineChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+const meadowsTreatmentData = [
+  { component: "Trauma Therapy", effectiveness: 87 },
+  { component: "Psychodrama", effectiveness: 82 },
+  { component: "Equine Therapy", effectiveness: 79 },
+  { component: "EMDR", effectiveness: 85 },
+  { component: "Group Therapy", effectiveness: 88 },
+  { component: "12-Step Integration", effectiveness: 80 },
+  { component: "Grief Work", effectiveness: 83 },
+];
+
+const meadowsTreatmentConfig: ChartConfig = {
+  effectiveness: { label: "Patient-Reported Benefit (%)", color: "hsl(var(--chart-2))" },
+};
+
+export function MeadowsTreatmentModelChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Meadows Treatment Components & Effectiveness</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Patient-reported benefit ratings for key Meadows treatment modalities (The Meadows, 2024)
+      </p>
+      <ChartContainer config={meadowsTreatmentConfig} className="h-[300px] w-full">
+        <BarChart data={meadowsTreatmentData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="component" tick={{ fontSize: 10 }} />
+          <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="effectiveness" fill="var(--color-effectiveness)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+const meadowsOutcomeData = [
+  { timepoint: "Intake", sobriety: 0, wellbeing: 30, relationships: 25 },
+  { timepoint: "30 Days", sobriety: 65, wellbeing: 45, relationships: 35 },
+  { timepoint: "90 Days", sobriety: 75, wellbeing: 58, relationships: 48 },
+  { timepoint: "6 Months", sobriety: 80, wellbeing: 68, relationships: 60 },
+  { timepoint: "1 Year", sobriety: 82, wellbeing: 75, relationships: 70 },
+  { timepoint: "2 Years", sobriety: 85, wellbeing: 82, relationships: 78 },
+];
+
+const meadowsOutcomeConfig: ChartConfig = {
+  sobriety: { label: "Sobriety Maintenance (%)", color: "hsl(var(--chart-1))" },
+  wellbeing: { label: "Overall Well-being (%)", color: "hsl(var(--chart-2))" },
+  relationships: { label: "Relationship Quality (%)", color: "hsl(var(--chart-3))" },
+};
+
+export function MeadowsOutcomeChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Recovery Outcomes Over Time</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Trajectory of sobriety maintenance, well-being, and relationship quality during recovery (Carnes et al., 2005)
+      </p>
+      <ChartContainer config={meadowsOutcomeConfig} className="h-[300px] w-full">
+        <LineChart data={meadowsOutcomeData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="timepoint" />
+          <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Line type="monotone" dataKey="sobriety" stroke="var(--color-sobriety)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line type="monotone" dataKey="wellbeing" stroke="var(--color-wellbeing)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line type="monotone" dataKey="relationships" stroke="var(--color-relationships)" strokeWidth={2} dot={{ r: 4 }} />
+        </LineChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+const sexAddictionRecoveryProgressData = [
+  { stage: "Crisis", innerCircle: 90, middleCircle: 70, outerCircle: 10 },
+  { stage: "Early Recovery", innerCircle: 60, middleCircle: 55, outerCircle: 30 },
+  { stage: "Growth", innerCircle: 30, middleCircle: 40, outerCircle: 60 },
+  { stage: "Maintenance", innerCircle: 15, middleCircle: 25, outerCircle: 80 },
+  { stage: "Flourishing", innerCircle: 5, middleCircle: 15, outerCircle: 92 },
+];
+
+const sexAddictionRecoveryProgressConfig: ChartConfig = {
+  innerCircle: { label: "Inner Circle Activity (%)", color: "hsl(var(--destructive))" },
+  middleCircle: { label: "Middle Circle Activity (%)", color: "hsl(var(--chart-4))" },
+  outerCircle: { label: "Outer Circle Activity (%)", color: "hsl(var(--chart-2))" },
+};
+
+export function SexAddictionRecoveryProgressChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Recovery Progress Through the Three Circles</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Shift in behavioral patterns across recovery stages (SAA / Carnes model)
+      </p>
+      <ChartContainer config={sexAddictionRecoveryProgressConfig} className="h-[300px] w-full">
+        <BarChart data={sexAddictionRecoveryProgressData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="stage" />
+          <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="innerCircle" fill="var(--color-innerCircle)" radius={4} />
+          <Bar dataKey="middleCircle" fill="var(--color-middleCircle)" radius={4} />
+          <Bar dataKey="outerCircle" fill="var(--color-outerCircle)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+const sexAddictionRecoveryRoadmapData = [
+  { milestone: "Disclosure", month: 1, completion: 100 },
+  { milestone: "30-Day Sobriety", month: 1, completion: 85 },
+  { milestone: "Support Group", month: 1, completion: 90 },
+  { milestone: "CSAT Therapy", month: 2, completion: 78 },
+  { milestone: "Trauma Work Begins", month: 4, completion: 65 },
+  { milestone: "Partner Work", month: 6, completion: 60 },
+  { milestone: "1-Year Sobriety", month: 12, completion: 55 },
+  { milestone: "Sexual Health Plan", month: 18, completion: 50 },
+];
+
+const sexAddictionRecoveryRoadmapConfig: ChartConfig = {
+  completion: { label: "% Completing Milestone", color: "hsl(var(--primary))" },
+};
+
+export function SexAddictionRecoveryRoadmapChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Sex Addiction Recovery Milestones</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Key recovery milestones and typical completion rates in sex addiction treatment (Carnes, 2010)
+      </p>
+      <ChartContainer config={sexAddictionRecoveryRoadmapConfig} className="h-[320px] w-full">
+        <BarChart data={sexAddictionRecoveryRoadmapData} layout="vertical">
+          <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+          <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <YAxis type="category" dataKey="milestone" width={165} tick={{ fontSize: 11 }} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="completion" fill="var(--color-completion)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+const treatmentAccessData = [
+  { type: "12-Step Groups", accessibility: 95, cost: 5, availability: 98 },
+  { type: "Outpatient Therapy", accessibility: 72, cost: 45, availability: 75 },
+  { type: "IOP Program", accessibility: 55, cost: 35, availability: 60 },
+  { type: "Residential (30d)", accessibility: 30, cost: 15, availability: 40 },
+  { type: "Residential (90d)", accessibility: 18, cost: 8, availability: 25 },
+];
+
+const treatmentAccessConfig: ChartConfig = {
+  accessibility: { label: "Accessibility Score", color: "hsl(var(--chart-1))" },
+  availability: { label: "National Availability (%)", color: "hsl(var(--chart-2))" },
+};
+
+export function TreatmentAccessChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Treatment Options: Accessibility & Availability</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Relative accessibility and national availability of sex addiction treatment options (IITAP, 2024)
+      </p>
+      <ChartContainer config={treatmentAccessConfig} className="h-[300px] w-full">
+        <BarChart data={treatmentAccessData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="type" tick={{ fontSize: 10 }} />
+          <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="accessibility" fill="var(--color-accessibility)" radius={4} />
+          <Bar dataKey="availability" fill="var(--color-availability)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
 export const ChartComponents = {
   PTSDPrevalenceChart,
   ACEsPrevalenceChart,
@@ -1959,4 +2401,17 @@ export const ChartComponents = {
   InnerChildHealingChart,
   DistressToleranceSkillsChart,
   InterpersonalEffectivenessChart,
+  SexAddictionPrevalenceChart,
+  SexAddictionBrainChart,
+  SexAddictionTraumaChart,
+  CarnesAddictionCycleChart,
+  SexAddictionBeliefsChart,
+  ThreeCirclesChart,
+  LoveAddictionPatternsChart,
+  TraumaBondingCycleChart,
+  MeadowsTreatmentModelChart,
+  MeadowsOutcomeChart,
+  SexAddictionRecoveryProgressChart,
+  SexAddictionRecoveryRoadmapChart,
+  TreatmentAccessChart,
 };
