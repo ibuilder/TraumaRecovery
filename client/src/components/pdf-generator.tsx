@@ -1,13 +1,38 @@
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { createRoot } from "react-dom/client";
 import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 import { Button } from "@/components/ui/button";
 import { Download, Loader2 } from "lucide-react";
 import { chapters, bookInfo } from "@/lib/chapters";
 import type { Chapter } from "@/lib/chapters";
+import {
+  PTSDPrevalenceChart, ACEsPrevalenceChart, RecoveryTimelineChart,
+  TraumaAddictionChart, TherapyEffectivenessChart, AttachmentStylesChart,
+  ACEsHealthRiskChart, PostTraumaticGrowthChart, IPVPTSDChart,
+  DBTSkillsChart, PhysicalWellnessChart, ExerciseImpactChart,
+  FourPillarsChart, EmotionalRegulationChart, MentalWellnessChart,
+  SocialConnectionChart, NutritionImpactChart, SleepRecoveryChart,
+  AmygdalaActivityChart, BrainRegionsTraumaChart, NeurotransmitterLevelsChart,
+  CortisolPatternChart, PolyvagalStatesChart, PTSDSymptomsChart,
+  ComplexPTSDChart, BrainHealingChart, WindowToleranceChart,
+  ACTHexaflexChart, FamilyDysfunctionChart, ChildhoodTraumaTimelineChart,
+  RelationshipSafetyChart, AdultTraumaTypesChart, GroundingTechniquesChart,
+  CopingStrategiesChart, ResilienceFactorsChart, SpiritualPracticesChart,
+  RecoveryValuesChart, TreatmentModalitiesChart, CognitiveDistortionsChart,
+  MindfulnessBenefitsChart, SomaticTherapyChart, EMDRPhasesChart,
+  BoundaryTypesChart, InnerChildHealingChart, DistressToleranceSkillsChart,
+  InterpersonalEffectivenessChart, SexAddictionPrevalenceChart,
+  SexAddictionBrainChart, SexAddictionTraumaChart, CarnesAddictionCycleChart,
+  SexAddictionBeliefsChart, ThreeCirclesChart, LoveAddictionPatternsChart,
+  TraumaBondingCycleChart, MeadowsTreatmentModelChart, MeadowsOutcomeChart,
+  SexAddictionRecoveryProgressChart, SexAddictionRecoveryRoadmapChart,
+  TreatmentAccessChart,
+} from "@/components/trauma-charts";
 
 const ISBN = "978-0-000000-00-0";
-const PAGE_WIDTH = 215.9; // Letter width mm
-const PAGE_HEIGHT = 279.4; // Letter height mm
+const PAGE_WIDTH = 215.9;
+const PAGE_HEIGHT = 279.4;
 const MARGIN_LEFT = 25.4;
 const MARGIN_RIGHT = 25.4;
 const MARGIN_TOP = 25.4;
@@ -21,6 +46,30 @@ const FONT_SIZE_H2 = 16;
 const FONT_SIZE_H3 = 13;
 const FONT_SIZE_H4 = 12;
 const FONT_SIZE_SMALL = 9;
+
+const ALL_CHART_COMPONENTS: Record<string, React.ComponentType> = {
+  PTSDPrevalenceChart, ACEsPrevalenceChart, RecoveryTimelineChart,
+  TraumaAddictionChart, TherapyEffectivenessChart, AttachmentStylesChart,
+  ACEsHealthRiskChart, PostTraumaticGrowthChart, IPVPTSDChart,
+  DBTSkillsChart, PhysicalWellnessChart, ExerciseImpactChart,
+  FourPillarsChart, EmotionalRegulationChart, MentalWellnessChart,
+  SocialConnectionChart, NutritionImpactChart, SleepRecoveryChart,
+  AmygdalaActivityChart, BrainRegionsTraumaChart, NeurotransmitterLevelsChart,
+  CortisolPatternChart, PolyvagalStatesChart, PTSDSymptomsChart,
+  ComplexPTSDChart, BrainHealingChart, WindowToleranceChart,
+  ACTHexaflexChart, FamilyDysfunctionChart, ChildhoodTraumaTimelineChart,
+  RelationshipSafetyChart, AdultTraumaTypesChart, GroundingTechniquesChart,
+  CopingStrategiesChart, ResilienceFactorsChart, SpiritualPracticesChart,
+  RecoveryValuesChart, TreatmentModalitiesChart, CognitiveDistortionsChart,
+  MindfulnessBenefitsChart, SomaticTherapyChart, EMDRPhasesChart,
+  BoundaryTypesChart, InnerChildHealingChart, DistressToleranceSkillsChart,
+  InterpersonalEffectivenessChart, SexAddictionPrevalenceChart,
+  SexAddictionBrainChart, SexAddictionTraumaChart, CarnesAddictionCycleChart,
+  SexAddictionBeliefsChart, ThreeCirclesChart, LoveAddictionPatternsChart,
+  TraumaBondingCycleChart, MeadowsTreatmentModelChart, MeadowsOutcomeChart,
+  SexAddictionRecoveryProgressChart, SexAddictionRecoveryRoadmapChart,
+  TreatmentAccessChart,
+};
 
 function stripMarkdownForPdf(text: string): string {
   return text
@@ -36,7 +85,6 @@ interface DocState {
   doc: jsPDF;
   y: number;
   pageNum: number;
-  tocEntries: Array<{ title: string; level: number; page: number }>;
 }
 
 function addRunningHeader(state: DocState, leftText: string, rightText: string) {
@@ -105,12 +153,39 @@ function addText(
   return state;
 }
 
-function renderMarkdownContent(
+function addChartImage(
   state: DocState,
-  content: string,
+  imgDataUrl: string,
   leftHeader: string,
   rightHeader: string
 ): DocState {
+  const maxW = TEXT_WIDTH;
+  const maxH = 90; // max chart height in mm
+  // Charts are captured at ~800px wide; scale to fit text width
+  const imgAspect = 800 / 400; // approximate width/height ratio of chart containers
+  const imgH = Math.min(maxH, maxW / imgAspect);
+  const imgW = imgH * imgAspect;
+  const xOffset = (TEXT_WIDTH - imgW) / 2;
+
+  state = checkPageBreak(state, imgH + 8, leftHeader, rightHeader);
+  state.y += 4;
+  // Light border around chart
+  state.doc.setDrawColor(220, 220, 230);
+  state.doc.setLineWidth(0.3);
+  state.doc.rect(MARGIN_LEFT + xOffset - 1, state.y - 1, imgW + 2, imgH + 2);
+  state.doc.setLineWidth(0.2);
+  state.doc.addImage(imgDataUrl, "PNG", MARGIN_LEFT + xOffset, state.y, imgW, imgH);
+  state.y += imgH + 6;
+  return state;
+}
+
+async function renderMarkdownContent(
+  state: DocState,
+  content: string,
+  leftHeader: string,
+  rightHeader: string,
+  chartImages: Record<string, string>
+): Promise<DocState> {
   const lines = content.split("\n");
   let paraBuffer: string[] = [];
 
@@ -131,13 +206,17 @@ function renderMarkdownContent(
     const line = lines[i];
     const trimmed = line.trim();
 
-    // Skip chart blocks
+    // Chart blocks
     if (/^```chart:\w+```/.test(trimmed)) {
       flushPara();
-      state.y += 2;
-      state = addText(state, "[Interactive chart — see web version at healingtogether.app]",
-        FONT_SIZE_SMALL, "italic", leftHeader, rightHeader, 4, [120, 120, 120]);
-      state.y += 2;
+      const chartName = trimmed.replace(/^```chart:(\w+)```/, "$1");
+      if (chartImages[chartName]) {
+        state = addChartImage(state, chartImages[chartName], leftHeader, rightHeader);
+      } else {
+        state.y += 2;
+        state = addText(state, `[Chart: ${chartName}]`, FONT_SIZE_SMALL, "italic", leftHeader, rightHeader, 4, [120, 120, 120]);
+        state.y += 2;
+      }
       continue;
     }
     if (trimmed.startsWith("```")) {
@@ -166,12 +245,10 @@ function renderMarkdownContent(
       state.y += 4;
     } else if (/^#\s/.test(line)) {
       flushPara();
-      // Top-level heading already shown in chapter header, skip
     } else if (/^>\s/.test(line)) {
       flushPara();
       const text = stripMarkdownForPdf(line.replace(/^>\s+/, ""));
       state.y += 3;
-      // Draw left border for blockquote
       state = checkPageBreak(state, 8, leftHeader, rightHeader);
       state.doc.setDrawColor(180, 180, 180);
       state.doc.setLineWidth(0.8);
@@ -194,10 +271,8 @@ function renderMarkdownContent(
     } else if (trimmed === "") {
       flushPara();
     } else {
-      // Check if line contains bold text (**...**)
       const hasBold = /\*\*/.test(line);
       if (hasBold && paraBuffer.length === 0 && /^\*\*[^*]+\*\*/.test(trimmed)) {
-        // Bold prefix line — treat as sub-heading
         const boldMatch = trimmed.match(/^\*\*([^*]+)\*\*[:\s]*(.*)/);
         if (boldMatch) {
           flushPara();
@@ -217,27 +292,21 @@ function renderMarkdownContent(
 }
 
 function buildCoverPage(doc: jsPDF): void {
-  // Background
   doc.setFillColor(245, 247, 250);
   doc.rect(0, 0, PAGE_WIDTH, PAGE_HEIGHT, "F");
-
-  // Top decorative bar
   doc.setFillColor(59, 130, 246);
   doc.rect(0, 0, PAGE_WIDTH, 8, "F");
 
-  // Title
   doc.setFont("times", "bold");
   doc.setFontSize(32);
   doc.setTextColor(15, 23, 42);
   doc.text(bookInfo.title, PAGE_WIDTH / 2, 80, { align: "center" });
 
-  // Divider
   doc.setDrawColor(59, 130, 246);
   doc.setLineWidth(1);
   doc.line(60, 92, PAGE_WIDTH - 60, 92);
   doc.setLineWidth(0.2);
 
-  // Subtitle
   doc.setFont("times", "italic");
   doc.setFontSize(14);
   doc.setTextColor(71, 85, 105);
@@ -246,7 +315,6 @@ function buildCoverPage(doc: jsPDF): void {
     doc.text(line, PAGE_WIDTH / 2, 104 + i * 8, { align: "center" });
   });
 
-  // Description
   doc.setFont("times", "normal");
   doc.setFontSize(11);
   doc.setTextColor(100, 116, 139);
@@ -255,24 +323,19 @@ function buildCoverPage(doc: jsPDF): void {
     doc.text(line, PAGE_WIDTH / 2, 130 + i * 6.5, { align: "center" });
   });
 
-  // Author
   doc.setFont("times", "bold");
   doc.setFontSize(14);
   doc.setTextColor(15, 23, 42);
   doc.text(bookInfo.author, PAGE_WIDTH / 2, 185, { align: "center" });
 
-  // Publisher info
   doc.setFont("times", "normal");
   doc.setFontSize(10);
   doc.setTextColor(100, 116, 139);
   doc.text("Recovery Works Publishing", PAGE_WIDTH / 2, 230, { align: "center" });
   doc.text("2025", PAGE_WIDTH / 2, 237, { align: "center" });
 
-  // Bottom bar
   doc.setFillColor(59, 130, 246);
   doc.rect(0, PAGE_HEIGHT - 8, PAGE_WIDTH, 8, "F");
-
-  // ISBN on bottom
   doc.setFont("times", "normal");
   doc.setFontSize(9);
   doc.setTextColor(255, 255, 255);
@@ -311,13 +374,9 @@ function buildCopyrightPage(doc: jsPDF): void {
     "professional medical or mental health advice, diagnosis, or treatment. Always seek the guidance of " +
     "your physician or other qualified health provider with any questions regarding a medical or mental health condition."
   );
-  addLine(
-    "If you are in crisis, please contact the 988 Suicide and Crisis Lifeline by calling or texting 988."
-  );
+  addLine("If you are in crisis, please contact the 988 Suicide and Crisis Lifeline by calling or texting 988.");
 
   y += 10;
-  doc.setFont("times", "normal");
-  doc.setFontSize(10);
   addLine("Published by Recovery Works Publishing");
   addLine("First Edition, 2025");
   addLine("Printed in the United States of America");
@@ -367,30 +426,74 @@ function buildTOCPage(doc: jsPDF, chaps: Chapter[]): void {
   });
 }
 
-async function generateBookPDF(): Promise<void> {
+async function captureAllCharts(
+  onProgress: (msg: string) => void
+): Promise<Record<string, string>> {
+  const chartImages: Record<string, string> = {};
+  const chartNames = Object.keys(ALL_CHART_COMPONENTS);
+
+  // Create a hidden container
+  const container = document.createElement("div");
+  container.style.cssText = "position:fixed;left:-9999px;top:0;width:800px;background:#fff;z-index:-1;pointer-events:none;";
+  document.body.appendChild(container);
+
+  for (let i = 0; i < chartNames.length; i++) {
+    const name = chartNames[i];
+    const ChartComponent = ALL_CHART_COMPONENTS[name];
+    onProgress(`Rendering chart ${i + 1}/${chartNames.length}: ${name}`);
+
+    // Mount the chart component into the hidden div
+    const chartDiv = document.createElement("div");
+    chartDiv.style.cssText = "width:800px;height:400px;padding:16px;background:#fff;";
+    container.innerHTML = "";
+    container.appendChild(chartDiv);
+
+    await new Promise<void>((resolve) => {
+      const root = createRoot(chartDiv);
+      root.render(<ChartComponent />);
+      // Give Recharts time to animate/render
+      setTimeout(resolve, 600);
+    });
+
+    try {
+      const canvas = await html2canvas(chartDiv, {
+        scale: 1.5,
+        useCORS: true,
+        backgroundColor: "#ffffff",
+        logging: false,
+      });
+      chartImages[name] = canvas.toDataURL("image/png");
+    } catch (err) {
+      console.warn(`Failed to capture chart ${name}:`, err);
+    }
+  }
+
+  document.body.removeChild(container);
+  return chartImages;
+}
+
+async function generateBookPDF(onProgress: (msg: string) => void): Promise<void> {
+  onProgress("Capturing charts (this takes a minute)...");
+  const chartImages = await captureAllCharts(onProgress);
+
+  onProgress("Building PDF...");
   const doc = new jsPDF({ unit: "mm", format: "letter", orientation: "portrait" });
 
-  // Page 1: Cover
   buildCoverPage(doc);
-
-  // Page 2: Copyright
   doc.addPage("letter");
   buildCopyrightPage(doc);
-
-  // Page 3+: Table of Contents
   doc.addPage("letter");
   buildTOCPage(doc, chapters);
 
-  // Chapter pages
   let state: DocState = {
     doc,
     y: MARGIN_TOP + 10,
-    pageNum: 4, // cover + copyright + TOC pages before chapters
-    tocEntries: [],
+    pageNum: 4,
   };
 
   for (const chapter of chapters) {
-    // New page for each chapter
+    onProgress(`Writing chapter ${chapter.order}: ${chapter.title}`);
+
     addPageNumber(state);
     doc.addPage("letter");
     state.pageNum++;
@@ -400,7 +503,6 @@ async function generateBookPDF(): Promise<void> {
     const rightH = `Chapter ${chapter.order}`;
     addRunningHeader(state, leftH, rightH);
 
-    // Chapter header
     doc.setFillColor(240, 245, 255);
     doc.rect(MARGIN_LEFT - 2, state.y - 3, TEXT_WIDTH + 4, 35, "F");
 
@@ -434,10 +536,8 @@ async function generateBookPDF(): Promise<void> {
     doc.line(MARGIN_LEFT, state.y, PAGE_WIDTH - MARGIN_RIGHT, state.y);
     state.y += 8;
 
-    // Chapter overview content
-    state = renderMarkdownContent(state, chapter.content, leftH, chapter.title);
+    state = await renderMarkdownContent(state, chapter.content, leftH, chapter.title, chartImages);
 
-    // Subchapters
     for (const sub of chapter.subchapters) {
       addPageNumber(state);
       doc.addPage("letter");
@@ -448,7 +548,6 @@ async function generateBookPDF(): Promise<void> {
       const subRightH = sub.title;
       addRunningHeader(state, subLeftH, subRightH);
 
-      // Subchapter header
       doc.setFont("times", "normal");
       doc.setFontSize(9);
       doc.setTextColor(59, 130, 246);
@@ -469,11 +568,10 @@ async function generateBookPDF(): Promise<void> {
       state.y += 8;
 
       doc.setTextColor(26, 26, 26);
-      state = renderMarkdownContent(state, sub.content, subLeftH, subRightH);
+      state = await renderMarkdownContent(state, sub.content, subLeftH, subRightH, chartImages);
     }
   }
 
-  // Back matter page
   addPageNumber(state);
   doc.addPage("letter");
   state.pageNum++;
@@ -537,43 +635,53 @@ async function generateBookPDF(): Promise<void> {
 
   addPageNumber(state);
 
+  onProgress("Saving PDF...");
   doc.save("healing-together-matthew-emma.pdf");
 }
 
 export function PDFDownloadButton() {
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
 
   const handleDownload = async () => {
     setLoading(true);
+    setStatus("Starting...");
     try {
-      await generateBookPDF();
+      await generateBookPDF((msg) => setStatus(msg));
     } catch (err) {
       console.error("PDF generation failed:", err);
+      setStatus("Error generating PDF. Please try again.");
     } finally {
       setLoading(false);
+      setStatus("");
     }
   };
 
   return (
-    <Button
-      size="lg"
-      variant="outline"
-      className="gap-2"
-      disabled={loading}
-      onClick={handleDownload}
-      data-testid="button-download-pdf"
-    >
-      {loading ? (
-        <>
-          <Loader2 className="h-4 w-4 animate-spin" />
-          Generating PDF...
-        </>
-      ) : (
-        <>
-          <Download className="h-4 w-4" />
-          Download Full Book (PDF)
-        </>
+    <div className="flex flex-col items-center gap-2">
+      <Button
+        size="lg"
+        variant="outline"
+        className="gap-2"
+        disabled={loading}
+        onClick={handleDownload}
+        data-testid="button-download-pdf"
+      >
+        {loading ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Generating PDF...
+          </>
+        ) : (
+          <>
+            <Download className="h-4 w-4" />
+            Download Full Book (PDF)
+          </>
+        )}
+      </Button>
+      {loading && status && (
+        <p className="text-xs text-muted-foreground max-w-xs text-center">{status}</p>
       )}
-    </Button>
+    </div>
   );
 }
