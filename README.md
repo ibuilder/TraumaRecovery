@@ -2,8 +2,8 @@
 
 *A Practical Guide to Trauma Recovery for Ordinary People* by Matthew M. Emma.
 
-A static-first React reading app that presents the full book: 14 chapters, 65 subchapters,
-59 interactive data visualisations, and a downloadable print-ready PDF of the whole thing.
+A static-first React reading app that presents the full book: 14 chapters, 73 subchapters,
+81 figures and data visualisations, and a downloadable print-ready PDF of the whole thing.
 
 > **This content is educational and is not a substitute for professional mental health care.**
 > If you are in crisis, call or text **988** (US Suicide & Crisis Lifeline).
@@ -12,8 +12,8 @@ A static-first React reading app that presents the full book: 14 chapters, 65 su
 
 ## Features
 
-- **14 chapters / 65 subchapters** of markdown content (~107,000 words) rendered with `react-markdown` + GFM
-- **59 Recharts visualisations** embedded in the prose via a ` ```chart:ChartName``` ` placeholder
+- **14 chapters / 73 subchapters** of markdown content (~119,000 words) rendered with `react-markdown` + GFM
+- **81 figures** embedded in the prose via a ` ```chart:ChartName``` ` placeholder — Recharts plots for data, and hand-built accessible SVG/markup for diagrams
 - **Full-book PDF export** generated in the browser (cover, copyright page, table of contents,
   running headers, page numbers, captured chart images)
 - **Dark / light theme** with system-preference detection
@@ -25,19 +25,19 @@ A static-first React reading app that presents the full book: 14 chapters, 65 su
 
 | # | Chapter | Subchapters |
 |---|---------|-------------|
-| 1 | Understanding Trauma & Basic Recovery | 9 |
+| 1 | Understanding Trauma & Basic Recovery | 10 |
 | 2 | The Neuroscience of Trauma | 5 |
-| 3 | Addiction Recovery | 6 |
-| 4 | Dysfunctional Families | 4 |
+| 3 | Addiction Recovery | 7 |
+| 4 | Dysfunctional Families | 5 |
 | 5 | Childhood Trauma | 4 |
 | 6 | Adult Trauma | 3 |
-| 7 | Relationship Trauma | 4 |
-| 8 | Cognitive Behavioral Therapy (CBT) | 5 |
-| 9 | Dialectical Behavior Therapy (DBT) | 6 |
-| 10 | Acceptance & Commitment Therapy (ACT) | 4 |
+| 7 | Relationship Trauma | 5 |
+| 8 | Cognitive Behavioral Therapy (CBT) | 6 |
+| 9 | Dialectical Behavior Therapy (DBT) | 7 |
+| 10 | Acceptance & Commitment Therapy (ACT) | 5 |
 | 11 | Alternative Therapies | 3 |
 | 12 | Spirituality in Recovery | 4 |
-| 13 | Sex & Love Addiction | 6 |
+| 13 | Sex & Love Addiction | 7 |
 | 14 | Resources & Video Library | 2 |
 
 `npm run validate:content` keeps this structure honest — see [Content rules](#content-rules).
@@ -112,7 +112,7 @@ client/
     ├── components/
     │   ├── markdown-renderer.tsx   # markdown → React, resolves chart placeholders
     │   ├── pdf-generator.tsx       # full-book PDF export
-    │   ├── trauma-charts.tsx       # all 59 Recharts components
+    │   ├── trauma-charts.tsx       # all 81 figure components
     │   └── ui/                     # shadcn/ui primitives
     ├── lib/chapters/               # the book: one module per chapter
     └── pages/                      # home, chapters index, chapter, 404
@@ -154,6 +154,14 @@ previously shipped:
 - every `chart:Name` placeholder resolves to a real component
 
 It also warns about charts that are defined but never referenced.
+
+## Source notes
+
+`docs/source-notes/` holds the transcription of the author's handwritten
+treatment-program journal, which several chapters are written from, plus
+`COPYRIGHT-NOTES.md` recording which photographed pages are third-party handouts
+that cannot be reproduced and which primary sources to cite instead. Nothing in
+that directory is published to the site.
 
 ## Crisis resources
 

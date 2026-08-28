@@ -64,8 +64,8 @@ script/
 ```
 
 ## Key Features
-- **14 comprehensive chapters** (65 subchapters) covering trauma recovery topics
-- **59 data visualization charts** using Recharts covering all chapters and subchapters
+- **14 comprehensive chapters** (73 subchapters) covering trauma recovery topics
+- **81 figures** — Recharts plots for data, accessible inline SVG and markup for diagrams
 - **Full-book PDF export** generated client-side (jsPDF + html2canvas, lazy-loaded)
 - **Markdown rendering** with react-markdown and remark-gfm
 - **Dark/light theme** with system preference detection
@@ -76,19 +76,19 @@ script/
 - **Crisis resources** in footer
 
 ## Book Chapters
-1. Understanding Trauma & Basic Recovery (9 subchapters: Four Pillars Framework, Addiction & Self-Harm, Types of Trauma, Window of Tolerance, and more)
+1. Understanding Trauma & Basic Recovery (10 subchapters: Four Pillars Framework, Addiction & Self-Harm, Types of Trauma, Window of Tolerance, and more)
 2. The Neuroscience of Trauma (5 subchapters: Brain Anatomy, Neurochemistry, Nervous System & Polyvagal Theory, Trauma-Related Disorders, Neurobiology of Healing)
-3. Addiction Recovery (6 subchapters: Disease Model, Brain Chemistry, SUD, Recovery Programs, Relapse Prevention, Urge Surfing)
-4. Dysfunctional Families (4 subchapters: Family Patterns, Healthy Boundaries, Inner Child Work, Breaking Generational Cycles)
+3. Addiction Recovery (7 subchapters: Disease Model, Brain Chemistry, SUD, Recovery Programs, Relapse Prevention, Urge Surfing)
+4. Dysfunctional Families (5 subchapters: Family Patterns, Healthy Boundaries, Inner Child Work, Breaking Generational Cycles)
 5. Childhood Trauma (4 subchapters: Inner Child Work, Breaking From Shame, Attachment Healing, Developmental Impact of Trauma)
 6. Adult Trauma (3 subchapters: Processing Trauma, Rebuilding Life, Coping Strategies)
-7. Relationship Trauma (4 subchapters: Toxic Patterns, Rebuilding Trust, Safety Planning, Building Healthy Relationships)
-8. Cognitive Behavioral Therapy (5 subchapters: Challenging Negative Thoughts, Behavioral Strategies, The CBT Triangle, Cognitive Distortions, Competent Protectors/IFS)
-9. Dialectical Behavior Therapy (6 subchapters: Mindfulness, Wise Mind, Distress Tolerance, Emotion Regulation, Interpersonal Effectiveness, DBT Acronyms Guide)
-10. Acceptance & Commitment Therapy (4 subchapters: Values Clarification, Defusion Techniques, The ACT Hexaflex, Acceptance in Practice)
+7. Relationship Trauma (5 subchapters: Toxic Patterns, Rebuilding Trust, Safety Planning, Building Healthy Relationships)
+8. Cognitive Behavioral Therapy (6 subchapters: Challenging Negative Thoughts, Behavioral Strategies, The CBT Triangle, Cognitive Distortions, Competent Protectors/IFS)
+9. Dialectical Behavior Therapy (7 subchapters: Mindfulness, Wise Mind, Distress Tolerance, Emotion Regulation, Interpersonal Effectiveness, DBT Acronyms Guide)
+10. Acceptance & Commitment Therapy (5 subchapters: Values Clarification, Defusion Techniques, The ACT Hexaflex, Acceptance in Practice)
 11. Alternative Therapies (3 subchapters: Somatic Therapy, EMDR, TMS)
 12. Spirituality in Recovery (4 subchapters: Higher Powers, Serenity Prayer, Recovery Prayers, Spiritual Practices)
-13. Sex & Love Addiction (6 subchapters: Neuroscience, Carnes' Addiction Cycle, Three Circles, Love Addiction & Trauma Bonding, Clinical Models, Recovery & Sexual Sobriety)
+13. Sex & Love Addiction (7 subchapters: Neuroscience, Carnes' Addiction Cycle, Three Circles, Love Addiction & Trauma Bonding, Clinical Models, Recovery & Sexual Sobriety)
 14. Resources & Video Library (2 subchapters: Expert Videos, Treatment Centers)
 
 Chapter order, ids and chart references are enforced by `npm run validate:content`.

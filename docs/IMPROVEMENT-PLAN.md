@@ -3,8 +3,13 @@
 A staged plan for taking this from "a book that renders" to "a book people finish."
 Written after a full audit of the repository on 2026-08-28.
 
-Phase 0 is done and shipped in this branch. Phases 1–4 are proposals, ordered by
-value-per-effort. Nothing below requires abandoning the current architecture.
+Phase 0 is done and merged. A second pass has since integrated the author's
+treatment journal — eight new subchapters and 22 new figures, covering chapters
+1, 3, 4, 7, 8, 9, 10 and 13 — which changes a few of the numbers below and
+front-loads part of Phase 3.
+
+Phases 1–4 are proposals, ordered by value-per-effort. Nothing below requires
+abandoning the current architecture.
 
 ---
 
@@ -44,10 +49,12 @@ markdown syntax left in the text layer.
 
 ## Phase 1 — Make the first load fast (highest value)
 
-The critical-path JavaScript is still ~1.7 MB uncompressed. The single largest chunk is
-985 kB and it is **mostly book text**: all 14 chapters, ~107,000 words, are bundled into the
-entry chunk because `chapters/index.ts` eagerly imports every chapter module, and the header,
-footer, sidebar and home page all import `chapters` just to read titles and slugs.
+The single largest chunk is now over 1 MB and it is **mostly book text**: all 14
+chapters, ~119,000 words, are bundled into the entry chunk because
+`chapters/index.ts` eagerly imports every chapter module, and the header, footer,
+sidebar and home page all import `chapters` just to read titles and slugs. The
+journal integration added roughly 12,000 words, so this has got worse, not
+better — it is now the clearest single win available.
 
 **Split metadata from content.**
 
@@ -66,9 +73,11 @@ it is actually opened.
 
 **Also worth doing in this phase**
 
-- `trauma-charts.tsx` is a single 2,400-line module holding all 59 charts, so opening any
-  chapter downloads all of them. Split it per chart (or per chapter group) and resolve the
-  placeholder through `React.lazy`, since a typical chapter shows 1–3.
+- `trauma-charts.tsx` is now a single ~3,700-line module holding all 81 figures, so
+  opening any chapter downloads all of them. Split it per figure (or per chapter
+  group) and resolve the placeholder through `React.lazy`, since a typical chapter
+  shows 1–4. The newer diagram components are plain SVG and markup with no Recharts
+  dependency, so they are cheap — it is the Recharts plots that justify the split.
 - Self-host the one Open Sans face with `font-display: swap` and `preload`, removing the
   third-party render-blocking request entirely.
 - Add `rel="preload"` for the chapter chunk on hover of a chapter card.
@@ -101,10 +110,12 @@ it is actually opened.
 
 This is a mental-health resource, so both matter more than usual.
 
-- **Charts have no text alternative.** Every Recharts figure is an inaccessible SVG blob to a
-  screen reader. Give each chart a `<figure>` with a `<figcaption>` and a visually hidden
-  data table (or a "view as table" toggle). This also improves the PDF, which currently
-  embeds charts as untagged images.
+- **Most charts have no text alternative.** The 13 figures added with the journal
+  material are built as `<figure>` elements with real captions, `role="img"` with
+  `<title>`/`<desc>` on the SVG, or as semantic tables — those are already readable.
+  The original 59 Recharts plots are still inaccessible SVG blobs. Give each one a
+  `<figure>`, a `<figcaption>`, and a visually hidden data table. The pattern to
+  follow is already in the file.
 - **Trigger warnings.** Chapters on childhood trauma, sexual compulsivity and self-harm
   should carry a short content note above the fold, with the crisis line adjacent.
 - **A persistent, one-tap crisis affordance.** Crisis numbers are in the footer, which is
@@ -147,6 +158,9 @@ This is a mental-health resource, so both matter more than usual.
   `MeadowsOutcomeChart` are defined but referenced by no chapter. The two Meadows ones also
   survived the commit that set out to remove Meadows branding. Either place them in the text
   or delete them; `validate:content` warns about them today.
+- **Photographs of the source journal are not committed**, deliberately: they are
+  personal medical material. If they are ever needed for verification they live
+  with the author, and `docs/source-notes/journal-transcription.md` is the record.
 - **Rename the package.** It is still `rest-express` from the Replit template.
 - **Refresh `replit.md`.** It documents 12 chapters and stale subchapter counts.
 

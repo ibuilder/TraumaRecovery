@@ -129,13 +129,17 @@ function collectReferencedCharts(): string[] {
 }
 
 function stripMarkdownForPdf(text: string): string {
-  return text
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/\*\*(.+?)\*\*/g, "$1")
-    .replace(/\*(.+?)\*/g, "$1")
-    .replace(/_(.+?)_/g, "$1")
-    .replace(/`(.+?)`/g, "$1")
-    .trim();
+  return (
+    text
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+      .replace(/\*\*(.+?)\*\*/gs, "$1")
+      .replace(/\*(.+?)\*/gs, "$1")
+      .replace(/_(.+?)_/g, "$1")
+      .replace(/`(.+?)`/g, "$1")
+      // Anything left is an unpaired marker; it should never reach the page.
+      .replace(/\*\*/g, "")
+      .trim()
+  );
 }
 
 interface DocState {
@@ -439,9 +443,18 @@ async function renderMarkdownContent(
       flushPara();
       const ordered = /^\s*(\d+)\.\s/.exec(line);
       const marker = ordered ? `${ordered[1]}.` : "\u2022";
-      const text = stripMarkdownForPdf(
-        line.replace(/^\s*[-*+]\s+/, "").replace(/^\s*\d+\.\s+/, "")
-      );
+      // A wrapped list item continues on the following lines. Join them before
+      // stripping, or inline markup spanning the break survives into the PDF.
+      const parts = [line.replace(/^\s*[-*+]\s+/, "").replace(/^\s*\d+\.\s+/, "")];
+      while (
+        i + 1 < lines.length &&
+        lines[i + 1].trim() !== "" &&
+        !/^\s*([-*+]|\d+\.)\s/.test(lines[i + 1]) &&
+        !/^\s*(#{1,6}\s|>|\||```|---+$)/.test(lines[i + 1])
+      ) {
+        parts.push(lines[++i].trim());
+      }
+      const text = stripMarkdownForPdf(parts.join(" "));
       const nested = /^\s{2,}/.test(line);
       state = addText(
         state,
