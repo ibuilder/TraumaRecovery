@@ -1,10 +1,10 @@
 import { Link, useLocation } from "wouter";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { chapters } from "@/lib/chapters";
-import type { Chapter, Subchapter } from "@shared/schema";
+import type { ChapterMeta } from "@/lib/chapters";
 
 interface ChapterSidebarProps {
-  currentChapter: Chapter;
+  currentChapter: ChapterMeta;
 }
 
 export function ChapterSidebar({ currentChapter }: ChapterSidebarProps) {

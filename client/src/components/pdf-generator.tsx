@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import type { jsPDF } from "jspdf";
 import { Button } from "@/components/ui/button";
 import { Download, Loader2 } from "lucide-react";
-import { chapters, bookInfo } from "@/lib/chapters";
+import { bookInfo, loadAllChapters } from "@/lib/chapters";
 import type { Chapter } from "@/lib/chapters";
 import {
   PTSDPrevalenceChart, ACEsPrevalenceChart, RecoveryTimelineChart,
@@ -115,7 +115,7 @@ const ALL_CHART_COMPONENTS: Record<string, React.ComponentType> = {
 };
 
 /** Every chart placeholder the book actually references, in first-use order. */
-function collectReferencedCharts(): string[] {
+function collectReferencedCharts(chapters: Chapter[]): string[] {
   const seen = new Set<string>();
   for (const chapter of chapters) {
     const sources = [chapter.content, ...chapter.subchapters.map((s) => s.content)];
@@ -698,14 +698,16 @@ async function captureCharts(
 }
 
 async function generateBookPDF(onProgress: (msg: string) => void): Promise<void> {
-  // jsPDF + html2canvas are ~600 kB; only pull them in when someone asks for the book.
-  onProgress("Loading PDF tools...");
-  const [{ jsPDF: JsPDF }, { default: html2canvas }] = await Promise.all([
+  // jsPDF + html2canvas are ~600 kB, and the full book text is over a megabyte.
+  // None of it is fetched until someone actually asks for the PDF.
+  onProgress("Loading the book...");
+  const [{ jsPDF: JsPDF }, { default: html2canvas }, chapters] = await Promise.all([
     import("jspdf"),
     import("html2canvas"),
+    loadAllChapters(),
   ]);
 
-  const referencedCharts = collectReferencedCharts();
+  const referencedCharts = collectReferencedCharts(chapters);
   onProgress(`Capturing ${referencedCharts.length} charts (this takes a minute)...`);
   const chartImages = await captureCharts(referencedCharts, html2canvas, onProgress);
 

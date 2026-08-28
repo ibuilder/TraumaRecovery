@@ -1,5 +1,6 @@
 import { Link } from "wouter";
-import { BookOpen, Heart, Phone, ExternalLink } from "lucide-react";
+import { Logo } from "@/components/logo";
+import { Heart, Phone } from "lucide-react";
 import { bookInfo, chapters } from "@/lib/chapters";
 
 export function Footer() {
@@ -9,7 +10,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <BookOpen className="h-5 w-5 text-primary" />
+              <Logo className="h-6 w-6" />
               <span className="font-semibold">{bookInfo.title}</span>
             </div>
             <p className="text-sm text-muted-foreground">

@@ -1,8 +1,13 @@
+import { lazy, Suspense } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ChapterCard } from "@/components/chapter-card";
 import { bookInfo, chapters } from "@/lib/chapters";
-import { PDFDownloadButton } from "@/components/pdf-generator";
+// The PDF exporter pulls in every chart plus jsPDF; keep it off the home page's
+// critical path until someone is actually looking at the button.
+const PDFDownloadButton = lazy(() =>
+  import("@/components/pdf-generator").then((m) => ({ default: m.PDFDownloadButton }))
+);
 import { ArrowRight, BookOpen, Heart, Users, Shield } from "lucide-react";
 
 export default function Home() {
@@ -43,7 +48,9 @@ export default function Home() {
                   View All Chapters
                 </Button>
               </Link>
-              <PDFDownloadButton />
+              <Suspense fallback={<div className="h-11" aria-hidden="true" />}>
+                <PDFDownloadButton />
+              </Suspense>
             </div>
           </div>
         </div>

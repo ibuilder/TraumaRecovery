@@ -21,6 +21,7 @@
     "preview": "vite preview --outDir ../dist/public",
     "start": "NODE_ENV=production node dist/index.cjs",
     "check": "tsc",
+    "manifest": "tsx script/generate-manifest.ts",
     "validate:content": "tsx script/validate-content.ts",
     "db:push": "drizzle-kit push"
   },
