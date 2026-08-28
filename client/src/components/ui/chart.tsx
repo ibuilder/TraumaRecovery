@@ -307,6 +307,19 @@ const ChartLegendContent = React.forwardRef<
       return null
     }
 
+    // Recharts hands the legend its entries in registration order, which does
+    // not reliably match the order the series are drawn in. Sort by the config
+    // instead, so the legend reads left-to-right in the same order as the bars.
+    const order = Object.keys(config)
+    const rank = (item: ChartPayloadItem) => {
+      for (const candidate of [item.dataKey, item.value]) {
+        const i = order.indexOf(String(candidate ?? ""))
+        if (i !== -1) return i
+      }
+      return order.length
+    }
+    const items = [...payload].sort((a, b) => rank(a) - rank(b))
+
     return (
       <div
         ref={ref}
@@ -316,7 +329,7 @@ const ChartLegendContent = React.forwardRef<
           className
         )}
       >
-        {payload.map((item) => {
+        {items.map((item) => {
           const key = `${nameKey || item.dataKey || "value"}`
           const itemConfig = getPayloadConfigFromPayload(config, item, key)
 
