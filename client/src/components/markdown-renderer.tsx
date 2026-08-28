@@ -71,6 +71,9 @@ import {
   DramaTriangleChart,
   ACATreeChart,
   CoreSymptomsChart,
+  FourHorsemenChart,
+  BoundaryLadderChart,
+  AttachmentMapChart,
 } from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
@@ -149,6 +152,9 @@ const chartComponents: Record<string, React.ComponentType> = {
   "DramaTriangleChart": DramaTriangleChart,
   "ACATreeChart": ACATreeChart,
   "CoreSymptomsChart": CoreSymptomsChart,
+  "FourHorsemenChart": FourHorsemenChart,
+  "BoundaryLadderChart": BoundaryLadderChart,
+  "AttachmentMapChart": AttachmentMapChart,
 };
 
 /**

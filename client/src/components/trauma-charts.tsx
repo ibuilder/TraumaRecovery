@@ -3077,3 +3077,177 @@ export function CoreSymptomsChart() {
     </figure>
   );
 }
+
+const fourHorsemen = [
+  {
+    horseman: "Criticism",
+    isnt: "A complaint. “You didn't take the bins out” is a complaint.",
+    is: "An attack on character. “You never think about anyone but yourself.”",
+    antidote: "Gentle start-up",
+    how: "Say what you feel and what you need, about this one thing. Start with “I”, not “you always”.",
+  },
+  {
+    horseman: "Contempt",
+    isnt: "Anger. Anger is survivable.",
+    is: "Superiority — mockery, eye-rolling, sneering, name-calling.",
+    antidote: "A culture of appreciation",
+    how: "Build the habit of noticing what they get right, out loud, when nothing is wrong.",
+  },
+  {
+    horseman: "Defensiveness",
+    isnt: "Disagreement.",
+    is: "Reversing the blame. “Well if you hadn't…”",
+    antidote: "Take responsibility",
+    how: "Find the part that is yours — even 10% — and own that part without conditions.",
+  },
+  {
+    horseman: "Stonewalling",
+    isnt: "Needing a minute.",
+    is: "Going blank and shutting down mid-conversation.",
+    antidote: "Physiological self-soothing",
+    how: "Say you are flooded, name a time to return, leave, and actually come back.",
+  },
+];
+
+export function FourHorsemenChart() {
+  return (
+    <figure className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">
+        The Four Horsemen, and What Answers Each One
+      </h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Each has a near neighbour that is fine, and a specific antidote. The
+        antidote is a behaviour, not an attitude.
+      </p>
+      <div className="grid gap-4 md:grid-cols-2">
+        {fourHorsemen.map((h) => (
+          <div key={h.horseman} className="rounded-md border border-border p-4">
+            <p className="font-semibold text-base mb-2">{h.horseman}</p>
+            <p className="text-xs text-muted-foreground mb-1">
+              <span className="font-medium text-foreground/70">Not: </span>
+              {h.isnt}
+            </p>
+            <p className="text-xs text-muted-foreground mb-3">
+              <span className="font-medium text-foreground/70">Is: </span>
+              {h.is}
+            </p>
+            <p className="text-sm font-medium text-primary">{h.antidote}</p>
+            <p className="text-xs text-muted-foreground mt-1">{h.how}</p>
+          </div>
+        ))}
+      </div>
+      <figcaption className="text-xs text-muted-foreground mt-3">
+        Gottman, J. M., &amp; Silver, N. (1999). <em>The seven principles for making
+        marriage work</em>. Crown. Of the four, contempt is the single strongest
+        predictor of a relationship ending.
+      </figcaption>
+    </figure>
+  );
+}
+
+const boundaryRungs = [
+  { step: "Inform", say: "“When you raise your voice I stop being able to hear you.”", note: "Most boundaries never need to go past here." },
+  { step: "Request", say: "“I'm asking you not to raise your voice with me.”", note: "Still collaborative. Still assumes good faith." },
+  { step: "Insist", say: "“I need this to stop.”", note: "The tone changes. The ask does not." },
+  { step: "Walk away", say: "“I'm going to end this conversation now.”", note: "Not a threat and not a punishment — the consequence you already named, happening." },
+];
+
+export function BoundaryLadderChart() {
+  return (
+    <figure className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">The Four Rungs of a Boundary</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        You start at the bottom, every time. Skipping to the top is not a
+        boundary, it is an ultimatum.
+      </p>
+      <ol className="space-y-3">
+        {boundaryRungs.map((r, i) => (
+          <li key={r.step} className="flex gap-4 items-start">
+            <span
+              className="shrink-0 w-7 h-7 rounded-full bg-primary/10 text-primary text-sm font-semibold flex items-center justify-center"
+              aria-hidden="true"
+            >
+              {i + 1}
+            </span>
+            <div>
+              <p className="font-medium">{r.step}</p>
+              <p className="text-sm text-foreground/80 italic">{r.say}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">{r.note}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <figcaption className="text-xs text-muted-foreground mt-4">
+        A boundary is clear, communicated, consistent, and carries a consequence
+        that is <em>within your control</em>. If enforcing it requires the other
+        person to cooperate, it is not a boundary — it is a request.
+      </figcaption>
+    </figure>
+  );
+}
+
+export function AttachmentMapChart() {
+  return (
+    <figure className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Attachment Is a Position, Not a Verdict</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Four quadrants, and the only three points that matter: where you were,
+        where you are, and where you are going.
+      </p>
+      <div className="overflow-x-auto">
+        <svg
+          viewBox="0 0 460 330"
+          className="w-full min-w-[400px] h-auto"
+          role="img"
+          aria-labelledby="attach-title attach-desc"
+        >
+          <title id="attach-title">The attachment map with a path marked</title>
+          <desc id="attach-desc">
+            A two-by-two grid. Secure is top left, Anxious top right, Avoidant
+            bottom left, Dismissive bottom right. Three marked points trace a
+            path from deep in the anxious quadrant, part-way back, and on toward
+            secure.
+          </desc>
+          <rect x="40" y="30" width="380" height="240" fill="none" stroke="hsl(var(--border))" strokeWidth="1.5" />
+          <line x1="230" y1="30" x2="230" y2="270" stroke="hsl(var(--border))" strokeWidth="1.5" />
+          <line x1="40" y1="150" x2="420" y2="150" stroke="hsl(var(--border))" strokeWidth="1.5" />
+
+          <g fill="hsl(var(--muted-foreground))" fontSize="14" fontWeight="600">
+            <text x="56" y="52">Secure</text>
+            <text x="246" y="52">Anxious</text>
+            <text x="56" y="262">Avoidant</text>
+            <text x="246" y="262">Dismissive</text>
+          </g>
+
+          <path
+            d="M380 96 L300 118 L150 96"
+            fill="none"
+            stroke="hsl(var(--primary))"
+            strokeWidth="2"
+            strokeDasharray="6 5"
+            markerEnd=""
+          />
+          <circle cx="380" cy="96" r="6" fill="hsl(var(--muted-foreground))" />
+          <circle cx="300" cy="118" r="7" fill="hsl(var(--primary))" />
+          <circle cx="150" cy="96" r="6" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" />
+
+          <g fontSize="11" fill="hsl(var(--muted-foreground))">
+            <text x="380" y="84" textAnchor="middle">where I was</text>
+            <text x="300" y="140" textAnchor="middle" fill="hsl(var(--primary))" fontWeight="600">where I am</text>
+            <text x="150" y="84" textAnchor="middle">where I'm going</text>
+          </g>
+
+          <text x="230" y="300" textAnchor="middle" fontSize="11" fill="hsl(var(--muted-foreground))" fontStyle="italic">
+            earned security: the destination is a quadrant, not a personality
+          </text>
+        </svg>
+      </div>
+      <figcaption className="text-xs text-muted-foreground mt-3">
+        Quadrants after Bartholomew, K., &amp; Horowitz, L. M. (1991),
+        <em> Journal of Personality and Social Psychology, 61</em>(2), 226–244.
+        Attachment style is measurably changeable in adulthood — the research
+        term is <em>earned secure attachment</em>.
+      </figcaption>
+    </figure>
+  );
+}

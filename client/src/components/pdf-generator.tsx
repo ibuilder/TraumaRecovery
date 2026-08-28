@@ -38,6 +38,9 @@ import {
   DramaTriangleChart,
   ACATreeChart,
   CoreSymptomsChart,
+  FourHorsemenChart,
+  BoundaryLadderChart,
+  AttachmentMapChart,
 } from "@/components/trauma-charts";
 
 const ISBN = "978-0-000000-00-0";
@@ -90,6 +93,9 @@ const ALL_CHART_COMPONENTS: Record<string, React.ComponentType> = {
   DramaTriangleChart,
   ACATreeChart,
   CoreSymptomsChart,
+  FourHorsemenChart,
+  BoundaryLadderChart,
+  AttachmentMapChart,
 };
 
 /** Every chart placeholder the book actually references, in first-use order. */

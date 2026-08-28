@@ -753,5 +753,218 @@ Johnson, S. M. (2024). *Hold me tight: Seven conversations for a lifetime of lov
 
 Tatkin, S. (2024). *Wired for love: How understanding your partner's brain and attachment style can help you defuse conflict and build a secure relationship*. New Harbinger Publications.`,
     },
+    {
+      id: "7-5",
+      title: "What Actually Ends Relationships",
+      slug: "what-ends-relationships",
+      order: 5,
+      content: `# What Actually Ends Relationships
+
+I went into treatment believing my relationships failed because of what I did
+when I was using. That was true, and it was not the whole truth. The patterns
+that broke things were running long before the using, and they kept running
+after it stopped.
+
+This is the mechanical part of the chapter. Four behaviours that predict an
+ending, three shapes a relationship can take, one ladder for saying no, and one
+map for working out where you actually are.
+
+## The four horsemen
+
+John Gottman spent decades recording couples arguing and then following up years
+later to see who was still together. He found that he could predict the outcome
+with unsettling accuracy from a handful of behaviours in the first few minutes.
+
+\`\`\`chart:FourHorsemenChart\`\`\`
+
+The reason I found this so useful is the "not / is" line in each one. Every
+horseman has a near neighbour that is completely fine, and for years I could not
+tell them apart — so I either avoided the fine version or excused the fatal one.
+
+**Complaint is fine. Criticism is not.** "You didn't take the bins out" is a
+complaint about a bin. "You never think about anyone but yourself" is a
+statement about who someone is. The first is solvable. The second is an
+indictment, and there is nothing to do with an indictment except defend against
+it.
+
+**Anger is fine. Contempt is not.** This is the one that surprised people in
+Gottman's data. Couples who shouted at each other stayed together. Couples who
+sneered did not. Contempt is anger delivered from a position of superiority —
+the eye-roll, the mimicking voice, the little laugh. It communicates *I am
+above you*, and no relationship survives a permanent hierarchy.
+
+Contempt is the strongest single predictor of an ending in this research. If you
+take one thing from this chapter, take that.
+
+**Disagreement is fine. Defensiveness is not.** Defensiveness is not saying "I
+see it differently." It is reversing the charge: *well, if you hadn't…* It
+functions to make the complaint disappear, and it works, and the cost is that
+nothing is ever repaired.
+
+The antidote is the hardest one in the list, because it does not ask you to
+accept a version of events you think is wrong. It asks you to find the part
+that is genuinely yours — sometimes ten percent — and own that part with no
+"but" attached. Ten percent, owned cleanly, ends more fights than a hundred
+percent argued about.
+
+**Needing a minute is fine. Stonewalling is not.** The difference is entirely
+about whether you say so and whether you come back. "I'm flooded, I need twenty
+minutes, I'll come and find you" is self-regulation. Going grey and silent while
+someone talks at you is a wall, and being on the other side of that wall is one
+of the loneliest experiences there is.
+
+Gottman's own physiological finding here is worth knowing: once heart rate goes
+past roughly 100 beats per minute, the ability to take in new information
+collapses. You are not being stubborn at that point. You are flooded, and the
+part of you that could hear them has gone offline. Twenty minutes is roughly how
+long it takes to come back.
+
+## Three shapes
+
+\`\`\`chart:RelationshipTypesChart\`\`\`
+
+I drew this in a session and then argued with it for a week.
+
+**Fantasy** is the one that feels like the real thing. Intensity, certainty,
+recognition — the sense of having found something. It climbs faster than
+anything else on the chart and it is essentially finished by six months, because
+what you fell for was a projection and the person underneath eventually turns
+up.
+
+**The mask** is more dangerous precisely because it works for so long. Two
+people who are each performing an edited version of themselves can run a
+functional relationship for a decade. Careers, houses, children. And then it
+collapses, usually without a dramatic cause, because maintaining a mask costs
+energy and nobody can pay that forever.
+
+**Authenticity** is the flat-looking line at the start, and this is the honest
+part: for the first year or two it is *worse*. It is less exciting than fantasy
+and less smooth than the mask. It involves being known, which for most people
+raised in a dysfunctional house is the frightening thing, not the appealing one.
+
+The vertical axis on that chart is felt intensity, not quality. Fantasy and the
+mask both feel like more, right up until they stop.
+
+### Intensity is not intimacy
+
+The shorthand from my notes, two columns headed with the colour of the
+whiteboard markers:
+
+| What drives the wanting | What builds the relationship |
+|---|---|
+| power · control · fantasy · obligation · caretaking · danger · conditional · transactional · performative · manipulative · **intensity** | boundaries · respect · mutuality · safety · positive intent · authenticity · individuation · transparency · **intimacy** · honesty · empathy · values |
+
+Both columns produce a strong feeling. Only one of them produces a relationship.
+If you grew up in chaos, the left-hand column will feel like love and the
+right-hand column will feel like boredom, and you will have to override that
+reading consciously for a long time before it changes on its own.
+
+## What gets in the way — DRAIN
+
+A checklist for when something is wrong and you cannot name it.
+
+- **D**isconnection — am I bored, checked out, going through motions?
+- **R**eactivity — am I raising my voice, sniping, going cold?
+- **A**voidance — how am I getting away from painful thoughts right now?
+- **I**nside your mind — where am I getting trapped in my own head?
+- **N**eglecting values — which of my values am I not living in this
+  relationship?
+
+And the sentence from that page that I have quoted more than anything else in my
+notebook:
+
+> **An unspoken expectation is a planned resentment.**
+
+Every single time I have been quietly furious with someone, I have been able to
+trace it back to a rule I never told them about. The resentment was scheduled
+the moment I decided not to say it.
+
+## The four rungs
+
+\`\`\`chart:BoundaryLadderChart\`\`\`
+
+Two things I had wrong about boundaries for most of my life.
+
+**First: internal comes before external.** A boundary with you is worthless if I
+do not have one with myself. If I cannot keep my own commitments, cannot stop
+myself at the point I said I would stop, then whatever I tell you about my
+limits is a wish. The internal one is the load-bearing one.
+
+**Second: a boundary is not about controlling you.** This is why the consequence
+has to be within my control. "You need to stop shouting" is not enforceable by
+me. "I will leave the room when you shout" is entirely enforceable by me, and
+requires nothing from you at all.
+
+The four requirements, which I keep written down: **clear · communicated ·
+consistent · with a consequence within your control.** Fail any one and it is
+not a boundary. Consistent is the one that fails most; a boundary enforced four
+times out of five teaches the other person that the fifth time exists.
+
+## When you change, three things can happen
+
+This landed hard enough that I wrote it in capitals.
+
+When one person in a relationship genuinely changes — gets sober, gets a
+therapist, stops playing their role — there are exactly three possible outcomes:
+
+1. **The dynamic changes.** Both people adjust and something new gets built.
+2. **The dynamic stays the same.** They adjust back to their old position, and
+   you are now doing the old dance sober, which is worse.
+3. **You leave.**
+
+That is the complete list. What is not on it is *they change because I changed*.
+You do not get to pick which of the three happens, and waiting for the first one
+while living in the second is where an enormous amount of recovery time goes.
+
+## Where you actually are
+
+\`\`\`chart:AttachmentMapChart\`\`\`
+
+I marked three dots on this in my notebook: where I was, where I am, and where I
+am going.
+
+Attachment style gets talked about like a personality type — as though you *are*
+anxious, the way you are left-handed. The research does not support that. Style
+shifts with the relationship you are in, with treatment, and with time. There is
+a specific term in the literature for arriving at security from an insecure
+start: **earned secure attachment**.
+
+Two dots make it a diagnosis. Three dots make it a direction.
+
+## A daily practice: FANOS
+
+I will end with the smallest and most practical thing in this chapter, because
+it is the one I still do.
+
+FANOS is a structured check-in, five sentences, done daily with a partner:
+
+- **F**eelings — one feeling I had today
+- **A**ffirmation — one thing I appreciate about you
+- **N**eeds — one thing I need, stated as a request
+- **O**bstacles — one thing in my way
+- **S**obriety / struggles — where I actually am today
+
+It takes four minutes. Its entire value is that it is *scheduled*, which means
+the hard sentence does not have to find an opening — the opening already exists,
+at the same time every day. In a relationship damaged by addiction, where the
+disclosure of anything has historically been an emergency, having a routine slot
+for ordinary truth is a structural fix, not a communication tip.
+
+---
+
+## References
+
+Bartholomew, K., & Horowitz, L. M. (1991). Attachment styles among young adults: A test of a four-category model. *Journal of Personality and Social Psychology, 61*(2), 226–244.
+
+Carnes, S., & Lee, M. (2012). *Facing heartbreak: Steps to recovery for partners of sex addicts*. Gentle Path Press.
+
+Gottman, J. M., & Levenson, R. W. (1992). Marital processes predictive of later dissolution: Behavior, physiology, and health. *Journal of Personality and Social Psychology, 63*(2), 221–233.
+
+Gottman, J. M., & Silver, N. (1999). *The seven principles for making marriage work*. Crown Publishers.
+
+Levine, A., & Heller, R. (2010). *Attached: The new science of adult attachment and how it can help you find — and keep — love*. TarcherPerigee.
+
+Mellody, P., Miller, A. W., & Miller, J. K. (1992). *Facing love addiction: Giving yourself the power to change the way you love*. HarperOne.`,
+    },
   ],
 };
