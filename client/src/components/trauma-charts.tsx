@@ -27,6 +27,22 @@ import {
 } from "recharts";
 
 /**
+ * Recharts animates every series in on mount. That is right on the site and
+ * wrong for the PDF exporter, which screenshots each chart a moment after
+ * rendering it and was catching pies and radars part-way through their sweep.
+ *
+ * The exporter renders into its own React root, sets this before rendering and
+ * clears it afterwards, so the value is constant for the whole of any render
+ * pass that reads it.
+ */
+let staticCharts = false;
+
+/** Turns entry animation off while charts are being captured for the PDF. */
+export function setStaticCharts(value: boolean) {
+  staticCharts = value;
+}
+
+/**
  * The shared frame every figure in the book sits in.
  *
  * Charts are `<figure>` rather than `<div>` so a screen reader announces them
@@ -106,7 +122,7 @@ export function PTSDPrevalenceChart() {
           <XAxis type="number" domain={[0, 60]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="group" width={120} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="prevalence" fill="var(--color-prevalence)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="prevalence" fill="var(--color-prevalence)" radius={4}>
             <LabelList
               dataKey="prevalence"
               position="right"
@@ -155,7 +171,7 @@ export function ACEsPrevalenceChart() {
           <XAxis dataKey="aces" />
           <YAxis tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="percentage" fill="var(--color-percentage)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="percentage" fill="var(--color-percentage)" radius={4}>
             <LabelList
               dataKey="percentage"
               position="top"
@@ -206,7 +222,7 @@ export function RecoveryTimelineChart() {
           <XAxis dataKey="months" />
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Line type="monotone" dataKey="recovered" stroke="var(--color-recovered)" strokeWidth={3} dot={{ r: 6 }} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="recovered" stroke="var(--color-recovered)" strokeWidth={3} dot={{ r: 6 }} />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -247,7 +263,7 @@ export function TraumaAddictionChart() {
           <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="category" width={180} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="percentage" fill="var(--color-percentage)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="percentage" fill="var(--color-percentage)" radius={4}>
             <LabelList
               dataKey="percentage"
               position="right"
@@ -299,7 +315,7 @@ export function TherapyEffectivenessChart() {
           <XAxis dataKey="therapy" />
           <YAxis domain={[0, 2]} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="effectSize" fill="var(--color-effectSize)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="effectSize" fill="var(--color-effectSize)" radius={4}>
             <LabelList
               dataKey="effectSize"
               position="top"
@@ -358,7 +374,7 @@ export function AttachmentStylesChart() {
     >
       <ChartContainer config={attachmentConfig} className="h-[300px] w-full">
         <PieChart>
-          <Pie
+          <Pie isAnimationActive={!staticCharts}
             data={attachmentStylesData}
             cx="50%"
             cy="50%"
@@ -423,8 +439,8 @@ export function ACEsHealthRiskChart() {
           <YAxis tickFormatter={(v) => `${v}x`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="risk0ACEs" fill="var(--color-risk0ACEs)" radius={4} />
-          <Bar dataKey="risk4ACEs" fill="var(--color-risk4ACEs)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="risk0ACEs" fill="var(--color-risk0ACEs)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="risk4ACEs" fill="var(--color-risk4ACEs)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -466,7 +482,7 @@ export function PostTraumaticGrowthChart() {
           <PolarGrid />
           <PolarAngleAxis dataKey="domain" className="text-xs" />
           <PolarRadiusAxis angle={30} domain={[0, 100]} />
-          <Radar name="Growth" dataKey="value" stroke="var(--color-value)" fill="var(--color-value)" fillOpacity={0.5} />
+          <Radar isAnimationActive={!staticCharts} name="Growth" dataKey="value" stroke="var(--color-value)" fill="var(--color-value)" fillOpacity={0.5} />
           <ChartTooltip content={<ChartTooltipContent />} />
         </RadarChart>
       </ChartContainer>
@@ -508,7 +524,7 @@ export function IPVPTSDChart() {
           <XAxis dataKey="category" angle={-15} textAnchor="end" height={60} />
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="percentage" fill="var(--color-percentage)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="percentage" fill="var(--color-percentage)" radius={4}>
             <LabelList
               dataKey="percentage"
               position="top"
@@ -556,7 +572,7 @@ export function DBTSkillsChart() {
           <XAxis dataKey="skill" />
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="effectiveness" fill="var(--color-effectiveness)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="effectiveness" fill="var(--color-effectiveness)" radius={4}>
             <LabelList
               dataKey="effectiveness"
               position="top"
@@ -615,9 +631,9 @@ export function PhysicalWellnessChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line type="monotone" dataKey="exercise" stroke="var(--color-exercise)" strokeWidth={2} dot={{ r: 4 }} />
-          <Line type="monotone" dataKey="sleep" stroke="var(--color-sleep)" strokeWidth={2} dot={{ r: 4 }} />
-          <Line type="monotone" dataKey="nutrition" stroke="var(--color-nutrition)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="exercise" stroke="var(--color-exercise)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="sleep" stroke="var(--color-sleep)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="nutrition" stroke="var(--color-nutrition)" strokeWidth={2} dot={{ r: 4 }} />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -668,9 +684,9 @@ export function ExerciseImpactChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="depression" fill="var(--color-depression)" radius={4} />
-          <Bar dataKey="anxiety" fill="var(--color-anxiety)" radius={4} />
-          <Bar dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="depression" fill="var(--color-depression)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="anxiety" fill="var(--color-anxiety)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -717,9 +733,9 @@ export function FourPillarsChart() {
           <PolarGrid />
           <PolarAngleAxis dataKey="pillar" className="text-sm" />
           <PolarRadiusAxis angle={30} domain={[0, 100]} />
-          <Radar name="Healthy" dataKey="healthy" stroke="var(--color-healthy)" fill="var(--color-healthy)" fillOpacity={0.3} />
-          <Radar name="Recovering" dataKey="recovering" stroke="var(--color-recovering)" fill="var(--color-recovering)" fillOpacity={0.3} />
-          <Radar name="Struggling" dataKey="struggling" stroke="var(--color-struggling)" fill="var(--color-struggling)" fillOpacity={0.3} />
+          <Radar isAnimationActive={!staticCharts} name="Healthy" dataKey="healthy" stroke="var(--color-healthy)" fill="var(--color-healthy)" fillOpacity={0.3} />
+          <Radar isAnimationActive={!staticCharts} name="Recovering" dataKey="recovering" stroke="var(--color-recovering)" fill="var(--color-recovering)" fillOpacity={0.3} />
+          <Radar isAnimationActive={!staticCharts} name="Struggling" dataKey="struggling" stroke="var(--color-struggling)" fill="var(--color-struggling)" fillOpacity={0.3} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
         </RadarChart>
@@ -770,9 +786,9 @@ export function EmotionalRegulationChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line type="monotone" dataKey="regulation" stroke="var(--color-regulation)" strokeWidth={2} dot={{ r: 4 }} />
-          <Line type="monotone" dataKey="awareness" stroke="var(--color-awareness)" strokeWidth={2} dot={{ r: 4 }} />
-          <Line type="monotone" dataKey="expression" stroke="var(--color-expression)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="regulation" stroke="var(--color-regulation)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="awareness" stroke="var(--color-awareness)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="expression" stroke="var(--color-expression)" strokeWidth={2} dot={{ r: 4 }} />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -816,7 +832,7 @@ export function MentalWellnessChart() {
           <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="factor" width={140} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="percentage" fill="var(--color-percentage)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="percentage" fill="var(--color-percentage)" radius={4}>
             <LabelList
               dataKey="percentage"
               position="right"
@@ -871,8 +887,8 @@ export function SocialConnectionChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="recovery" fill="var(--color-recovery)" radius={4} />
-          <Bar dataKey="wellbeing" fill="var(--color-wellbeing)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="recovery" fill="var(--color-recovery)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="wellbeing" fill="var(--color-wellbeing)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -920,8 +936,8 @@ export function NutritionImpactChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 50]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="moodImprovement" fill="var(--color-moodImprovement)" radius={4} />
-          <Bar dataKey="anxietyReduction" fill="var(--color-anxietyReduction)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="moodImprovement" fill="var(--color-moodImprovement)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="anxietyReduction" fill="var(--color-anxietyReduction)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -967,8 +983,8 @@ export function SleepRecoveryChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="ptsdSeverity" fill="var(--color-ptsdSeverity)" radius={4} />
-          <Bar dataKey="recoveryRate" fill="var(--color-recoveryRate)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="ptsdSeverity" fill="var(--color-ptsdSeverity)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="recoveryRate" fill="var(--color-recoveryRate)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1011,7 +1027,7 @@ export function AmygdalaActivityChart() {
           <XAxis dataKey="condition" />
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="activity" fill="var(--color-activity)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="activity" fill="var(--color-activity)" radius={4}>
             <LabelList
               dataKey="activity"
               position="top"
@@ -1061,7 +1077,7 @@ export function BrainRegionsTraumaChart() {
           <XAxis type="number" domain={[-30, 50]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="region" width={120} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="change" fill="var(--color-change)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="change" fill="var(--color-change)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1109,8 +1125,8 @@ export function NeurotransmitterLevelsChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 160]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="normal" fill="var(--color-normal)" radius={4} />
-          <Bar dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="normal" fill="var(--color-normal)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1159,8 +1175,8 @@ export function CortisolPatternChart() {
           <YAxis label={{ value: 'Cortisol (mcg/dL)', angle: -90, position: 'insideLeft' }} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line type="monotone" dataKey="normal" stroke="var(--color-normal)" strokeWidth={2} dot={{ r: 4 }} />
-          <Line type="monotone" dataKey="ptsd" stroke="var(--color-ptsd)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="normal" stroke="var(--color-normal)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="ptsd" stroke="var(--color-ptsd)" strokeWidth={2} dot={{ r: 4 }} />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -1209,9 +1225,9 @@ export function PolyvagalStatesChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="safetyLevel" fill="var(--color-safetyLevel)" radius={4} />
-          <Bar dataKey="socialEngagement" fill="var(--color-socialEngagement)" radius={4} />
-          <Bar dataKey="energyLevel" fill="var(--color-energyLevel)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="safetyLevel" fill="var(--color-safetyLevel)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="socialEngagement" fill="var(--color-socialEngagement)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="energyLevel" fill="var(--color-energyLevel)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1252,7 +1268,7 @@ export function PTSDSymptomsChart() {
           <XAxis dataKey="category" />
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="value" fill="var(--color-value)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="value" fill="var(--color-value)" radius={4}>
             <LabelList
               dataKey="value"
               position="top"
@@ -1306,8 +1322,8 @@ export function ComplexPTSDChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="cptsd" fill="var(--color-cptsd)" radius={4} />
-          <Bar dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="cptsd" fill="var(--color-cptsd)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1354,8 +1370,8 @@ export function BrainHealingChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 160]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="before" fill="var(--color-before)" radius={4} />
-          <Bar dataKey="after" fill="var(--color-after)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="before" fill="var(--color-before)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="after" fill="var(--color-after)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1397,7 +1413,7 @@ export function ACTHexaflexChart() {
           <PolarGrid />
           <PolarAngleAxis dataKey="process" className="text-xs" />
           <PolarRadiusAxis angle={30} domain={[0, 100]} />
-          <Radar name="Process Strength" dataKey="importance" stroke="var(--color-importance)" fill="var(--color-importance)" fillOpacity={0.5} />
+          <Radar isAnimationActive={!staticCharts} name="Process Strength" dataKey="importance" stroke="var(--color-importance)" fill="var(--color-importance)" fillOpacity={0.5} />
           <ChartTooltip content={<ChartTooltipContent />} />
         </RadarChart>
       </ChartContainer>
@@ -1441,7 +1457,7 @@ export function FamilyDysfunctionChart() {
           <XAxis type="number" domain={[0, 60]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="pattern" width={120} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="prevalence" fill="var(--color-prevalence)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="prevalence" fill="var(--color-prevalence)" radius={4}>
             <LabelList
               dataKey="prevalence"
               position="right"
@@ -1491,7 +1507,7 @@ export function ChildhoodTraumaTimelineChart() {
           <XAxis dataKey="age" />
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Line type="monotone" dataKey="impact" stroke="var(--color-impact)" strokeWidth={3} dot={{ r: 6 }} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="impact" stroke="var(--color-impact)" strokeWidth={3} dot={{ r: 6 }} />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -1543,9 +1559,9 @@ export function RelationshipSafetyChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="healthy" fill="var(--color-healthy)" radius={4} />
-          <Bar dataKey="concerning" fill="var(--color-concerning)" radius={4} />
-          <Bar dataKey="dangerous" fill="var(--color-dangerous)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="healthy" fill="var(--color-healthy)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="concerning" fill="var(--color-concerning)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="dangerous" fill="var(--color-dangerous)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1589,8 +1605,8 @@ export function WindowToleranceChart() {
           <YAxis type="category" dataKey="state" width={140} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="intensity" fill="var(--color-intensity)" radius={4} stackId="a" />
-          <Bar dataKey="optimal" fill="var(--color-optimal)" radius={4} stackId="a" />
+          <Bar isAnimationActive={!staticCharts} dataKey="intensity" fill="var(--color-intensity)" radius={4} stackId="a" />
+          <Bar isAnimationActive={!staticCharts} dataKey="optimal" fill="var(--color-optimal)" radius={4} stackId="a" />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1635,7 +1651,7 @@ export function AdultTraumaTypesChart() {
           <XAxis type="number" domain={[0, 30]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="type" width={160} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="prevalence" fill="var(--color-prevalence)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="prevalence" fill="var(--color-prevalence)" radius={4}>
             <LabelList
               dataKey="prevalence"
               position="right"
@@ -1684,7 +1700,7 @@ export function GroundingTechniquesChart() {
           <PolarGrid />
           <PolarAngleAxis dataKey="technique" tick={{ fontSize: 11 }} />
           <PolarRadiusAxis angle={30} domain={[0, 100]} />
-          <Radar
+          <Radar isAnimationActive={!staticCharts}
             name="Effectiveness"
             dataKey="effectiveness"
             stroke="hsl(var(--primary))"
@@ -1740,8 +1756,8 @@ export function CopingStrategiesChart() {
           <YAxis tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="healthy" fill="var(--color-healthy)" radius={4} />
-          <Bar dataKey="avoidant" fill="var(--color-avoidant)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="healthy" fill="var(--color-healthy)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="avoidant" fill="var(--color-avoidant)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1784,7 +1800,7 @@ export function ResilienceFactorsChart() {
           <PolarGrid />
           <PolarAngleAxis dataKey="factor" tick={{ fontSize: 11 }} />
           <PolarRadiusAxis angle={30} domain={[0, 100]} />
-          <Radar
+          <Radar isAnimationActive={!staticCharts}
             name="Score"
             dataKey="score"
             stroke="hsl(var(--primary))"
@@ -1839,8 +1855,8 @@ export function SpiritualPracticesChart() {
           <YAxis tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="benefit" fill="var(--color-benefit)" radius={4} />
-          <Bar dataKey="adoption" fill="var(--color-adoption)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="benefit" fill="var(--color-benefit)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="adoption" fill="var(--color-adoption)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1884,7 +1900,7 @@ export function RecoveryValuesChart() {
           <PolarGrid />
           <PolarAngleAxis dataKey="value" tick={{ fontSize: 11 }} />
           <PolarRadiusAxis angle={30} domain={[0, 100]} />
-          <Radar
+          <Radar isAnimationActive={!staticCharts}
             name="Importance"
             dataKey="importance"
             stroke="hsl(var(--primary))"
@@ -1943,9 +1959,9 @@ export function TreatmentModalitiesChart() {
           <YAxis tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
-          <Bar dataKey="depression" fill="var(--color-depression)" radius={4} />
-          <Bar dataKey="anxiety" fill="var(--color-anxiety)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="depression" fill="var(--color-depression)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="anxiety" fill="var(--color-anxiety)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1990,7 +2006,7 @@ export function CognitiveDistortionsChart() {
           <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="distortion" width={130} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="frequency" fill="var(--color-frequency)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="frequency" fill="var(--color-frequency)" radius={4}>
             <LabelList
               dataKey="frequency"
               position="right"
@@ -2050,9 +2066,9 @@ export function MindfulnessBenefitsChart() {
           <YAxis domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line type="monotone" dataKey="stress" stroke="var(--color-stress)" strokeWidth={2} />
-          <Line type="monotone" dataKey="focus" stroke="var(--color-focus)" strokeWidth={2} />
-          <Line type="monotone" dataKey="regulation" stroke="var(--color-regulation)" strokeWidth={2} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="stress" stroke="var(--color-stress)" strokeWidth={2} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="focus" stroke="var(--color-focus)" strokeWidth={2} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="regulation" stroke="var(--color-regulation)" strokeWidth={2} />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -2096,7 +2112,7 @@ export function SomaticTherapyChart() {
           <PolarGrid />
           <PolarAngleAxis dataKey="technique" tick={{ fontSize: 11 }} />
           <PolarRadiusAxis angle={30} domain={[0, 100]} />
-          <Radar
+          <Radar isAnimationActive={!staticCharts}
             name="Effectiveness"
             dataKey="effectiveness"
             stroke="hsl(var(--primary))"
@@ -2152,8 +2168,8 @@ export function EMDRPhasesChart() {
           <YAxis type="category" dataKey="phase" width={120} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="time" fill="var(--color-time)" radius={4} />
-          <Bar dataKey="importance" fill="var(--color-importance)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="time" fill="var(--color-time)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="importance" fill="var(--color-importance)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2206,9 +2222,9 @@ export function BoundaryTypesChart() {
           <YAxis tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="healthy" fill="var(--color-healthy)" radius={4} />
-          <Bar dataKey="porous" fill="var(--color-porous)" radius={4} />
-          <Bar dataKey="rigid" fill="var(--color-rigid)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="healthy" fill="var(--color-healthy)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="porous" fill="var(--color-porous)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="rigid" fill="var(--color-rigid)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2259,9 +2275,9 @@ export function InnerChildHealingChart() {
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line type="monotone" dataKey="awareness" stroke="var(--color-awareness)" strokeWidth={2} />
-          <Line type="monotone" dataKey="safety" stroke="var(--color-safety)" strokeWidth={2} />
-          <Line type="monotone" dataKey="expression" stroke="var(--color-expression)" strokeWidth={2} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="awareness" stroke="var(--color-awareness)" strokeWidth={2} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="safety" stroke="var(--color-safety)" strokeWidth={2} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="expression" stroke="var(--color-expression)" strokeWidth={2} />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -2304,7 +2320,7 @@ export function DistressToleranceSkillsChart() {
           <XAxis dataKey="skill" />
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="effectiveness" fill="var(--color-effectiveness)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="effectiveness" fill="var(--color-effectiveness)" radius={4}>
             <LabelList
               dataKey="effectiveness"
               position="top"
@@ -2361,9 +2377,9 @@ export function InterpersonalEffectivenessChart() {
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="objective" fill="var(--color-objective)" radius={4} />
-          <Bar dataKey="relationship" fill="var(--color-relationship)" radius={4} />
-          <Bar dataKey="selfrespect" fill="var(--color-selfrespect)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="objective" fill="var(--color-objective)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="relationship" fill="var(--color-relationship)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="selfrespect" fill="var(--color-selfrespect)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2403,7 +2419,7 @@ export function SexAddictionPrevalenceChart() {
           <XAxis type="number" domain={[0, 35]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="group" width={160} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="rate" fill="var(--color-rate)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="rate" fill="var(--color-rate)" radius={4}>
             <LabelList
               dataKey="rate"
               position="right"
@@ -2451,8 +2467,8 @@ export function SexAddictionBrainChart() {
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="addiction" fill="var(--color-addiction)" radius={4} />
-          <Bar dataKey="healthy" fill="var(--color-healthy)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="addiction" fill="var(--color-addiction)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="healthy" fill="var(--color-healthy)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2491,7 +2507,7 @@ export function SexAddictionTraumaChart() {
           <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="trauma" width={150} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="percentage" fill="var(--color-percentage)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="percentage" fill="var(--color-percentage)" radius={4}>
             <LabelList
               dataKey="percentage"
               position="right"
@@ -2538,8 +2554,8 @@ export function CarnesAddictionCycleChart() {
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="intensity" fill="var(--color-intensity)" radius={4} />
-          <Bar dataKey="duration" fill="var(--color-duration)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="intensity" fill="var(--color-intensity)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="duration" fill="var(--color-duration)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2576,7 +2592,7 @@ export function SexAddictionBeliefsChart() {
           <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="belief" width={175} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="percentage" fill="var(--color-percentage)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="percentage" fill="var(--color-percentage)" radius={4}>
             <LabelList
               dataKey="percentage"
               position="right"
@@ -2613,7 +2629,7 @@ export function ThreeCirclesChart() {
     >
       <ChartContainer config={{}} className="h-[300px] w-full">
         <PieChart>
-          <Pie data={threeCirclesData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} label={({ name }) => name}>
+          <Pie isAnimationActive={!staticCharts} data={threeCirclesData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} label={({ name }) => name}>
             {threeCirclesData.map((entry, index) => (
               <Cell key={index} fill={entry.fill} />
             ))}
@@ -2658,8 +2674,8 @@ export function LoveAddictionPatternsChart() {
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="loveAddict" fill="var(--color-loveAddict)" radius={4} />
-          <Bar dataKey="loveAvoidant" fill="var(--color-loveAvoidant)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="loveAddict" fill="var(--color-loveAddict)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="loveAvoidant" fill="var(--color-loveAvoidant)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2700,7 +2716,7 @@ export function TraumaBondingCycleChart() {
           <XAxis dataKey="phase" tick={{ fontSize: 10 }} />
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Line type="monotone" dataKey="intensity" stroke="var(--color-intensity)" strokeWidth={3} dot={{ r: 5 }} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="intensity" stroke="var(--color-intensity)" strokeWidth={3} dot={{ r: 5 }} />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -2740,7 +2756,7 @@ export function MeadowsTreatmentModelChart() {
           <XAxis dataKey="component" tick={{ fontSize: 10 }} />
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="effectiveness" fill="var(--color-effectiveness)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="effectiveness" fill="var(--color-effectiveness)" radius={4}>
             <LabelList
               dataKey="effectiveness"
               position="top"
@@ -2789,9 +2805,9 @@ export function MeadowsOutcomeChart() {
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line type="monotone" dataKey="sobriety" stroke="var(--color-sobriety)" strokeWidth={2} dot={{ r: 4 }} />
-          <Line type="monotone" dataKey="wellbeing" stroke="var(--color-wellbeing)" strokeWidth={2} dot={{ r: 4 }} />
-          <Line type="monotone" dataKey="relationships" stroke="var(--color-relationships)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="sobriety" stroke="var(--color-sobriety)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="wellbeing" stroke="var(--color-wellbeing)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="relationships" stroke="var(--color-relationships)" strokeWidth={2} dot={{ r: 4 }} />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -2832,9 +2848,9 @@ export function SexAddictionRecoveryProgressChart() {
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="innerCircle" fill="var(--color-innerCircle)" radius={4} />
-          <Bar dataKey="middleCircle" fill="var(--color-middleCircle)" radius={4} />
-          <Bar dataKey="outerCircle" fill="var(--color-outerCircle)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="innerCircle" fill="var(--color-innerCircle)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="middleCircle" fill="var(--color-middleCircle)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="outerCircle" fill="var(--color-outerCircle)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2874,7 +2890,7 @@ export function SexAddictionRecoveryRoadmapChart() {
           <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="milestone" width={165} tick={{ fontSize: 11 }} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="completion" fill="var(--color-completion)" radius={4}>
+          <Bar isAnimationActive={!staticCharts} dataKey="completion" fill="var(--color-completion)" radius={4}>
             <LabelList
               dataKey="completion"
               position="right"
@@ -2922,8 +2938,8 @@ export function TreatmentAccessChart() {
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="accessibility" fill="var(--color-accessibility)" radius={4} />
-          <Bar dataKey="availability" fill="var(--color-availability)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="accessibility" fill="var(--color-accessibility)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="availability" fill="var(--color-availability)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -3033,8 +3049,8 @@ export function AddictionHeritabilityChart() {
           <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="substance" width={90} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="low" stackId="a" fill="transparent" />
-          <Bar dataKey="span" stackId="a" fill="var(--color-span)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="low" stackId="a" fill="transparent" />
+          <Bar isAnimationActive={!staticCharts} dataKey="span" stackId="a" fill="var(--color-span)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -3090,10 +3106,10 @@ export function DopamineRateChart() {
           <YAxis tickFormatter={(v) => `${v}%`} label={undefined} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line dataKey="smoked" stroke="var(--color-smoked)" dot={false} strokeWidth={2} />
-          <Line dataKey="injected" stroke="var(--color-injected)" dot={false} strokeWidth={2} />
-          <Line dataKey="snorted" stroke="var(--color-snorted)" dot={false} strokeWidth={2} />
-          <Line dataKey="oral" stroke="var(--color-oral)" dot={false} strokeWidth={2} />
+          <Line isAnimationActive={!staticCharts} dataKey="smoked" stroke="var(--color-smoked)" dot={false} strokeWidth={2} />
+          <Line isAnimationActive={!staticCharts} dataKey="injected" stroke="var(--color-injected)" dot={false} strokeWidth={2} />
+          <Line isAnimationActive={!staticCharts} dataKey="snorted" stroke="var(--color-snorted)" dot={false} strokeWidth={2} />
+          <Line isAnimationActive={!staticCharts} dataKey="oral" stroke="var(--color-oral)" dot={false} strokeWidth={2} />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -3145,8 +3161,8 @@ export function AlcoholGabaGlutamateChart() {
           <YAxis tickFormatter={(v) => `${v}`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line dataKey="felt" stroke="var(--color-felt)" dot={false} strokeWidth={2} />
-          <Line
+          <Line isAnimationActive={!staticCharts} dataKey="felt" stroke="var(--color-felt)" dot={false} strokeWidth={2} />
+          <Line isAnimationActive={!staticCharts}
             dataKey="glutamate"
             stroke="var(--color-glutamate)"
             dot={false}
@@ -3206,9 +3222,9 @@ export function RelationshipTypesChart() {
           <YAxis domain={[0, 100]} tick={false} tickLine={false} width={8} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line dataKey="fantasy" stroke="var(--color-fantasy)" dot={false} strokeWidth={2} />
-          <Line dataKey="mask" stroke="var(--color-mask)" dot={false} strokeWidth={2} />
-          <Line
+          <Line isAnimationActive={!staticCharts} dataKey="fantasy" stroke="var(--color-fantasy)" dot={false} strokeWidth={2} />
+          <Line isAnimationActive={!staticCharts} dataKey="mask" stroke="var(--color-mask)" dot={false} strokeWidth={2} />
+          <Line isAnimationActive={!staticCharts}
             dataKey="authenticity"
             stroke="var(--color-authenticity)"
             dot={false}
@@ -3261,8 +3277,8 @@ export function SobrietyChallengesChart() {
           <YAxis type="category" dataKey="challenge" width={190} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="under" stackId="s" fill="var(--color-under)" radius={3} />
-          <Bar dataKey="over" stackId="s" fill="var(--color-over)" radius={3} />
+          <Bar isAnimationActive={!staticCharts} dataKey="under" stackId="s" fill="var(--color-under)" radius={3} />
+          <Bar isAnimationActive={!staticCharts} dataKey="over" stackId="s" fill="var(--color-over)" radius={3} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -3311,8 +3327,8 @@ export function CarnesRecoveryStagesChart() {
           />
           <YAxis type="category" dataKey="stage" width={140} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="start" stackId="g" fill="transparent" />
-          <Bar dataKey="length" stackId="g" fill="var(--color-length)" radius={4} />
+          <Bar isAnimationActive={!staticCharts} dataKey="start" stackId="g" fill="transparent" />
+          <Bar isAnimationActive={!staticCharts} dataKey="length" stackId="g" fill="var(--color-length)" radius={4} />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -3357,28 +3373,28 @@ export function WorryWindowChart() {
           <YAxis domain={[0, 100]} tick={false} tickLine={false} width={8} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line
+          <Line isAnimationActive={!staticCharts}
             dataKey="upper"
             stroke="var(--color-upper)"
             dot={false}
             strokeWidth={1}
             strokeDasharray="4 4"
           />
-          <Line
+          <Line isAnimationActive={!staticCharts}
             dataKey="lower"
             stroke="var(--color-upper)"
             dot={false}
             strokeWidth={1}
             strokeDasharray="4 4"
           />
-          <Line
+          <Line isAnimationActive={!staticCharts}
             dataKey="before"
             stroke="var(--color-before)"
             dot={false}
             strokeWidth={2}
             connectNulls={false}
           />
-          <Line
+          <Line isAnimationActive={!staticCharts}
             dataKey="after"
             stroke="var(--color-after)"
             dot={false}
@@ -3434,7 +3450,7 @@ export function FunctionalAdultCurveChart() {
           />
           <YAxis tick={false} tickLine={false} width={8} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Line dataKey="density" stroke="var(--color-density)" dot={false} strokeWidth={2.5} />
+          <Line isAnimationActive={!staticCharts} dataKey="density" stroke="var(--color-density)" dot={false} strokeWidth={2.5} />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
