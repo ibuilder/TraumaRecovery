@@ -35,6 +35,9 @@ import {
   CarnesRecoveryStagesChart,
   WorryWindowChart,
   FunctionalAdultCurveChart,
+  DramaTriangleChart,
+  ACATreeChart,
+  CoreSymptomsChart,
 } from "@/components/trauma-charts";
 
 const ISBN = "978-0-000000-00-0";
@@ -84,6 +87,9 @@ const ALL_CHART_COMPONENTS: Record<string, React.ComponentType> = {
   CarnesRecoveryStagesChart,
   WorryWindowChart,
   FunctionalAdultCurveChart,
+  DramaTriangleChart,
+  ACATreeChart,
+  CoreSymptomsChart,
 };
 
 /** Every chart placeholder the book actually references, in first-use order. */
