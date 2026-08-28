@@ -37,12 +37,16 @@ export default defineConfig({
     emptyOutDir: true,
     // Recharts, jsPDF and html2canvas are the bulk of the bundle; splitting them
     // out keeps the first paint of a chapter from waiting on the PDF toolchain.
+    // Vite 8 bundles with Rolldown, whose `advancedChunks.groups` replaces
+    // Rollup's object-form `manualChunks`.
     rollupOptions: {
       output: {
-        manualChunks: {
-          react: ["react", "react-dom", "wouter"],
-          charts: ["recharts"],
-          markdown: ["react-markdown", "remark-gfm"],
+        advancedChunks: {
+          groups: [
+            { name: "charts", test: /[\\/]node_modules[\\/](recharts|d3-[^/\\]+|victory-vendor)[\\/]/ },
+            { name: "markdown", test: /[\\/]node_modules[\\/](react-markdown|remark-.*|rehype-.*|mdast-.*|micromark.*|unist-.*|hast-.*|vfile.*|unified)[\\/]/ },
+            { name: "react", test: /[\\/]node_modules[\\/](react|react-dom|scheduler|wouter)[\\/]/ },
+          ],
         },
       },
     },
