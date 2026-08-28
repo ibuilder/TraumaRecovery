@@ -1,7 +1,6 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { createRoot } from "react-dom/client";
-import { jsPDF } from "jspdf";
-import html2canvas from "html2canvas";
+import type { jsPDF } from "jspdf";
 import { Button } from "@/components/ui/button";
 import { Download, Loader2 } from "lucide-react";
 import { chapters, bookInfo } from "@/lib/chapters";
@@ -70,6 +69,20 @@ const ALL_CHART_COMPONENTS: Record<string, React.ComponentType> = {
   SexAddictionRecoveryProgressChart, SexAddictionRecoveryRoadmapChart,
   TreatmentAccessChart,
 };
+
+/** Every chart placeholder the book actually references, in first-use order. */
+function collectReferencedCharts(): string[] {
+  const seen = new Set<string>();
+  for (const chapter of chapters) {
+    const sources = [chapter.content, ...chapter.subchapters.map((s) => s.content)];
+    for (const source of sources) {
+      for (const match of source.matchAll(/chart:(\w+)/g)) {
+        if (ALL_CHART_COMPONENTS[match[1]]) seen.add(match[1]);
+      }
+    }
+  }
+  return [...seen];
+}
 
 function stripMarkdownForPdf(text: string): string {
   return text
@@ -155,14 +168,15 @@ function addText(
 
 function addChartImage(
   state: DocState,
-  imgDataUrl: string,
+  image: ChartImage,
   leftHeader: string,
   rightHeader: string
 ): DocState {
   const maxW = TEXT_WIDTH;
-  const maxH = 90; // max chart height in mm
-  // Charts are captured at ~800px wide; scale to fit text width
-  const imgAspect = 800 / 400; // approximate width/height ratio of chart containers
+  const maxH = 110; // max chart height in mm
+  // Size from the captured pixels rather than an assumed ratio, so a tall chart
+  // is scaled down instead of being squeezed or cropped.
+  const imgAspect = image.aspect > 0 ? image.aspect : 2;
   const imgH = Math.min(maxH, maxW / imgAspect);
   const imgW = imgH * imgAspect;
   const xOffset = (TEXT_WIDTH - imgW) / 2;
@@ -174,8 +188,96 @@ function addChartImage(
   state.doc.setLineWidth(0.3);
   state.doc.rect(MARGIN_LEFT + xOffset - 1, state.y - 1, imgW + 2, imgH + 2);
   state.doc.setLineWidth(0.2);
-  state.doc.addImage(imgDataUrl, "PNG", MARGIN_LEFT + xOffset, state.y, imgW, imgH);
+  // Without an explicit compression level jsPDF embeds the decoded bitmap raw
+  // (width x height x 3 bytes per chart), which pushed the book past 100 MB.
+  state.doc.addImage(
+    image.dataUrl,
+    "PNG",
+    MARGIN_LEFT + xOffset,
+    state.y,
+    imgW,
+    imgH,
+    undefined,
+    "MEDIUM"
+  );
   state.y += imgH + 6;
+  return state;
+}
+
+function isTableRow(line: string): boolean {
+  const t = line.trim();
+  return t.startsWith("|") && t.endsWith("|") && t.length > 2;
+}
+
+function isTableDivider(line: string): boolean {
+  return isTableRow(line) && /^\|[\s:|-]+\|$/.test(line.trim());
+}
+
+function splitTableRow(line: string): string[] {
+  return line
+    .trim()
+    .slice(1, -1)
+    .split("|")
+    .map((cell) => stripMarkdownForPdf(cell.trim()));
+}
+
+const TABLE_ROW_PADDING = 2;
+const TABLE_CELL_LINE_HEIGHT = 4.6;
+
+/** Renders a GFM table as a bordered grid instead of dumping raw pipe syntax. */
+function addTable(
+  state: DocState,
+  rows: string[][],
+  hasHeader: boolean,
+  leftHeader: string,
+  rightHeader: string
+): DocState {
+  const columnCount = Math.max(...rows.map((r) => r.length));
+  if (columnCount === 0) return state;
+
+  const colWidth = TEXT_WIDTH / columnCount;
+  const { doc } = state;
+
+  state.y += 3;
+  rows.forEach((row, rowIndex) => {
+    const isHeaderRow = hasHeader && rowIndex === 0;
+    doc.setFont("times", isHeaderRow ? "bold" : "normal");
+    doc.setFontSize(FONT_SIZE_SMALL);
+
+    const cells = Array.from({ length: columnCount }, (_, i) => row[i] ?? "");
+    const wrapped = cells.map((cell) =>
+      doc.splitTextToSize(cell, colWidth - 2 * TABLE_ROW_PADDING) as string[]
+    );
+    const rowHeight =
+      Math.max(1, ...wrapped.map((lines) => lines.length)) * TABLE_CELL_LINE_HEIGHT +
+      2 * TABLE_ROW_PADDING;
+
+    state = checkPageBreak(state, rowHeight, leftHeader, rightHeader);
+
+    if (isHeaderRow) {
+      doc.setFillColor(240, 245, 255);
+      doc.rect(MARGIN_LEFT, state.y, TEXT_WIDTH, rowHeight, "F");
+    }
+    doc.setDrawColor(210, 216, 228);
+    doc.setLineWidth(0.2);
+    doc.rect(MARGIN_LEFT, state.y, TEXT_WIDTH, rowHeight);
+
+    doc.setTextColor(26, 26, 26);
+    wrapped.forEach((lines, colIndex) => {
+      const x = MARGIN_LEFT + colIndex * colWidth;
+      if (colIndex > 0) doc.line(x, state.y, x, state.y + rowHeight);
+      lines.forEach((line, lineIndex) => {
+        doc.text(
+          line,
+          x + TABLE_ROW_PADDING,
+          state.y + TABLE_ROW_PADDING + (lineIndex + 1) * TABLE_CELL_LINE_HEIGHT - 1
+        );
+      });
+    });
+
+    state.y += rowHeight;
+  });
+  state.y += 5;
   return state;
 }
 
@@ -184,7 +286,7 @@ async function renderMarkdownContent(
   content: string,
   leftHeader: string,
   rightHeader: string,
-  chartImages: Record<string, string>
+  chartImages: Record<string, ChartImage>
 ): Promise<DocState> {
   const lines = content.split("\n");
   let paraBuffer: string[] = [];
@@ -206,10 +308,16 @@ async function renderMarkdownContent(
     const line = lines[i];
     const trimmed = line.trim();
 
-    // Chart blocks
-    if (/^```chart:\w+```/.test(trimmed)) {
+    // Chart blocks: ```chart:Name``` on one line, or a ```chart:Name fence.
+    const chartMatch = /^```chart:(\w+)(?:```)?$/.exec(trimmed);
+    if (chartMatch) {
       flushPara();
-      const chartName = trimmed.replace(/^```chart:(\w+)```/, "$1");
+      const chartName = chartMatch[1];
+      // Skip the closing fence of a multi-line ```chart:Name block.
+      if (!trimmed.endsWith("```") || trimmed === "```chart:" + chartName) {
+        while (i < lines.length - 1 && lines[i + 1].trim() !== "```") i++;
+        i++;
+      }
       if (chartImages[chartName]) {
         state = addChartImage(state, chartImages[chartName], leftHeader, rightHeader);
       } else {
@@ -222,6 +330,18 @@ async function renderMarkdownContent(
     if (trimmed.startsWith("```")) {
       flushPara();
       while (i < lines.length - 1 && !lines[++i].trim().startsWith("```")) {}
+      continue;
+    }
+
+    // GFM tables: buffer the whole block, then draw it as a grid.
+    if (isTableRow(line)) {
+      flushPara();
+      const block: string[] = [];
+      while (i < lines.length && isTableRow(lines[i])) block.push(lines[i++]);
+      i--;
+      const hasHeader = block.length > 1 && isTableDivider(block[1]);
+      const rows = block.filter((r) => !isTableDivider(r)).map(splitTableRow);
+      if (rows.length) state = addTable(state, rows, hasHeader, leftHeader, rightHeader);
       continue;
     }
 
@@ -245,22 +365,49 @@ async function renderMarkdownContent(
       state.y += 4;
     } else if (/^#\s/.test(line)) {
       flushPara();
-    } else if (/^>\s/.test(line)) {
+    } else if (/^>\s?/.test(line)) {
+      // Buffer the whole blockquote: quoting each line separately produced
+      // stray quote marks in the middle of multi-line quotes.
       flushPara();
-      const text = stripMarkdownForPdf(line.replace(/^>\s+/, ""));
-      state.y += 3;
-      state = checkPageBreak(state, 8, leftHeader, rightHeader);
-      state.doc.setDrawColor(180, 180, 180);
-      state.doc.setLineWidth(0.8);
-      const startY = state.y - 1;
-      state = addText(state, `"${text}"`, FONT_SIZE_NORMAL, "italic", leftHeader, rightHeader, 8, [80, 80, 80]);
-      state.doc.line(MARGIN_LEFT + 2, startY, MARGIN_LEFT + 2, state.y);
-      state.doc.setLineWidth(0.2);
-      state.y += 3;
-    } else if (/^[-*+]\s/.test(line) || /^\d+\.\s/.test(line)) {
+      const quoteLines: string[] = [];
+      while (i < lines.length && /^>\s?/.test(lines[i])) {
+        quoteLines.push(lines[i].replace(/^>\s?/, "").trim());
+        i++;
+      }
+      i--;
+      const text = stripMarkdownForPdf(quoteLines.join(" ").replace(/\s+/g, " "));
+      if (text) {
+        state.y += 3;
+        state = checkPageBreak(state, 8, leftHeader, rightHeader);
+        state.doc.setDrawColor(180, 180, 180);
+        state.doc.setLineWidth(0.8);
+        const startY = state.y - 1;
+        // Most quotes in the source already carry their own quotation marks;
+        // add a pair only when neither end has one.
+        const alreadyQuoted = /^["\u201c\u2018']/.test(text) || /["\u201d\u2019']$/.test(text);
+        const quoted = alreadyQuoted ? text : `"${text}"`;
+        state = addText(state, quoted, FONT_SIZE_NORMAL, "italic", leftHeader, rightHeader, 8, [80, 80, 80]);
+        state.doc.line(MARGIN_LEFT + 2, startY, MARGIN_LEFT + 2, state.y);
+        state.doc.setLineWidth(0.2);
+        state.y += 3;
+      }
+    } else if (/^\s*[-*+]\s/.test(line) || /^\s*\d+\.\s/.test(line)) {
       flushPara();
-      const text = stripMarkdownForPdf(line.replace(/^[-*+]\s+/, "").replace(/^\d+\.\s+/, ""));
-      state = addText(state, `• ${text}`, FONT_SIZE_NORMAL, "normal", leftHeader, rightHeader, 6);
+      const ordered = /^\s*(\d+)\.\s/.exec(line);
+      const marker = ordered ? `${ordered[1]}.` : "\u2022";
+      const text = stripMarkdownForPdf(
+        line.replace(/^\s*[-*+]\s+/, "").replace(/^\s*\d+\.\s+/, "")
+      );
+      const nested = /^\s{2,}/.test(line);
+      state = addText(
+        state,
+        `${marker} ${text}`,
+        FONT_SIZE_NORMAL,
+        "normal",
+        leftHeader,
+        rightHeader,
+        nested ? 12 : 6
+      );
     } else if (/^---+$/.test(trimmed)) {
       flushPara();
       state.y += 4;
@@ -426,58 +573,87 @@ function buildTOCPage(doc: jsPDF, chaps: Chapter[]): void {
   });
 }
 
-async function captureAllCharts(
-  onProgress: (msg: string) => void
-): Promise<Record<string, string>> {
-  const chartImages: Record<string, string> = {};
-  const chartNames = Object.keys(ALL_CHART_COMPONENTS);
+type Html2Canvas = typeof import("html2canvas").default;
 
-  // Create a hidden container
+/** A captured chart plus its real pixel aspect, so the PDF can size it without guessing. */
+interface ChartImage {
+  dataUrl: string;
+  aspect: number;
+}
+
+async function captureCharts(
+  chartNames: string[],
+  html2canvas: Html2Canvas,
+  onProgress: (msg: string) => void
+): Promise<Record<string, ChartImage>> {
+  const chartImages: Record<string, ChartImage> = {};
+
+  // Offscreen host for the charts we mount one at a time.
   const container = document.createElement("div");
-  container.style.cssText = "position:fixed;left:-9999px;top:0;width:800px;background:#fff;z-index:-1;pointer-events:none;";
+  container.style.cssText =
+    "position:fixed;left:-9999px;top:0;width:800px;background:#fff;z-index:-1;pointer-events:none;";
   document.body.appendChild(container);
 
-  for (let i = 0; i < chartNames.length; i++) {
-    const name = chartNames[i];
-    const ChartComponent = ALL_CHART_COMPONENTS[name];
-    onProgress(`Rendering chart ${i + 1}/${chartNames.length}: ${name}`);
+  try {
+    for (let i = 0; i < chartNames.length; i++) {
+      const name = chartNames[i];
+      const ChartComponent = ALL_CHART_COMPONENTS[name];
+      if (!ChartComponent) continue;
+      onProgress(`Rendering chart ${i + 1}/${chartNames.length}: ${name}`);
 
-    // Mount the chart component into the hidden div
-    const chartDiv = document.createElement("div");
-    chartDiv.style.cssText = "width:800px;height:400px;padding:16px;background:#fff;";
-    container.innerHTML = "";
-    container.appendChild(chartDiv);
+      // Height is left to the content: a fixed 400px box cropped the taller
+      // charts (axis labels and the last series were cut off in the PDF).
+      const chartDiv = document.createElement("div");
+      chartDiv.style.cssText = "width:800px;padding:16px;background:#fff;";
+      container.appendChild(chartDiv);
 
-    await new Promise<void>((resolve) => {
       const root = createRoot(chartDiv);
-      root.render(<ChartComponent />);
-      // Give Recharts time to animate/render
-      setTimeout(resolve, 600);
-    });
+      try {
+        await new Promise<void>((resolve) => {
+          root.render(<ChartComponent />);
+          // Give Recharts time to lay out and finish its entry animation.
+          setTimeout(resolve, 600);
+        });
 
-    try {
-      const canvas = await html2canvas(chartDiv, {
-        scale: 1.5,
-        useCORS: true,
-        backgroundColor: "#ffffff",
-        logging: false,
-      });
-      chartImages[name] = canvas.toDataURL("image/png");
-    } catch (err) {
-      console.warn(`Failed to capture chart ${name}:`, err);
+        const canvas = await html2canvas(chartDiv, {
+          scale: 1.5,
+          useCORS: true,
+          backgroundColor: "#ffffff",
+          logging: false,
+        });
+        chartImages[name] = {
+          dataUrl: canvas.toDataURL("image/png"),
+          aspect: canvas.width / canvas.height,
+        };
+      } catch (err) {
+        console.warn(`Failed to capture chart ${name}:`, err);
+      } finally {
+        // Unmount before detaching, or every chart leaks a live React root.
+        root.unmount();
+        chartDiv.remove();
+      }
     }
+  } finally {
+    container.remove();
   }
 
-  document.body.removeChild(container);
   return chartImages;
 }
 
 async function generateBookPDF(onProgress: (msg: string) => void): Promise<void> {
-  onProgress("Capturing charts (this takes a minute)...");
-  const chartImages = await captureAllCharts(onProgress);
+  // jsPDF + html2canvas are ~600 kB; only pull them in when someone asks for the book.
+  onProgress("Loading PDF tools...");
+  const [{ jsPDF: JsPDF }, { default: html2canvas }] = await Promise.all([
+    import("jspdf"),
+    import("html2canvas"),
+  ]);
+
+  const referencedCharts = collectReferencedCharts();
+  onProgress(`Capturing ${referencedCharts.length} charts (this takes a minute)...`);
+  const chartImages = await captureCharts(referencedCharts, html2canvas, onProgress);
 
   onProgress("Building PDF...");
-  const doc = new jsPDF({ unit: "mm", format: "letter", orientation: "portrait" });
+  const doc = new JsPDF({ unit: "mm", format: "letter", orientation: "portrait" });
 
   buildCoverPage(doc);
   doc.addPage("letter");
@@ -503,33 +679,43 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     const rightH = `Chapter ${chapter.order}`;
     addRunningHeader(state, leftH, rightH);
 
+    // Lay the opener out before painting the tint, so the band always fits its
+    // contents and the eyebrow never collides with the title baseline.
+    doc.setFont("times", "bold");
+    doc.setFontSize(FONT_SIZE_H1);
+    const titleLines = doc.splitTextToSize(chapter.title, TEXT_WIDTH) as string[];
+    doc.setFont("times", "italic");
+    doc.setFontSize(12);
+    const descLines = doc.splitTextToSize(chapter.description, TEXT_WIDTH) as string[];
+
+    const bandTop = state.y - 3;
+    const bandHeight = 6 + 8 + titleLines.length * 11 + descLines.length * 6.5 + 6;
     doc.setFillColor(240, 245, 255);
-    doc.rect(MARGIN_LEFT - 2, state.y - 3, TEXT_WIDTH + 4, 35, "F");
+    doc.rect(MARGIN_LEFT - 2, bandTop, TEXT_WIDTH + 4, bandHeight, "F");
 
     doc.setFont("times", "normal");
     doc.setFontSize(10);
     doc.setTextColor(59, 130, 246);
-    doc.text(`CHAPTER ${chapter.order}`, MARGIN_LEFT, state.y + 5);
-    state.y += 9;
+    state.y += 5;
+    doc.text(`CHAPTER ${chapter.order}`, MARGIN_LEFT, state.y);
+    state.y += 12;
 
     doc.setFont("times", "bold");
     doc.setFontSize(FONT_SIZE_H1);
     doc.setTextColor(15, 23, 42);
-    const titleLines = doc.splitTextToSize(chapter.title, TEXT_WIDTH);
-    titleLines.forEach((l: string) => {
+    titleLines.forEach((l) => {
       doc.text(l, MARGIN_LEFT, state.y);
-      state.y += 10;
+      state.y += 11;
     });
 
     doc.setFont("times", "italic");
     doc.setFontSize(12);
     doc.setTextColor(71, 85, 105);
-    const descLines = doc.splitTextToSize(chapter.description, TEXT_WIDTH);
-    descLines.forEach((l: string) => {
+    descLines.forEach((l) => {
       doc.text(l, MARGIN_LEFT, state.y);
       state.y += 6.5;
     });
-    state.y += 8;
+    state.y = bandTop + bandHeight + 8;
 
     doc.setTextColor(26, 26, 26);
     doc.setDrawColor(200, 210, 230);
