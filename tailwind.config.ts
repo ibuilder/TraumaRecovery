@@ -4,6 +4,13 @@ export default {
   darkMode: ["class"],
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    // Tailwind's `container` sets a max width but does not centre it, so every
+    // `container` on the site was pinned to the left edge and wide screens got a
+    // large dead gutter on the right.
+    container: {
+      center: true,
+      padding: { DEFAULT: "1rem", md: "1.5rem" },
+    },
     extend: {
       borderRadius: {
         lg: ".5625rem", /* 9px */

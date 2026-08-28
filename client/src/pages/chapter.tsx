@@ -1,21 +1,55 @@
-import { useEffect } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { useParams, Link } from "wouter";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MarkdownRenderer } from "@/components/markdown-renderer";
+// MarkdownRenderer holds the chart registry, so it travels with the prose
+// rather than with the shell.
+const MarkdownRenderer = lazy(() =>
+  import("@/components/markdown-renderer").then((m) => ({ default: m.MarkdownRenderer }))
+);
 import { ChapterSidebar } from "@/components/chapter-sidebar";
 import { ReadingProgress } from "@/components/reading-progress";
 import { BackToTop } from "@/components/back-to-top";
-import { chapters } from "@/lib/chapters";
+import { chapters, loadChapter } from "@/lib/chapters";
+import type { Chapter as ChapterContent } from "@/lib/chapters";
+import { Skeleton } from "@/components/ui/skeleton";
+
+function ChapterSkeleton() {
+  return (
+    <div className="space-y-4" aria-busy="true" aria-live="polite">
+      <span className="sr-only">Loading chapter…</span>
+      <Skeleton className="h-9 w-2/3" />
+      {Array.from({ length: 8 }).map((_, i) => (
+        <Skeleton key={i} className="h-4 w-full" />
+      ))}
+      <Skeleton className="h-4 w-4/5" />
+    </div>
+  );
+}
 
 export default function Chapter() {
   const params = useParams<{ slug: string; subSlug?: string }>();
   const { slug, subSlug } = params;
 
+  // Navigation renders from the manifest immediately; the prose for this one
+  // chapter is fetched as its own chunk.
+  const [loaded, setLoaded] = useState<ChapterContent | null>(null);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [slug, subSlug]);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoaded(null);
+    loadChapter(slug).then((c) => {
+      if (!cancelled) setLoaded(c);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
 
   const chapter = chapters.find((c) => c.slug === slug);
   
@@ -33,13 +67,16 @@ export default function Chapter() {
     );
   }
 
-  const subchapter = subSlug 
+  const subchapter = subSlug
     ? chapter.subchapters.find((s) => s.slug === subSlug)
     : null;
 
   // The markdown body of every chapter and subchapter opens with its own H1,
   // so the page heading comes from MarkdownRenderer rather than being repeated here.
-  const content = subchapter ? subchapter.content : chapter.content;
+  const loadedSub = subSlug
+    ? loaded?.subchapters.find((s) => s.slug === subSlug)
+    : null;
+  const content = subSlug ? loadedSub?.content : loaded?.content;
 
   const currentIndex = chapters.findIndex((c) => c.slug === slug);
   const prevChapter = currentIndex > 0 ? chapters[currentIndex - 1] : null;
@@ -58,7 +95,7 @@ export default function Chapter() {
       <ReadingProgress />
       <div className="min-h-screen">
         <div className="container px-4 md:px-6 py-8">
-          <nav className="mb-8">
+          <nav className="mb-8 mx-auto max-w-6xl">
             <ol className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
               <li>
                 <Link href="/" className="hover:text-foreground transition-colors" data-testid="breadcrumb-home">
@@ -94,7 +131,7 @@ export default function Chapter() {
             </ol>
           </nav>
 
-          <div className="flex gap-12">
+          <div className="flex gap-12 mx-auto max-w-6xl">
             <ChapterSidebar currentChapter={chapter} />
 
             <main className="flex-1 min-w-0">
@@ -111,7 +148,13 @@ export default function Chapter() {
                   )}
                 </header>
 
-                <MarkdownRenderer content={content} />
+                {content ? (
+                  <Suspense fallback={<ChapterSkeleton />}>
+                    <MarkdownRenderer content={content} />
+                  </Suspense>
+                ) : (
+                  <ChapterSkeleton />
+                )}
 
                 {!subchapter && chapter.subchapters.length > 0 && (
                   <div className="mt-12 pt-8 border-t">

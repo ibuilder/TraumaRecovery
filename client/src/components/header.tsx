@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, BookOpen, X } from "lucide-react";
+import { Logo } from "@/components/logo";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./theme-toggle";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
@@ -26,7 +27,7 @@ export function Header() {
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="p-4 border-b">
                 <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2">
-                  <BookOpen className="h-5 w-5 text-primary" />
+                  <Logo className="h-6 w-6" />
                   <span className="font-semibold">{bookInfo.title}</span>
                 </Link>
               </div>
@@ -61,7 +62,7 @@ export function Header() {
           </Sheet>
 
           <Link href="/" className="flex items-center gap-2" data-testid="link-home-header">
-            <BookOpen className="h-5 w-5 text-primary" />
+            <Logo className="h-6 w-6" />
             <span className="font-semibold hidden sm:inline-block">{bookInfo.title}</span>
           </Link>
         </div>

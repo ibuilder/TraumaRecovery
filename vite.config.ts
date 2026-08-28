@@ -20,22 +20,26 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
-    // Recharts, jsPDF and html2canvas are the bulk of the bundle; splitting them
-    // out keeps the first paint of a chapter from waiting on the PDF toolchain.
-    // Vite 8 bundles with Rolldown, whose `advancedChunks.groups` replaces
-    // Rollup's object-form `manualChunks`.
+    // Recharts, the markdown pipeline, jsPDF and every chapter's prose are
+    // reached only through dynamic imports, so the bundler splits them out on
+    // its own. Grouping them by hand would pull them back into the entry graph
+    // and get them preloaded. Only the framework is worth pinning: it is shared
+    // by every route and always needed.
+    // (Vite 8 bundles with Rolldown, whose `advancedChunks.groups` replaces
+    // Rollup's object-form `manualChunks`.)
     rollupOptions: {
       output: {
         advancedChunks: {
           groups: [
-            { name: "charts", test: /[\\/]node_modules[\\/](recharts|d3-[^/\\]+|victory-vendor)[\\/]/ },
-            { name: "markdown", test: /[\\/]node_modules[\\/](react-markdown|remark-.*|rehype-.*|mdast-.*|micromark.*|unist-.*|hast-.*|vfile.*|unified)[\\/]/ },
-            { name: "react", test: /[\\/]node_modules[\\/](react|react-dom|scheduler|wouter)[\\/]/ },
+            {
+              name: "react",
+              test: /[\\/]node_modules[\\/](react|react-dom|scheduler|wouter)[\\/]/,
+            },
           ],
         },
       },
     },
-    chunkSizeWarningLimit: 900,
+    chunkSizeWarningLimit: 600,
   },
   server: {
     fs: {

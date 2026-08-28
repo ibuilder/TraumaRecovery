@@ -6,7 +6,9 @@
  * `order` (chapter badges and PDF numbering disagree with reading order), or a
  * `chart:Name` placeholder that no component backs (silently renders nothing).
  */
+import { readFile } from "fs/promises";
 import { chapters } from "../client/src/lib/chapters/index";
+import { buildManifestSource } from "./generate-manifest";
 
 const CHART_SOURCE = new URL(
   "../client/src/components/trauma-charts.tsx",
@@ -85,6 +87,19 @@ for (const chart of definedCharts) {
     warnings.push(`chart "${chart}" is defined but never referenced by any chapter`);
   }
 }
+
+// The manifest is generated, and navigation reads it instead of the chapters.
+// If it has drifted the site would render stale titles, so fail rather than warn.
+const manifestPath = new URL(
+  "../client/src/lib/chapters/manifest.ts",
+  import.meta.url
+);
+const expected = await buildManifestSource();
+const actual = await readFile(manifestPath, "utf-8").catch(() => "");
+check(
+  actual === expected,
+  "manifest.ts is out of date with the chapter modules — run `npm run manifest`"
+);
 
 const subchapterCount = chapters.reduce((n, c) => n + c.subchapters.length, 0);
 console.log(
