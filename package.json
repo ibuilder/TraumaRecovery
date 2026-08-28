@@ -22,6 +22,7 @@
     "start": "NODE_ENV=production node dist/index.cjs",
     "check": "tsc",
     "manifest": "tsx script/generate-manifest.ts",
+    "search-index": "tsx script/generate-search-index.ts",
     "validate:content": "tsx script/validate-content.ts",
     "db:push": "drizzle-kit push"
   },

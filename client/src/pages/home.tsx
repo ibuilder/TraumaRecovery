@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ChapterCard } from "@/components/chapter-card";
+import { ContinueReading } from "@/components/continue-reading";
 import { bookInfo, chapters } from "@/lib/chapters";
 // The PDF exporter pulls in every chart plus jsPDF; keep it off the home page's
 // critical path until someone is actually looking at the button.
@@ -51,6 +52,10 @@ export default function Home() {
               <Suspense fallback={<div className="h-11" aria-hidden="true" />}>
                 <PDFDownloadButton />
               </Suspense>
+            </div>
+
+            <div className="mx-auto max-w-md pt-2">
+              <ContinueReading />
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@
 import { readFile } from "fs/promises";
 import { chapters } from "../client/src/lib/chapters/index";
 import { buildManifestSource } from "./generate-manifest";
+import { buildSearchIndexSource } from "./generate-search-index";
 
 const CHART_SOURCE = new URL(
   "../client/src/components/trauma-charts.tsx",
@@ -99,6 +100,19 @@ const actual = await readFile(manifestPath, "utf-8").catch(() => "");
 check(
   actual === expected,
   "manifest.ts is out of date with the chapter modules — run `npm run manifest`"
+);
+
+// Same for the search index: a stale one sends readers to headings that have
+// been renamed or no longer exist.
+const searchIndexPath = new URL(
+  "../client/src/lib/search-index.json",
+  import.meta.url
+);
+const expectedIndex = buildSearchIndexSource();
+const actualIndex = await readFile(searchIndexPath, "utf-8").catch(() => "");
+check(
+  actualIndex === expectedIndex,
+  "search-index.json is out of date with the chapter prose — run `npm run search-index`"
 );
 
 const subchapterCount = chapters.reduce((n, c) => n + c.subchapters.length, 0);
