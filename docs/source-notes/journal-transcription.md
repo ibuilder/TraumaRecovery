@@ -1443,3 +1443,170 @@ what happened in your family of origin in relation to it?
 The distinction taught alongside this: a feeling that is **your own**, versus a
 feeling you are **carrying** for someone else. They register differently in the
 body.
+
+---
+
+## Relationship types
+
+Three trajectories, plotted against time:
+
+- **Fantasy** — climbs fastest, peaks at about **6 months**, then collapses
+- **Mask** — climbs more slowly, peaks at about **10 years**, then collapses
+- **Authenticity** — a slow, jagged start, then a straight line that never
+  stops rising
+
+---
+
+## Karpman's triangle: the way out
+
+**Interdependent** — use strengths in community to make everything better;
+use our weird set of skills.
+
+### How do we get things from other people?
+
+Communication (demand) · exchange · take · negotiate · give (and hope) ·
+communicate (ask)
+
+Each drama role has its own repertoire, and each has an empowered counterpart:
+
+| Drama role | How it gets things | Becomes |
+|---|---|---|
+| **Perpetrator** | communicate (demand) · take / steal · manipulate · force / coax · seduce (gaslight) | **Coach** |
+| **Rescuer** | hire · exchange · negotiate · give (and hope) · transact (money and hope) | **Mentor** |
+| **Victim** | communicate (ask) · hope / pray · cry and demand · beg | **Creator** |
+
+> "Get off the Karpman triangle by becoming Creator."
+
+---
+
+## May 26 — Addiction interaction
+
+> "When you are recovering from one addiction or compulsive behaviour you are
+> vulnerable to substitution, or to an increase in another."
+
+Evaluate *all* compulsive behaviours, and the patterns between them, as part of
+relapse prevention.
+
+**Acting out** (out of control) ⟷ **acting in** (extreme control)
+
+The reward circuit as drawn: frontal cortex (planning, self-regulation) ·
+striatum · substantia nigra · hippocampus (memory) · VTA · nucleus accumbens.
+Drugs of abuse target the brain's pleasure system.
+
+### Cross addiction — how two addictions interact
+
+Both get worse at the same time.
+
+- **Cross tolerance**
+- The addict goes back and forth between substances and behaviours
+- **Replacement / combining**
+- **Withdrawal mediation** — one used to manage coming off the other
+- **Masking / ritualisation / fusion**
+
+### Scoring it
+
+A grid: the ten criteria down the side, one column per substance or behaviour,
+scored 1 (never) to 5 (constantly). Filled in for meth, cocaine and alcohol.
+
+---
+
+## Jun 11 — Addiction psychiatry
+
+1. Unhappiness ≠ depression
+2. Anxiety is essential for survival
+3. What matters is the **capacity to tolerate anxiety** — resilience
+4. DSM-5 and ICD-10
+
+Four framings, each with its remedy:
+
+| "Disorder" | What helps |
+|---|---|
+| Escaping-reality disorder (mild / medium / severe) | Reality — time, effort, resources |
+| Frontal-lobe deficit disorder (underdeveloped and burnt out) | Boosting the frontal lobes — rest and sleep, nutrition |
+| Intergenerational parental deficit disorder | Education, spirituality, boundaries |
+| **Self-love deficit disorder** (Ross Rosenberg) | Re-parenting the self, ACA / 12 steps, relationships, attachments, hobbies |
+
+### The ENUF curve
+
+A bell curve with **"Enough" — the Functional Adult** at the peak: about 65% of
+maximum productivity, flexible, disciplined, relational, in reality, in
+moderation.
+
+- Left tail — **Wounded Child**: victimised, hopeless, helpless, low
+  productivity, temper tantrums
+- Right tail — **Adapted Adult Child**: survival-driven, intense,
+  100% productive in a few narrow areas
+
+### The happiness curve
+
+Happiness plotted against age is U-shaped, bottoming out around **46**, while
+skills rise monotonically the whole way.
+
+Brain notes: three pounds of fat; grey and white matter; 86 billion neurons;
+signals at 268 mph; inhibition, brakes, executive function, decision-making;
+~60,000 thoughts a day; matures at 25–26.
+
+---
+
+## Order versus chaos
+
+| Order · organisation · predictability | Chaos · entropy · disorganisation · destruction · unpredictability |
+|---|---|
+| high energy to maintain | no energy to maintain — **this is the default** |
+
+★ "Using brain capacity to focus on something besides being your true self."
+
+---
+
+## The effect of alcohol on GABA and glutamate
+
+Each drink produces a **GABA** wave — a buzz that peaks and then falls away.
+Underneath, **glutamate** climbs steadily and does not come back down between
+drinks. So every successive buzz starts from a higher glutamate baseline, and
+the gap between the peaks and the rising floor is the **hangover**. Keep going
+and the floor keeps rising until it breaks.
+
+### Cognitive distortions — automatic thinking errors
+
+"We will fight to the death that they are true."
+
+Worked example:
+
+| | |
+|---|---|
+| **Event** | They cheated |
+| **Thought** | "Why me?" · "I'm not good enough" *(crossed out — unacceptable)* |
+| **Emotions** | Sad, pain, anger |
+| **Behaviour** | Make myself worthy · "I need to change" |
+
+---
+
+## Attachment styles — the map, with a position marked
+
+A 2×2: **Secure** and **Anxious** on top, **Avoidant** and **Dismissive** below.
+
+Three dots plotted in the author's own hand:
+**"You were here"** (deep in anxious) → **"You are here"** (still anxious, but
+closer in) → **"You need to get here"** (secure).
+
+---
+
+## The recovery grid
+
+The whole programme on one page: five domains × three cadences, plus what to do
+when everything falls apart.
+
+| | Daily | Weekly | Monthly | **In crisis** |
+|---|---|---|---|---|
+| **Physical** | 20 pushups, sit-ups, squats; or yoga; or a run | Gym; yoga 3–4×; or VR workout; or run | Go on a hike | **Go for a run** |
+| **Spiritual** | Pray | Church and Bible study | Volunteer with church | **Pause, Pray, Proceed** |
+| **Emotional** | Meditate to regulate emotional mind — "how I feel" | Journal about the week and relate it to trauma treatment | A day of self-reflection with DBT skills practice | **Distress tolerance** |
+| **Mental** | Therapy homework; read the therapy book | See the primary therapist | See the specialty therapist — EMDR / somatic | **Call the therapist** |
+| **Social** | Call or text three friends in recovery | Go to a meeting; meet the mentor / sponsor | Attend a conference — AA, NA, CR, SR, RR, CMA, CA, CoDA | **Call the mentor** |
+
+### The daily routine
+
+**5:00am, morning** — pushups / sit-ups / squats · drink water · shower ·
+medication · pray · call friends in recovery
+
+**8:00pm, night** — meditate · journal · read
