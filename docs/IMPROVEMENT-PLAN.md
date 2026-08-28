@@ -21,7 +21,7 @@ abandoning the current architecture.
 | CBT subchapter `id`/`order` de-duplicated | Two subchapters both had id `8-2`, causing React key collisions in the sidebar and the "Continue Reading" list |
 | Chapter 13/14 order swapped to match array order | Badges read "Chapter 14" then "Chapter 13" while prev/next navigation followed array position |
 | 36 bare URLs in the Resources chapter converted to markdown links | The chapter is a directory of experts and treatment centres; **none of its links were clickable** (GFM autolinks `www.x.com` but not `x.com`) |
-| `package-lock.json` de-Replit-ed | 77 packages resolved to `http://package-firewall.replit.local`; `npm ci` failed for anyone outside that Replit workspace |
+| `package-lock.json` repointed at the public registry | 77 packages resolved to a private package mirror, so `npm ci` failed for anyone outside the original hosting workspace |
 | `nanoid` promoted to a real dependency | `server/vite.ts` imported it while only getting it transitively |
 | Google Fonts request narrowed from 26 families to 1 | Only `Open Sans` is referenced by the theme; the rest were render-blocking downloads for fonts nothing used |
 | `maximum-scale=1` removed from the viewport | Blocked pinch-zoom for low-vision readers |
@@ -161,8 +161,10 @@ This is a mental-health resource, so both matter more than usual.
 - **Photographs of the source journal are not committed**, deliberately: they are
   personal medical material. If they are ever needed for verification they live
   with the author, and `docs/source-notes/journal-transcription.md` is the record.
-- **Rename the package.** It is still `rest-express` from the Replit template.
-- **Refresh `replit.md`.** It documents 12 chapters and stale subchapter counts.
+- ~~**Rename the package and clear the scaffolding**~~ — done: the package is now
+  `healing-together` with real metadata, the original host's dev plugins and
+  config file are gone, and the stale project notes became
+  `docs/ARCHITECTURE.md`.
 
 ---
 

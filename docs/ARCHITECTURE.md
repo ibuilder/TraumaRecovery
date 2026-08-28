@@ -1,7 +1,18 @@
-# Healing Together - Trauma Recovery Book Website
+# Architecture
+
+How the site is put together, for anyone working on it. For how to run it, see
+the [README](../README.md); for the plan of what to do next, see
+[IMPROVEMENT-PLAN.md](./IMPROVEMENT-PLAN.md).
 
 ## Overview
-A comprehensive web application for presenting a trauma recovery book with markdown-based chapters. Built with React, TypeScript, and Tailwind CSS, featuring a clean, accessible reading experience optimized for sensitive mental health content.
+
+*Healing Together* is a single-page React application that presents a book. The
+entire book lives in the repository as TypeScript modules holding markdown, so
+there is no CMS, no database and no server requirement — the production
+deployment is static files on GitHub Pages.
+
+Built with React 19, TypeScript, Tailwind CSS and Vite 8, with a design
+deliberately kept calm and low-stimulation for sensitive mental health content.
 
 ## Project Structure
 
