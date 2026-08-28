@@ -1633,5 +1633,213 @@ Anderson, F. G., Sweezy, M., & Schwartz, R. C. (2017). *Internal Family Systems 
 
 Fisher, J. (2024). Transforming the living legacy of trauma: A workbook for survivors and therapists (2nd ed.). PESI Publishing.`,
     },
+    {
+      id: "8-6",
+      title: "Worry Is the Absence of a Plan",
+      slug: "worry-control",
+      order: 6,
+      content: `# Worry Is the Absence of a Plan
+
+Six words from a Tuesday afternoon group that did more for my anxiety than any
+breathing exercise I have been taught.
+
+I had assumed worry was a malfunction — a broken part of me that produced fear
+for no reason and needed to be switched off. That framing had kept me stuck for
+years, because you cannot switch it off, and every failure to switch it off was
+more evidence that I was broken.
+
+Worry is not a malfunction. It is a survival function running without an
+off-ramp.
+
+## Why worry feels like it works
+
+Here is the trap, and it is a genuinely clever one.
+
+You worry about a thing. The thing does not happen. Your brain, which is a
+pattern-matching machine and not a logician, draws the obvious conclusion:
+*the worrying worked.*
+
+It did not. The thing was never going to happen. But the relief when it doesn't
+is real, and relief is a reward, and rewarded behaviour repeats. Worry becomes
+part of your reward system — a superstitious ritual that gets reinforced every
+single time nothing goes wrong.
+
+Which is most of the time. Which is why it is so hard to shift.
+
+## The rumination loop
+
+Worry that has stopped doing any work looks like this:
+
+**More intense emotion → rumination → more negative emotion → more rumination →**
+
+and round, at increasing speed. Nothing enters the loop and nothing leaves it.
+This is the 3am version, and the thing to understand about it is that it is not
+thinking. It has the texture of thinking — it is effortful, verbal, and it feels
+like you are working on something — but no new information is being processed
+and no decision is getting closer.
+
+The test I use: **has this thought produced a next action in the last ten
+minutes?** If not, it is not problem-solving, and treating it as problem-solving
+is what keeps it running.
+
+## The distortions that specialise in worry
+
+Worry has favourite tools. Naming which one is running is often enough to break
+the spell, because the moment a thought has a category it stops being reality
+and becomes a thought.
+
+- **Future-tripping** — living in a moment that has not occurred
+- **Catastrophizing** — reasoning to the worst available ending
+- **Mental filtering** — collecting only the evidence that supports the fear
+- **Overgeneralisation** — one instance becomes always
+- **Personalisation** — assuming you are the cause
+- **Emotional reasoning** — *I feel afraid, therefore there is danger*
+
+Emotional reasoning is the load-bearing one for trauma survivors, and it
+deserves its own sentence. A nervous system that has been badly frightened
+produces fear signals in the absence of threat. That is what a trauma response
+*is*. So the inference "I feel unsafe, therefore I am unsafe" — which is sound
+reasoning in almost everyone — is systematically wrong in exactly the people
+whose lives depend on it most.
+
+> **Feelings aren't facts. Feelings are information.**
+
+Not to be dismissed. Not to be obeyed. Read.
+
+## The actual answer
+
+If worry is the absence of a plan, then the intervention is not to relax. It is
+to make a plan, which converts an unbounded fear into a bounded task.
+
+**1. Sort it first.** Three rings:
+
+- Things I cannot control
+- Things I can influence
+- Things I can control
+
+Almost all durable worry lives in the outer ring, and the outer ring cannot be
+planned — it can only be grieved and released. The middle ring gets a
+conversation or a request. Only the inner ring gets a plan.
+
+**2. Then make the plan specific.** A vague plan does not close the loop; the
+brain keeps the thread open. Make it a **SMART** goal — specific, measurable,
+achievable, realistic, time-bound — so that there is a next action with a name
+and a date.
+
+**3. Schedule the worry.** This sounds absurd and it works: thirty minutes, same
+time daily, worry written down on paper. When a worry arrives outside its slot,
+note it and defer it. You are not suppressing anything — you are keeping the
+appointment, which is precisely what makes deferral believable to the part of
+you that is afraid of being ignored.
+
+**4. Use STOP in the moment.**
+
+- **S**top
+- **T**ake a step back
+- **O**bserve — what is actually happening, in this room, right now
+- **P**roceed mindfully
+
+## And underneath all of it, the window
+
+\`\`\`chart:WorryWindowChart\`\`\`
+
+This is the graph I drew for myself before and after treatment, and it is the
+one I would keep if I had to throw the rest away.
+
+The events on the right-hand side of that chart are not smaller than the events
+on the left. My life did not get easier. The swings got smaller, because the
+window of tolerance got wider.
+
+> **If we increase our window of tolerance, we decrease worry.**
+
+Which reframes the whole project. The goal is not to have fewer frightening
+thoughts. It is to be able to have a frightening thought without leaving the
+window. Sleep, food, movement, medication, connection and skills practice are
+not adjacent to anxiety work — they *are* the anxiety work, because they are
+what sets the width of that band.
+
+## Beneath the worry: what the belief is doing
+
+Behind persistent worry there is almost always a core belief, and core beliefs
+have a property that makes them very difficult to argue with.
+
+\`\`\`chart:CoreBeliefCycleChart\`\`\`
+
+Look at where that loop can actually be broken. Not at step one — the belief
+does not respond to argument, and thirty years of telling yourself you are
+worthwhile has presumably not worked. Not at step four either; you do not
+control other people.
+
+**Step three is the only node you own.** Change the behaviour, and the response
+changes, and the evidence changes, and the belief finally has to contend with
+something it did not manufacture itself. This is why behavioural experiments
+outperform positive self-talk. You are not trying to win the argument. You are
+trying to introduce data the loop did not generate.
+
+### Putting the belief on trial
+
+The exercise from my notes, which I still do on paper:
+
+Write the belief at the top. *I am not worth anything.*
+
+Then two columns. **Prosecution**: every piece of evidence for it, written
+honestly and in full, because a rigged trial convinces nobody. **Defense**:
+every piece of evidence against.
+
+Then three questions:
+
+- **Where did I get this?** Beliefs have origins. Usually a person, usually
+  before you were fifteen.
+- **Was that a reputable source?** A frightened parent is not an expert witness
+  on your worth.
+- **What would I tell someone else with this exact evidence?** The gap between
+  that answer and the one you give yourself is the whole diagnosis.
+
+## What is actually under the feeling
+
+One more, because it changed how I run the thought record.
+
+\`\`\`chart:CatastrophizingIcebergChart\`\`\`
+
+For most of my life the feeling I presented was anger, and I believed that was
+the feeling I was having. It was not. Anger was the one that had been permitted
+in my house. Sadness had not been, and neither had fear.
+
+So the question that opens up a thought record is not "what am I feeling" —
+you will confidently name the top of the iceberg. It is **"and what is under
+that?"** Asked two or three times, patiently, it gets somewhere very different.
+
+## The thought record itself
+
+The container for all of the above. Six columns, on paper:
+
+| Situation | Feelings | Unhelpful thought | Evidence for | Evidence against | A more helpful thought |
+|---|---|---|---|---|---|
+
+Two notes on using it. **Fill in "evidence for" properly.** People rush that
+column because it is uncomfortable, and a thought record that skips it is
+affirmations with extra steps.
+
+And **the goal is not a positive thought.** It is a more *accurate* one. "I am
+going to be fine" is often a lie and your brain knows it. "This is hard, I have
+handled hard things, and I have people I can call" is true, and true is what
+holds.
+
+---
+
+## References
+
+Beck, J. S. (2020). *Cognitive behavior therapy: Basics and beyond* (3rd ed.). Guilford Press.
+
+Borkovec, T. D., Alcaine, O., & Behar, E. (2004). Avoidance theory of worry and generalized anxiety disorder. In R. G. Heimberg et al. (Eds.), *Generalized anxiety disorder: Advances in research and practice* (pp. 77–108). Guilford Press.
+
+Greenberger, D., & Padesky, C. A. (2015). *Mind over mood: Change how you feel by changing the way you think* (2nd ed.). Guilford Press.
+
+Nolen-Hoeksema, S., Wisco, B. E., & Lyubomirsky, S. (2008). Rethinking rumination. *Perspectives on Psychological Science, 3*(5), 400–424.
+
+Siegel, D. J. (1999). *The developing mind: Toward a neurobiology of interpersonal experience*. Guilford Press.
+
+Walker, P. (2013). *Complex PTSD: From surviving to thriving*. Azure Coyote.`,
+    },
   ],
 };
