@@ -697,3 +697,131 @@ more intense emotions → rumination → negative emotions → more rumination �
 
 mental filtering · future tripping / jumping to conclusions · catastrophizing ·
 overgeneralisation · personalisation · emotional reasoning
+
+---
+
+## Dec 26 — The thank-you letter to Control
+
+> "Control is black. Inhibition is white. Why must I strive to constrain?
+> **It is better to trust others than direct them.**"
+
+**THINK** before speaking: **T**rue · **H**elpful · **I**nspiring · **N**ecessary · **K**ind
+
+> **Dear Control,**
+> Thanks for taking care of anger, fear, rage, frustration, sadness and all the
+> other emotions that make me lose control. You help me [take] power over my
+> thoughts, emotions, and behaviours. Without you my life would be
+> **unmanageable** — right?
+>
+> If I did not choose recovery, and [let] control [decide] where I went, I would
+> not be writing this letter to you in gratitude — I would be in prison. Because
+> of you, I have been given a path back to heaven. It's a dance: not to control
+> too much, but I will not let you go. I love you, Control — but only for the
+> things I *can* control, and not the things I do not. — Matt
+
+> "This is about **redirection** of control, not **release** of control."
+
+---
+
+## Dec 26 — Gratitude, 1:15
+
+> "Gratitude is the antithesis to resentment."
+
+Keep a gratitude journal — it reduces stress, increases happiness, improves
+self-esteem. Include the date with each entry.
+
+**Tips**
+- Don't rush. Each entry should take 10–20 minutes.
+- Write about the **people** you are grateful for, over the **things**.
+- Explain in detail *what* you are grateful for.
+- Aim for two solid entries per week. Keep it easily accessible and visible.
+
+**Prompts**
+- The best part about today…
+- A fun experience I had…
+- An act of kindness I witnessed…
+- An experience I feel lucky to have…
+- A reason to be excited for the future…
+- Someone I admire…
+- Something beautiful I saw…
+
+---
+
+## Dec 27 — Creating Change: building a sober routine
+
+**Process addiction** — anything used in excess that harms our lives
+(e.g. gambling, shopping).
+
+Aims: increase the ability to cope with cravings without engaging in
+maladaptive behaviours; improve emotional regulation when triggered.
+
+**Goal: stay sober.** Objectives:
+
+- create a daily routine with exercise
+- go to an AA / recovery meeting
+- get a sponsor / mentor
+- build connection — active adventure · AA conferences · sober living friends
+- when cravings happen — distress tolerance · urge surfing ·
+  **Pause, Pray, Proceed (PPP)**
+- reframe negative thoughts to positive ones
+- use coping skills — when alone · places we know · places we don't
+- eat a balanced diet and drink water
+- turn objectives into **SMART** goals
+
+### SMART
+
+- **S**pecific — what exactly will you do
+- **M**easurable — how often
+- **A**chievable — realistic for where you are
+- **R**ealistic — supports recovery
+- **T**ime-bound — clear timeframe
+
+Worked example — *goal: drink more water*: three sips every hour · every day ·
+using the water bottle I carry · good for blood pressure · do it over 21 days.
+
+### Criteria for a reduced level of care
+
+- reduced substance use, or increased honesty
+- using coping skills **before** crisis
+- improved emotional regulation
+- engagement in treatment
+
+---
+
+## Dec 27 — DBT skills: DEAR MAN
+
+For use when in conflict:
+
+- **D**escribe
+- **E**xpress
+- **A**ssert
+- **R**einforce
+- **M**indful
+- **A**ppear confident
+- **N**egotiate
+
+---
+
+## Dec 28 — Relapse Prevention Plan: the three stages
+
+1. **Mental** — start thinking about it, make a plan → obsession → *tell someone*
+2. **Emotional** — I stopped taking care of myself; not connecting, not medicating
+3. **Physical** — the actual action of taking a drink → **RED ZONE**
+
+> "Isolating / going back to my ex are **NOT** good ideas!!"
+
+### Choices
+
+"I want to do the thing, but do not want to do the thing — what are the signs
+for me?"
+
+- opposite action
+- honour the thought
+- do a dialectic / DBT distress tolerance, mindfulness
+- **cope ahead** — what are the triggers? going to the airport (be on the phone
+  with someone) · going to a family party · distraction (early recovery)
+
+Margin: *"Can I be alone without substances?"*
+
+> **"The time is going to pass anyway."**
+> Be in *recovery* rather than *recovered* — nobody's timeline. Give grace.
