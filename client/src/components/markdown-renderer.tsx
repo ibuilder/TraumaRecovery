@@ -74,6 +74,8 @@ import {
   FourHorsemenChart,
   BoundaryLadderChart,
   AttachmentMapChart,
+  CatastrophizingIcebergChart,
+  CoreBeliefCycleChart,
 } from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
@@ -155,6 +157,8 @@ const chartComponents: Record<string, React.ComponentType> = {
   "FourHorsemenChart": FourHorsemenChart,
   "BoundaryLadderChart": BoundaryLadderChart,
   "AttachmentMapChart": AttachmentMapChart,
+  "CatastrophizingIcebergChart": CatastrophizingIcebergChart,
+  "CoreBeliefCycleChart": CoreBeliefCycleChart,
 };
 
 /**

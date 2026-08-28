@@ -2616,7 +2616,7 @@ export function RelationshipTypesChart() {
             ticks={[0, 6, 60, 120, 180, 240]}
             tickFormatter={(v) => (v < 12 ? `${v}mo` : `${v / 12}yr`)}
           />
-          <YAxis domain={[0, 100]} tickFormatter={() => ""} width={12} />
+          <YAxis domain={[0, 100]} tick={false} tickLine={false} width={8} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
           <Line dataKey="fantasy" stroke="var(--color-fantasy)" dot={false} strokeWidth={2} />
@@ -2667,7 +2667,7 @@ export function SobrietyChallengesChart() {
       <ChartContainer config={sobrietyChallengesConfig} className="h-[420px] w-full">
         <BarChart data={sobrietyChallengesData} layout="vertical" stackOffset="sign">
           <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-          <XAxis type="number" domain={[-100, 100]} tickFormatter={() => ""} height={12} />
+          <XAxis type="number" domain={[-100, 100]} tick={false} tickLine={false} height={8} />
           <YAxis type="category" dataKey="challenge" width={190} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
@@ -2755,8 +2755,8 @@ export function WorryWindowChart() {
       <ChartContainer config={worryWindowConfig} className="h-[320px] w-full">
         <LineChart data={worryWindowData}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="t" tickFormatter={() => ""} height={12} />
-          <YAxis domain={[0, 100]} tickFormatter={() => ""} width={12} />
+          <XAxis dataKey="t" tick={false} tickLine={false} height={8} />
+          <YAxis domain={[0, 100]} tick={false} tickLine={false} width={8} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
           <Line
@@ -2830,7 +2830,7 @@ export function FunctionalAdultCurveChart() {
               v < 0 ? "Wounded Child" : v > 0 ? "Adapted Adult Child" : "Functional Adult"
             }
           />
-          <YAxis tickFormatter={() => ""} width={12} />
+          <YAxis tick={false} tickLine={false} width={8} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <Line dataKey="density" stroke="var(--color-density)" dot={false} strokeWidth={2.5} />
         </LineChart>
@@ -3247,6 +3247,101 @@ export function AttachmentMapChart() {
         <em> Journal of Personality and Social Psychology, 61</em>(2), 226–244.
         Attachment style is measurably changeable in adulthood — the research
         term is <em>earned secure attachment</em>.
+      </figcaption>
+    </figure>
+  );
+}
+
+const icebergs = [
+  { above: "Rage", below: ["pain", "helplessness"] },
+  { above: "Anger", below: ["sadness", "shame"] },
+  { above: "Resentment", below: ["frustration", "discontent"] },
+  { above: "Anxiety", below: ["guilt", "fear of loss"] },
+];
+
+export function CatastrophizingIcebergChart() {
+  return (
+    <figure className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">What Shows, and What Is Underneath</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        The feeling other people meet is almost never the feeling you are having.
+        The visible one is the one that felt safe to have.
+      </p>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {icebergs.map((berg) => (
+          <div key={berg.above} className="rounded-md border border-border overflow-hidden">
+            <div className="bg-muted/60 px-3 py-4 text-center">
+              <p className="font-semibold">{berg.above}</p>
+              <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-1">
+                above the water
+              </p>
+            </div>
+            <div className="border-t-2 border-dashed border-primary/50" />
+            <div className="px-3 py-4 text-center bg-primary/5">
+              {berg.below.map((b) => (
+                <p key={b} className="text-sm text-muted-foreground">{b}</p>
+              ))}
+              <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-2">
+                below
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <figcaption className="text-xs text-muted-foreground mt-3">
+        Anger and anxiety are frequently secondary — they sit on top of a primary
+        feeling that was less permitted. Asking "what is under this?" is often
+        more useful than trying to manage what is on top.
+      </figcaption>
+    </figure>
+  );
+}
+
+export function CoreBeliefCycleChart() {
+  const nodes = [
+    { label: "Negative core belief", detail: "“I'm not worth anything.”" },
+    { label: "Rules and assumptions", detail: "“So I must never need anything from anyone.”" },
+    { label: "Behaviour", detail: "Withdraw. Don't ask. Handle it alone." },
+    { label: "Other people's response", detail: "They leave you to it. They stop offering." },
+    { label: "Evidence", detail: "“See — nobody was there.”" },
+  ];
+  return (
+    <figure className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">
+        Why a Core Belief Never Runs Out of Proof
+      </h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        The belief produces the behaviour, the behaviour produces the response,
+        and the response is filed as evidence for the belief.
+      </p>
+      <ol className="space-y-2">
+        {nodes.map((n, i) => (
+          <li key={n.label}>
+            <div className="flex gap-3 items-start">
+              <span
+                className="shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-semibold flex items-center justify-center mt-0.5"
+                aria-hidden="true"
+              >
+                {i + 1}
+              </span>
+              <div>
+                <p className="font-medium text-sm">{n.label}</p>
+                <p className="text-sm text-muted-foreground italic">{n.detail}</p>
+              </div>
+            </div>
+            {i < nodes.length - 1 && (
+              <div className="ml-3 h-3 border-l-2 border-border" aria-hidden="true" />
+            )}
+          </li>
+        ))}
+      </ol>
+      <p className="mt-3 pl-9 text-sm text-primary font-medium">
+        ↻ and back to 1, now better supported than it was
+      </p>
+      <figcaption className="text-xs text-muted-foreground mt-3">
+        The maintenance cycle in cognitive therapy. Note where the loop is
+        breakable: not at the belief, which will not argue, but at step 3 —
+        the behaviour is the only node you directly control.
       </figcaption>
     </figure>
   );
