@@ -65,7 +65,6 @@ import {
 interface MarkdownRendererProps {
   content: string;
   showCharts?: boolean;
-  chapterSlug?: string;
 }
 
 const chartComponents: Record<string, React.ComponentType> = {
@@ -130,39 +129,59 @@ const chartComponents: Record<string, React.ComponentType> = {
   "TreatmentAccessChart": TreatmentAccessChart,
 };
 
-function preprocessChartSyntax(content: string): string {
-  // Convert inline ```chart:Name``` to fenced blocks so react-markdown uses pre/code (not inline p)
-  return content.replace(/```chart:(\w+)```/g, (_, name) => `\`\`\`chart:${name}\n\`\`\``);
+/**
+ * Chart placeholders are authored as a single-line ```chart:Name``` span, which
+ * CommonMark parses as an inline code span. Fenced `\`\`\`chart:Name` blocks are also
+ * supported; those arrive wrapped in a <pre>, so `pre` is unwrapped below to keep
+ * the chart out of the prose code-block styling.
+ */
+const CHART_INLINE_RE = /^chart:(\w+)$/;
+const CHART_FENCE_RE = /language-chart:(\w+)/;
+
+function isChartElement(node: unknown): boolean {
+  return (
+    !!node &&
+    typeof node === "object" &&
+    "props" in (node as any) &&
+    CHART_FENCE_RE.test(String((node as any).props?.className ?? ""))
+  );
 }
 
 export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendererProps) {
-  const processedContent = preprocessChartSyntax(content);
   return (
     <div className="prose prose-lg dark:prose-invert max-w-none">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
           code: ({ className, children }) => {
-            // Check for fenced code block with language identifier
-            const fencedMatch = /language-chart:(\w+)/.exec(className || "");
-            if (fencedMatch && showCharts) {
-              const ChartComponent = chartComponents[fencedMatch[1]];
+            const fencedMatch = CHART_FENCE_RE.exec(className || "");
+            const inlineMatch = CHART_INLINE_RE.exec(String(children).trim());
+            const chartName = fencedMatch?.[1] ?? inlineMatch?.[1];
+
+            if (chartName && showCharts) {
+              const ChartComponent = chartComponents[chartName];
               if (ChartComponent) {
                 return <ChartComponent />;
               }
-            }
-            
-            // Check for inline code with chart syntax (e.g., `chart:ChartName`)
-            const childText = String(children).trim();
-            const inlineMatch = /^chart:(\w+)$/.exec(childText);
-            if (inlineMatch && showCharts) {
-              const ChartComponent = chartComponents[inlineMatch[1]];
-              if (ChartComponent) {
-                return <ChartComponent />;
+              if (import.meta.env.DEV) {
+                console.warn(`Unknown chart referenced in content: "${chartName}"`);
               }
+              return null;
             }
-            
+
             return <code className={className}>{children}</code>;
+          },
+          pre: ({ children }) => {
+            // A fenced chart block renders a full-width figure, not a code block.
+            const kids = Array.isArray(children) ? children : [children];
+            if (showCharts && kids.some(isChartElement)) {
+              return <>{children}</>;
+            }
+            return (
+              <pre className="mb-6 overflow-x-auto rounded-md bg-muted p-4 text-sm">
+                {children}
+              </pre>
+            );
           },
           h1: ({ children }) => (
             <h1 className="text-3xl md:text-4xl font-bold mt-0 mb-6 text-foreground" data-testid="text-chapter-title">

@@ -484,10 +484,10 @@ Abramowitz, J. S., Deacon, B. J., & Whiteside, S. P. H. (2019). *Exposure therap
 Martell, C. R., Dimidjian, S., & Herman-Dunn, R. (2013). *Behavioral activation for depression: A clinician's guide* (2nd ed.). Guilford Press.`,
     },
     {
-      id: "8-2",
+      id: "8-3",
       title: "The CBT Triangle",
       slug: "cbt-triangle",
-      order: 2,
+      order: 3,
       content: `# The CBT Triangle: Understanding the Mind-Body Connection
 
 ## What Is the CBT Triangle?
@@ -815,10 +815,10 @@ Greenberger, D., & Padesky, C. A. (2015). *Mind over mood: Change how you feel b
 van der Kolk, B. A. (2014). *The body keeps the score: Brain, mind, and body in the healing of trauma*. Viking.`,
     },
     {
-      id: "8-3",
+      id: "8-4",
       title: "Cognitive Distortions",
       slug: "cognitive-distortions",
-      order: 3,
+      order: 4,
       content: `# Cognitive Distortions: When Your Mind Lies to You
 
 ## Understanding Cognitive Distortions
@@ -1265,10 +1265,10 @@ Leahy, R. L. (2017). *Cognitive therapy techniques: A practitioner's guide* (2nd
 Wenzel, A. (2024). Cognitive distortions in depression and anxiety: Current trends in research and clinical practice. *Clinical Psychology Review*, 108, 102385.`,
     },
     {
-      id: "8-4",
+      id: "8-5",
       title: "Competent Protectors",
       slug: "competent-protectors",
-      order: 4,
+      order: 5,
       content: `# Competent Protectors: The Internal Parts That Kept You Alive
 
 ## Understanding Your Inner Protectors

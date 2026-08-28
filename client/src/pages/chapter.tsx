@@ -37,8 +37,9 @@ export default function Chapter() {
     ? chapter.subchapters.find((s) => s.slug === subSlug)
     : null;
 
+  // The markdown body of every chapter and subchapter opens with its own H1,
+  // so the page heading comes from MarkdownRenderer rather than being repeated here.
   const content = subchapter ? subchapter.content : chapter.content;
-  const title = subchapter ? subchapter.title : chapter.title;
 
   const currentIndex = chapters.findIndex((c) => c.slug === slug);
   const prevChapter = currentIndex > 0 ? chapters[currentIndex - 1] : null;
