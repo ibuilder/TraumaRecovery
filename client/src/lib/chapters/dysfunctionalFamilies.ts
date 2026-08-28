@@ -1133,5 +1133,242 @@ Siegel, D. J., & Bryson, T. P. (2024). *The power of showing up: How parental pr
 
 van der Kolk, B. (2024). *The body keeps the score* (updated ed.). Penguin Books.`,
     },
+    {
+      id: "4-5",
+      title: "The Tree, the Triangle, and the Five Things",
+      slug: "tree-triangle-five-things",
+      order: 5,
+      content: `# The Tree, the Triangle, and the Five Things
+
+Three frameworks I met in the same week of an adult-children group. Each one
+explained something I had been carrying around unexamined for thirty years. I
+have put them together because they answer three different questions about the
+same family: *what grew here*, *how do we keep doing this to each other*, and
+*what specifically got damaged*.
+
+## The tree
+
+Somebody drew this on a whiteboard and I copied it into my notebook badly, and
+then sat looking at it for a long time.
+
+\`\`\`chart:ACATreeChart\`\`\`
+
+For most of my adult life I had been working on the fruit. Not the
+perfectionism this year, the isolation next year, the dishonesty the year after
+that. Pick a defect, work on the defect, pick another.
+
+You cannot fix a tree by cutting fruit off it. The fruit is what the tree does.
+It will grow more, because the branches are still there, and the branches are
+still there because the root is still there.
+
+The root is fear.
+
+Not fear of anything in particular — that would be easier, you could avoid the
+thing. This is the ambient, structural fear of a child who learned early that
+the environment is not reliable and the adults are not safe, and who organised
+an entire personality around managing that. Every trait on the branches is a
+solution to that problem. Every defect in the fruit is what the solution costs.
+
+That reframe is the whole point of the diagram. **These are not character
+defects. They are survival strategies that outlived the emergency.**
+
+Which means the question is not "how do I stop being like this." It is "what
+was this protecting me from, and is that still true?"
+
+## The Laundry List
+
+The branches come from a list written in 1978 by a man named Tony A., who was
+trying to describe what he and other adult children of alcoholics had in
+common. It is not a diagnostic instrument and it was never meant to be. It is
+a description, and its power is entirely in the shock of recognition.
+
+I am reproducing it because reading it was the first time in my life I
+understood that my particular combination of qualities was not personal. It was
+a *syndrome*, with a name, that other people also had.
+
+1. We became isolated and afraid of people and authority figures.
+2. We became approval seekers and lost our identity in the process.
+3. We are frightened by angry people and any personal criticism.
+4. We either become alcoholics, marry them, or both — or find another
+   compulsive personality, such as a workaholic, to fulfil our sick
+   abandonment needs.
+5. We live life from the viewpoint of victims, and are attracted by that
+   weakness in our love and friendship relationships.
+6. We have an overdeveloped sense of responsibility, and it is easier for us to
+   be concerned with others rather than ourselves; this enables us not to look
+   too closely at our own faults.
+7. We get guilty feelings when we stand up for ourselves instead of giving in
+   to others.
+8. We become addicted to excitement.
+9. We confuse love and pity, and tend to "love" people we can "pity" and
+   "rescue."
+10. We have stuffed our feelings from our traumatic childhoods and have lost the
+    ability to feel or express them, because it hurts so much.
+11. We judge ourselves harshly and have a very low sense of self-esteem.
+12. We are dependent personalities who are terrified of abandonment, and will do
+    anything to hold on to a relationship in order not to experience painful
+    abandonment feelings.
+13. Alcoholism is a family disease, and we became para-alcoholics — we took on
+    the characteristics of that disease even though we did not pick up the drink.
+14. Para-alcoholics are reactors rather than actors.
+
+Some notes on reading it, because it can land badly.
+
+**Not all fourteen will be yours.** Nobody has all fourteen. Four or five is a
+lot.
+
+**"Alcoholism" is not the only entry point.** The list describes what happens to
+a child in a household organised around something unspeakable. Addiction is the
+commonest version. Untreated mental illness, chronic rage, religious
+authoritarianism and a parent's affair all produce recognisably similar lists.
+
+**Number 8 is the one people skip.** *Addicted to excitement.* If you grew up
+in chaos, your nervous system calibrated to chaos, and calm can read as
+deadness. This is why some people leave good relationships. It is not that
+they want to suffer. It is that peace feels like something is wrong.
+
+**Number 14 is the whole list in four words.** Reactors rather than actors. A
+child in an unsafe house cannot initiate; they can only respond. The adult
+version is a life spent responding to other people's weather.
+
+## The triangle
+
+The tree explains what grew. The triangle explains how the family keeps
+running, and why leaving does not stop it.
+
+\`\`\`chart:DramaTriangleChart\`\`\`
+
+Three roles. Not people — *roles*, which is the part that took me longest. The
+same person occupies all three across a single afternoon.
+
+- **The Victim** is not necessarily being victimised. The position is *I am not
+  able to solve this.*
+- **The Rescuer** is not necessarily helping. The position is *I will solve it
+  for you*, and it requires the other person to stay unable.
+- **The Persecutor** is not necessarily cruel. The position is *this is your
+  fault*, and it is often the most honest of the three.
+
+What makes it a system rather than three bad habits is the traffic between the
+corners. Rescuers accumulate resentment, because rescuing is exhausting and
+nobody asked. Victims accumulate resentment too, because being rescued is
+humiliating. Persecutors get guilt. And each of those feelings is a ticket to a
+different corner, which is why a conversation can rotate through all six
+positions in ninety seconds and end exactly where it started.
+
+Every family I know that "always has the same fight" is running this. The
+content changes and the geometry does not.
+
+### Getting off it
+
+You cannot get off the triangle by playing your role better. A better Rescuer
+is still a Rescuer. You get off by changing what you are trying to do:
+
+| On the triangle | Off it | What changes |
+|---|---|---|
+| **Victim** — "I can't" | **Creator** — "what do I want?" | The focus moves from the problem to an outcome |
+| **Rescuer** — "let me" | **Coach** — "what will you do?" | You stop supplying the answer |
+| **Persecutor** — "your fault" | **Challenger** — "this has to change" | The pressure stays; the contempt goes |
+
+Notice that Challenger is still uncomfortable. The way out of the triangle is
+not niceness. A Challenger still says the hard thing. The difference is that
+they say it *to provoke growth* rather than to establish who is at fault.
+
+The line from my notes that I still use:
+
+> **I am not a victim, but a volunteer.**
+
+That is not a statement about abuse, and it must not be read as one. If someone
+is hurting you, you are not volunteering. It is a statement about the *role* —
+about the fact that, as an adult, in most of my daily conflicts, I step into
+that corner myself, and can therefore step out.
+
+## The five things
+
+The third framework is the most clinical, and the most useful for working out
+what to actually do.
+
+Pia Mellody's account starts from five things a child naturally is. Not things a
+child should be taught to be — things they already are, before anyone
+interferes. Valuable. Vulnerable. Imperfect. Dependent. Spontaneous.
+
+Dysfunctional parenting damages each one in a characteristic way, and each
+injury produces a symptom that follows you into adulthood.
+
+\`\`\`chart:CoreSymptomsChart\`\`\`
+
+The column that repays the most study is the third one — *which way it fails*.
+Every core symptom has two failure modes, and they look like opposites:
+
+- A boundary injury produces someone with **no** boundaries, or someone
+  with **walls**. Both are the same wound.
+- A dependency injury produces someone who cannot function alone, or someone
+  who will not admit to needing anything. Both are the same wound.
+- A self-esteem injury produces "less than," or "better than." Grandiosity and
+  worthlessness are not opposites. They are the same broken instrument, read
+  from either end.
+
+This is why "I'm the opposite of my mother" is rarely the achievement it feels
+like. Flipping the sign on a symptom is not the same as healing it.
+
+### The three states
+
+Mellody's other contribution I use constantly is a way of naming which version
+of me is currently in the room.
+
+| Wounded Child | Functional Adult | Adapted Adult Child |
+|---|---|---|
+| Less than | Equal | Better than |
+| Too vulnerable | Appropriately open | Walled off |
+| Bad | Human, fallible | Good, right |
+| Needy | Interdependent | Needless |
+| Out of control | Moderate | In control |
+
+\`\`\`chart:FunctionalAdultCurveChart\`\`\`
+
+Two things about that curve.
+
+**The Functional Adult is the middle, not the maximum.** Roughly sixty-five
+percent. Flexible, disciplined, relational, in reality, in moderation. Not
+optimised. Not crushing it. *Enough.* For someone who spent twenty years
+treating "enough" as failure, this was a genuinely difficult idea.
+
+**Only one tail looks like a problem.** The Wounded Child — helpless,
+hopeless, tantrumming — reads to everyone as someone who needs help. The
+Adapted Adult Child is survival-driven, intense, and a hundred percent
+productive in three narrow areas. That one gets promoted. It gets called
+high-functioning. It was, for most of my career, the thing people admired about
+me, and it was a symptom.
+
+## Using all three
+
+They stack, and it is worth being explicit about how.
+
+- The **tree** tells you that your traits are old solutions, so you stop
+  attacking yourself for having them.
+- The **triangle** tells you what is happening in the room right now, so you
+  have something to do in the next thirty seconds.
+- The **five things** tell you which specific injury is driving it, so you know
+  what the long work is.
+
+When something goes wrong with my family, in that order: *which corner am I
+standing in* — get out of it. *Which of the five is this* — that is the therapy
+homework. *And what is the root* — fear, still, always, and it is no longer 1987.
+
+---
+
+## References
+
+Emerald, D. (2016). *The power of TED (The Empowerment Dynamic)* (3rd ed.). Polaris Publishing.
+
+Karpman, S. B. (1968). Fairy tales and script drama analysis. *Transactional Analysis Bulletin, 7*(26), 39–43.
+
+Mellody, P., Miller, A. W., & Miller, J. K. (1989). *Facing codependence: What it is, where it comes from, how it sabotages our lives*. Harper & Row.
+
+Mellody, P., Miller, A. W., & Miller, J. K. (1992). *Facing love addiction: Giving yourself the power to change the way you love*. HarperOne.
+
+Tony A. (1978). *The laundry list*. Adult Children of Alcoholics & Dysfunctional Families World Service Organization.
+
+Woititz, J. G. (1983). *Adult children of alcoholics*. Health Communications.`,
+    },
   ],
 };

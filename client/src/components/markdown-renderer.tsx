@@ -68,6 +68,9 @@ import {
   CarnesRecoveryStagesChart,
   WorryWindowChart,
   FunctionalAdultCurveChart,
+  DramaTriangleChart,
+  ACATreeChart,
+  CoreSymptomsChart,
 } from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
@@ -143,6 +146,9 @@ const chartComponents: Record<string, React.ComponentType> = {
   "CarnesRecoveryStagesChart": CarnesRecoveryStagesChart,
   "WorryWindowChart": WorryWindowChart,
   "FunctionalAdultCurveChart": FunctionalAdultCurveChart,
+  "DramaTriangleChart": DramaTriangleChart,
+  "ACATreeChart": ACATreeChart,
+  "CoreSymptomsChart": CoreSymptomsChart,
 };
 
 /**

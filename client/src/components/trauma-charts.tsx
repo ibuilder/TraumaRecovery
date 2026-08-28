@@ -2843,3 +2843,237 @@ export function FunctionalAdultCurveChart() {
     </div>
   );
 }
+
+/**
+ * Diagram components. These are figures rather than plots, so they are inline
+ * SVG rather than Recharts. Colours come from theme tokens so they follow
+ * light and dark mode, and every one carries a text alternative.
+ */
+
+export function DramaTriangleChart() {
+  return (
+    <figure className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">The Drama Triangle, and the Way Out</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Three roles that hand each other the same feelings, and the three
+        positions that dissolve them.
+      </p>
+      <div className="overflow-x-auto">
+        <svg
+          viewBox="0 0 520 330"
+          className="w-full min-w-[440px] h-auto"
+          role="img"
+          aria-labelledby="drama-triangle-title drama-triangle-desc"
+        >
+          <title id="drama-triangle-title">The Karpman drama triangle</title>
+          <desc id="drama-triangle-desc">
+            Rescuer and Persecutor sit at the top corners, Victim at the bottom.
+            Rescuer sends entitlement and resentment to Persecutor, and receives
+            guilt and remorse back. Victim sends entitlement and resentment to
+            Persecutor and guilt and powerlessness to Rescuer. Inside the
+            triangle, the same three positions become Coach, Challenger and
+            Creator.
+          </desc>
+
+          <polygon
+            points="90,60 430,60 260,285"
+            fill="none"
+            stroke="hsl(var(--destructive))"
+            strokeWidth="2"
+            opacity="0.65"
+          />
+          <polygon
+            points="175,175 345,175 260,60"
+            fill="hsl(var(--primary))"
+            opacity="0.08"
+          />
+          <polygon
+            points="175,175 345,175 260,60"
+            fill="none"
+            stroke="hsl(var(--primary))"
+            strokeWidth="1.5"
+            strokeDasharray="5 4"
+          />
+
+          <g fill="hsl(var(--destructive))" fontSize="15" fontWeight="600">
+            <text x="90" y="48" textAnchor="middle">Rescuer</text>
+            <text x="430" y="48" textAnchor="middle">Persecutor</text>
+            <text x="260" y="308" textAnchor="middle">Victim</text>
+          </g>
+
+          <g fill="hsl(var(--primary))" fontSize="13" fontWeight="600">
+            <text x="260" y="52" textAnchor="middle" dy="-14">Creator</text>
+            <text x="160" y="192" textAnchor="end">Coach</text>
+            <text x="360" y="192" textAnchor="start">Challenger</text>
+          </g>
+
+          <g
+            fill="hsl(var(--muted-foreground))"
+            fontSize="10.5"
+            fontStyle="italic"
+          >
+            <text x="260" y="76" textAnchor="middle">entitlement · resentment →</text>
+            <text x="260" y="92" textAnchor="middle">← guilt · remorse</text>
+            <text x="150" y="240" textAnchor="middle">guilt</text>
+            <text x="150" y="254" textAnchor="middle">powerlessness</text>
+            <text x="378" y="240" textAnchor="middle">entitlement</text>
+            <text x="378" y="254" textAnchor="middle">resentment</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption className="text-xs text-muted-foreground mt-3">
+        Roles after Karpman, S. (1968), <em>Transactional Analysis Bulletin, 7</em>(26),
+        39–43. The empowered positions after Emerald, D. (2016),
+        <em> The Power of TED</em> (3rd ed., Polaris).
+      </figcaption>
+    </figure>
+  );
+}
+
+const acaTreeFruit = [
+  "arrogance", "feeling superior", "pettiness", "mistrust", "procrastination",
+  "greed", "lust", "envy", "isolation", "perfectionism", "dishonesty",
+  "addicted to excitement", "self-sacrificial", "approval seeking",
+  "judgement", "self-centredness",
+];
+
+const acaTreeBranches = [
+  "judging ourselves harshly",
+  "stuffing our feelings",
+  "afraid of people and authority",
+  "confusing love and pity",
+  "terrified of abandonment",
+  "reactors rather than actors",
+];
+
+export function ACATreeChart() {
+  return (
+    <figure className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">The Tree: Fear at the Root</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        The behaviour everyone can see is the fruit. The traits that grow it are
+        the branches. Underneath both, one root.
+      </p>
+      <div className="space-y-3">
+        <div className="rounded-md border border-border bg-muted/40 p-4">
+          <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
+            The fruit — what shows
+          </p>
+          <p className="text-sm leading-relaxed">{acaTreeFruit.join(" · ")}</p>
+        </div>
+        <div className="flex justify-center text-muted-foreground" aria-hidden="true">
+          ▲
+        </div>
+        <div className="rounded-md border border-border bg-muted/40 p-4">
+          <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
+            The branches — the traits
+          </p>
+          <p className="text-sm leading-relaxed">{acaTreeBranches.join(" · ")}</p>
+        </div>
+        <div className="flex justify-center text-muted-foreground" aria-hidden="true">
+          ▲
+        </div>
+        <div className="rounded-md border-2 border-primary/40 bg-primary/5 p-4 text-center">
+          <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
+            The root
+          </p>
+          <p className="text-2xl font-semibold tracking-wide">FEAR</p>
+        </div>
+      </div>
+      <figcaption className="text-xs text-muted-foreground mt-3">
+        After the problem tree used in Adult Children of Alcoholics &amp;
+        Dysfunctional Families literature; the branch traits are drawn from
+        Tony A.'s Laundry List (1978). Cutting fruit off a tree does not change
+        the tree.
+      </figcaption>
+    </figure>
+  );
+}
+
+const coreSymptomRows = [
+  {
+    child: "Valuable",
+    core: "Self-esteem",
+    poles: "less-than ↔ better-than",
+    secondary: "Negative control",
+    relational: "Relational esteem",
+  },
+  {
+    child: "Vulnerable",
+    core: "Boundaries",
+    poles: "too vulnerable ↔ invulnerable",
+    secondary: "Resentment, raging",
+    relational: "Enmeshment, avoidance",
+  },
+  {
+    child: "Imperfect",
+    core: "Reality",
+    poles: "bad/rebellious ↔ good/perfect",
+    secondary: "Spirituality",
+    relational: "Dishonesty",
+  },
+  {
+    child: "Dependent",
+    core: "Dependency",
+    poles: "too dependent ↔ needless",
+    secondary: "Addiction, mood, illness",
+    relational: "Interdependence",
+  },
+  {
+    child: "Spontaneous",
+    core: "Moderation",
+    poles: "out of control ↔ controlling",
+    secondary: "Intimacy",
+    relational: "Intensity",
+  },
+];
+
+export function CoreSymptomsChart() {
+  return (
+    <figure className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">
+        Five Things a Child Is, and What Happens When Each Is Injured
+      </h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Read a row left to right: the natural characteristic, the core symptom
+        when it is damaged, the two directions that damage runs, and what it
+        eventually costs in a relationship.
+      </p>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[620px] text-sm border-collapse">
+          <thead>
+            <tr className="text-left">
+              <th className="border-b border-border py-2 pr-3 font-semibold">The child is…</th>
+              <th className="border-b border-border py-2 pr-3 font-semibold">Core symptom</th>
+              <th className="border-b border-border py-2 pr-3 font-semibold">Which way it fails</th>
+              <th className="border-b border-border py-2 pr-3 font-semibold">Secondary</th>
+              <th className="border-b border-border py-2 font-semibold">In relationship</th>
+            </tr>
+          </thead>
+          <tbody>
+            {coreSymptomRows.map((r) => (
+              <tr key={r.core}>
+                <td className="border-b border-border/60 py-2 pr-3 font-medium">{r.child}</td>
+                <td className="border-b border-border/60 py-2 pr-3">{r.core}</td>
+                <td className="border-b border-border/60 py-2 pr-3 text-muted-foreground italic">
+                  {r.poles}
+                </td>
+                <td className="border-b border-border/60 py-2 pr-3 text-muted-foreground">
+                  {r.secondary}
+                </td>
+                <td className="border-b border-border/60 py-2 text-muted-foreground">
+                  {r.relational}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <figcaption className="text-xs text-muted-foreground mt-3">
+        After Pia Mellody, <em>Facing Codependence</em> (Harper &amp; Row, 1989).
+        Childhood trauma causes immaturity; both drive unmanageability; all three
+        together produce the difficulty with intimacy.
+      </figcaption>
+    </figure>
+  );
+}
