@@ -3346,3 +3346,231 @@ export function CoreBeliefCycleChart() {
     </figure>
   );
 }
+
+const askIntensity = [
+  { n: 1, ask: "Don't ask. Don't hint.", no: "Do it without being asked." },
+  { n: 2, ask: "Hint indirectly. Take no.", no: "Don't complain. Do it cheerfully." },
+  { n: 3, ask: "Hint openly. Take no.", no: "Do it, even without cheer." },
+  { n: 4, ask: "Ask tentatively. Take no.", no: "Do it, but show you'd rather not." },
+  { n: 5, ask: "Ask gracefully. Take no.", no: "Say you'd rather not, but do it gracefully." },
+  { n: 6, ask: "Ask confidently. Take no.", no: "Say no confidently — but reconsider." },
+  { n: 7, ask: "Ask confidently. Resist no.", no: "Say no confidently. Resist saying yes." },
+  { n: 8, ask: "Ask firmly. Resist no.", no: "Say no firmly. Resist saying yes." },
+  { n: 9, ask: "Ask firmly. Negotiate. Keep trying.", no: "Say no firmly. Negotiate. Keep trying." },
+  { n: 10, ask: "Ask and don't take no for an answer.", no: "Don't do it." },
+];
+
+export function AskIntensityChart() {
+  return (
+    <figure className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">
+        How Hard to Ask, and How Hard to Refuse
+      </h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Not <em>whether</em> to ask — how intensely. Most people own two or three
+        of these ten settings and use them for everything.
+      </p>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[560px] text-sm border-collapse">
+          <thead>
+            <tr className="text-left">
+              <th className="border-b border-border py-2 pr-3 w-10 font-semibold">#</th>
+              <th className="border-b border-border py-2 pr-4 font-semibold">Asking for something</th>
+              <th className="border-b border-border py-2 font-semibold">Saying no</th>
+            </tr>
+          </thead>
+          <tbody>
+            {askIntensity.map((r) => (
+              <tr key={r.n}>
+                <td className="border-b border-border/60 py-1.5 pr-3 font-mono text-muted-foreground">
+                  {r.n}
+                </td>
+                <td className="border-b border-border/60 py-1.5 pr-4">{r.ask}</td>
+                <td className="border-b border-border/60 py-1.5 text-muted-foreground">{r.no}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <figcaption className="text-xs text-muted-foreground mt-3">
+        Linehan, M. M. (2015). <em>DBT skills training handouts and worksheets</em>
+        (2nd ed.). Guilford Press. Intensity is chosen from the situation — how
+        capable you are, how urgent it is, the relationship, your own priorities
+        and self-respect — not from how frightened you feel.
+      </figcaption>
+    </figure>
+  );
+}
+
+const dialecticPairs = [
+  { a: "Reasonable mind", b: "Emotional mind", syn: "Decide with values and experience both in the room" },
+  { a: "Doing mind", b: "Nothing-to-do mind", syn: "Do what the moment needs, and be in it" },
+  { a: "Wanting change", b: "Radical acceptance", syn: "Want it to be different and accept that it is not" },
+  { a: "Self-denial", b: "Self-indulgence", syn: "Moderation that still satisfies the senses" },
+  { a: "Doing too much", b: "Doing too little", syn: "Enough" },
+];
+
+export function MiddlePathChart() {
+  return (
+    <figure className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Walking the Middle Path</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Not a compromise between the two poles, and not picking one. A third
+        thing that holds both at once.
+      </p>
+      <div className="space-y-2">
+        {dialecticPairs.map((p) => (
+          <div
+            key={p.a}
+            className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] gap-2 sm:gap-3 items-center rounded-md border border-border p-3"
+          >
+            <p className="text-sm text-right sm:text-right font-medium">{p.a}</p>
+            <p className="text-center text-primary font-semibold text-sm" aria-hidden="true">
+              ⟷
+            </p>
+            <p className="text-sm font-medium">{p.b}</p>
+            <p className="sm:col-span-3 text-xs text-muted-foreground italic border-t border-border/60 pt-2 mt-1">
+              {p.syn}
+            </p>
+          </div>
+        ))}
+      </div>
+      <figcaption className="text-xs text-muted-foreground mt-3">
+        Linehan, M. M. (2015). A platypus lays eggs and has a bill,
+        <em> and</em> is a mammal that produces milk. Two things can be true at once.
+      </figcaption>
+    </figure>
+  );
+}
+
+// Angles are measured anticlockwise from east, to match the quadrant labels:
+// work top-left, leisure top-right, relationships bottom-left, growth bottom-right.
+const bullseyeDomains = [
+  { domain: "Work / education", angle: 135, distance: 0.3 },
+  { domain: "Leisure", angle: 45, distance: 0.55 },
+  { domain: "Relationships", angle: 225, distance: 0.85 },
+  { domain: "Personal growth / health", angle: 315, distance: 0.8 },
+];
+
+export function BullseyeChart() {
+  const cx = 170;
+  const cy = 170;
+  const R = 130;
+  return (
+    <figure className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">The Bullseye</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Four domains. In each one, mark how close your actual behaviour is to the
+        person you want to be. The centre is not perfection — it is congruence.
+      </p>
+      <div className="flex flex-col md:flex-row gap-6 items-center">
+        <svg
+          viewBox="0 0 340 340"
+          className="w-full max-w-[320px] h-auto shrink-0"
+          role="img"
+          aria-labelledby="bullseye-title bullseye-desc"
+        >
+          <title id="bullseye-title">A bullseye divided into four life domains</title>
+          <desc id="bullseye-desc">
+            Concentric rings quartered into work and education, relationships,
+            personal growth and health, and leisure. A mark in each quadrant
+            shows how far current behaviour sits from the centre. In this
+            example, work is close to the centre, leisure is mid-way, and
+            relationships and personal growth are near the outer edge.
+          </desc>
+          {[1, 0.75, 0.5, 0.25].map((r, i) => (
+            <circle
+              key={r}
+              cx={cx}
+              cy={cy}
+              r={R * r}
+              fill={i % 2 === 0 ? "hsl(var(--muted))" : "hsl(var(--card))"}
+              fillOpacity={0.5}
+              stroke="hsl(var(--border))"
+              strokeWidth="1"
+            />
+          ))}
+          <circle cx={cx} cy={cy} r={R * 0.1} fill="hsl(var(--primary))" fillOpacity="0.25" />
+          <line x1={cx - R} y1={cy} x2={cx + R} y2={cy} stroke="hsl(var(--border))" strokeWidth="1" />
+          <line x1={cx} y1={cy - R} x2={cx} y2={cy + R} stroke="hsl(var(--border))" strokeWidth="1" />
+
+          {bullseyeDomains.map((d) => {
+            const rad = (d.angle * Math.PI) / 180;
+            const x = cx + Math.cos(rad) * R * d.distance;
+            const y = cy - Math.sin(rad) * R * d.distance;
+            return <circle key={d.domain} cx={x} cy={y} r="6" fill="hsl(var(--primary))" />;
+          })}
+
+          <g fontSize="10.5" fill="hsl(var(--muted-foreground))">
+            <text x={cx - R + 4} y={cy - R + 14}>work / education</text>
+            <text x={cx + R - 4} y={cy - R + 14} textAnchor="end">leisure</text>
+            <text x={cx - R + 4} y={cy + R - 6}>relationships</text>
+            <text x={cx + R - 4} y={cy + R - 6} textAnchor="end">growth / health</text>
+          </g>
+        </svg>
+        <div className="text-sm space-y-3">
+          <p>
+            <span className="font-medium">At the centre:</span>{" "}
+            <span className="text-muted-foreground">
+              “I am behaving like the person I want to be.”
+            </span>
+          </p>
+          <p>
+            <span className="font-medium">At the edge:</span>{" "}
+            <span className="text-muted-foreground">
+              “My behaviour is far removed from the way I'd like to be.”
+            </span>
+          </p>
+          <p className="text-muted-foreground">
+            Then the only question that matters:{" "}
+            <span className="text-foreground font-medium">
+              what do I need to do to be closer to the centre?
+            </span>
+          </p>
+        </div>
+      </div>
+      <figcaption className="text-xs text-muted-foreground mt-4">
+        Lundgren, T., et al. (2012). The Bull's-Eye Values Survey: A psychometric
+        evaluation. <em>Cognitive and Behavioral Practice, 19</em>(4), 518–526.
+        A dot near the edge is information, not a verdict.
+      </figcaption>
+    </figure>
+  );
+}
+
+const fearDare = [
+  { f: "Fusion", d: "Defusion", fWhat: "Being welded to a thought, so it is not a thought — it is just how things are.", dWhat: "Seeing the thought as a thought. Naming it, and letting it be there without obeying it." },
+  { f: "Excessive goals", d: "Realistic goals", fWhat: "Goals too big for the resources, skills or time you actually have.", dWhat: "Break it down until the first step is genuinely possible this week." },
+  { f: "Avoidance of discomfort", d: "Acceptance of discomfort", fWhat: "Unwillingness to feel what moving forward would make you feel.", dWhat: "Make room for it. Not liking it — allowing it." },
+  { f: "Remoteness from values", d: "Embracing values", fWhat: "Losing contact with why any of this was supposed to matter.", dWhat: "Reconnect to what you actually care about, in words, out loud." },
+];
+
+export function FearDareChart() {
+  return (
+    <figure className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">FEAR, and What to DARE Instead</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Four ways forward motion stops, each with its counterpart. When you are
+        stuck, one of these four is usually the reason.
+      </p>
+      <div className="space-y-3">
+        {fearDare.map((r) => (
+          <div key={r.f} className="grid gap-3 md:grid-cols-2 rounded-md border border-border p-4">
+            <div>
+              <p className="font-semibold text-destructive text-sm">{r.f}</p>
+              <p className="text-xs text-muted-foreground mt-1">{r.fWhat}</p>
+            </div>
+            <div className="md:border-l md:border-border md:pl-4">
+              <p className="font-semibold text-primary text-sm">{r.d}</p>
+              <p className="text-xs text-muted-foreground mt-1">{r.dWhat}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <figcaption className="text-xs text-muted-foreground mt-3">
+        Harris, R. (2019). <em>ACT made simple</em> (2nd ed.). New Harbinger
+        Publications.
+      </figcaption>
+    </figure>
+  );
+}
