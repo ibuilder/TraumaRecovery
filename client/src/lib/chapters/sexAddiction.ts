@@ -858,5 +858,267 @@ Sex Addicts Anonymous. (2012). *Sex addicts anonymous* (3rd ed.). International 
 
 Weiss, R. (2015). *Sex addiction 101: A basic guide to healing from sex, porn, and love addiction*. Health Communications.`,
     },
+    {
+      id: "13-7",
+      title: "What the Diagnosis Actually Says",
+      slug: "what-the-diagnosis-says",
+      order: 7,
+      content: `# What the Diagnosis Actually Says
+
+This is the chapter I found hardest to write, and the one where being accurate
+matters most — because this is the diagnosis people are most often shamed with,
+and the shame is a large part of what keeps it running.
+
+So let us start with what is actually established, what is contested, and what
+is simply not true.
+
+## The diagnosis
+
+In 2020, **Compulsive Sexual Behaviour Disorder** entered the ICD-11 as code
+**6C72**. That is real, it is current, and it means clinicians have a defensible
+diagnostic category to work with.
+
+Two things about it are routinely got wrong, including in my own notes at the
+time.
+
+**It is classified as an impulse-control disorder, not an addictive disorder.**
+The WHO looked at the evidence and declined to place it with the addictions.
+Whether that is the right call is genuinely contested — serious researchers
+argue both sides, and the disagreement is about mechanism, not about whether
+people are suffering. I am not going to pretend it is settled. If you find a
+book that tells you confidently that sex addiction *is* an addiction in the same
+sense as alcoholism, or that it definitely is not, that book is ahead of its
+evidence.
+
+**The diagnosis has explicit exclusions, and they matter enormously.**
+
+- A high sex drive is not the disorder. Wanting a lot of sex, and having it,
+  without loss of control or resulting distress, is not a diagnosis.
+- **Distress arising from moral or religious disapproval is explicitly not
+  sufficient.** The WHO wrote that in deliberately. A person who is
+  tormented about ordinary sexual behaviour because they were taught it was
+  shameful does not have CSBD; they have been shamed, and the treatment for
+  that is completely different.
+
+That second exclusion is the reason to get this right. This diagnosis has been
+used to pathologise being gay, being kinky, watching any pornography at all, and
+being a person with an ordinary libido and a punitive upbringing. The clinical
+criteria specifically do not support that use.
+
+What the criteria do describe: a persistent failure to control intense,
+repetitive sexual impulses, over an extended period — six months or more —
+producing marked distress or real impairment in your life, where the behaviour
+continues despite consequences, and often despite giving you little pleasure any
+more.
+
+The last clause is the one that gets recognised.
+
+### It is not the same as offending
+
+| | CSBD | Paraphilia | Offending |
+|---|---|---|---|
+| **What it is about** | control over one's own behaviour | the object of arousal | harm to another person |
+| **Can exist alone** | yes | yes | yes |
+| **Requires treatment** | yes | only if distressing or actionable | yes, and specialist |
+| **Is a crime** | no | not in itself | yes |
+
+Three distinct things, with real overlap and no equivalence:
+
+- **CSBD** — loss of control over one's own sexual behaviour
+- **Paraphilias** — atypical objects of arousal, which may or may not be
+  distressing and may or may not be actionable
+- **Sex offending** — behaviour that harms other people, including anything
+  involving minors or non-consent
+
+A person can have any one of these without the others. Conflating them is
+common, and it does two kinds of damage at once: it makes people with a
+treatable compulsion afraid to disclose, and it obscures the fact that offending
+is a matter of harm and law rather than a matter of self-control.
+
+If your behaviour is harming other people, that requires a different and more
+urgent response than anything in this chapter, and it needs a specialist.
+
+## The cycle
+
+\`\`\`chart:AddictiveSystemChart\`\`\`
+
+The four phases are worth learning by name, because they are the map you use to
+locate yourself.
+
+**Preoccupation** is the one people miss, and it is the one where intervention is
+cheapest. The mind starts hunting. Ordinary things become cues. Nothing has
+happened yet and the outcome is already substantially decided.
+
+**Ritualisation** — the routines beforehand — is frequently more charged than the
+behaviour itself. This surprises people. It is also useful, because rituals are
+concrete and interruptible in a way that "urges" are not.
+
+**The behaviour** is usually the shortest phase.
+
+**Despair** is where the trap closes. It is not the end of the cycle. Shame and
+powerlessness are the *fuel* for the next preoccupation, which is why an
+approach built on making someone feel worse has a mechanism by which it makes
+things worse.
+
+And that whole cycle sits inside a bigger loop: negative core beliefs produce
+impaired thinking, which produces the cycle, which produces unmanageability,
+which confirms the negative core beliefs. Chapter 8's maintenance cycle, running
+at a larger scale.
+
+## Defining sobriety when there is no substance
+
+Here is the structural problem. An alcoholic can stop drinking. There is a
+substance, and abstinence from it is definable. Sexuality is not removable from
+a human life, and for most people the goal is not celibacy — it is a sexuality
+that is theirs rather than the compulsion's.
+
+So sobriety has to be *defined*, individually, in writing.
+
+\`\`\`chart:ThreeCirclesGuideChart\`\`\`
+
+Three notes on doing it, from having done it badly first.
+
+**Write it with someone.** Not alone. The inner circle is precisely where the
+disease gets a vote, and left alone with the list you will find yourself
+composing careful exceptions.
+
+**The outer circle is the point.** It is tempting to spend all the effort on the
+inner circle, because that is the frightening one. But a plan that is only an
+inner circle is a plan to not do things, and nobody has ever sustained a life
+out of a list of prohibitions. The outer circle is what you are actually for.
+
+**Expect to revise it.** Mine changed several times as I understood more about
+what was and was not a warning sign.
+
+## Erotisized rage
+
+The concept I had never encountered and which explained an enormous amount.
+
+Erotisized rage is anger expressed through sex — directly, as aggression, or
+indirectly, as passive aggression and avoidance. It is not primarily about
+desire. It is about **power**.
+
+The chain runs: a belief, formed in grievance, produces an expectation. The
+expectation is not met. That produces resentment, and the resentment finds a
+sexual outlet, because sex is where the power differential can be inverted.
+
+What it is doing, in the moment:
+
+- retaliating within a relationship
+- equalising a power differential that feels intolerable
+- restoring a sense of self that felt diminished
+- humiliating, degrading or shaming someone
+- expressing anger in a way that cannot be named and therefore cannot be
+  answered
+
+Where it comes from: grievance trauma, a belief of insufficiency, parental
+enmeshment, and vulnerability that was never allowed to be vulnerable.
+
+The reason it is worth naming is that it does not respond to sexual
+interventions. You can control the behaviour and leave the rage entirely intact,
+at which point it will simply find another door. What it responds to is
+examining the family rules you learned about anger, and learning to express
+anger **directly** — assertively, in words, to the actual person.
+
+The tools listed in my notes: examine your history and your family rules.
+Express gratitude. Build self-esteem. Work toward trauma resolution. Daily
+check-in on feelings. Mindfulness. And practise the direct, assertive expression
+of boundaries and feelings — especially anger.
+
+## Pornography, and the Triple-A Engine
+
+Three properties that changed the landscape: **Anonymity, Accessibility,
+Affordability.** No transaction, no witness, no travel, no cost.
+
+The loop that follows is worth seeing whole, because each step makes the next
+more likely:
+
+use → withdrawal and isolation → poorer social functioning → fewer secure
+attachments → more stress and isolation → depression and anxiety → sexual
+dissatisfaction and less actual partnered sex → relationship problems → use.
+
+Note that the loop is powered by **isolation**, not by arousal. That is why
+solutions aimed only at blocking access tend to fail: they remove the behaviour
+and leave the engine running.
+
+The vulnerability check I use is HALT with two additions —
+**Hungry, Angry, Lonely, Tired, Bored, Stressed.** Bored and stressed are the
+two that got me most often, and neither is in the standard acronym.
+
+## The stages are longer than you want, and they overlap
+
+\`\`\`chart:CarnesRecoveryStagesChart\`\`\`
+
+Two things this chart is for.
+
+**The timescales are honest.** Repair is measured in years, not months. Nothing
+here resolves in ninety days, and a programme that implies otherwise is setting
+you up to interpret an ordinary timeline as failure.
+
+**They overlap.** Grief is still running while repair has already begun. You do
+not finish one and move to the next. On any given week you are in several at
+once, which is exactly why progress is so hard to feel from the inside.
+
+The sentence from my notes that covers it:
+
+> Be in **recovery**, not **recovered**. Nobody's timeline. Give grace.
+
+## Two failure modes, not one
+
+\`\`\`chart:SobrietyChallengesChart\`\`\`
+
+The last idea, and the one I underestimated.
+
+Every challenge in recovery has two ways to fail, and they look like opposites.
+Numbness and indulgent rage are the same challenge — disordered affect — missed
+at opposite ends. Profound self-neglect and grandiose entitlement are one
+challenge: self-care.
+
+This matters because the overachieving end **does not look like a symptom.**
+Compulsive busyness reads as work ethic. A secret life reads as privacy.
+Grandiose entitlement reads as confidence. In my case the swing from one end to
+the other felt like recovery and was just the pendulum.
+
+The target is the middle, and the middle is unglamorous. Enough.
+
+## If you are reading this about yourself
+
+A few things I would want said to me.
+
+**This is treatable, and the treatment is not mysterious.** Specialist
+therapists exist — a CSAT is a Certified Sex Addiction Therapist. Twelve-step
+fellowships exist: SAA, SLAA, SA. They are free and they are everywhere.
+
+**Disclosure is not the same as confession, and the timing and framing matter
+enormously** — particularly with a partner. There is a clinical literature on
+therapeutic disclosure specifically because doing it badly causes real harm.
+Do it with help.
+
+**Your behaviour was doing a job.** Go back to the functions of behaviour in
+chapter 10. Until you know what job it was doing, stopping it just leaves a
+vacancy.
+
+**And the shame is part of the disease, not a treatment for it.** You already
+tried hating yourself into changing. If that worked you would not be reading
+this.
+
+---
+
+## References
+
+Carnes, P. J. (2001). *Out of the shadows: Understanding sexual addiction* (3rd ed.). Hazelden.
+
+Carnes, P. J. (2009). *Recovery zone, volume 1: Making changes that last*. Gentle Path Press.
+
+Carnes, S., & Lee, M. (2012). *Facing heartbreak: Steps to recovery for partners of sex addicts*. Gentle Path Press.
+
+Cooper, A. (1998). Sexuality and the internet: Surfing into the new millennium. *CyberPsychology & Behavior, 1*(2), 187–193.
+
+Kraus, S. W., Krueger, R. B., Briken, P., et al. (2018). Compulsive sexual behaviour disorder in the ICD-11. *World Psychiatry, 17*(1), 109–110. https://doi.org/10.1002/wps.20499
+
+Prause, N., Janssen, E., Georgiadis, J., Finn, P., & Pfaus, J. (2017). Data do not support sex as addictive. *The Lancet Psychiatry, 4*(12), 899. https://doi.org/10.1016/S2215-0366(17)30441-8
+
+World Health Organization. (2019/2021). *International classification of diseases for mortality and morbidity statistics* (11th rev.), 6C72 Compulsive sexual behaviour disorder. https://icd.who.int/`,
+    },
   ],
 };
