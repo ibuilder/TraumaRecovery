@@ -49,9 +49,9 @@ import {
   FearDareChart,
   AddictiveSystemChart,
   ThreeCirclesGuideChart,
+  setStaticCharts,
 } from "@/components/trauma-charts";
 
-const ISBN = "978-0-000000-00-0";
 const PAGE_WIDTH = 215.9;
 const PAGE_HEIGHT = 279.4;
 const MARGIN_LEFT = 25.4;
@@ -231,11 +231,9 @@ function addChartImage(
 
   state = checkPageBreak(state, imgH + 8, leftHeader, rightHeader);
   state.y += 4;
-  // Light border around chart
-  state.doc.setDrawColor(220, 220, 230);
-  state.doc.setLineWidth(0.3);
-  state.doc.rect(MARGIN_LEFT + xOffset - 1, state.y - 1, imgW + 2, imgH + 2);
-  state.doc.setLineWidth(0.2);
+  // No border is drawn here: the captured image is a ChartFrame, which already
+  // carries its own. Adding one put every figure in the book inside a box
+  // inside a box.
   // Without an explicit compression level jsPDF embeds the decoded bitmap raw
   // (width x height x 3 bytes per chart), which pushed the book past 100 MB.
   state.doc.addImage(
@@ -343,13 +341,34 @@ async function renderMarkdownContent(
     if (paraBuffer.length === 0) return;
     const combined = paraBuffer.join(" ").trim();
     if (!combined) { paraBuffer = []; return; }
+    paraBuffer = [];
+
+    // A paragraph that opens with a bold run — "**The Functional Adult is the
+    // middle.** Roughly sixty-five percent…" — keeps that run as its own bold
+    // line, which is how the book uses the pattern throughout. The split has to
+    // happen on the whole joined paragraph: doing it per source line broke every
+    // hard-wrapped one, stranding the second half as a separate paragraph.
+    const lead = /^\*\*([^*]+)\*\*\s*(.*)$/s.exec(combined);
+    if (lead) {
+      const label = stripMarkdownForPdf(lead[1]).trim();
+      const rest = stripMarkdownForPdf(lead[2]).trim();
+      if (label) {
+        state.y += 4;
+        state = addText(state, label, FONT_SIZE_NORMAL, "bold", leftHeader, rightHeader);
+        if (rest) {
+          state = addText(state, rest, FONT_SIZE_NORMAL, "normal", leftHeader, rightHeader);
+          state.y += 2;
+        }
+        return;
+      }
+    }
+
     const cleaned = stripMarkdownForPdf(combined);
     if (cleaned) {
       state.y += 2;
       state = addText(state, cleaned, FONT_SIZE_NORMAL, "normal", leftHeader, rightHeader);
       state.y += 2;
     }
-    paraBuffer = [];
   };
 
   for (let i = 0; i < lines.length; i++) {
@@ -475,19 +494,8 @@ async function renderMarkdownContent(
     } else if (trimmed === "") {
       flushPara();
     } else {
-      const hasBold = /\*\*/.test(line);
-      if (hasBold && paraBuffer.length === 0 && /^\*\*[^*]+\*\*/.test(trimmed)) {
-        const boldMatch = trimmed.match(/^\*\*([^*]+)\*\*[:\s]*(.*)/);
-        if (boldMatch) {
-          flushPara();
-          state.y += 4;
-          state = addText(state, boldMatch[1] + (boldMatch[2] ? ":" : ""), FONT_SIZE_NORMAL, "bold", leftHeader, rightHeader);
-          if (boldMatch[2]) {
-            state = addText(state, stripMarkdownForPdf(boldMatch[2]), FONT_SIZE_NORMAL, "normal", leftHeader, rightHeader, 4);
-          }
-          continue;
-        }
-      }
+      // Bold lead-ins are handled in flushPara, once the whole paragraph is
+      // in hand — see the note there.
       paraBuffer.push(line);
     }
   }
@@ -540,10 +548,6 @@ function buildCoverPage(doc: jsPDF): void {
 
   doc.setFillColor(59, 130, 246);
   doc.rect(0, PAGE_HEIGHT - 8, PAGE_WIDTH, 8, "F");
-  doc.setFont("times", "normal");
-  doc.setFontSize(9);
-  doc.setTextColor(255, 255, 255);
-  doc.text(`ISBN ${ISBN}`, PAGE_WIDTH / 2, PAGE_HEIGHT - 2.5, { align: "center" });
 }
 
 function buildCopyrightPage(doc: jsPDF): void {
@@ -583,14 +587,6 @@ function buildCopyrightPage(doc: jsPDF): void {
   y += 10;
   addLine("Published by Recovery Works Publishing");
   addLine("First Edition, 2025");
-  addLine("Printed in the United States of America");
-
-  y += 10;
-  doc.setDrawColor(180, 180, 180);
-  doc.line(MARGIN_LEFT, y, PAGE_WIDTH - MARGIN_RIGHT, y);
-  y += 8;
-  doc.setFont("times", "bold");
-  doc.text(`ISBN ${ISBN}`, MARGIN_LEFT, y);
 }
 
 function buildTOCPage(doc: jsPDF, chaps: Chapter[]): void {
@@ -651,6 +647,11 @@ async function captureCharts(
     "position:fixed;left:-9999px;top:0;width:800px;background:#fff;z-index:-1;pointer-events:none;";
   document.body.appendChild(container);
 
+  // Charts must be captured with their entry animation off: at 600ms a pie is
+  // still a sliver and a radar is still growing, and Recharts does not paint
+  // its value labels until the animation lands.
+  setStaticCharts(true);
+
   try {
     for (let i = 0; i < chartNames.length; i++) {
       const name = chartNames[i];
@@ -668,8 +669,9 @@ async function captureCharts(
       try {
         await new Promise<void>((resolve) => {
           root.render(<ChartComponent />);
-          // Give Recharts time to lay out and finish its entry animation.
-          setTimeout(resolve, 600);
+          // Enough for Recharts to measure the container and lay the chart
+          // out. With animation off there is nothing further to wait for.
+          setTimeout(resolve, 350);
         });
 
         const canvas = await html2canvas(chartDiv, {
@@ -691,6 +693,7 @@ async function captureCharts(
       }
     }
   } finally {
+    setStaticCharts(false);
     container.remove();
   }
 
@@ -875,7 +878,6 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
   doc.setFontSize(10);
   doc.setTextColor(80, 80, 80);
   doc.text(`By ${bookInfo.author}`, MARGIN_LEFT, state.y); state.y += 6;
-  doc.text(`ISBN ${ISBN}`, MARGIN_LEFT, state.y); state.y += 6;
   doc.text("Recovery Works Publishing • 2025", MARGIN_LEFT, state.y);
 
   addPageNumber(state);
