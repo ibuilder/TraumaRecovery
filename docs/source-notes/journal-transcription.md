@@ -825,3 +825,621 @@ Margin: *"Can I be alone without substances?"*
 
 > **"The time is going to pass anyway."**
 > Be in *recovery* rather than *recovered* — nobody's timeline. Give grace.
+
+---
+
+## Dec 28 — Urge surfing, four steps
+
+**1 — Identify / acknowledge the urge**
+- What urge or craving are you experiencing?
+- When did you first notice the urge?
+- How strong is it? 1 (weakest) → 10 (strongest)
+
+**2 — Observe the urge**
+- Where do you feel it in your body? (e.g. restless legs)
+- What thoughts or triggers started it?
+- What emotions are you experiencing along with it?
+- *Take a few deep breaths. Describe the sensation of breathing in and out.*
+
+**3 — Ride the wave**
+- Visualise the urge as a wave that will rise, crest and fall. Describe it.
+- Stay with the experience. What do you notice happening to the urge over time?
+
+**4 — Acceptance**
+- Repeat a calming phrase (e.g. "this urge has passed"). Write it down.
+- How do you feel after successfully surfing the urge?
+
+---
+
+## Dec 28 — Lying
+
+> "If you spend six years in the forest, it takes six years to get out."
+
+- Lies of **omission** vs lies of **commission**. Dishonesty is a lie.
+  A lie is a lie is a lie.
+- What is the comfort and validation of lying to myself?
+- Lying comes from guilt and shame. Why lie about *X*? What shame and guilt is
+  it protecting me from? Am I abandoning myself?
+- Who I am / my values — that is what breaks me out of the lies.
+- ★ **Using is abandoning yourself.**
+- ▢ **Lying = self-abandonment.** ▢
+- "I place my identity in what I value, and I abandon it all when I isolate alone."
+- "People are going to believe what they want, because they don't care."
+- "Slow is fast."
+
+---
+
+## Dec 29 — ACT flexibility: FEAR and DARE
+
+Fusion = an automatic thought with a response; internalising thoughts.
+Defusion = recognising the thought and naming it.
+Identity is the most problematic place to fuse. Judgement is next.
+
+**The barriers — FEAR**
+
+- **F**usion
+- **E**xcessive goals
+- **A**voidance of discomfort
+- **R**emoteness from values
+
+**The antidote — DARE**
+
+- **D**efusion
+- **A**cceptance of discomfort
+- **R**ealistic goals
+- **E**mbracing values
+
+Distraction is short-term; avoidance means never going back.
+
+**Goal: stay sober and alive.**
+1. Make a list of everything that has stopped you, and label each with F, E, A or R.
+2. Write down how you can respond to each barrier.
+   - Does this matter to you?
+   - What is the cost?
+   - Would you rather stay stuck, or take the life-enhancing pain of moving forward?
+
+★ *Can I make room for the difficult thoughts and feelings?*
+
+"Being alone" — go to places by yourself.
+The pain of change (effort), or the pain of staying the same.
+**"Pain is inevitable, misery is a choice."** Radical acceptance of pain →
+choose your pain → drill down on the deeper goals as they relate to the pain.
+
+---
+
+## Dec 28 — DBT: Walking the Middle Path
+
+> "Pain is inevitable, suffering is a choice."
+
+Finding the synthesis between opposites — the Δ marks the middle path.
+
+| One pole | ← Δ → | Other pole | The synthesis |
+|---|---|---|---|
+| Reasonable mind | Δ | Emotional mind | Regulate actions and make decisions, taking values and experience into account |
+| Doing mind | Δ | Nothing-to-do mind | Do what is needed in the moment **and** experience full uniqueness |
+| Intense desire for change of the moment | Δ | Radical acceptance of the moment | Intense desire **and** radically accept |
+| Self-denial | Δ | Self-indulgence | Practise moderation **and** satisfy the senses |
+| Too much / do less | Δ | Too little / do more | |
+
+"List the wise things you did this week." "If needed, regulate — somatic therapy."
+
+### Learned helplessness
+
+"Not doing it the way I want it." Example: not doing the laundry the way I like
+it, or the dishes. *Where do you meet the balance in the discussion — do you
+flip the pants inside out?*
+
+---
+
+## Dec 29 — Core beliefs: the maintenance cycle
+
+Beliefs we develop about ourself and the world around us.
+**ARM** triangle: feelings · thoughts · behaviours.
+
+A closed loop that keeps the belief alive:
+
+1. **Negative core belief**
+2. **Behaviours** — and the intermediate beliefs beneath them: rules, attitudes,
+   assumptions
+3. **People's responses**
+4. **Evidence** — and negated evidence to the contrary
+→ which **reinforces** (1) and goes round again.
+
+---
+
+## Dec 29 — DBT: Mindfulness and the middle path
+
+Living in the wise mind: hold logic and emotions at once; live in the grey.
+How do we get to wise mind? Reasonable + emotional mind · doing mind + being
+mind · desire for change of the present *with* radical acceptance ·
+self-denial *with* self-indulgence.
+
+---
+
+## Dec 30 — DBT: Emotional regulation — when you change
+
+Three outcomes, and only three:
+
+1. The relationship dynamic changes
+2. The relationship dynamic stays the same
+3. You leave
+
+> Live long · Laugh often · Love much
+
+**Recovery programs**: Alcoholics Anonymous · NA · CMA · CA · Refuge Recovery ·
+Recovery Dharma · ACOA · CoDA
+
+"Be comfortable with the uncomfortable."
+
+---
+
+## Dec 30 — Karpman's Triangle
+
+Three roles, and the feelings that move between them.
+
+| Role | |
+|---|---|
+| **Rescuer / Enabler** | |
+| **Perpetrator / Offender** | |
+| **Victim / Martyr** | |
+
+- Rescuer → Perpetrator: entitlement / resentment
+- Perpetrator → Rescuer: guilt / remorse
+- Perpetrator → Victim: guilt and resentment
+- Victim → Perpetrator: entitlement and resentment
+- Victim → Rescuer: guilt and powerlessness
+- Rescuer → Victim: resentment and entitlement
+
+The way out — the second, inverted triangle: **Responsibility · Options ·
+Negotiation.**
+
+Margin: "Emotional abuse as a child → yelling is what you had to do to get what
+you want."
+
+### Exit the triangle
+
+- Self-care — mindfulness, leisure time, journaling, validation, peer support
+- Share thoughts → let go → negotiate → set limits → follow through with
+  consequences → maintain boundaries → healthy relationships
+- "As an adult, I have choices."
+- "I cannot be abandoned or abused."
+- ★ **"I am not a victim, but a volunteer."**
+
+---
+
+## Apr 13 — The many faces of shame
+
+> "Shame is the feeling of being unworthy of love."
+
+| Shame | Guilt |
+|---|---|
+| "I am bad" | "I did something bad" |
+| "I am a thief" | "I stole something" |
+| the ideal | the gift to grow |
+
+> "When we feel shame and fear, blame is never far behind."
+
+### The shame cycle
+
+shame screen → **acting out** (drugs, alcohol, suicide, gambling) → out of
+control → **acting in** → extreme control → back to acting out
+
+Reference: *Recovery Zone*, chapter 7.
+
+---
+
+## Apr 14 — The author's Three Circles
+
+Worked out in full, in his own hand.
+
+- **Inner circle** (bottom-line behaviours): meth · cocaine · sex workers ·
+  porn · anger · massage parlours · conquests · pimping · weed · alcohol ·
+  strip clubs · transactional relationships · masturbation · nicotine ·
+  dependence
+- **Middle circle** (warning signs): lack of self-care · self-hate · not
+  attending 12-step meetings · watching TV · bad diet · not working out · not
+  taking meds · not finishing the steps · lack of present focus
+- **Outer circle** (the life being built): dog walks · dog responsibility ·
+  sponsor · AA/NA/CMA/SMART meetings · gym · affirmations · yoga · learning
+  something new every day · self-care · hair care · pool/swimming · daily
+  routine · journaling · church · date night · reading · pickleball · golf
+
+---
+
+## Apr 14 — Recovery: a heroic journey
+
+- "Victory at all costs."
+- **Philip Zimbardo** — the bell curve of heroes, *reluctant* heroes at the
+  peak, and villains at the far tail. **"ME → WE."** Altruism and heroism.
+- **Mentor = sponsor.**
+- **Recovery = transform from shame to grace.**
+- The hero's journey / monomyth.
+
+### The stages of the journey
+
+1. Innocence
+2. The call — hunger
+3. Initiation — sexuality
+4. The ordeal — activity *(the trough)*
+5. Breakthrough — reflection
+6. Celebration — creativity *(the peak)*
+
+### Carnes' stages of recovery, on a timeline
+
+| Stage | Duration |
+|---|---|
+| Developing | up to 2 years |
+| Crisis / decision | 1 day – 3 months |
+| Shock | 8 months |
+| Grief | 4–8 months |
+| Repair | 18–36 months |
+| Growth | 2 years and beyond |
+
+---
+
+## Apr — Erotisized rage, the CBT chain
+
+Beliefs (from experiences, others, and **fantasy**) → feelings and thoughts →
+**expectation** (A = B; if C → D; if not C → E) → then either:
+
+- **met** → feels good, but not healthy — and it feeds the fantasy again, or
+- **not met** → behaviour → **resentment** → entitlement: mad, sad, vengeful
+  = **erotisized rage**
+
+Margin: *what if there were no fantasies?*
+
+---
+
+## May 18 — Erotisized rage, in full
+
+A direct or indirect expression of anger through sex.
+- **Direct** = overt acts of aggression
+- **Indirect** = passive aggression / avoidance
+
+Examples: internet revenge · pornography · volatile relationships ·
+sexual acting out · humiliation · passive aggression
+
+What it is doing:
+- retaliation in relationships
+- equalising a perceived power differential
+- restoring power / a sense of self
+- a desire to humiliate, degrade or shame someone
+- indirectly expressing anger without getting caught
+
+**Where it comes from:** grievance trauma · a belief of insufficiency ·
+parental enmeshment · vulnerability
+
+**Tools to reduce it:** examine history and family rules · express gratitude ·
+build self-esteem · work toward trauma resolution · daily check-in of feelings ·
+mindfulness — meditation, yoga, prayer · practise assertive, direct expression
+of boundaries and feelings, especially anger
+
+---
+
+## Apr 21 — The addictive system
+
+The outer loop: **negative core beliefs → belief system → impaired thinking →
+the addictive cycle → unmanageability →** back to the belief system.
+
+The inner cycle: **preoccupation → ritualisation → compulsive behaviour →
+despair** (shame, guilt) → back to preoccupation.
+
+### Attachment styles
+
+| | |
+|---|---|
+| Secure | Preoccupied (anxious) |
+| Dismissive avoidant | Fearful avoidant |
+
+### Blue board / green board
+
+What is driving the wanting — for love, for sex, for safety.
+
+| Blue board | Green board |
+|---|---|
+| power · control · fantasy · connection · obligation · caretaking · dangerous · conditional · transactional · performative · manipulative · **intensity** | boundaries · respect · mutual / reciprocal · safety · positive intent · authentic · individuation · communicative / transparent · **intimacy** · honest · empathy · values |
+
+---
+
+## Apr 21 — Trauma: consequences and steps toward healing
+
+- Types of trauma named: rape · other sexual assault · unexpected death ·
+  intimate sexual violence
+- **Prior trauma predicts both future trauma exposure and future PTSD risk**
+- Effects on the brain: prefrontal cortex (rational thinking, planning) ·
+  hippocampus (memory) · amygdala (survival)
+- ★ Internal Family Systems
+- **Post-traumatic growth → make meaning out of your suffering**
+- *The Body Keeps the Score*
+
+### Choices
+
+- Community — live in consultation
+- "It is my job to give myself a good life: safety, worth, companionship."
+- "To thine own self be true."
+- "Choose a good life."
+- "Outside sources do NOT know."
+
+*(A clinician's email address and a private file link on this page are not
+transcribed. Also noted: GLP-1 agonists for addiction.)*
+
+---
+
+## Apr 24 — The addicted brain
+
+- **Dopamine hypothesis** — *Dopamine Nation*, Dr Anna Lembke
+- **Olds & Milner** — the original intracranial self-stimulation study
+- "Drugs hijack the brain"
+- ★ **"It's not about how much, but how fast."**
+- **Nora Volkow** — dopamine in the brain
+- Repairing dopamine receptors: reprogram glutamate (learning) in the dopamine
+  system. ★ *A holiday for dopamine.* ★
+
+---
+
+## May 1 — The neuroscience of addiction and recovery
+
+- Naltrexone → opioid system → dopamine system. Buprenorphine is a partial
+  agonist, not an antagonist.
+- **Glutamate = memories** → the cause of, and reason for, relapse
+- **Trauma is anything less than nurturing**
+- More behaviour / impulsivity → less inhibition
+- **Addiction is a disorder of pleasure** (the dopamine reward system)
+- **Addiction is a disorder of "choice"** (decision making)
+- **Addiction is caused by stress** — severe, cumulative, repeating early in
+  life, and inherited. Depression / anxiety / PTSD.
+- Summary: addiction is a **stress-induced, genetically mediated** disorder of
+  the reward (dopamine/glutamate) and executive systems of the brain.
+
+### Heritability, as taught
+
+| Substance | Heritability |
+|---|---|
+| Alcohol | 48–66% |
+| Cannabis | 51–59% |
+| Cocaine | 42–79% |
+| Opioids | 23–49% |
+| Nicotine | 33–71% |
+| Gambling | 49% |
+
+Genetics: fewer **DRD2** receptors.
+Epigenetics: the **Överkalix** study; personal genome by region;
+**Rachel Yehuda** on the inheritance of trauma.
+
+---
+
+## May 1 — The tree of addiction
+
+- Underlying damage of shame; wounding and diversion within the individual
+- Dopamine curve: a sharp spike (methamphetamine, amphetamines) followed by a
+  long depletion below baseline
+- Social domination vs relapse — no bingeing, no isolation
+- Drugs = survival
+- **Dopamine = wanting. The "liking" systems are different**: endogenous
+  opioids · endogenous cannabinoids · GABA · serotonin · oxytocin
+- Schizophrenia = too much dopamine; Parkinson's = not enough dopamine
+- Reprocessing trauma / addiction — EMDR
+
+---
+
+## May 2 — FANOS, a daily check-in for couples
+
+- **F**eelings
+- **A**ffirmations
+- **N**eeds
+- **O**bstacles
+- **S**truggles / sobriety
+
+---
+
+## May 7 — Who am I? Restructuring the sense of self
+
+**The Self** is built from: self-concept · self-knowledge · self-esteem ·
+social self.
+
+> "I am my genes, my dreams, my choices, my culture."
+> "Addiction is a nightmare."
+> ★ "I am free to make whatever choice I want, but I am not free of the
+> consequences of the choice."
+
+| | Choice | Result |
+|---|---|---|
+| To use | A | Consequence Z — negative |
+| Not to use | B | Outcome C — positive |
+
+Maslow, alongside: **grow · transcend · express**.
+
+### From the unconscious bargain with chaos, to a new covenant of self
+
+| Unconscious bargain with chaos | New covenant of self |
+|---|---|
+| Choice | Choice |
+| Trade-off | Challenge |
+| Denial | Reality |
+| Impulsivity | Intentionality |
+| Compulsivity | Mindfulness |
+| Obsession | Focus |
+| Costs | Benefits |
+
+### New covenant principles
+
+| Core strategy | Principle |
+|---|---|
+| Build resilience | Lifelong learning |
+| Utilise feelings | Congruent behaviour |
+| Internal observer | Develop zone consciousness |
+| Mission | Maintain focus |
+| Intimacy | Live in consultation |
+
+> ★ "Life can be understood backwards, but it must be lived forwards."
+
+**Sex addiction is a disease of the sense of self.**
+
+---
+
+## May 8 — Reading and reference list
+
+- Patrick Carnes: *"If you can't do it in the daylight, don't do it."*
+  "At the end, a child of yours is what matters."
+- Joseph Campbell — *The Hero with a Thousand Faces*
+- Patrick Carnes — the spiritual paradox
+- **Admiral Stockdale** — the POW camp; here and now *(the Stockdale paradox)*
+- Limerence; mirror neurons
+- Ryan Holiday on the Stoics
+- *The Soul Window* — deepest desires, where they come from
+- Get a brain scan — 13–16 months of brain repair
+- Nightmares — REM behaviour disorder
+- Go to an SAA meeting and listen
+
+### The decision table (Carnes)
+
+Rank each decision you have been putting off on two 1–5 scales.
+
+| Courage index | Importance |
+|---|---|
+| 1 Hoping | 1 Minimal importance |
+| 2 Wishing | 2 Some importance |
+| 3 Wanting | 3 Important |
+| 4 Whethering | 4 Very important |
+| 5 Go to any lengths | 5 Critical importance |
+
+Columns: decisions to make · steps to take · impact on my life · courage index · rank.
+
+---
+
+## May 14 — Compulsive sexual behaviour disorder
+
+**ICD-11 (2020) recognised Compulsive Sexual Behaviour Disorder (CSBD).**
+
+Ten features as taught:
+1. Loss of control
+2. Compulsive behaviour
+3. Repeated failed efforts to stop
+4. Loss of time
+5. Preoccupation
+6. Inability to fulfil obligations
+7. Continuation despite consequences
+8. Escalation
+9. Losses
+10. Withdrawal
+
+Addiction criteria: tolerance and withdrawal.
+Open question in the margin: *is ADHD genetically linked to sex addiction?*
+
+A Venn diagram of three overlapping but distinct things — **CSBD**,
+**paraphilias** (exhibitionism, fetishism, frotteurism, paedophilia) and
+**sex offending** — with the note "significant overlap." They are not the
+same thing.
+
+---
+
+## May 14 — The secret logic of resilience
+
+Resilience is built over time from experience; it gives less leverage to the
+negative. A seesaw: negative experience (abuse, neglect) on one side, positive
+experience (education, positive relationships) on the other.
+
+> "Resilience = unbelievable survival."
+
+- The ability to adapt in the face of adversity: trauma, tragedy, threats, or
+  significant stress
+- A set of skills, attitudes and values that can be **developed**
+- Protection of an individual or family against environmental stress
+- **It is a process, not just a trait**
+- **It is a continuum, relative to a situation**
+- It protects an individual against overwhelming odds, including addiction
+- **Recovery is a form of resilience. Trauma recovery is resilience.**
+
+Worksheet columns: strengths · sources of support · personal moments of
+resilience · application to moments of difficulty · practising resilience.
+
+What to do: make connections · accept change · avoid crisis.
+Grounded · regulation · communication · self-value.
+Needs: well-being · connection · mastery · basic needs and support.
+
+> **Kintsugi: the art of precious scars.**
+
+---
+
+## May 16 — The sobriety challenges
+
+Each challenge has two failure modes, one at each end.
+
+| Underachieving | The challenge | Overachieving |
+|---|---|---|
+| Despair | Distorted achievement | Depletion and chaos |
+| Self-defeating shame | Compromised self-image | Self-absorbed obsession |
+| Not accountable | Lack of accountability | Secret life |
+| Profound self-neglect | Problematic self-care | Grandiose entitlement |
+| No remorse | Impaired conscience | Guilt-driven |
+| No common sense | Faulty realism | Common sense ignored |
+| Avoidance / procrastination | Limited self-awareness | Compulsive busyness |
+| Isolation | Incomplete relationships | Hidden parts of self |
+| Shutdown feelings / numbness | Disordered affect | Indulgent rage, drama, intensity |
+
+- Know your challenges.
+- Decide to do what is essential.
+
+---
+
+## May 19 — Problematic pornography use
+
+**The Triple-A Engine**: Anonymity · Accessibility · Affordability
+
+The loop: porn use → withdrawal and isolation → poorer social functioning →
+fewer secure attachments → stress and isolation → depression and anxiety →
+sexual dissatisfaction, less actual sex → relationship problems → porn use.
+
+**HALT, extended**: Hungry · Angry · Lonely · Tired · **Bored · Stressed** —
+"look for areas of vulnerability", "structure time and build support."
+
+Resources noted: yourbrainonporn.com · sash.net · sexhelp.com ·
+sexualrecovery.com/resources · fightthenewdrug.org · integrityrestored.com ·
+posarc.com
+
+---
+
+## May 20 — Developmental immaturity and codependence
+
+**Codependence — a disorder caused by childhood trauma.**
+Roots: enmeshment · abandonment · neglect · shame · abuse. *Dig up the roots.*
+
+**Five core symptoms**: self-esteem · boundaries · reality · dependency ·
+moderation and containment.
+
+These drive disorders of sex, drugs and money, and phobias, anxiety,
+depression, PTSD.
+
+Childhood trauma → causes → immaturity → both drive → unmanageability → all
+three create → **problems with being intimate**.
+
+| Nature of the child | Core issue | Secondary symptom | Relational problem |
+|---|---|---|---|
+| **Valuable** | Self-esteem issues (less-than vs better-than) | Negative control issues | Relational esteem issues |
+| **Vulnerable** (protection) | Boundary issues (too vulnerable vs invulnerable) | Resentment issues / raging | Enmeshment and avoidance issues |
+| **Imperfect** (reality) | Reality issues; bad-or-rebellious vs good-and-perfect | Spirituality issues | Dishonesty |
+| **Dependent** (needs and wants) | Dependency issues (too dependent vs anti-dependent, needless / wantless) | Addiction issues, mood disorders, physical illness | Problems with interdependence |
+| **Spontaneous and open** | Moderation / containment issues (out of control vs controlling others) | Intimacy issues | Intensity issues |
+
+★ "Conditional relationships = whatever you bring to a relationship."
+
+### The three ego states
+
+| Wounded Child | Functional Adult | Adapted Adult Child (7–17) |
+|---|---|---|
+| Less than | Equal | Better than |
+| Too vulnerable | Shielded | Invulnerable (walls) |
+| Bad | Vulnerable / human | Good |
+| Needy | Fallible | Needless |
+| Out of control | Interdependent, moderate | In control |
+
+### The eight feelings
+
+Anger · Fear · Pain · Joy · Passion · Love · Shame · Guilt
+
+For each: where do you feel it in your body — name the body sensation — and
+what happened in your family of origin in relation to it?
+
+The distinction taught alongside this: a feeling that is **your own**, versus a
+feeling you are **carrying** for someone else. They register differently in the
+body.
