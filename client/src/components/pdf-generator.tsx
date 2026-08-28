@@ -47,6 +47,8 @@ import {
   MiddlePathChart,
   BullseyeChart,
   FearDareChart,
+  AddictiveSystemChart,
+  ThreeCirclesGuideChart,
 } from "@/components/trauma-charts";
 
 const ISBN = "978-0-000000-00-0";
@@ -108,6 +110,8 @@ const ALL_CHART_COMPONENTS: Record<string, React.ComponentType> = {
   MiddlePathChart,
   BullseyeChart,
   FearDareChart,
+  AddictiveSystemChart,
+  ThreeCirclesGuideChart,
 };
 
 /** Every chart placeholder the book actually references, in first-use order. */

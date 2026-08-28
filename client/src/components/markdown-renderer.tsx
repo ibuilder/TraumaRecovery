@@ -80,6 +80,8 @@ import {
   MiddlePathChart,
   BullseyeChart,
   FearDareChart,
+  AddictiveSystemChart,
+  ThreeCirclesGuideChart,
 } from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
@@ -167,6 +169,8 @@ const chartComponents: Record<string, React.ComponentType> = {
   "MiddlePathChart": MiddlePathChart,
   "BullseyeChart": BullseyeChart,
   "FearDareChart": FearDareChart,
+  "AddictiveSystemChart": AddictiveSystemChart,
+  "ThreeCirclesGuideChart": ThreeCirclesGuideChart,
 };
 
 /**

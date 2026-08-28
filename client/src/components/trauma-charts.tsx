@@ -3574,3 +3574,102 @@ export function FearDareChart() {
     </figure>
   );
 }
+
+export function AddictiveSystemChart() {
+  const inner = [
+    { phase: "Preoccupation", note: "The mind starts to hunt. Everything becomes a cue." },
+    { phase: "Ritualisation", note: "The routines before. Often more charged than the act." },
+    { phase: "Compulsive behaviour", note: "The act itself. Usually the briefest part." },
+    { phase: "Despair", note: "Shame, and powerlessness — which is the fuel for the next cycle." },
+  ];
+  return (
+    <figure className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">The Cycle Inside the System</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Four phases that feed each other, sitting inside a larger loop of belief
+        and unmanageability.
+      </p>
+      <div className="rounded-md border border-dashed border-border p-4">
+        <p className="text-xs uppercase tracking-wide text-muted-foreground text-center mb-3">
+          negative core beliefs → belief system → impaired thinking ↓
+        </p>
+        <ol className="grid gap-2 sm:grid-cols-2">
+          {inner.map((p, i) => (
+            <li key={p.phase} className="rounded-md border border-border bg-muted/40 p-3">
+              <p className="text-sm font-semibold">
+                <span className="text-primary mr-1.5">{i + 1}.</span>
+                {p.phase}
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">{p.note}</p>
+            </li>
+          ))}
+        </ol>
+        <p className="text-xs uppercase tracking-wide text-muted-foreground text-center mt-3">
+          ↑ unmanageability → back to the belief system
+        </p>
+      </div>
+      <figcaption className="text-xs text-muted-foreground mt-3">
+        Carnes, P. J. (2001). <em>Out of the Shadows: Understanding sexual
+        addiction</em> (3rd ed.). Hazelden. Despair is not the end of the cycle —
+        it is what powers the next one.
+      </figcaption>
+    </figure>
+  );
+}
+
+export function ThreeCirclesGuideChart() {
+  const circles = [
+    {
+      name: "Inner circle",
+      colour: "border-destructive/50 bg-destructive/5",
+      label: "Bottom line",
+      text: "The behaviours that are, for you, the equivalent of a drink. No exceptions and no gradations. If it is in here, doing it is a relapse.",
+      test: "Would I have to lie about this?",
+    },
+    {
+      name: "Middle circle",
+      colour: "border-chart-4/50 bg-muted/50",
+      label: "Warning signs",
+      text: "Not relapse. The conditions that reliably precede it. Isolation, skipped meetings, poor sleep, secrecy, the slide in self-care.",
+      test: "Is this how it started last time?",
+    },
+    {
+      name: "Outer circle",
+      colour: "border-primary/50 bg-primary/5",
+      label: "The life being built",
+      text: "Everything that constitutes recovery rather than merely abstinence. This circle is the point. The other two exist to protect it.",
+      test: "Does this make the life I want more likely?",
+    },
+  ];
+  return (
+    <figure className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">The Three Circles</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        A sobriety definition you write yourself, because unlike alcohol there is
+        no substance to abstain from.
+      </p>
+      <div className="space-y-3">
+        {circles.map((c) => (
+          <div key={c.name} className={`rounded-md border p-4 ${c.colour}`}>
+            <div className="flex items-baseline gap-2 flex-wrap">
+              <p className="font-semibold">{c.name}</p>
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                {c.label}
+              </p>
+            </div>
+            <p className="text-sm text-muted-foreground mt-1.5">{c.text}</p>
+            <p className="text-sm mt-2">
+              <span className="text-muted-foreground">The test: </span>
+              <span className="italic">{c.test}</span>
+            </p>
+          </div>
+        ))}
+      </div>
+      <figcaption className="text-xs text-muted-foreground mt-3">
+        Used across Sex Addicts Anonymous and related fellowships; see
+        Carnes, P. J. (2001). Write it with a sponsor or a therapist, not alone —
+        the inner circle is exactly where the disease gets a vote.
+      </figcaption>
+    </figure>
+  );
+}
