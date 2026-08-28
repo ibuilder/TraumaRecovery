@@ -76,6 +76,10 @@ import {
   AttachmentMapChart,
   CatastrophizingIcebergChart,
   CoreBeliefCycleChart,
+  AskIntensityChart,
+  MiddlePathChart,
+  BullseyeChart,
+  FearDareChart,
 } from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
@@ -159,6 +163,10 @@ const chartComponents: Record<string, React.ComponentType> = {
   "AttachmentMapChart": AttachmentMapChart,
   "CatastrophizingIcebergChart": CatastrophizingIcebergChart,
   "CoreBeliefCycleChart": CoreBeliefCycleChart,
+  "AskIntensityChart": AskIntensityChart,
+  "MiddlePathChart": MiddlePathChart,
+  "BullseyeChart": BullseyeChart,
+  "FearDareChart": FearDareChart,
 };
 
 /**

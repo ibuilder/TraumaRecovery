@@ -793,5 +793,219 @@ Harris, R. (2024). *The happiness trap: How to stop struggling and start living*
 
 Hayes, S. C. (2024). *A liberated mind: How to pivot toward what matters* (updated ed.). Avery.`,
     },
+    {
+      id: "10-5",
+      title: "Values, Fusion, and the Functions of Behaviour",
+      slug: "values-fusion-functions",
+      order: 5,
+      content: `# Values, Fusion, and the Functions of Behaviour
+
+> You are going to live life by your values — or your values are going to show
+> up in the way you live your life.
+
+That sentence went up on a whiteboard and I copied it down without understanding
+it. It took a few weeks. What it means is that your values are not what you say
+they are. They are what your calendar and your bank statement say they are, and
+if those two accounts disagree, the calendar is telling the truth.
+
+My example, and it is not a flattering one. I would have told you, sincerely,
+that family was my highest value. Meanwhile I was not answering the phone, and I
+was out using. The value was real. The behaviour was the actual value.
+
+That gap has a name — cognitive dissonance — and it is not a character flaw. It
+is information about where the work is.
+
+## The Bullseye
+
+\`\`\`chart:BullseyeChart\`\`\`
+
+The exercise is disarmingly simple and it took me a long time to do honestly.
+
+Four domains. In each one, put a mark showing how close your behaviour is to the
+person you want to be in that part of life. Not how well things are *going* —
+whether you are *acting like yourself*.
+
+Two things to notice about the version above, which is roughly where I was.
+
+**Work was near the centre.** I was reliable, competent and present in my job
+throughout. Which means the skills were not missing. Whatever I was, I was not
+incapable of showing up.
+
+**Relationships and health were out at the edge.** Which is where the work was.
+
+That combination — nailing one quadrant and abandoning three — is extremely
+common, and it is worth naming as a pattern rather than a personal failure. It
+is much easier to pour everything into the domain where you get scored, because
+the feedback is legible and the boundaries are clear. The domains without
+performance reviews are the ones that quietly go to the outer ring.
+
+**A dot at the edge is information, not a verdict.** Then one question: *what do
+I need to do to be closer to the centre?* Not fix it. Closer.
+
+### Set goals from values, not values from goals
+
+I had this backwards for twenty years. I would pick a goal, achieve it, and then
+work out what value it was supposed to have expressed — which is how you end up
+with a life full of accomplishments that belong to somebody else.
+
+The right order is: name the value, then derive a goal that expresses it. A
+value is a direction, not a destination. You never finish "being a good friend."
+You just keep heading that way, and the goals are the individual steps.
+
+Try it concretely. Take a thing in your life and ask what value it expresses:
+
+| The thing | The value underneath |
+|---|---|
+| my dog | responsibility, commitment |
+| my job | perseverance, integrity |
+| helping people | service, kindness |
+| time outdoors | conservation |
+| my calendar | time, boundaries |
+
+Then invert it. If those are the values, what does a week that expresses them
+look like? That week is your goal list.
+
+## Fusion: when a thought stops being a thought
+
+Fusion is what happens when you are so close to a thought that you cannot see it
+as one. It stops being *something you are thinking* and becomes *how things
+are*.
+
+"I'm not worth anything" fused is not a belief you hold. It is the floor.
+
+The place fusion does the most damage is **identity**. A thought about your
+behaviour — *I did something bad* — fuses into a thought about your self — *I am
+bad* — and once that has happened there is nothing to work on, because you
+cannot fix what you *are*.
+
+Fusion also happens between people. The word for it in my notes was relational
+fusion: a family in which there is one permitted way to think, and no visible
+alternative. Usually the family of origin. Usually invisible from inside, which
+is exactly the problem.
+
+### Defusion, as an action
+
+Not a mindset. Four steps.
+
+**1. Identify.** What is the thought or behaviour? And three orienting
+questions — *am I stuck? where am I? am I safe?*
+
+If those questions are hard to answer, ground first, because defusion requires a
+nervous system that is on line. **5-4-3-2-1**: five things you can see, four you
+can feel, three you can hear, two you can smell, one you can taste.
+
+**2. Name the consequences.** What does fusing with this cost me? Withdrawal,
+isolation, quick relief now and a worse position later. Believing my own story.
+The question underneath: is this thought **helpful** — not is it *true*. ACT is
+uninterested in whether a thought is true. It is interested in whether holding
+it tightly moves you toward the life you want.
+
+**3. Normalise it.** The thought is not a symptom of being broken. Minds produce
+frightening and self-critical thoughts; that is a large part of what minds are
+for. You are not required to have a quiet head.
+
+**4. Open the alternatives.** Once there is daylight between you and the
+thought, other readings become available. Not better thoughts — *more* thoughts.
+
+## Why you are stuck: FEAR and DARE
+
+\`\`\`chart:FearDareChart\`\`\`
+
+The most practically useful thing in this chapter. When forward motion stops,
+it is almost always one of four things, and each has a specific counterpart.
+
+The exercise: list everything currently stopping you, and label each item F, E,
+A or R. The labelling is the intervention, because the four barriers need
+completely different responses and treating them all as "lack of motivation"
+guarantees the wrong one.
+
+Then, for each barrier, three questions:
+
+- Does this actually matter to me?
+- What is it costing?
+- Would I rather stay stuck — or take the pain of moving?
+
+Because there is pain either way, and this is the honest bit of ACT. The pain
+of changing is real. The pain of staying the same is also real, and it is
+larger, and it does not end. **You do not get to choose whether it hurts. You
+get to choose which pain.**
+
+## The functions of behaviour
+
+The last framework, and the one that changed how I looked at my own relapses.
+
+> If you can understand the *function* of your behaviour, you can change it.
+
+Not the behaviour. The function. Every compulsive behaviour is doing a job, and
+until you know what the job is, stopping it just leaves the job vacant — and
+something else gets hired.
+
+Three columns:
+
+| Trigger | Behaviour | Payoff |
+|---|---|---|
+| Home, alone, in the evening. Loneliness, boredom, sadness. "I can't stand feeling like this." | Use | The thoughts and feelings stop. Immediately. Reliably. |
+
+Then add the column nobody wants to write:
+
+| Long-term consequence |
+|---|
+| Everything. Eventually, death. |
+
+And the one that actually helps:
+
+| What else would do that job? |
+|---|
+| Go to a meeting. Call someone. Walk the dog. |
+
+### The payoffs are real
+
+This is the part I needed to hear. The behaviour is not irrational. It works.
+That is precisely the problem.
+
+The payoffs, as taught:
+
+1. You get to feel good
+2. You get to get rid of uncomfortable thoughts and feelings
+3. You get to escape a situation
+4. You get attention
+5. You get a need met
+6. You feel like you are problem-solving
+7. You feel like you are making sense of things
+
+Look at how good that list is. Every one of those is something a person
+legitimately needs. The behaviour is a *competent solution* to a real problem,
+with a catastrophic price attached.
+
+Which means the question is never "why would I do something so stupid." It is
+**"what was that solving, and what else could solve it?"** The first question
+produces shame, and shame produces more of the behaviour. The second produces a
+plan.
+
+## What to do with all of this
+
+The order I use, when something has gone wrong:
+
+1. **What was the function?** What job was that behaviour doing?
+2. **Which barrier is running?** F, E, A, or R.
+3. **What does the Bullseye say?** Which domain has drifted, and what is the
+   smallest move toward the centre?
+
+None of that requires me to feel better first. That is the point of ACT, and it
+is why it survived contact with my worst weeks: it never asks you to fix your
+feelings before you are allowed to move.
+
+---
+
+## References
+
+Harris, R. (2019). *ACT made simple: An easy-to-read primer on acceptance and commitment therapy* (2nd ed.). New Harbinger Publications.
+
+Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). *Acceptance and commitment therapy: The process and practice of mindful change* (2nd ed.). Guilford Press.
+
+Lundgren, T., Luoma, J. B., Dahl, J., Strosahl, K., & Melin, L. (2012). The Bull's-Eye Values Survey: A psychometric evaluation. *Cognitive and Behavioral Practice, 19*(4), 518–526.
+
+Twohig, M. P., & Levin, M. E. (2017). Acceptance and commitment therapy as a treatment for anxiety and depression: A review. *Psychiatric Clinics of North America, 40*(4), 751–770.`,
+    },
   ],
 };
