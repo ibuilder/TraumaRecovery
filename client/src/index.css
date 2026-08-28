@@ -243,8 +243,11 @@ html {
     background-color: var(--elevate-2);
   }
 
-  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
-  .border.toggle-elevate::before {
+  /* If there's a 1px border, adjust the inset so that it covers that parent's border.
+     `[class~="border"]` matches the same elements as `.border` but keeps Tailwind from
+     registering these rules under the `border` utility: a variant such as `after:border`
+     would otherwise be applied to them too and emit an invalid `::after::before`. */
+  [class~="border"].toggle-elevate::before {
     inset: -1px;
   }
 
@@ -281,12 +284,12 @@ html {
     background-color: var(--elevate-2);
   }
 
-  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
-  .border.hover-elevate:not(.no-hover-interaction-elevate)::after,
-  .border.active-elevate:not(.no-active-interaction-elevate)::after,
-  .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
-  .border.active-elevate-2:not(.no-active-interaction-elevate)::after,
-  .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
+  /* If there's a 1px border, adjust the inset so that it covers that parent's border.
+     See the note above on `[class~="border"]`. */
+  [class~="border"].hover-elevate:not(.no-hover-interaction-elevate)::after,
+  [class~="border"].active-elevate:not(.no-active-interaction-elevate)::after,
+  [class~="border"].hover-elevate-2:not(.no-hover-interaction-elevate)::after,
+  [class~="border"].active-elevate-2:not(.no-active-interaction-elevate)::after {
     inset: -1px;
   }
 }
