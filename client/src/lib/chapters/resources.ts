@@ -1,12 +1,12 @@
 import type { Chapter } from "./types";
 
 export const resourcesChapter: Chapter = {
-  id: "13",
+  id: "14",
   title: "Resources & Video Library",
   slug: "resources",
   description: "Curated recovery videos, expert talks, and treatment program resources.",
   icon: "Video",
-  order: 13,
+  order: 14,
   readingTime: "45 min read",
   content: `# Recovery & Trauma Treatment YouTube Video Library
 
@@ -20,7 +20,7 @@ This chapter provides a comprehensive collection of educational videos, expert t
 
 Dr. Kevin McCauley is a physician who has made groundbreaking contributions to understanding addiction as a brain disease.
 
-**Website:** drkevinmccauley.com
+**Website:** [drkevinmccauley.com](https://drkevinmccauley.com)
 
 **Topics:**
 - Neuroscience of addiction
@@ -33,7 +33,7 @@ Dr. Kevin McCauley is a physician who has made groundbreaking contributions to u
 
 **Search YouTube:** "Kevin McCauley Pleasure Unwoven" (available in chapters)
 
-**Trailer:** youtube.com/watch?v=wxiKVQR90VM
+**Trailer:** [youtube.com/watch?v=wxiKVQR90VM](https://youtube.com/watch?v=wxiKVQR90VM)
 
 **Key Contribution:** Explores whether addiction is a disease through the neuroscience lens
 
@@ -43,9 +43,9 @@ Dr. Kevin McCauley is a physician who has made groundbreaking contributions to u
 
 Dr. Gabor Maté is a renowned physician and author specializing in trauma, addiction, and the mind-body connection.
 
-**Official YouTube Channel:** youtube.com/@DrGaborMate
+**Official YouTube Channel:** [youtube.com/@DrGaborMate](https://youtube.com/@DrGaborMate)
 
-**Website:** drgabormate.com
+**Website:** [drgabormate.com](https://drgabormate.com)
 
 **Topics:**
 - Trauma and its effects
@@ -65,7 +65,7 @@ Dr. Gabor Maté is a renowned physician and author specializing in trauma, addic
 
 **Search YouTube:** "Dr. Gabor Maté trauma" or "Gabor Maté addiction"
 
-**Additional Resources:** drgabormate.com/addiction/
+**Additional Resources:** [drgabormate.com/addiction/](https://drgabormate.com/addiction/)
 
 ---
 
@@ -73,7 +73,7 @@ Dr. Gabor Maté is a renowned physician and author specializing in trauma, addic
 
 Dr. Bessel van der Kolk is a psychiatrist and researcher who has been a leader in traumatic stress for over 40 years. He founded the Trauma Research Foundation.
 
-**Website:** besselvanderkolk.com
+**Website:** [besselvanderkolk.com](https://besselvanderkolk.com)
 
 **Topics:**
 - Trauma and PTSD
@@ -100,9 +100,9 @@ Dr. Bessel van der Kolk is a psychiatrist and researcher who has been a leader i
 Dr. Patrick Carnes is a pioneer in the field of sexual addiction and betrayal trauma treatment.
 
 **Organizations:**
-- International Institute for Trauma and Addiction Professionals (IITAP): iitap.com
+- International Institute for Trauma and Addiction Professionals (IITAP): [iitap.com](https://iitap.com)
 
-**Website:** drpatrickcarnes.com
+**Website:** [drpatrickcarnes.com](https://drpatrickcarnes.com)
 
 **Topics:**
 - Sexual addiction recovery
@@ -127,7 +127,7 @@ Dr. Patrick Carnes is a pioneer in the field of sexual addiction and betrayal tr
 
 Pia Mellody is a pioneering clinician and creator of the Developmental Model of Immaturity.
 
-**Website:** piamellody.com
+**Website:** [piamellody.com](https://piamellody.com)
 
 **Topics:**
 - Codependency
@@ -151,7 +151,7 @@ Pia Mellody is a pioneering clinician and creator of the Developmental Model of 
 
 Dr. Claudia Black is a pioneer in adult children of alcoholics (ACoA) treatment.
 
-**Website:** claudiablack.com
+**Website:** [claudiablack.com](https://claudiablack.com)
 
 **Topics:**
 - Adult children of alcoholics
@@ -172,7 +172,7 @@ Dr. Claudia Black is a pioneer in adult children of alcoholics (ACoA) treatment.
 
 Dr. Tian Dayton is a leading specialist in psychodrama and experiential therapy.
 
-**Website:** tiandayton.com
+**Website:** [tiandayton.com](https://tiandayton.com)
 
 **Topics:**
 - Psychodrama
@@ -190,7 +190,7 @@ Dr. Tian Dayton is a leading specialist in psychodrama and experiential therapy.
 
 Dr. Peter Levine is the founder of Somatic Experiencing.
 
-**Website:** traumahealing.org
+**Website:** [traumahealing.org](https://traumahealing.org)
 
 **Topics:**
 - Somatic Experiencing
@@ -212,7 +212,7 @@ Dr. Peter Levine is the founder of Somatic Experiencing.
 
 ### The Refuge: A Healing Place
 
-**Website:** therefuge-ahealingplace.com
+**Website:** [therefuge-ahealingplace.com](https://therefuge-ahealingplace.com)
 
 **Location:** Ocala National Forest, Florida
 
@@ -238,7 +238,7 @@ Dr. Peter Levine is the founder of Somatic Experiencing.
 
 ### Sierra Tucson
 
-**Website:** sierratucson.com
+**Website:** [sierratucson.com](https://sierratucson.com)
 
 **Location:** Tucson, Arizona (160-acre campus)
 
@@ -250,9 +250,9 @@ Dr. Peter Levine is the founder of Somatic Experiencing.
 - Pain recovery
 
 **Content Available:**
-- News & media: sierratucson.com/about/news-media/
-- Podcasts: sierratucson.com/about/news-media/podcasts/
-- Alumni videos: sierratucson.com/about/alumni/my-miracle-is/
+- News & media: [sierratucson.com/about/news-media/](https://sierratucson.com/about/news-media/)
+- Podcasts: [sierratucson.com/about/news-media/podcasts/](https://sierratucson.com/about/news-media/podcasts/)
+- Alumni videos: [sierratucson.com/about/alumni/my-miracle-is/](https://sierratucson.com/about/alumni/my-miracle-is/)
 
 **Special Programs:**
 - Trauma recovery
@@ -266,7 +266,7 @@ Dr. Peter Levine is the founder of Somatic Experiencing.
 
 ### Hazelden Betty Ford Foundation
 
-**Website:** hazeldenbettyford.org
+**Website:** [hazeldenbettyford.org](https://hazeldenbettyford.org)
 
 **Content:**
 - Addiction education
@@ -282,7 +282,7 @@ Dr. Peter Levine is the founder of Somatic Experiencing.
 
 ### Caron Treatment Centers
 
-**Website:** caron.org
+**Website:** [caron.org](https://caron.org)
 
 **Content:**
 - Family programs
@@ -297,7 +297,7 @@ Dr. Peter Levine is the founder of Somatic Experiencing.
 
 ### Promises Behavioral Health
 
-**Website:** promises.com
+**Website:** [promises.com](https://promises.com)
 
 **Content:**
 - Treatment insights
@@ -336,7 +336,7 @@ Mellody, P. (2003). *Facing codependence*. HarperOne.
 Carnes, P. (2001). *Out of the shadows: Understanding sexual addiction*. Hazelden.`,
   subchapters: [
     {
-      id: "13-1",
+      id: "14-1",
       title: "Expert Video Playlists",
       slug: "expert-videos",
       order: 1,
@@ -351,7 +351,7 @@ Curated video collections from leading trauma experts organized by topic.
 **"The Wisdom of Trauma" (Feature Documentary)**
 - Full documentary exploring trauma's role in health, addiction, and society
 - Features Dr. Maté working with individuals in various settings
-- Available at thewisdomoftrauma.com (by donation)
+- Available at [thewisdomoftrauma.com](https://thewisdomoftrauma.com) (by donation)
 - Over 6 million views from 230+ countries
 - Available in 32 languages
 
@@ -427,7 +427,7 @@ Award-winning documentary exploring the neuroscience of addiction.
 - Frontal cortex impairment
 - Why willpower isn't enough
 
-**Trailer:** youtube.com/watch?v=wxiKVQR90VM
+**Trailer:** [youtube.com/watch?v=wxiKVQR90VM](https://youtube.com/watch?v=wxiKVQR90VM)
 
 ### "Memo to Self"
 
@@ -611,7 +611,7 @@ Walker, P. (2013). *Complex PTSD: From surviving to thriving*. Azure Coyote Publ
 Levine, P. (1997). *Waking the tiger*. North Atlantic Books.`,
     },
     {
-      id: "13-2",
+      id: "14-2",
       title: "Treatment Centers & Programs",
       slug: "treatment-centers",
       order: 2,
@@ -627,7 +627,7 @@ Detailed information about leading residential and outpatient trauma treatment c
 
 **Capacity:** 61 beds (36 female, 25 male)
 
-**Website:** therefuge-ahealingplace.com
+**Website:** [therefuge-ahealingplace.com](https://therefuge-ahealingplace.com)
 
 **Founded by:** Judy Crane (author of *The Trauma Heart*)
 
@@ -663,7 +663,7 @@ Detailed information about leading residential and outpatient trauma treatment c
 
 **Location:** Tucson, Arizona (160-acre campus)
 
-**Website:** sierratucson.com
+**Website:** [sierratucson.com](https://sierratucson.com)
 
 **Philosophy:** Integrative medicine model combining evidence-based treatment with holistic wellness
 
@@ -690,9 +690,9 @@ Detailed information about leading residential and outpatient trauma treatment c
 - Nutritional counseling
 
 **Content Available:**
-- News & media: sierratucson.com/about/news-media/
-- Podcasts: sierratucson.com/about/news-media/podcasts/
-- Alumni videos: sierratucson.com/about/alumni/my-miracle-is/
+- News & media: [sierratucson.com/about/news-media/](https://sierratucson.com/about/news-media/)
+- Podcasts: [sierratucson.com/about/news-media/podcasts/](https://sierratucson.com/about/news-media/podcasts/)
+- Alumni videos: [sierratucson.com/about/alumni/my-miracle-is/](https://sierratucson.com/about/alumni/my-miracle-is/)
 
 **Search YouTube:** "Sierra Tucson recovery"
 
@@ -700,7 +700,7 @@ Detailed information about leading residential and outpatient trauma treatment c
 
 ### Hazelden Betty Ford Foundation
 
-**Website:** hazeldenbettyford.org
+**Website:** [hazeldenbettyford.org](https://hazeldenbettyford.org)
 
 **Philosophy:** Evidence-based 12-step treatment
 
@@ -721,7 +721,7 @@ Detailed information about leading residential and outpatient trauma treatment c
 
 ### Caron Treatment Centers
 
-**Website:** caron.org
+**Website:** [caron.org](https://caron.org)
 
 **Philosophy:** Comprehensive family involvement in treatment
 
@@ -751,7 +751,7 @@ Detailed information about leading residential and outpatient trauma treatment c
 
 ### In The Rooms
 
-**Website:** intherooms.com
+**Website:** [intherooms.com](https://intherooms.com)
 
 **Topics:** 12-step recovery, speaker meetings, various recovery pathways
 
@@ -773,7 +773,7 @@ Detailed information about leading residential and outpatient trauma treatment c
 
 ### Celebrate Recovery
 
-**Website:** celebraterecovery.com
+**Website:** [celebraterecovery.com](https://celebraterecovery.com)
 
 **Topics:** Faith-based recovery, Christ-centered 12-steps
 
@@ -785,7 +785,7 @@ Detailed information about leading residential and outpatient trauma treatment c
 
 ### The One Day at a Time Recovery Podcast
 
-**YouTube:** youtube.com/@theonedayatatimepodcast
+**YouTube:** [youtube.com/@theonedayatatimepodcast](https://youtube.com/@theonedayatatimepodcast)
 
 **Topics:** All aspects of recovery, trauma, relationships in recovery
 
@@ -797,7 +797,7 @@ Detailed information about leading residential and outpatient trauma treatment c
 
 ### PESI (Professional Education Systems)
 
-**Website:** pesi.com
+**Website:** [pesi.com](https://pesi.com)
 
 **Topics:** Clinical training, continuing education
 
@@ -809,7 +809,7 @@ Detailed information about leading residential and outpatient trauma treatment c
 
 ### NICABM (National Institute for Clinical Application of Behavioral Medicine)
 
-**Website:** nicabm.com
+**Website:** [nicabm.com](https://nicabm.com)
 
 **Topics:** Research-based treatment approaches, neuroscience
 
@@ -821,7 +821,7 @@ Detailed information about leading residential and outpatient trauma treatment c
 
 ### Trauma Research Foundation
 
-**Website:** traumaresearchfoundation.org
+**Website:** [traumaresearchfoundation.org](https://traumaresearchfoundation.org)
 
 **Founded by:** Bessel van der Kolk
 
@@ -833,7 +833,7 @@ Detailed information about leading residential and outpatient trauma treatment c
 
 ### Addiction Education Society
 
-**Website:** addictioneducationsociety.org
+**Website:** [addictioneducationsociety.org](https://addictioneducationsociety.org)
 
 **Content:** Dr. Kevin McCauley's "Pleasure Unwoven" and educational materials
 
