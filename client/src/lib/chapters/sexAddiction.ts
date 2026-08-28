@@ -1,12 +1,12 @@
 import type { Chapter } from "./types";
 
 export const sexAddictionChapter: Chapter = {
-  id: "14",
+  id: "13",
   title: "Sex & Love Addiction",
   slug: "sex-love-addiction",
   description: "Understand compulsive sexual behavior and love addiction through the pioneering work of Dr. Patrick Carnes, with pathways to lasting sexual sobriety and healthy intimacy.",
   icon: "Heart",
-  order: 14,
+  order: 13,
   readingTime: "90 min read",
   content: `# Sex & Love Addiction
 
@@ -51,7 +51,7 @@ Carnes, P. J., Delmonico, D. L., & Griffin, E. (2007). *In the shadows of the ne
 World Health Organization. (2019). *International classification of diseases, 11th revision (ICD-11)*. https://icd.who.int/`,
   subchapters: [
     {
-      id: "14-1",
+      id: "13-1",
       title: "The Neuroscience of Sex Addiction",
       slug: "neuroscience-sex-addiction",
       order: 1,
@@ -153,7 +153,7 @@ Kühn, S., & Gallinat, J. (2014). Brain structure and functional connectivity as
 Volkow, N. D., Koob, G. F., & McLellan, A. T. (2016). Neurobiologic advances from the brain disease model of addiction. *New England Journal of Medicine*, *374*(4), 363–371. https://doi.org/10.1056/NEJMra1511480`,
     },
     {
-      id: "14-2",
+      id: "13-2",
       title: "Patrick Carnes' Addiction Cycle",
       slug: "carnes-addiction-cycle",
       order: 2,
@@ -288,7 +288,7 @@ Carnes, P. J. (2019). *Recovery start kit: First 30 days in recovery from sexual
 Weiss, R. (2015). *Sex addiction 101: A basic guide to healing from sex, porn, and love addiction*. Health Communications.`,
     },
     {
-      id: "14-3",
+      id: "13-3",
       title: "The Three Circles of Recovery",
       slug: "three-circles-recovery",
       order: 3,
@@ -413,7 +413,7 @@ Sex Addicts Anonymous. (2012). *Sex addicts anonymous* (3rd ed.). International 
 Weiss, R., & Schneider, J. P. (2006). *Untangling the web: Sex, porn, and fantasy obsession in the internet age*. Alyson Publications.`,
     },
     {
-      id: "14-4",
+      id: "13-4",
       title: "Love Addiction & Trauma Bonding",
       slug: "love-addiction-trauma-bonding",
       order: 4,
@@ -566,7 +566,7 @@ Weiss, R. (2015). *Sex addiction 101: A basic guide to healing from sex, porn, a
 Young, J. E., Klosko, J. S., & Weishaar, M. E. (2003). *Schema therapy: A practitioner's guide*. Guilford Press.`,
     },
     {
-      id: "14-5",
+      id: "13-5",
       title: "Clinical Models for Sexual Recovery",
       slug: "clinical-models-sexual-recovery",
       order: 5,
@@ -698,7 +698,7 @@ The Meadows. (2024). *Our approach to treatment*. Retrieved from https://www.the
 World Association for Sexual Health. (2014). *Declaration of sexual rights*. Retrieved from https://worldsexualhealth.net/`,
     },
     {
-      id: "14-6",
+      id: "13-6",
       title: "Recovery & Sexual Sobriety",
       slug: "sex-addiction-recovery",
       order: 6,

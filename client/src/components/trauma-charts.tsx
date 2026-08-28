@@ -204,11 +204,14 @@ export function TherapyEffectivenessChart() {
   );
 }
 
+// Recharts spreads each datum's own keys onto the rendered label element, so a
+// field named "style" reaches the DOM as a string `style` prop and React throws,
+// blanking every page that shows this chart. Keep data keys off DOM prop names.
 const attachmentStylesData = [
-  { style: "Secure", percentage: 60 },
-  { style: "Avoidant", percentage: 15 },
-  { style: "Anxious", percentage: 15 },
-  { style: "Disorganized", percentage: 10 },
+  { attachmentStyle: "Secure", percentage: 60 },
+  { attachmentStyle: "Avoidant", percentage: 15 },
+  { attachmentStyle: "Anxious", percentage: 15 },
+  { attachmentStyle: "Disorganized", percentage: 10 },
 ];
 
 const COLORS = ["hsl(var(--primary))", "hsl(var(--muted-foreground))", "hsl(var(--accent-foreground))", "hsl(var(--destructive))"];
@@ -234,11 +237,13 @@ export function AttachmentStylesChart() {
             cx="50%"
             cy="50%"
             labelLine={false}
-            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+            label={({ name, percent }) =>
+              `${name}: ${((percent ?? 0) * 100).toFixed(0)}%`
+            }
             outerRadius={100}
             fill="#8884d8"
             dataKey="percentage"
-            nameKey="style"
+            nameKey="attachmentStyle"
           >
             {attachmentStylesData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />

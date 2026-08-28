@@ -1,19 +1,39 @@
 import { Link } from "wouter";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Clock, ChevronRight, Heart, Shield, Home, Baby, User, Brain, Waves, Compass, Sun } from "lucide-react";
+import {
+  Baby,
+  Brain,
+  ChevronRight,
+  Clock,
+  Compass,
+  Heart,
+  HeartCrack,
+  Home,
+  Shield,
+  Sparkles,
+  Sun,
+  User,
+  Video,
+  Waves,
+} from "lucide-react";
 import type { Chapter } from "@shared/schema";
 
+// Must cover every `icon` used in client/src/lib/chapters/*.ts, or the chapter
+// silently falls back to the generic heart.
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Heart,
-  Shield,
-  Home,
   Baby,
-  User,
   Brain,
-  Waves,
   Compass,
+  Heart,
+  HeartCrack,
+  Home,
+  Shield,
+  Sparkles,
   Sun,
+  User,
+  Video,
+  Waves,
 };
 
 interface ChapterCardProps {

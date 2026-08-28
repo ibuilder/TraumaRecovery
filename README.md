@@ -1,112 +1,169 @@
-# Healing Together - Trauma Recovery Book Website
+# Healing Together — Trauma Recovery Book Website
 
-A comprehensive web application presenting a trauma recovery book with 12 markdown-based chapters, interactive data visualizations, and curated video resources from leading trauma experts.
+*A Practical Guide to Trauma Recovery for Ordinary People* by Matthew M. Emma.
+
+A static-first React reading app that presents the full book: 14 chapters, 65 subchapters,
+59 interactive data visualisations, and a downloadable print-ready PDF of the whole thing.
+
+> **This content is educational and is not a substitute for professional mental health care.**
+> If you are in crisis, call or text **988** (US Suicide & Crisis Lifeline).
+
+---
 
 ## Features
 
-- **12 Comprehensive Chapters** covering trauma recovery topics from basic recovery to specialized therapies
-- **18 Interactive Data Visualizations** using Recharts for statistics and recovery metrics
-- **Video Resource Library** featuring Dr. Gabor Maté, Dr. Bessel van der Kolk, Meadows Senior Fellows, and treatment centers
-- **Dark/Light Theme** with system preference detection
-- **Reading Progress Bar** for tracking position in chapters
-- **Responsive Design** with mobile-friendly navigation
-- **Accessible Design** optimized for sensitive mental health content
+- **14 chapters / 65 subchapters** of markdown content (~107,000 words) rendered with `react-markdown` + GFM
+- **59 Recharts visualisations** embedded in the prose via a ` ```chart:ChartName``` ` placeholder
+- **Full-book PDF export** generated in the browser (cover, copyright page, table of contents,
+  running headers, page numbers, captured chart images)
+- **Dark / light theme** with system-preference detection
+- **Reading progress bar**, per-chapter sidebar, and prev/next chapter navigation
+- **Responsive** layout with a mobile navigation drawer
+- **Crisis resources** surfaced in the footer on every page
 
-## Book Chapters
+## Chapters
 
-1. **Basic Recovery** - Four Pillars Framework (Physical, Emotional, Mental, Social Wellness)
-2. **Addiction Recovery** - Disease Model, Brain Chemistry, SUDs, Recovery Programs, Relapse Prevention
-3. **Dysfunctional Families** - Family systems, roles, and healing
-4. **Childhood Trauma** - ACEs, developmental impact, and recovery
-5. **Adult Trauma** - PTSD, processing, and post-traumatic growth
-6. **Relationship Trauma** - Attachment, boundaries, and healthy relationships
-7. **CBT** - Cognitive Behavioral Therapy techniques
-8. **DBT** - Dialectical Behavior Therapy (Mindfulness, Distress Tolerance, Emotion Regulation, Interpersonal Effectiveness)
-9. **ACT** - Acceptance and Commitment Therapy
-10. **Spirituality** - Higher Powers, Serenity Prayer, Recovery Prayers, Spiritual Practices
-11. **Alternative Therapies** - Somatic Therapy, EMDR, TMS
-12. **Resources & Video Library** - Expert videos, treatment centers, apps, and crisis resources
+| # | Chapter | Subchapters |
+|---|---------|-------------|
+| 1 | Understanding Trauma & Basic Recovery | 9 |
+| 2 | The Neuroscience of Trauma | 5 |
+| 3 | Addiction Recovery | 6 |
+| 4 | Dysfunctional Families | 4 |
+| 5 | Childhood Trauma | 4 |
+| 6 | Adult Trauma | 3 |
+| 7 | Relationship Trauma | 4 |
+| 8 | Cognitive Behavioral Therapy (CBT) | 5 |
+| 9 | Dialectical Behavior Therapy (DBT) | 6 |
+| 10 | Acceptance & Commitment Therapy (ACT) | 4 |
+| 11 | Alternative Therapies | 3 |
+| 12 | Spirituality in Recovery | 4 |
+| 13 | Sex & Love Addiction | 6 |
+| 14 | Resources & Video Library | 2 |
 
-## Featured Experts
+`npm run validate:content` keeps this structure honest — see [Content rules](#content-rules).
 
-- **Dr. Gabor Maté** - Trauma, addiction, and compassionate inquiry
-- **Dr. Bessel van der Kolk** - The Body Keeps the Score, trauma neuroscience
-- **Dr. Kevin McCauley** - Pleasure Unwoven documentary, addiction neuroscience
-- **Pia Mellody** - Codependency, developmental trauma
-- **Dr. Claudia Black** - Adult children of alcoholics, family systems
-- **Dr. Peter Levine** - Somatic Experiencing
-- **Dr. Tian Dayton** - Psychodrama
-- **Patrick Carnes** - Sexual addiction recovery
+## Tech stack
 
-## Treatment Centers Featured
+| Layer | Choice |
+|-------|--------|
+| UI | React 18, TypeScript, Tailwind CSS, shadcn/ui (Radix) |
+| Routing | wouter (base-path aware, so it works from a subdirectory) |
+| Content | TypeScript modules holding markdown strings |
+| Charts | Recharts |
+| PDF | jsPDF + html2canvas, both lazy-loaded on demand |
+| Build | Vite 7 |
+| Server (optional) | Express — only needed for the `/api/health` endpoint |
 
-- The Refuge: A Healing Place
-- Sierra Tucson
-- The Meadows
-- Hazelden Betty Ford
-- Caron Treatment Centers
+## Getting started
 
-## Tech Stack
-
-- **Frontend**: React 18, TypeScript, Tailwind CSS
-- **Components**: shadcn/ui
-- **Routing**: wouter
-- **Content**: react-markdown with remark-gfm
-- **Charts**: Recharts
-- **Backend**: Express.js
-- **Build**: Vite
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm or yarn
-
-### Installation
+Requires Node.js 20+.
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server
-npm run dev
+npm run dev          # http://localhost:5000
 ```
 
-The application will be available at `http://localhost:5000`.
+### Scripts
 
-## Project Structure
+| Script | What it does |
+|--------|--------------|
+| `npm run dev` | Express + Vite middleware dev server on `PORT` (default 5000) |
+| `npm run check` | TypeScript typecheck |
+| `npm run validate:content` | Structural checks on the book content (see below) |
+| `npm run build` | Full build: static client + bundled Express server → `dist/` |
+| `npm run build:pages` | Static-only build for GitHub Pages → `dist/public/` |
+| `npm start` | Run the production Express build |
+
+## Deploying to GitHub Pages
+
+The site is a pure SPA — nothing on the page needs the Express server — so it deploys to
+GitHub Pages as static files.
+
+1. In the repository, go to **Settings → Pages** and set **Source** to **GitHub Actions**.
+2. Push to `main`. [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml)
+   builds and publishes automatically.
+
+The workflow handles the three things a SPA needs on Pages:
+
+- **Base path.** Project sites live at `https://<owner>.github.io/<repo>/`, so the build is run
+  with `VITE_BASE_PATH=/<repo>/`. Vite rewrites the asset URLs and the router reads the same
+  value from `import.meta.env.BASE_URL`.
+- **Deep links.** `dist/public/404.html` is a copy of `index.html`, so refreshing
+  `/chapter/cbt` hands the URL back to the client router instead of showing a Pages 404.
+- **`.nojekyll`.** Stops Pages from stripping files whose names begin with an underscore.
+
+To build the static site locally:
+
+```bash
+VITE_BASE_PATH=/traumarecovery/ npm run build:pages
+```
+
+Deploying anywhere that serves from the domain root (Netlify, Vercel, S3, the bundled Express
+server) needs no base path — leave `VITE_BASE_PATH` unset and add a rewrite of all paths to
+`index.html`.
+
+## Project structure
 
 ```
 client/
-├── src/
-│   ├── components/       # React components
-│   │   ├── ui/           # shadcn/ui components
-│   │   ├── trauma-charts.tsx  # 18 data visualization charts
-│   │   └── markdown-renderer.tsx
-│   ├── lib/
-│   │   └── chapters/     # Book content (12 chapters)
-│   └── pages/            # Route pages
-server/
-├── index.ts              # Express server
-└── routes.ts             # API routes
-shared/
-└── schema.ts             # Shared types
+├── index.html
+└── src/
+    ├── App.tsx                     # routes, providers, base-path-aware router
+    ├── components/
+    │   ├── markdown-renderer.tsx   # markdown → React, resolves chart placeholders
+    │   ├── pdf-generator.tsx       # full-book PDF export
+    │   ├── trauma-charts.tsx       # all 59 Recharts components
+    │   └── ui/                     # shadcn/ui primitives
+    ├── lib/chapters/               # the book: one module per chapter
+    └── pages/                      # home, chapters index, chapter, 404
+server/                             # Express host for the non-static deployment
+shared/schema.ts                    # Chapter / Subchapter / BookInfo types
+script/
+├── build.ts                        # client + server build
+├── build-pages.ts                  # static build for GitHub Pages
+└── validate-content.ts             # content structure checks
 ```
 
-## Crisis Resources
+## Authoring content
 
-If you or someone you know is in crisis:
+Each chapter is a TypeScript module in `client/src/lib/chapters/` exporting a `Chapter`
+(typed in `shared/schema.ts`) and registered in `client/src/lib/chapters/index.ts`.
 
-- **988 Suicide & Crisis Lifeline**: Call or text 988 (24/7)
-- **Crisis Text Line**: Text HOME to 741741 (24/7)
-- **SAMHSA National Helpline**: 1-800-662-4357 (24/7)
-- **Veterans Crisis Line**: 988, then press 1 (24/7)
+Content is a markdown string. To place a chart, put its component name on its own line:
+
+```md
+## What Is CBT?
+
+Some prose.
+
+```chart:TherapyEffectivenessChart```
+```
+
+The name must match an exported component in `client/src/components/trauma-charts.tsx`.
+The same placeholder is understood by the PDF exporter, which renders the chart offscreen and
+embeds it as an image.
+
+### Content rules
+
+`npm run validate:content` fails the build if any of these break — they are the mistakes that
+previously shipped:
+
+- chapter and subchapter `id`s are unique (duplicates cause React key collisions in the sidebar)
+- `order` matches the position in the array (navigation follows the array, badges show `order`)
+- every chapter and subchapter body starts with an `# H1`
+- every `chart:Name` placeholder resolves to a real component
+
+It also warns about charts that are defined but never referenced.
+
+## Crisis resources
+
+- **988 Suicide & Crisis Lifeline** — call or text **988** (24/7)
+- **Crisis Text Line** — text **HOME** to **741741** (24/7)
+- **SAMHSA National Helpline** — **1-800-662-4357** (24/7)
+- **National Domestic Violence Hotline** — **1-800-799-7233** (24/7)
+- **Veterans Crisis Line** — **988**, then press **1** (24/7)
 
 ## License
 
-This project is for educational purposes. Content is based on evidence-based trauma treatment approaches and includes citations to original research (2024-2025).
-
-## Acknowledgments
-
-Special thanks to the trauma recovery community and the experts whose work forms the foundation of this resource. This project aims to make trauma education accessible while encouraging professional treatment.
+The application code is MIT-licensed. The book text is © Matthew M. Emma; see the copyright
+page in the generated PDF.

@@ -24,19 +24,20 @@ client/
 │   │   ├── chapters/             # Book content organized by chapter
 │   │   │   ├── index.ts          # Chapter exports
 │   │   │   ├── types.ts          # Chapter type definitions
-│   │   │   ├── basicRecovery.ts  # Chapter 1 (6 subchapters)
-│   │   │   ├── addictionRecovery.ts # Chapter 2 (5 subchapters)
-│   │   │   ├── dysfunctionalFamilies.ts # Chapter 3
-│   │   │   ├── childhoodTrauma.ts # Chapter 4
-│   │   │   ├── adultTrauma.ts    # Chapter 5
-│   │   │   ├── relationshipTrauma.ts # Chapter 6
-│   │   │   ├── cbt.ts            # Chapter 7
-│   │   │   ├── dbt.ts            # Chapter 8 (6 subchapters)
-│   │   │   ├── act.ts            # Chapter 9
-│   │   │   ├── spirituality.ts   # Chapter 10 (4 subchapters)
+│   │   │   ├── basicRecovery.ts  # Chapter 1 (9 subchapters)
+│   │   │   ├── neuroscience.ts   # Chapter 2 (5 subchapters)
+│   │   │   ├── addictionRecovery.ts # Chapter 3 (6 subchapters)
+│   │   │   ├── dysfunctionalFamilies.ts # Chapter 4 (4 subchapters)
+│   │   │   ├── childhoodTrauma.ts # Chapter 5 (4 subchapters)
+│   │   │   ├── adultTrauma.ts    # Chapter 6 (3 subchapters)
+│   │   │   ├── relationshipTrauma.ts # Chapter 7 (4 subchapters)
+│   │   │   ├── cbt.ts            # Chapter 8 (5 subchapters)
+│   │   │   ├── dbt.ts            # Chapter 9 (6 subchapters)
+│   │   │   ├── act.ts            # Chapter 10 (4 subchapters)
 │   │   │   ├── alternativeTherapies.ts # Chapter 11 (3 subchapters)
-│   │   │   ├── resources.ts      # Chapter 12 (2 subchapters)
-│   │   │   └── neuroscience.ts   # Chapter 13 (5 subchapters)
+│   │   │   ├── spirituality.ts   # Chapter 12 (4 subchapters)
+│   │   │   ├── sexAddiction.ts   # Chapter 13 (6 subchapters)
+│   │   │   └── resources.ts      # Chapter 14 (2 subchapters)
 │   │   ├── queryClient.ts        # React Query setup
 │   │   └── utils.ts              # Utility functions
 │   ├── pages/
@@ -55,11 +56,17 @@ server/
 
 shared/
 └── schema.ts                     # Shared types/schemas
+
+script/
+├── build.ts                      # Client + server production build
+├── build-pages.ts                # Static build for GitHub Pages
+└── validate-content.ts           # Content structure checks
 ```
 
 ## Key Features
-- **13 comprehensive chapters** covering trauma recovery topics
-- **46 data visualization charts** using Recharts covering all chapters and subchapters
+- **14 comprehensive chapters** (65 subchapters) covering trauma recovery topics
+- **59 data visualization charts** using Recharts covering all chapters and subchapters
+- **Full-book PDF export** generated client-side (jsPDF + html2canvas, lazy-loaded)
 - **Markdown rendering** with react-markdown and remark-gfm
 - **Dark/light theme** with system preference detection
 - **Reading progress bar** for tracking position
@@ -69,19 +76,22 @@ shared/
 - **Crisis resources** in footer
 
 ## Book Chapters
-1. Basic Recovery (9 subchapters: Four Pillars Framework, Addiction & Self-Harm, Understanding Different Types of Trauma, Window of Tolerance)
-2. Neuroscience of Trauma (5 subchapters: Brain Anatomy, Neurochemistry, Nervous System & Polyvagal Theory, Trauma-Related Disorders, Neurobiology of Healing)
+1. Understanding Trauma & Basic Recovery (9 subchapters: Four Pillars Framework, Addiction & Self-Harm, Types of Trauma, Window of Tolerance, and more)
+2. The Neuroscience of Trauma (5 subchapters: Brain Anatomy, Neurochemistry, Nervous System & Polyvagal Theory, Trauma-Related Disorders, Neurobiology of Healing)
 3. Addiction Recovery (6 subchapters: Disease Model, Brain Chemistry, SUD, Recovery Programs, Relapse Prevention, Urge Surfing)
 4. Dysfunctional Families (4 subchapters: Family Patterns, Healthy Boundaries, Inner Child Work, Breaking Generational Cycles)
 5. Childhood Trauma (4 subchapters: Inner Child Work, Breaking From Shame, Attachment Healing, Developmental Impact of Trauma)
 6. Adult Trauma (3 subchapters: Processing Trauma, Rebuilding Life, Coping Strategies)
 7. Relationship Trauma (4 subchapters: Toxic Patterns, Rebuilding Trust, Safety Planning, Building Healthy Relationships)
-8. CBT (4 subchapters: CBT Core, The CBT Triangle, Cognitive Distortions, Competent Protectors/IFS)
-9. DBT (6 subchapters: Mindfulness, Wise Mind, Distress Tolerance, Emotion Regulation, Interpersonal Effectiveness, DBT Acronyms Guide)
-10. ACT (4 subchapters: Values Clarification, Defusion Techniques, The ACT Hexaflex, Acceptance in Practice)
+8. Cognitive Behavioral Therapy (5 subchapters: Challenging Negative Thoughts, Behavioral Strategies, The CBT Triangle, Cognitive Distortions, Competent Protectors/IFS)
+9. Dialectical Behavior Therapy (6 subchapters: Mindfulness, Wise Mind, Distress Tolerance, Emotion Regulation, Interpersonal Effectiveness, DBT Acronyms Guide)
+10. Acceptance & Commitment Therapy (4 subchapters: Values Clarification, Defusion Techniques, The ACT Hexaflex, Acceptance in Practice)
 11. Alternative Therapies (3 subchapters: Somatic Therapy, EMDR, TMS)
-12. Spirituality (4 subchapters: Higher Powers, Serenity Prayer, Recovery Prayers, Spiritual Practices)
-13. Resources & Video Library (2 subchapters: Expert Videos, Treatment Centers)
+12. Spirituality in Recovery (4 subchapters: Higher Powers, Serenity Prayer, Recovery Prayers, Spiritual Practices)
+13. Sex & Love Addiction (6 subchapters: Neuroscience, Carnes' Addiction Cycle, Three Circles, Love Addiction & Trauma Bonding, Clinical Models, Recovery & Sexual Sobriety)
+14. Resources & Video Library (2 subchapters: Expert Videos, Treatment Centers)
+
+Chapter order, ids and chart references are enforced by `npm run validate:content`.
 
 ## YouTube Video Library Features
 - Dr. Gabor Maté videos and podcast appearances
@@ -104,6 +114,15 @@ shared/
 
 ## Running the Project
 The application runs on port 5000 with `npm run dev`.
+
+Other entry points:
+- `npm run check` — TypeScript typecheck
+- `npm run validate:content` — content structure checks
+- `npm run build` — client + bundled Express server
+- `npm run build:pages` — static build for GitHub Pages (see README)
+
+The site is also published to GitHub Pages from `main`; nothing on the page needs
+the Express server.
 
 ## Design Philosophy
 - Calm, professional aesthetic suitable for mental health content
