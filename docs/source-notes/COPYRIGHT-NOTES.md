@@ -1,6 +1,6 @@
 # Third-party material in the source notes
 
-Four pages of the journal are **photographs of printed handouts from the
+Five pages of the journal are **photographs of printed handouts from the
 treatment programme**, not the author's own notes. They cannot be reproduced in
 the book. Each is listed here with what can be used instead.
 
@@ -10,6 +10,7 @@ the book. Each is listed here with what can be used instead.
 | IMG_0359 | "Periodic Table of the Intoxicants" | Kevin T. McCauley, MD, MPH — marked *all rights reserved*, updated 2024 |
 | IMG_0365 | "The Decision Table" | © 1999–2015 P. J. Carnes |
 | IMG_0371 | "Eight Basic Emotions" | © Pia Mellody, Gentle Path at The Meadows |
+| IMG_0372 | The developmental-immaturity matrix | The Meadows (presenting Pia Mellody's model) |
 
 **What we do instead.** The underlying models are published clinical frameworks
 and are fine to teach, explain and build on — with attribution to a primary
