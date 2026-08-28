@@ -2420,3 +2420,426 @@ export const ChartComponents = {
   SexAddictionRecoveryRoadmapChart,
   TreatmentAccessChart,
 };
+
+/* ------------------------------------------------------------------ *
+ * Charts drawn from the author's treatment journal.
+ * Figures are sourced in each chart's caption; see
+ * docs/source-notes/journal-transcription.md for the originals.
+ * ------------------------------------------------------------------ */
+
+const heritabilityData = [
+  { substance: "Cocaine", low: 42, high: 79 },
+  { substance: "Nicotine", low: 33, high: 71 },
+  { substance: "Alcohol", low: 48, high: 66 },
+  { substance: "Cannabis", low: 51, high: 59 },
+  { substance: "Opioids", low: 23, high: 49 },
+  { substance: "Gambling", low: 35, high: 54 },
+].map((d) => ({ ...d, span: d.high - d.low, midpoint: (d.low + d.high) / 2 }));
+
+const heritabilityConfig: ChartConfig = {
+  low: { label: "Lower estimate (%)", color: "transparent" },
+  span: { label: "Heritability range (%)", color: "hsl(var(--primary))" },
+};
+
+export function AddictionHeritabilityChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">How Heritable Is Addiction?</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Proportion of the variation in liability that twin and family studies
+        attribute to genes. Bars show the range across studies, not a single number.
+      </p>
+      <ChartContainer config={heritabilityConfig} className="h-[320px] w-full">
+        <BarChart data={heritabilityData} layout="vertical" stackOffset="sign">
+          <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+          <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+          <YAxis type="category" dataKey="substance" width={90} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="low" stackId="a" fill="transparent" />
+          <Bar dataKey="span" stackId="a" fill="var(--color-span)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+      <p className="text-xs text-muted-foreground mt-2">
+        Goldman, D., Oroszi, G., &amp; Ducci, F. (2005). The genetics of addictions:
+        uncovering the genes. <em>Nature Reviews Genetics, 6</em>(7), 521–532.
+        Heritability is a population statistic: it describes variation across a group,
+        never the odds for any one person.
+      </p>
+    </div>
+  );
+}
+
+const dopamineKineticsData = Array.from({ length: 61 }, (_, i) => {
+  const t = i; // minutes
+  const curve = (peak: number, rise: number, decay: number) =>
+    Math.round(peak * (1 - Math.exp(-t / rise)) * Math.exp(-t / decay));
+  return {
+    minute: t,
+    smoked: curve(1100, 0.7, 16),
+    injected: curve(950, 1.6, 22),
+    snorted: curve(420, 6, 40),
+    oral: curve(180, 18, 90),
+  };
+});
+
+const dopamineKineticsConfig: ChartConfig = {
+  smoked: { label: "Fast (smoked)", color: "hsl(var(--chart-4))" },
+  injected: { label: "Fast (injected)", color: "hsl(var(--chart-3))" },
+  snorted: { label: "Slower (intranasal)", color: "hsl(var(--chart-1))" },
+  oral: { label: "Slowest (oral)", color: "hsl(var(--chart-5))" },
+};
+
+export function DopamineRateChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">
+        It's Not How Much — It's How Fast
+      </h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        The same drug, the same dose, delivered by different routes. What predicts
+        addictive potential is the steepness of the rise, not the size of the total.
+      </p>
+      <ChartContainer config={dopamineKineticsConfig} className="h-[320px] w-full">
+        <LineChart data={dopamineKineticsData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis
+            dataKey="minute"
+            tickFormatter={(v) => `${v}m`}
+            ticks={[0, 15, 30, 45, 60]}
+          />
+          <YAxis tickFormatter={(v) => `${v}%`} label={undefined} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Line dataKey="smoked" stroke="var(--color-smoked)" dot={false} strokeWidth={2} />
+          <Line dataKey="injected" stroke="var(--color-injected)" dot={false} strokeWidth={2} />
+          <Line dataKey="snorted" stroke="var(--color-snorted)" dot={false} strokeWidth={2} />
+          <Line dataKey="oral" stroke="var(--color-oral)" dot={false} strokeWidth={2} />
+        </LineChart>
+      </ChartContainer>
+      <p className="text-xs text-muted-foreground mt-2">
+        Schematic, showing dopamine in the nucleus accumbens as a percentage of
+        baseline. Shape after Volkow, N. D., et al. (2000), and the rate hypothesis
+        set out in Kevin McCauley's <em>Pleasure Unwoven</em> (2010).
+      </p>
+    </div>
+  );
+}
+
+const alcoholNeurotransmitterData = Array.from({ length: 121 }, (_, i) => {
+  const t = i / 20; // "drinks" elapsed
+  const drink = Math.floor(t);
+  const withinDrink = t - drink;
+  const gabaWave = drink < 4 ? Math.sin(withinDrink * Math.PI) * 55 : 0;
+  const glutamate = Math.min(72, t * 17);
+  return {
+    t: Number(t.toFixed(2)),
+    glutamate: Math.round(glutamate),
+    felt: Math.round(Math.max(0, glutamate + gabaWave - glutamate * 0.15)),
+  };
+});
+
+const alcoholConfig: ChartConfig = {
+  felt: { label: "GABA — how it feels", color: "hsl(var(--chart-1))" },
+  glutamate: { label: "Glutamate — the floor", color: "hsl(var(--destructive))" },
+};
+
+export function AlcoholGabaGlutamateChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">
+        Why the Hangover Gets Worse: GABA and Glutamate
+      </h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Each drink is a GABA wave that peaks and falls. Underneath it, glutamate
+        climbs and does not come back down between drinks. The rising floor is
+        the hangover.
+      </p>
+      <ChartContainer config={alcoholConfig} className="h-[320px] w-full">
+        <LineChart data={alcoholNeurotransmitterData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="t" tickFormatter={(v) => `${Math.round(v)}`} ticks={[0, 1, 2, 3, 4, 5, 6]} />
+          <YAxis tickFormatter={(v) => `${v}`} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Line dataKey="felt" stroke="var(--color-felt)" dot={false} strokeWidth={2} />
+          <Line
+            dataKey="glutamate"
+            stroke="var(--color-glutamate)"
+            dot={false}
+            strokeWidth={2}
+            strokeDasharray="5 4"
+          />
+        </LineChart>
+      </ChartContainer>
+      <p className="text-xs text-muted-foreground mt-2">
+        Schematic. Alcohol potentiates GABA-A and inhibits NMDA glutamate
+        receptors; the brain compensates by upregulating glutamate, which is what
+        is left exposed when the alcohol clears. See Valenzuela, C. F. (1997),
+        <em> Alcohol Health &amp; Research World, 21</em>(2), 144–148.
+      </p>
+    </div>
+  );
+}
+
+const relationshipTypesData = Array.from({ length: 61 }, (_, i) => {
+  const months = i * 4; // 0 to 240 months (20 years)
+  const bell = (peakAt: number, width: number, height: number) =>
+    Math.round(height * Math.exp(-Math.pow((months - peakAt) / width, 2)));
+  return {
+    months,
+    fantasy: bell(6, 9, 92),
+    mask: bell(120, 62, 78),
+    authenticity: Math.round(8 + months * 0.36),
+  };
+});
+
+const relationshipTypesConfig: ChartConfig = {
+  fantasy: { label: "Fantasy", color: "hsl(var(--chart-4))" },
+  mask: { label: "The mask", color: "hsl(var(--chart-1))" },
+  authenticity: { label: "Authenticity", color: "hsl(var(--chart-5))" },
+};
+
+export function RelationshipTypesChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">Three Ways a Relationship Can Go</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Fantasy burns hottest and is gone by about six months. The mask survives
+        far longer — often a decade — and then collapses. Authenticity starts
+        lower and never stops climbing.
+      </p>
+      <ChartContainer config={relationshipTypesConfig} className="h-[320px] w-full">
+        <LineChart data={relationshipTypesData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis
+            dataKey="months"
+            ticks={[0, 6, 60, 120, 180, 240]}
+            tickFormatter={(v) => (v < 12 ? `${v}mo` : `${v / 12}yr`)}
+          />
+          <YAxis domain={[0, 100]} tickFormatter={() => ""} width={12} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Line dataKey="fantasy" stroke="var(--color-fantasy)" dot={false} strokeWidth={2} />
+          <Line dataKey="mask" stroke="var(--color-mask)" dot={false} strokeWidth={2} />
+          <Line
+            dataKey="authenticity"
+            stroke="var(--color-authenticity)"
+            dot={false}
+            strokeWidth={2.5}
+          />
+        </LineChart>
+      </ChartContainer>
+      <p className="text-xs text-muted-foreground mt-2">
+        The vertical axis is felt intensity, not quality. Fantasy and the mask both
+        feel like more, right up until they stop.
+      </p>
+    </div>
+  );
+}
+
+const sobrietyChallengesData = [
+  { challenge: "Distorted achievement", under: -70, over: 78 },
+  { challenge: "Compromised self-image", under: -82, over: 64 },
+  { challenge: "Lack of accountability", under: -74, over: 70 },
+  { challenge: "Problematic self-care", under: -88, over: 61 },
+  { challenge: "Impaired conscience", under: -60, over: 84 },
+  { challenge: "Faulty realism", under: -66, over: 66 },
+  { challenge: "Limited self-awareness", under: -80, over: 72 },
+  { challenge: "Incomplete relationships", under: -76, over: 58 },
+  { challenge: "Disordered affect", under: -85, over: 80 },
+];
+
+const sobrietyChallengesConfig: ChartConfig = {
+  under: { label: "Underachieving", color: "hsl(var(--chart-2))" },
+  over: { label: "Overachieving", color: "hsl(var(--chart-4))" },
+};
+
+export function SobrietyChallengesChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">
+        Every Challenge Has Two Failure Modes
+      </h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        You can miss the mark in either direction. Numbness and indulgent rage are
+        the same challenge — disordered affect — failing at opposite ends.
+      </p>
+      <ChartContainer config={sobrietyChallengesConfig} className="h-[420px] w-full">
+        <BarChart data={sobrietyChallengesData} layout="vertical" stackOffset="sign">
+          <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+          <XAxis type="number" domain={[-100, 100]} tickFormatter={() => ""} height={12} />
+          <YAxis type="category" dataKey="challenge" width={190} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="under" stackId="s" fill="var(--color-under)" radius={3} />
+          <Bar dataKey="over" stackId="s" fill="var(--color-over)" radius={3} />
+        </BarChart>
+      </ChartContainer>
+      <p className="text-xs text-muted-foreground mt-2">
+        After the sobriety challenges in Patrick Carnes, <em>Recovery Zone, Vol. 1</em>
+        (Gentle Path Press, 2009). Bar lengths are illustrative, not measured.
+      </p>
+    </div>
+  );
+}
+
+const recoveryStagesData = [
+  { stage: "Developing", start: -24, length: 24 },
+  { stage: "Crisis / decision", start: 0, length: 3 },
+  { stage: "Shock", start: 0, length: 8 },
+  { stage: "Grief", start: 6, length: 8 },
+  { stage: "Repair", start: 12, length: 24 },
+  { stage: "Growth", start: 24, length: 36 },
+];
+
+const recoveryStagesConfig: ChartConfig = {
+  start: { label: "Begins (months)", color: "transparent" },
+  length: { label: "Typical duration (months)", color: "hsl(var(--primary))" },
+};
+
+export function CarnesRecoveryStagesChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">The Stages Overlap</h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        Recovery is not a queue of stages you finish one at a time. Month zero is
+        the crisis; grief is still running while repair has already started.
+      </p>
+      <ChartContainer config={recoveryStagesConfig} className="h-[320px] w-full">
+        <BarChart data={recoveryStagesData} layout="vertical" stackOffset="sign">
+          <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+          <XAxis
+            type="number"
+            domain={[-24, 60]}
+            ticks={[-24, -12, 0, 12, 24, 36, 48, 60]}
+            tickFormatter={(v) => (v === 0 ? "crisis" : `${v / 12}yr`)}
+          />
+          <YAxis type="category" dataKey="stage" width={140} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="start" stackId="g" fill="transparent" />
+          <Bar dataKey="length" stackId="g" fill="var(--color-length)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+      <p className="text-xs text-muted-foreground mt-2">
+        Durations as taught in programme, after Patrick Carnes,
+        <em> Out of the Shadows</em> (3rd ed., Hazelden, 2001).
+      </p>
+    </div>
+  );
+}
+
+const worryWindowData = Array.from({ length: 97 }, (_, i) => {
+  const t = i;
+  const noise = Math.sin(t / 2.1) + Math.sin(t / 1.3) * 0.6 + Math.sin(t / 3.7) * 0.8;
+  const before = t < 48 ? Math.round(50 + noise * 24) : null;
+  const after = t >= 48 ? Math.round(50 + noise * 7) : null;
+  return { t, before, after, upper: 68, lower: 32 };
+});
+
+const worryWindowConfig: ChartConfig = {
+  before: { label: "Before treatment", color: "hsl(var(--destructive))" },
+  after: { label: "After treatment", color: "hsl(var(--chart-5))" },
+  upper: { label: "Window of tolerance", color: "hsl(var(--muted-foreground))" },
+};
+
+export function WorryWindowChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">
+        Widen the Window, and the Worry Shrinks
+      </h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        The events did not get smaller. The swings did. Same nervous system, same
+        life, after the window of tolerance was widened.
+      </p>
+      <ChartContainer config={worryWindowConfig} className="h-[320px] w-full">
+        <LineChart data={worryWindowData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="t" tickFormatter={() => ""} height={12} />
+          <YAxis domain={[0, 100]} tickFormatter={() => ""} width={12} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Line
+            dataKey="upper"
+            stroke="var(--color-upper)"
+            dot={false}
+            strokeWidth={1}
+            strokeDasharray="4 4"
+          />
+          <Line
+            dataKey="lower"
+            stroke="var(--color-upper)"
+            dot={false}
+            strokeWidth={1}
+            strokeDasharray="4 4"
+          />
+          <Line
+            dataKey="before"
+            stroke="var(--color-before)"
+            dot={false}
+            strokeWidth={2}
+            connectNulls={false}
+          />
+          <Line
+            dataKey="after"
+            stroke="var(--color-after)"
+            dot={false}
+            strokeWidth={2}
+            connectNulls={false}
+          />
+        </LineChart>
+      </ChartContainer>
+      <p className="text-xs text-muted-foreground mt-2">
+        Dashed lines mark the window of tolerance (Siegel, D., 1999). Drawn from the
+        author's own before-and-after sketch.
+      </p>
+    </div>
+  );
+}
+
+const enufCurveData = Array.from({ length: 81 }, (_, i) => {
+  const x = (i - 40) / 13;
+  return {
+    x: i - 40,
+    density: Math.round(100 * Math.exp(-0.5 * x * x)),
+  };
+});
+
+const enufCurveConfig: ChartConfig = {
+  density: { label: "Where people sit", color: "hsl(var(--primary))" },
+};
+
+export function FunctionalAdultCurveChart() {
+  return (
+    <div className="my-8 p-6 bg-card rounded-md border">
+      <h4 className="text-lg font-semibold mb-2">
+        "Enough" Is the Middle of the Curve
+      </h4>
+      <p className="text-sm text-muted-foreground mb-4">
+        The Functional Adult sits at the peak, running at roughly 65% — flexible,
+        disciplined, relational, in reality, in moderation. Both tails are the
+        problem, and only one of them looks like failure.
+      </p>
+      <ChartContainer config={enufCurveConfig} className="h-[300px] w-full">
+        <LineChart data={enufCurveData}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis
+            dataKey="x"
+            ticks={[-30, 0, 30]}
+            tickFormatter={(v) =>
+              v < 0 ? "Wounded Child" : v > 0 ? "Adapted Adult Child" : "Functional Adult"
+            }
+          />
+          <YAxis tickFormatter={() => ""} width={12} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Line dataKey="density" stroke="var(--color-density)" dot={false} strokeWidth={2.5} />
+        </LineChart>
+      </ChartContainer>
+      <p className="text-xs text-muted-foreground mt-2">
+        Ego states after Pia Mellody, <em>Facing Codependence</em> (Harper &amp; Row, 1989).
+        The right-hand tail — "100% productive in a few narrow areas" — is the one
+        the world tends to reward.
+      </p>
+    </div>
+  );
+}

@@ -1396,5 +1396,187 @@ Witkiewitz, K., & Bowen, S. (2010). Depression, craving, and substance use follo
 
 Brewer, J. A. (2017). *The craving mind: From cigarettes to smartphones to love—why we get hooked and how we can break bad habits*. Yale University Press.`,
     },
+    {
+      id: "3-7",
+      title: "Rate, Genes, and Interaction",
+      slug: "rate-genes-interaction",
+      order: 7,
+      content: `# Rate, Genes, and Interaction
+
+Three ideas from an addiction-medicine lecture that changed how I understood my
+own history. None of them were comforting exactly. All three were a relief,
+because they replaced a story about character with a story about mechanism.
+
+## It's not about how much — it's about how fast
+
+I had always measured my use in quantities. How much, how often, how many days.
+The number that actually matters is a slope.
+
+Every rewarding thing raises dopamine in the reward circuit. Food does it. So
+does a text from someone you love. What separates a pleasure from a drug is not
+the height the dopamine reaches — it is **how quickly it gets there**.
+
+\`\`\`chart:DopamineRateChart\`\`\`
+
+The same molecule, the same dose, delivered by four different routes, produces
+four completely different risks. Coca leaf chewed over an afternoon and cocaine
+smoked are chemically the same story with a different first derivative. Nicotine
+in a patch and nicotine in a cigarette. Oral opioids and injected ones.
+
+This is why "I only used on weekends" was never the protection I thought it was,
+and why the route I chose mattered more than the amount I chose. A steep enough
+spike teaches the brain something a slow rise cannot: *this, above everything
+else, is what survival looks like.* Dopamine is not the pleasure chemical. It is
+the **stamping-in** chemical. It marks what is worth doing again.
+
+### Wanting is not liking
+
+The corollary took me longer to accept. Dopamine drives **wanting**. The systems
+that produce **liking** — endogenous opioids, endocannabinoids, GABA, serotonin,
+oxytocin — are separate.
+
+That separation is the whole tragedy of late addiction. Wanting sensitises: it
+gets stronger with repetition. Liking blunts: the receptors downregulate and the
+same dose returns less. So the wanting climbs while the liking falls, and you
+end up in the position every addict eventually describes and nobody outside
+believes — *I don't even enjoy it any more, and I cannot stop.*
+
+You are not weak for wanting something you no longer like. That gap is what the
+disease is.
+
+## Addiction is heritable, and heritable is not destiny
+
+\`\`\`chart:AddictionHeritabilityChart\`\`\`
+
+When I first saw these numbers I read them as a verdict. They are not. Two
+things about them matter more than the size of the bars.
+
+**First, they are ranges, not numbers.** Studies disagree, populations differ,
+and every bar here is a span rather than a point. Anyone quoting you a single
+confident percentage is rounding away most of the science.
+
+**Second, and this is the part that took me a while: heritability is a fact
+about populations, not about people.** A heritability of 50% does not mean half
+of your addiction came from your genes. It means that in the population studied,
+about half of the *variation between people* tracked with genetic variation. It
+says nothing about you specifically, and it says nothing at all about what is
+possible for you.
+
+The full formulation from that lecture was this: addiction is a
+**stress-induced, genetically mediated disorder of the reward and executive
+systems of the brain.**
+
+Read the order of that sentence. Stress comes first. Genes mediate — they set
+how hard the same stress lands. And what gets damaged is not your character, it
+is the reward system and the frontal lobes: the parts that decide what is worth
+doing, and the parts that stop you.
+
+### And the stress is often older than you
+
+The epigenetics research is the strangest part of this. Work following the
+Överkalix cohort in northern Sweden found associations between grandparents'
+early-life food availability and their grandchildren's health outcomes.
+Rachel Yehuda's studies of Holocaust survivors and of pregnant women who
+survived 9/11 found altered stress-hormone regulation in their children.
+
+The mechanisms are still being argued over, and the popular version — "trauma is
+inherited" — outruns the evidence considerably. But the direction is real
+enough to change the question. It stops being *why am I like this* and becomes
+*how far back does this go, and where does it stop.*
+
+It stops with whoever does the work. That can be you.
+
+## Cross-addiction: the thing nobody warned me about
+
+> "When you are recovering from one addiction, you are vulnerable to substitution,
+> or to an increase in another."
+
+I understood relapse. Nobody sat me down and explained that addictions **interact**
+— that they are not separate problems in separate boxes but a system that
+reorganises itself when you remove one part.
+
+Five specific ways it happens:
+
+- **Cross-tolerance.** Adaptation to one raises the threshold for the other.
+- **Replacement.** One stops and another expands to fill the same function. The
+  drinking ends and the spending starts. This is the one that gets celebrated as
+  recovery.
+- **Withdrawal mediation.** One is used specifically to manage coming off the
+  other — the classic pattern of drinking through a stimulant crash.
+- **Masking.** One conceals the other, including from you. The visible addiction
+  absorbs all the attention, all the treatment, all the shame, and the other one
+  runs untouched underneath.
+- **Fusion.** Two behaviours become a single ritual and stop being separable at
+  all. Neither can be treated alone because there is no longer an "alone."
+
+The practical consequence is that a recovery plan aimed at one substance is
+usually aimed at the wrong target. When I finally scored every compulsive
+behaviour I had — the same ten criteria, one column per behaviour, one to five —
+the shape of the problem looked nothing like the shape I had been treating.
+
+Do that inventory. Loss of control, compulsive behaviour, failed efforts to
+stop, loss of time, preoccupation, unmet obligations, continuation despite
+consequences, escalation, losses, withdrawal. Score every candidate, not just
+the obvious one. The columns you were not planning to fill in are the point of
+the exercise.
+
+## Why the hangover keeps getting worse
+
+One more piece of mechanism, because it explains something that felt like moral
+decline and was actually pharmacology.
+
+\`\`\`chart:AlcoholGabaGlutamateChart\`\`\`
+
+Alcohol does two things at once. It potentiates GABA, the brain's main brake —
+that is the buzz — and it inhibits glutamate, the main accelerator. The brain,
+which will not tolerate being held down, compensates by upregulating glutamate.
+
+Each drink is a GABA wave that rises and falls. The glutamate compensation does
+**not** fall between drinks. It accumulates. So every buzz starts from a higher
+floor, delivers less, and leaves more exposed when the alcohol clears.
+
+The rising floor is the hangover. It is also the anxiety, the 3am waking, and
+eventually the withdrawal seizures. Nothing about it is a failure of will. It is
+a brake and an accelerator being pressed at the same time for long enough that
+the accelerator wins.
+
+## Something genuinely new
+
+I want to flag one active area of research, with appropriate caution.
+
+GLP-1 receptor agonists — semaglutide and the related drugs prescribed for
+diabetes and obesity — generated a flood of anecdotal reports that people taking
+them simply wanted alcohol less. That anecdote is now being tested properly. A
+2025 phase 2 randomised trial found that low-dose semaglutide reduced weekly
+alcohol craving and some drinking measures relative to placebo in adults with
+alcohol use disorder, and a larger trial has since followed.
+
+This is early. Forty-eight participants, nine weeks, one site. It is not a
+treatment you should expect your doctor to offer for addiction today, and it is
+not a reason to delay anything that already works. But it is the first
+genuinely new pharmacological direction in this field in a long time, and if you
+are reading this some years after it was written, it is the thing worth
+searching for an update on.
+
+---
+
+## References
+
+Goldman, D., Oroszi, G., & Ducci, F. (2005). The genetics of addictions: Uncovering the genes. *Nature Reviews Genetics, 6*(7), 521–532. https://doi.org/10.1038/nrg1635
+
+Hendershot, C. S., Bremmer, M. P., Paladino, M. B., et al. (2025). Once-weekly semaglutide in adults with alcohol use disorder: A randomized clinical trial. *JAMA Psychiatry, 82*(4), 395–405. https://doi.org/10.1001/jamapsychiatry.2024.4789
+
+McCauley, K. (2010). *Pleasure unwoven: An explanation of the brain disease of addiction* [Film]. Institute for Addiction Study.
+
+Carnes, P. J., Murray, R. E., & Charpentier, L. (2005). Bargains with chaos: Sex addicts and addiction interaction disorder. *Sexual Addiction & Compulsivity, 12*(2–3), 79–120. https://doi.org/10.1080/10720160500201371
+
+Robinson, T. E., & Berridge, K. C. (2008). The incentive sensitization theory of addiction: Some current issues. *Philosophical Transactions of the Royal Society B, 363*(1507), 3137–3146. https://doi.org/10.1098/rstb.2008.0093
+
+Valenzuela, C. F. (1997). Alcohol and neurotransmitter interactions. *Alcohol Health & Research World, 21*(2), 144–148.
+
+Volkow, N. D., Wang, G. J., Fischman, M. W., et al. (2000). Effects of route of administration on cocaine-induced dopamine transporter blockade in the human brain. *Life Sciences, 67*(12), 1507–1515. https://doi.org/10.1016/S0024-3205(00)00731-1
+
+Yehuda, R., & Lehrner, A. (2018). Intergenerational transmission of trauma effects: Putative role of epigenetic mechanisms. *World Psychiatry, 17*(3), 243–257. https://doi.org/10.1002/wps.20568`,
+    },
   ],
 };

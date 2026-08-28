@@ -60,6 +60,14 @@ import {
   SexAddictionRecoveryProgressChart,
   SexAddictionRecoveryRoadmapChart,
   TreatmentAccessChart,
+  AddictionHeritabilityChart,
+  DopamineRateChart,
+  AlcoholGabaGlutamateChart,
+  RelationshipTypesChart,
+  SobrietyChallengesChart,
+  CarnesRecoveryStagesChart,
+  WorryWindowChart,
+  FunctionalAdultCurveChart,
 } from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
@@ -127,6 +135,14 @@ const chartComponents: Record<string, React.ComponentType> = {
   "SexAddictionRecoveryProgressChart": SexAddictionRecoveryProgressChart,
   "SexAddictionRecoveryRoadmapChart": SexAddictionRecoveryRoadmapChart,
   "TreatmentAccessChart": TreatmentAccessChart,
+  "AddictionHeritabilityChart": AddictionHeritabilityChart,
+  "DopamineRateChart": DopamineRateChart,
+  "AlcoholGabaGlutamateChart": AlcoholGabaGlutamateChart,
+  "RelationshipTypesChart": RelationshipTypesChart,
+  "SobrietyChallengesChart": SobrietyChallengesChart,
+  "CarnesRecoveryStagesChart": CarnesRecoveryStagesChart,
+  "WorryWindowChart": WorryWindowChart,
+  "FunctionalAdultCurveChart": FunctionalAdultCurveChart,
 };
 
 /**
