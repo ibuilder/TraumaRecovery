@@ -12,6 +12,8 @@ import { ChapterSidebar } from "@/components/chapter-sidebar";
 import { ReadingProgress } from "@/components/reading-progress";
 import { BackToTop } from "@/components/back-to-top";
 import { chapters, loadChapter } from "@/lib/chapters";
+import { currentAnchor, scrollToAnchor } from "@/lib/scroll-to-anchor";
+import { rememberPosition } from "@/lib/reading-position";
 import type { Chapter as ChapterContent } from "@/lib/chapters";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -37,7 +39,14 @@ export default function Chapter() {
   const [loaded, setLoaded] = useState<ChapterContent | null>(null);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // A search result or a shared link can point at a heading inside the page,
+    // in which case jumping to the top would undo it.
+    const anchor = currentAnchor();
+    if (!anchor) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    return scrollToAnchor(anchor);
   }, [slug, subSlug]);
 
   useEffect(() => {
@@ -52,7 +61,25 @@ export default function Chapter() {
   }, [slug]);
 
   const chapter = chapters.find((c) => c.slug === slug);
-  
+
+  // Note the page as read, so the home page can offer to pick the book back
+  // up. Above the not-found branch below: hooks cannot sit after a return.
+  useEffect(() => {
+    if (!chapter) return;
+    const sub = subSlug
+      ? chapter.subchapters.find((s) => s.slug === subSlug)
+      : undefined;
+    rememberPosition({
+      url: sub
+        ? `/chapter/${chapter.slug}/subchapter/${sub.slug}`
+        : `/chapter/${chapter.slug}`,
+      title: sub ? sub.title : chapter.title,
+      context: sub
+        ? `Chapter ${chapter.order} · ${chapter.title}`
+        : `Chapter ${chapter.order}`,
+    });
+  }, [chapter, subSlug]);
+
   if (!chapter) {
     return (
       <div className="min-h-screen flex items-center justify-center">
