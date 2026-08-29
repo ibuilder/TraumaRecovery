@@ -307,3 +307,25 @@ html {
     inset: -1px;
   }
 }
+
+/**
+ * Motion is a common trigger for people with vestibular conditions, and for
+ * some trauma survivors, which is not a small consideration for this subject
+ * matter. Honour the system setting: no smooth scrolling, no transitions, no
+ * chart entry animations. Recharts animates in JavaScript rather than CSS, so
+ * `prefersReducedMotion()` in trauma-charts.tsx reads the same preference.
+ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

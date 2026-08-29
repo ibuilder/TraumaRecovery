@@ -14,12 +14,20 @@ A static-first React reading app that presents the full book: 14 chapters, 73 su
 
 - **14 chapters / 73 subchapters** of markdown content (~119,000 words) rendered with `react-markdown` + GFM
 - **81 figures** embedded in the prose via a ` ```chart:ChartName``` ` placeholder — Recharts plots for data, and hand-built accessible SVG/markup for diagrams
-- **Full-book PDF export** generated in the browser (cover, copyright page, table of contents,
-  running headers, page numbers, captured chart images)
+- **Full-book PDF export** generated in the browser — a typeset 718-page book with a cover,
+  copyright page, contents and list of figures with page numbers, PDF bookmarks, running heads,
+  folios, floated figures, widow and orphan control, and one bibliography at the back
+  (see [Architecture → The printed book](docs/ARCHITECTURE.md#the-printed-book))
+- **Full-text search** over every chapter and heading (`⌘K` / `Ctrl-K`), against a search index
+  built at compile time and loaded on first use
+- **Continue reading** — the last place you were is offered on the home page, kept in the browser
+  and never sent anywhere
+- **Crisis help** one click away in the header on every page, and in the footer
+- **Linkable headings** — every `##` and `###` has a stable anchor, so search results and shared
+  links land on the right paragraph
 - **Dark / light theme** with system-preference detection
 - **Reading progress bar**, per-chapter sidebar, and prev/next chapter navigation
 - **Responsive** layout with a mobile navigation drawer
-- **Crisis resources** surfaced in the footer on every page
 
 ## Chapters
 
@@ -46,17 +54,18 @@ A static-first React reading app that presents the full book: 14 chapters, 73 su
 
 | Layer | Choice |
 |-------|--------|
-| UI | React 18, TypeScript, Tailwind CSS, shadcn/ui (Radix) |
+| UI | React 19, TypeScript 5.9, Tailwind CSS 3, shadcn/ui (Radix) |
 | Routing | wouter (base-path aware, so it works from a subdirectory) |
 | Content | TypeScript modules holding markdown strings |
-| Charts | Recharts |
+| Charts | Recharts 3 |
+| Search | Compile-time index + `cmdk`, both lazy-loaded on first `⌘K` |
 | PDF | jsPDF + html2canvas, both lazy-loaded on demand |
-| Build | Vite 7 |
+| Build | Vite 8 (Rolldown) |
 | Server (optional) | Express — only needed for the `/api/health` endpoint |
 
 ## Getting started
 
-Requires Node.js 20+.
+Requires Node.js 20.19+ (CI and the deploy workflow run 22).
 
 ```bash
 npm install
@@ -70,6 +79,8 @@ npm run dev          # http://localhost:5000
 | `npm run dev` | Express + Vite middleware dev server on `PORT` (default 5000) |
 | `npm run check` | TypeScript typecheck |
 | `npm run validate:content` | Structural checks on the book content (see below) |
+| `npm run manifest` | Regenerate `lib/chapters/manifest.ts` from the chapter modules |
+| `npm run search-index` | Regenerate `lib/search-index.json` from the chapter modules |
 | `npm run build` | Full build: static client + bundled Express server → `dist/` |
 | `npm run build:pages` | Static-only build for GitHub Pages → `dist/public/` |
 | `npm start` | Run the production Express build |
@@ -111,16 +122,27 @@ client/
     ├── App.tsx                     # routes, providers, base-path-aware router
     ├── components/
     │   ├── markdown-renderer.tsx   # markdown → React, resolves chart placeholders
-    │   ├── pdf-generator.tsx       # full-book PDF export
+    │   ├── pdf-generator.tsx       # full-book PDF export and typesetting
     │   ├── trauma-charts.tsx       # all 81 figure components
+    │   ├── search-dialog.tsx       # ⌘K search over the compile-time index
+    │   ├── crisis-dialog.tsx       # crisis resources, reachable from the header
+    │   ├── continue-reading.tsx    # offers the reader's last position
     │   └── ui/                     # shadcn/ui primitives
-    ├── lib/chapters/               # the book: one module per chapter
+    ├── lib/
+    │   ├── chapters/               # the book: one module per chapter, lazily loaded
+    │   │   ├── manifest.ts         # generated: slugs, titles, module names
+    │   │   └── load.ts             # per-chapter dynamic import
+    │   ├── search-index.json       # generated: 980 searchable entries
+    │   ├── reading-position.ts     # the "continue reading" bookmark
+    │   └── scroll-to-anchor.ts     # deep links into lazily-loaded chapters
     └── pages/                      # home, chapters index, chapter, 404
 server/                             # Express host for the non-static deployment
 shared/schema.ts                    # Chapter / Subchapter / BookInfo types
 script/
 ├── build.ts                        # client + server build
 ├── build-pages.ts                  # static build for GitHub Pages
+├── generate-manifest.ts            # writes lib/chapters/manifest.ts
+├── generate-search-index.ts        # writes lib/search-index.json
 └── validate-content.ts             # content structure checks
 ```
 
@@ -152,8 +174,12 @@ previously shipped:
 - `order` matches the position in the array (navigation follows the array, badges show `order`)
 - every chapter and subchapter body starts with an `# H1`
 - every `chart:Name` placeholder resolves to a real component
+- `manifest.ts` and `search-index.json` are in step with the chapter modules — both are
+  generated, and a stale one means chapters go missing from navigation or from search
 
-It also warns about charts that are defined but never referenced.
+It also warns about charts that are defined but never referenced. Three currently are
+(`IPVPTSDChart`, `MeadowsTreatmentModelChart`, `MeadowsOutcomeChart`); they are complete
+and labelled, and are waiting on an editorial decision about whether they belong in the book.
 
 ## Source notes
 

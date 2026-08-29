@@ -34,8 +34,21 @@ function App() {
         <TooltipProvider>
           <WouterRouter base={routerBase}>
             <div className="min-h-screen flex flex-col bg-background text-foreground">
+              {/*
+                The header is sticky and carries navigation, search and the
+                crisis dialog, so a keyboard or screen-reader user tabs through
+                all of it before reaching a word of the chapter. Off-screen
+                until focused, then the first thing in the tab order.
+              */}
+              <a
+                href="#main"
+                className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-background focus:px-4 focus:py-2 focus:text-foreground focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-ring"
+                data-testid="link-skip-to-content"
+              >
+                Skip to content
+              </a>
               <Header />
-              <main className="flex-1">
+              <main id="main" tabIndex={-1} className="flex-1">
                 <Router />
               </main>
               <Footer />
