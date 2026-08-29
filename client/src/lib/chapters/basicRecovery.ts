@@ -561,7 +561,7 @@ Sleep is when the body heals. Trauma often disrupts sleep through nightmares, hy
 
 Rosenbaum, S., Vancampfort, D., Steel, Z., Newby, J., Ward, P. B., & Stubbs, B. (2015). Physical activity in the treatment of post-traumatic stress disorder: A systematic review and meta-analysis. *Psychiatry Research, 230*(2), 130-136.
 
-Schuch, F. B., et al. (2024). Exercise for anxiety and PTSD: A systematic review and meta-analysis of randomized controlled trials. *Frontiers in Psychology, 15*, 1234567.
+Schuch, F. B., et al. (2024). Exercise for anxiety and PTSD: A systematic review and meta-analysis of randomized controlled trials. *Frontiers in Psychology, 15*.
 
 van der Kolk, B. A. (2014). *The body keeps the score: Brain, mind, and body in the healing of trauma*. Viking.
 
@@ -898,7 +898,7 @@ Trauma survivors often have difficulty staying present with strong emotions. Bui
 
 Gross, J. J., & Thompson, R. A. (2024). Emotion regulation and trauma recovery: A prospective study. *Emotion, 24*(2), 234-248.
 
-Linehan, M. M. (2014). *DBT skills training manual* (2nd ed.). Guilford Press.
+Linehan, M. M. (2015). *DBT skills training manual* (2nd ed.). Guilford Press.
 
 Neff, K., & Germer, C. (2018). *The mindful self-compassion workbook*. Guilford Press.
 
@@ -2553,7 +2553,7 @@ Maté, G. (2022). *The myth of normal: Trauma, illness, and healing in a toxic c
 
 Porges, S. W. (2024). Polyvagal theory and the treatment of trauma. *Psychophysiology, 61*(2), e14532.
 
-Siegel, D. J. (2024). The developing mind: How relationships and the brain interact to shape who we are (3rd ed.). Guilford Press.
+Siegel, D. J. (2020). The developing mind: How relationships and the brain interact to shape who we are (3rd ed.). Guilford Press.
 
 Substance Abuse and Mental Health Services Administration. (2024). *Trauma-informed care in behavioral health services*. SAMHSA.
 
@@ -3169,7 +3169,7 @@ Ogden, P., & Fisher, J. (2024). *Sensorimotor psychotherapy: Interventions for t
 
 Porges, S. W. (2024). Polyvagal theory and the treatment of trauma. *Psychophysiology, 61*(2), e14532.
 
-Siegel, D. J. (2024). *The developing mind: How relationships and the brain interact to shape who we are* (3rd ed.). Guilford Press.
+Siegel, D. J. (2020). *The developing mind: How relationships and the brain interact to shape who we are* (3rd ed.). Guilford Press.
 
 van der Kolk, B. A. (2014). *The body keeps the score: Brain, mind, and body in the healing of trauma*. Viking.`,
     },
