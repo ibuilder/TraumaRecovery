@@ -178,8 +178,31 @@ function newPage(state: DocState, leftHeader: string, rightHeader: string): DocS
   return state;
 }
 
+/** Last baseline that still sits inside the text block. */
+const PAGE_FLOOR = PAGE_HEIGHT - MARGIN_BOTTOM - 10;
+
+function lineHeightFor(fontSize: number): number {
+  return fontSize <= 10 ? 5 : fontSize <= 12 ? LINE_HEIGHT_NORMAL : LINE_HEIGHT_HEADING;
+}
+
+/** How many more lines of this height fit below y. */
+function linesLeft(y: number, lineH: number): number {
+  return Math.max(0, Math.floor((PAGE_FLOOR - y) / lineH));
+}
+
+/**
+ * Widow and orphan control.
+ *
+ * A paragraph that has to split leaves at least this many lines behind and
+ * carries at least this many forward. One line stranded at the foot of a page,
+ * or alone at the top of the next, is the classic sign of unattended
+ * typesetting and the book was full of both.
+ */
+const MIN_ORPHAN = 2;
+const MIN_WIDOW = 2;
+
 function checkPageBreak(state: DocState, neededHeight: number, leftHeader: string, rightHeader: string): DocState {
-  if (state.y + neededHeight > PAGE_HEIGHT - MARGIN_BOTTOM - 10) {
+  if (state.y + neededHeight > PAGE_FLOOR) {
     return newPage(state, leftHeader, rightHeader);
   }
   return state;
@@ -193,7 +216,9 @@ function addText(
   leftHeader: string,
   rightHeader: string,
   indent = 0,
-  color: [number, number, number] = [26, 26, 26]
+  color: [number, number, number] = [26, 26, 26],
+  /** Never split this block when it would fit on a page of its own. */
+  atomic = false
 ): DocState {
   if (!text.trim()) return state;
   const { doc } = state;
@@ -201,14 +226,38 @@ function addText(
   doc.setFont("times", fontStyle);
   doc.setTextColor(...color);
 
-  const lineH = fontSize <= 10 ? 5 : fontSize <= 12 ? LINE_HEIGHT_NORMAL : LINE_HEIGHT_HEADING;
+  const lineH = lineHeightFor(fontSize);
   const availWidth = TEXT_WIDTH - indent;
-  const lines = doc.splitTextToSize(text, availWidth);
+  const lines = doc.splitTextToSize(text, availWidth) as string[];
+
+  // Decide where this block may break before placing a single line of it.
+  let roomHere = linesLeft(state.y, lineH);
+  if (lines.length > roomHere) {
+    const wholePage = linesLeft(MARGIN_TOP + 10, lineH);
+    const orphaned = roomHere < MIN_ORPHAN;
+    const widowed = lines.length - roomHere < MIN_WIDOW;
+    if (atomic && lines.length <= wholePage) {
+      state = newPage(state, leftHeader, rightHeader);
+      roomHere = linesLeft(state.y, lineH);
+    } else if (orphaned || widowed) {
+      // Pulling one more line over the break often fixes a widow on its own.
+      if (!orphaned && roomHere - 1 >= MIN_ORPHAN) {
+        roomHere -= 1;
+      } else {
+        state = newPage(state, leftHeader, rightHeader);
+        roomHere = linesLeft(state.y, lineH);
+      }
+    }
+  }
 
   for (const line of lines) {
-    state = checkPageBreak(state, lineH, leftHeader, rightHeader);
+    if (roomHere <= 0) {
+      state = newPage(state, leftHeader, rightHeader);
+      roomHere = linesLeft(state.y, lineH);
+    }
     doc.text(line, MARGIN_LEFT + indent, state.y);
     state.y += lineH;
+    roomHere--;
   }
   doc.setTextColor(26, 26, 26);
   return state;
@@ -267,8 +316,52 @@ function splitTableRow(line: string): string[] {
     .map((cell) => stripMarkdownForPdf(cell.trim()));
 }
 
+/** Tables up to this many rows move to the next page rather than split. */
+const SMALL_TABLE_ROWS = 5;
 const TABLE_ROW_PADDING = 2;
 const TABLE_CELL_LINE_HEIGHT = 4.6;
+
+/** Height a captured chart will occupy, so a heading can reserve it. */
+function chartHeight(image: ChartImage): number {
+  const aspect = image.aspect > 0 ? image.aspect : 2;
+  return Math.min(110, TEXT_WIDTH / aspect);
+}
+
+/** Height of a list item, which never splits across a page. */
+function listItemHeight(state: DocState, text: string, indent: number): number {
+  state.doc.setFontSize(FONT_SIZE_NORMAL);
+  state.doc.setFont("times", "normal");
+  const n = (state.doc.splitTextToSize(text, TEXT_WIDTH - indent) as string[]).length;
+  return n * LINE_HEIGHT_NORMAL;
+}
+
+/** Height of one laid-out table row. */
+function tableRowHeight(state: DocState, row: string[], columns: number, bold: boolean): number {
+  const { doc } = state;
+  doc.setFont("times", bold ? "bold" : "normal");
+  doc.setFontSize(FONT_SIZE_SMALL);
+  const colWidth = TEXT_WIDTH / columns;
+  const lines = Array.from({ length: columns }, (_, i) =>
+    (doc.splitTextToSize(row[i] ?? "", colWidth - 2 * TABLE_ROW_PADDING) as string[]).length
+  );
+  return Math.max(1, ...lines) * TABLE_CELL_LINE_HEIGHT + 2 * TABLE_ROW_PADDING;
+}
+
+/**
+ * How much room a heading must leave for the table under it.
+ *
+ * A short table moves to the next page whole rather than splitting, so the
+ * heading has to clear all of it; a long one only needs its header and first
+ * row of data to come along.
+ */
+function tableReserve(state: DocState, rows: string[][], hasHeader: boolean): number {
+  const columns = Math.max(...rows.map((r) => r.length));
+  if (columns === 0) return 0;
+  const heights = rows.map((r, i) => tableRowHeight(state, r, columns, hasHeader && i === 0));
+  const lead = heights.slice(0, hasHeader ? 2 : 1).reduce((a, b) => a + b, 0);
+  const total = heights.reduce((a, b) => a + b, 0);
+  return 3 + (rows.length <= SMALL_TABLE_ROWS ? total : lead);
+}
 
 /** Renders a GFM table as a bordered grid instead of dumping raw pipe syntax. */
 function addTable(
@@ -284,34 +377,37 @@ function addTable(
   const colWidth = TEXT_WIDTH / columnCount;
   const { doc } = state;
 
-  state.y += 3;
-  rows.forEach((row, rowIndex) => {
-    const isHeaderRow = hasHeader && rowIndex === 0;
+  /** Lays a row out without drawing it, so its height is known in advance. */
+  const layout = (row: string[], isHeaderRow: boolean) => {
     doc.setFont("times", isHeaderRow ? "bold" : "normal");
     doc.setFontSize(FONT_SIZE_SMALL);
-
     const cells = Array.from({ length: columnCount }, (_, i) => row[i] ?? "");
-    const wrapped = cells.map((cell) =>
-      doc.splitTextToSize(cell, colWidth - 2 * TABLE_ROW_PADDING) as string[]
+    const wrapped = cells.map(
+      (cell) => doc.splitTextToSize(cell, colWidth - 2 * TABLE_ROW_PADDING) as string[]
     );
-    const rowHeight =
+    const height =
       Math.max(1, ...wrapped.map((lines) => lines.length)) * TABLE_CELL_LINE_HEIGHT +
       2 * TABLE_ROW_PADDING;
+    return { wrapped, height };
+  };
 
-    state = checkPageBreak(state, rowHeight, leftHeader, rightHeader);
-
+  const draw = (
+    laid: { wrapped: string[][]; height: number },
+    isHeaderRow: boolean
+  ) => {
+    doc.setFont("times", isHeaderRow ? "bold" : "normal");
+    doc.setFontSize(FONT_SIZE_SMALL);
     if (isHeaderRow) {
       doc.setFillColor(240, 245, 255);
-      doc.rect(MARGIN_LEFT, state.y, TEXT_WIDTH, rowHeight, "F");
+      doc.rect(MARGIN_LEFT, state.y, TEXT_WIDTH, laid.height, "F");
     }
     doc.setDrawColor(210, 216, 228);
     doc.setLineWidth(0.2);
-    doc.rect(MARGIN_LEFT, state.y, TEXT_WIDTH, rowHeight);
-
+    doc.rect(MARGIN_LEFT, state.y, TEXT_WIDTH, laid.height);
     doc.setTextColor(26, 26, 26);
-    wrapped.forEach((lines, colIndex) => {
+    laid.wrapped.forEach((lines, colIndex) => {
       const x = MARGIN_LEFT + colIndex * colWidth;
-      if (colIndex > 0) doc.line(x, state.y, x, state.y + rowHeight);
+      if (colIndex > 0) doc.line(x, state.y, x, state.y + laid.height);
       lines.forEach((line, lineIndex) => {
         doc.text(
           line,
@@ -320,9 +416,35 @@ function addTable(
         );
       });
     });
+    state.y += laid.height;
+  };
 
-    state.y += rowHeight;
+  const laidOut = rows.map((row, i) => layout(row, hasHeader && i === 0));
+  const header = hasHeader ? laidOut[0] : null;
+  const total = laidOut.reduce((sum, r) => sum + r.height, 0);
+
+  state.y += 3;
+
+  // A short table splits worse than it moves. Send the whole thing to the next
+  // page when it would fit there.
+  if (
+    state.y + total > PAGE_FLOOR &&
+    total <= PAGE_FLOOR - (MARGIN_TOP + 10) &&
+    rows.length <= SMALL_TABLE_ROWS
+  ) {
+    state = newPage(state, leftHeader, rightHeader);
+  }
+
+  laidOut.forEach((laid, rowIndex) => {
+    const isHeaderRow = hasHeader && rowIndex === 0;
+    if (state.y + laid.height > PAGE_FLOOR) {
+      state = newPage(state, leftHeader, rightHeader);
+      // Repeat the header, or the continuation is an unlabelled grid of cells.
+      if (header && !isHeaderRow) draw(header, true);
+    }
+    draw(laid, isHeaderRow);
   });
+
   state.y += 5;
   return state;
 }
@@ -336,6 +458,56 @@ async function renderMarkdownContent(
 ): Promise<DocState> {
   const lines = content.split("\n");
   let paraBuffer: string[] = [];
+
+  /**
+   * Headings are held back until the height of what follows them is known.
+   *
+   * Reserving a generic two lines is not enough: what comes next is often a
+   * list item, a table or a figure, and those move as a unit — leaving the
+   * heading behind at the foot of the page. Deferring lets the heading break
+   * with the block it introduces.
+   */
+  type Heading = { text: string; size: number; before: number; after: number };
+
+  // A run of consecutive headings — a section title immediately followed by
+  // its first sub-heading — is placed as one unit, or the outer one is left
+  // stranded when the inner one moves.
+  let pending: Heading[] = [];
+
+  const headingHeight = (head: Heading) => {
+    const { doc } = state;
+    doc.setFontSize(head.size);
+    doc.setFont("times", "bold");
+    const count = (doc.splitTextToSize(head.text, TEXT_WIDTH) as string[]).length;
+    return head.before + count * lineHeightFor(head.size) + head.after;
+  };
+
+  const placeHeading = (followHeight: number) => {
+    if (pending.length === 0) return;
+    const group = pending;
+    pending = [];
+    const needed = group.reduce((sum, h) => sum + headingHeight(h), 0) + followHeight;
+    const breaking = state.y + needed > PAGE_FLOOR;
+    if (breaking) state = newPage(state, leftHeader, rightHeader);
+    group.forEach((head, i) => {
+      // The gap above the first heading is swallowed by the page break.
+      if (!(breaking && i === 0)) state.y += head.before;
+      state = addText(state, head.text, head.size, "bold", leftHeader, rightHeader, 0, [26, 26, 26], true);
+      state.y += head.after;
+    });
+  };
+
+  /**
+   * Height a heading must clear for the text that follows it: the leading gap
+   * plus the first `MIN_ORPHAN` lines. Leaving the gap out of the reserve was
+   * enough on its own to strand a heading on a page that was almost full.
+   */
+  const openingHeight = (text: string, indent = 0, gap = 2) => {
+    state.doc.setFontSize(FONT_SIZE_NORMAL);
+    state.doc.setFont("times", "normal");
+    const n = (state.doc.splitTextToSize(text, TEXT_WIDTH - indent) as string[]).length;
+    return gap + Math.min(n, MIN_ORPHAN) * LINE_HEIGHT_NORMAL;
+  };
 
   const flushPara = () => {
     if (paraBuffer.length === 0) return;
@@ -353,9 +525,10 @@ async function renderMarkdownContent(
       const label = stripMarkdownForPdf(lead[1]).trim();
       const rest = stripMarkdownForPdf(lead[2]).trim();
       if (label) {
-        state.y += 4;
-        state = addText(state, label, FONT_SIZE_NORMAL, "bold", leftHeader, rightHeader);
+        // The lead-in is a heading in all but name, so it defers the same way.
+        pending.push({ text: label, size: FONT_SIZE_NORMAL, before: 4, after: 0 });
         if (rest) {
+          placeHeading(openingHeight(rest));
           state = addText(state, rest, FONT_SIZE_NORMAL, "normal", leftHeader, rightHeader);
           state.y += 2;
         }
@@ -365,6 +538,7 @@ async function renderMarkdownContent(
 
     const cleaned = stripMarkdownForPdf(combined);
     if (cleaned) {
+      placeHeading(openingHeight(cleaned));
       state.y += 2;
       state = addText(state, cleaned, FONT_SIZE_NORMAL, "normal", leftHeader, rightHeader);
       state.y += 2;
@@ -386,8 +560,10 @@ async function renderMarkdownContent(
         i++;
       }
       if (chartImages[chartName]) {
+        placeHeading(chartHeight(chartImages[chartName]) + 8);
         state = addChartImage(state, chartImages[chartName], leftHeader, rightHeader);
       } else {
+        placeHeading(LINE_HEIGHT_NORMAL);
         state.y += 2;
         state = addText(state, `[Chart: ${chartName}]`, FONT_SIZE_SMALL, "italic", leftHeader, rightHeader, 4, [120, 120, 120]);
         state.y += 2;
@@ -408,28 +584,25 @@ async function renderMarkdownContent(
       i--;
       const hasHeader = block.length > 1 && isTableDivider(block[1]);
       const rows = block.filter((r) => !isTableDivider(r)).map(splitTableRow);
-      if (rows.length) state = addTable(state, rows, hasHeader, leftHeader, rightHeader);
+      if (rows.length) {
+        placeHeading(tableReserve(state, rows, hasHeader));
+        state = addTable(state, rows, hasHeader, leftHeader, rightHeader);
+      }
       continue;
     }
 
     if (/^######\s/.test(line) || /^#####\s/.test(line) || /^####\s/.test(line)) {
       flushPara();
       const text = stripMarkdownForPdf(line.replace(/^#{4,6}\s+/, ""));
-      state.y += 4;
-      state = addText(state, text, FONT_SIZE_H4, "bold", leftHeader, rightHeader);
-      state.y += 2;
+      pending.push({ text, size: FONT_SIZE_H4, before: 4, after: 2 });
     } else if (/^###\s/.test(line)) {
       flushPara();
       const text = stripMarkdownForPdf(line.replace(/^###\s+/, ""));
-      state.y += 6;
-      state = addText(state, text, FONT_SIZE_H3, "bold", leftHeader, rightHeader);
-      state.y += 3;
+      pending.push({ text, size: FONT_SIZE_H3, before: 6, after: 3 });
     } else if (/^##\s/.test(line)) {
       flushPara();
       const text = stripMarkdownForPdf(line.replace(/^##\s+/, ""));
-      state.y += 8;
-      state = addText(state, text, FONT_SIZE_H2, "bold", leftHeader, rightHeader);
-      state.y += 4;
+      pending.push({ text, size: FONT_SIZE_H2, before: 8, after: 4 });
     } else if (/^#\s/.test(line)) {
       flushPara();
     } else if (/^>\s?/.test(line)) {
@@ -444,6 +617,7 @@ async function renderMarkdownContent(
       i--;
       const text = stripMarkdownForPdf(quoteLines.join(" ").replace(/\s+/g, " "));
       if (text) {
+        placeHeading(openingHeight(text, 8, 3));
         state.y += 3;
         state = checkPageBreak(state, 8, leftHeader, rightHeader);
         state.doc.setDrawColor(180, 180, 180);
@@ -453,8 +627,12 @@ async function renderMarkdownContent(
         // add a pair only when neither end has one.
         const alreadyQuoted = /^["\u201c\u2018']/.test(text) || /["\u201d\u2019']$/.test(text);
         const quoted = alreadyQuoted ? text : `"${text}"`;
-        state = addText(state, quoted, FONT_SIZE_NORMAL, "italic", leftHeader, rightHeader, 8, [80, 80, 80]);
-        state.doc.line(MARGIN_LEFT + 2, startY, MARGIN_LEFT + 2, state.y);
+        state = addText(state, quoted, FONT_SIZE_NORMAL, "italic", leftHeader, rightHeader, 8, [80, 80, 80], true);
+        // Only rule the margin when the quote stayed on one page; a split one
+        // would otherwise draw its bar from the old y to the new.
+        if (state.y > startY) {
+          state.doc.line(MARGIN_LEFT + 2, startY, MARGIN_LEFT + 2, state.y);
+        }
         state.doc.setLineWidth(0.2);
         state.y += 3;
       }
@@ -475,6 +653,8 @@ async function renderMarkdownContent(
       }
       const text = stripMarkdownForPdf(parts.join(" "));
       const nested = /^\s{2,}/.test(line);
+      // A list item is atomic, so the heading has to clear the whole item.
+      placeHeading(listItemHeight(state, `${marker} ${text}`, nested ? 12 : 6));
       state = addText(
         state,
         `${marker} ${text}`,
@@ -482,10 +662,15 @@ async function renderMarkdownContent(
         "normal",
         leftHeader,
         rightHeader,
-        nested ? 12 : 6
+        nested ? 12 : 6,
+        [26, 26, 26],
+        // A list item is short; breaking one across a page turns a bullet into
+        // two half-bullets.
+        true
       );
     } else if (/^---+$/.test(trimmed)) {
       flushPara();
+      placeHeading(LINE_HEIGHT_NORMAL);
       state.y += 4;
       state = checkPageBreak(state, 4, leftHeader, rightHeader);
       state.doc.setDrawColor(180, 180, 180);
@@ -500,6 +685,8 @@ async function renderMarkdownContent(
     }
   }
   flushPara();
+  // A section that ends on a heading still has to print it.
+  placeHeading(0);
   return state;
 }
 
@@ -799,8 +986,10 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
       doc.setFont("times", "normal");
       doc.setFontSize(9);
       doc.setTextColor(59, 130, 246);
+      // The label needs clearance: at +4/+7 its baseline sat inside the 18pt
+      // title's ascenders and the two printed on top of each other.
       doc.text(`${chapter.order}.${sub.order}`, MARGIN_LEFT, state.y + 4);
-      state.y += 7;
+      state.y += 12;
 
       doc.setFont("times", "bold");
       doc.setFontSize(18);
