@@ -335,6 +335,96 @@ function listItemHeight(state: DocState, text: string, indent: number): number {
   return n * LINE_HEIGHT_NORMAL;
 }
 
+/**
+ * Every reference in the book, deduplicated and alphabetised.
+ *
+ * The prose carries 85 separate `## References` sections, a median of three
+ * entries each — a reader is interrupted by one every few pages. In print they
+ * belong at the back: the inline author–year citations are what a reader needs
+ * mid-paragraph, and the list is for looking things up afterwards. The website
+ * keeps rendering them per section, where a reader arriving from a search
+ * result has no back matter to turn to.
+ */
+function collectBibliography(chaps: Chapter[]): string[] {
+  const byKey = new Map<string, string>();
+
+  const harvest = (markdown: string) => {
+    for (const section of markdown.split(/^## /m)) {
+      if (!/^References\s*$/m.test(section.split("\n")[0] ?? "")) continue;
+      for (const raw of section.split("\n").slice(1)) {
+        const line = stripMarkdownForPdf(raw.replace(/^\s*[-*+]\s*/, "")).trim();
+        if (!line || line.length < 12) continue;
+
+        // The same work is cited with different initials in different chapters
+        // — "van der Kolk, B. A. (2014)" and "van der Kolk, B. (2014)". Key on
+        // the surname, the year and the opening of the title so those merge,
+        // but two different works by one author in one year do not.
+        const year = /\((\d{4}[a-z]?)\)/.exec(line)?.[1] ?? "";
+        const surname = line.split(",")[0]!.toLowerCase().replace(/[^a-z ]/g, "");
+        // Key on the main title — everything before the subtitle colon or the
+        // sentence stop. The same book is cited both in full and short form
+        // ("No bad parts: Healing trauma…" and "No bad parts."), which a
+        // word-count key splits in two; a main-title key merges those while
+        // keeping Linehan's manual apart from her handouts.
+        const title = line
+          .slice(line.indexOf(`(${year})`) + year.length + 2)
+          .replace(/\([^)]*\)/g, " ")
+          // The slice starts on the full stop that closes the year, so trim it
+          // before splitting — otherwise the main title comes out empty and
+          // everything by one author in one year merges into a single entry.
+          .replace(/^[\s.,;:]+/, "")
+          .split(/[:.]/)[0]!
+          .toLowerCase()
+          .replace(/[^a-z0-9 ]/g, " ")
+          .split(/\s+/)
+          .filter(Boolean)
+          .join(" ");
+        const key = `${surname}|${year}|${title}`;
+
+        // Keep the fullest version — the one that spells out more initials.
+        const existing = byKey.get(key);
+        if (!existing || line.length > existing.length) byKey.set(key, line);
+      }
+    }
+  };
+
+  for (const chapter of chaps) {
+    harvest(chapter.content);
+    for (const sub of chapter.subchapters) harvest(sub.content);
+  }
+
+  return [...byKey.values()].sort((a, b) =>
+    a.localeCompare(b, "en", { sensitivity: "base" })
+  );
+}
+
+/** A reference, set with the hanging indent a bibliography uses. */
+function addHangingEntry(
+  state: DocState,
+  text: string,
+  leftHeader: string,
+  rightHeader: string
+): DocState {
+  const { doc } = state;
+  doc.setFont("times", "normal");
+  doc.setFontSize(FONT_SIZE_SMALL);
+  doc.setTextColor(26, 26, 26);
+  const indent = 6;
+  const lines = doc.splitTextToSize(text, TEXT_WIDTH - indent) as string[];
+  const lineH = 4.6;
+
+  // Keep an entry whole; a citation split across a page is unreadable.
+  if (state.y + lines.length * lineH > PAGE_FLOOR) {
+    state = newPage(state, leftHeader, rightHeader);
+  }
+  lines.forEach((line, i) => {
+    doc.text(line, MARGIN_LEFT + (i === 0 ? 0 : indent), state.y);
+    state.y += lineH;
+  });
+  state.y += 1.6;
+  return state;
+}
+
 /** Height of one laid-out table row. */
 function tableRowHeight(state: DocState, row: string[], columns: number, bold: boolean): number {
   const { doc } = state;
@@ -548,6 +638,15 @@ async function renderMarkdownContent(
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     const trimmed = line.trim();
+
+    // The references are gathered into one bibliography at the back; skip the
+    // section here rather than interrupting the reader 85 times.
+    if (/^##\s+References\s*$/.test(trimmed)) {
+      flushPara();
+      pending = [];
+      while (i + 1 < lines.length && !/^#{1,3}\s/.test(lines[i + 1])) i++;
+      continue;
+    }
 
     // Chart blocks: ```chart:Name``` on one line, or a ```chart:Name fence.
     const chartMatch = /^```chart:(\w+)(?:```)?$/.exec(trimmed);
@@ -811,6 +910,8 @@ function buildTOCPage(doc: jsPDF, chaps: Chapter[]): void {
     });
     y += 2;
   });
+
+  addTOCEntry("Sources and Further Reading", true);
 }
 
 type Html2Canvas = typeof import("html2canvas").default;
@@ -1006,6 +1107,40 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
 
       doc.setTextColor(26, 26, 26);
       state = await renderMarkdownContent(state, sub.content, subLeftH, subRightH, chartImages);
+    }
+  }
+
+  // ---- Sources and further reading ----
+  const bibliography = collectBibliography(chapters);
+  if (bibliography.length) {
+    const bibHeader = "Sources and Further Reading";
+    addPageNumber(state);
+    doc.addPage("letter");
+    state.pageNum++;
+    state.y = MARGIN_TOP + 10;
+    addRunningHeader(state, bookInfo.title, bibHeader);
+
+    doc.setFont("times", "bold");
+    doc.setFontSize(18);
+    doc.setTextColor(15, 23, 42);
+    doc.text(bibHeader, MARGIN_LEFT, state.y + 8);
+    state.y += 16;
+    doc.setDrawColor(200, 210, 230);
+    doc.line(MARGIN_LEFT, state.y, PAGE_WIDTH - MARGIN_RIGHT, state.y);
+    state.y += 8;
+
+    doc.setFont("times", "italic");
+    doc.setFontSize(FONT_SIZE_SMALL);
+    doc.setTextColor(90, 90, 90);
+    const bibNote = doc.splitTextToSize(
+      "Works cited across the book, in one list. Where the text names an author and a year, the full reference is here.",
+      TEXT_WIDTH
+    ) as string[];
+    bibNote.forEach((l) => { doc.text(l, MARGIN_LEFT, state.y); state.y += 5; });
+    state.y += 5;
+
+    for (const entry of bibliography) {
+      state = addHangingEntry(state, entry, bookInfo.title, bibHeader);
     }
   }
 
