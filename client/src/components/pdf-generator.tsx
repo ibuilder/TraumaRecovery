@@ -52,20 +52,35 @@ import {
   setStaticCharts,
 } from "@/components/trauma-charts";
 
+/**
+ * The page grid.
+ *
+ * US Letter, because the people who print this book print it at home on a
+ * domestic printer and a 6 x 9 trim would come out either scaled or cropped.
+ * The margins are wide for a reason rather than by neglect: at the old
+ * 25.4 mm the measure ran to a median of 102 characters a line, roughly half
+ * again the length the eye can track back to the next line without losing its
+ * place, which is the single worst thing about reading a page. Pulling the
+ * text block in to 137.9 mm and setting it at 11.5 pt brings that to about 81,
+ * inside the range books have used since they were set by hand. The space it
+ * costs is not wasted: this is a workbook, and readers write in it.
+ */
 const PAGE_WIDTH = 215.9;
 const PAGE_HEIGHT = 279.4;
-const MARGIN_LEFT = 25.4;
-const MARGIN_RIGHT = 25.4;
-const MARGIN_TOP = 25.4;
-const MARGIN_BOTTOM = 25.4;
+const MARGIN_LEFT = 39;
+const MARGIN_RIGHT = 39;
+const MARGIN_TOP = 27;
+const MARGIN_BOTTOM = 27.4;
 const TEXT_WIDTH = PAGE_WIDTH - MARGIN_LEFT - MARGIN_RIGHT;
+/** First baseline of the text block. */
+const TEXT_TOP = MARGIN_TOP;
 const LINE_HEIGHT_NORMAL = 6;
 const LINE_HEIGHT_HEADING = 8;
-const FONT_SIZE_NORMAL = 11;
-const FONT_SIZE_H1 = 24;
-const FONT_SIZE_H2 = 16;
+const FONT_SIZE_NORMAL = 11.5;
+const FONT_SIZE_H1 = 22;
+const FONT_SIZE_H2 = 15.5;
 const FONT_SIZE_H3 = 13;
-const FONT_SIZE_H4 = 12;
+const FONT_SIZE_H4 = 11.5;
 const FONT_SIZE_SMALL = 9;
 
 const ALL_CHART_COMPONENTS: Record<string, React.ComponentType> = {
@@ -148,15 +163,50 @@ interface DocState {
   pageNum: number;
 }
 
+/**
+ * How far an opening page drops before its first line. Chapter openers have
+ * carried a sink since books were bound: the white space is what tells the eye
+ * a new thing has started, before it has read a word.
+ */
+const CHAPTER_SINK = 22;
+/**
+ * A pulled quote is set in from both margins, not just the left. Indented on
+ * one side only it reads as a stray paragraph; inset on both it reads as
+ * somebody else speaking.
+ */
+/**
+ * Figures are allowed out past the text block, centred on the paper.
+ *
+ * Narrowing the measure was for the prose; shrinking every chart's axis labels
+ * by the same 17% was not the point. A figure is looked at rather than read
+ * along, so it may break the measure, which is what books have always done
+ * with plates and tables.
+ */
+const FIGURE_WIDTH = 165;
+const FIGURE_MAX_HEIGHT = 110;
+const FIGURE_GAP_ABOVE = 4;
+const FIGURE_GAP_BELOW = 6;
+/** Tables are a grid to scan, not a line to read, so they get the same room. */
+const TABLE_WIDTH = FIGURE_WIDTH;
+const TABLE_LEFT = (PAGE_WIDTH - TABLE_WIDTH) / 2;
+
+const QUOTE_INSET = 8;
+const QUOTE_GAP = 4;
+const SUBCHAPTER_SINK = 12;
+
+const HEADER_BASELINE = 16;
+const HEADER_RULE = 18.5;
+const FOLIO_BASELINE = 264;
+
 function addRunningHeader(state: DocState, leftText: string, rightText: string) {
   const { doc } = state;
   doc.setFontSize(8);
   doc.setFont("times", "italic");
   doc.setTextColor(150, 150, 150);
-  doc.text(leftText, MARGIN_LEFT, 18);
-  doc.text(rightText, PAGE_WIDTH - MARGIN_RIGHT, 18, { align: "right" });
+  doc.text(leftText, MARGIN_LEFT, HEADER_BASELINE);
+  doc.text(rightText, PAGE_WIDTH - MARGIN_RIGHT, HEADER_BASELINE, { align: "right" });
   doc.setDrawColor(200, 200, 200);
-  doc.line(MARGIN_LEFT, 20, PAGE_WIDTH - MARGIN_RIGHT, 20);
+  doc.line(MARGIN_LEFT, HEADER_RULE, PAGE_WIDTH - MARGIN_RIGHT, HEADER_RULE);
   doc.setTextColor(26, 26, 26);
 }
 
@@ -165,7 +215,7 @@ function addPageNumber(state: DocState) {
   doc.setFontSize(9);
   doc.setFont("times", "normal");
   doc.setTextColor(150, 150, 150);
-  doc.text(String(pageNum), PAGE_WIDTH / 2, PAGE_HEIGHT - 12, { align: "center" });
+  doc.text(String(pageNum), PAGE_WIDTH / 2, FOLIO_BASELINE, { align: "center" });
   doc.setTextColor(26, 26, 26);
 }
 
@@ -173,16 +223,18 @@ function newPage(state: DocState, leftHeader: string, rightHeader: string): DocS
   addPageNumber(state);
   state.doc.addPage("letter");
   state.pageNum++;
-  state.y = MARGIN_TOP + 10;
+  state.y = TEXT_TOP;
   addRunningHeader(state, leftHeader, rightHeader);
   return state;
 }
 
 /** Last baseline that still sits inside the text block. */
-const PAGE_FLOOR = PAGE_HEIGHT - MARGIN_BOTTOM - 10;
+const PAGE_FLOOR = PAGE_HEIGHT - MARGIN_BOTTOM;
 
 function lineHeightFor(fontSize: number): number {
-  return fontSize <= 10 ? 5 : fontSize <= 12 ? LINE_HEIGHT_NORMAL : LINE_HEIGHT_HEADING;
+  if (fontSize <= FONT_SIZE_SMALL + 0.5) return 5;
+  if (fontSize <= FONT_SIZE_NORMAL + 0.5) return LINE_HEIGHT_NORMAL;
+  return LINE_HEIGHT_HEADING;
 }
 
 /** How many more lines of this height fit below y. */
@@ -218,7 +270,9 @@ function addText(
   indent = 0,
   color: [number, number, number] = [26, 26, 26],
   /** Never split this block when it would fit on a page of its own. */
-  atomic = false
+  atomic = false,
+  /** Pulls the right edge in as well, for a block set off from the text. */
+  rightInset = 0
 ): DocState {
   if (!text.trim()) return state;
   const { doc } = state;
@@ -227,13 +281,13 @@ function addText(
   doc.setTextColor(...color);
 
   const lineH = lineHeightFor(fontSize);
-  const availWidth = TEXT_WIDTH - indent;
+  const availWidth = TEXT_WIDTH - indent - rightInset;
   const lines = doc.splitTextToSize(text, availWidth) as string[];
 
   // Decide where this block may break before placing a single line of it.
   let roomHere = linesLeft(state.y, lineH);
   if (lines.length > roomHere) {
-    const wholePage = linesLeft(MARGIN_TOP + 10, lineH);
+    const wholePage = linesLeft(TEXT_TOP, lineH);
     const orphaned = roomHere < MIN_ORPHAN;
     const widowed = lines.length - roomHere < MIN_WIDOW;
     if (atomic && lines.length <= wholePage) {
@@ -263,23 +317,28 @@ function addText(
   return state;
 }
 
-function addChartImage(
-  state: DocState,
-  image: ChartImage,
-  leftHeader: string,
-  rightHeader: string
-): DocState {
-  const maxW = TEXT_WIDTH;
-  const maxH = 110; // max chart height in mm
-  // Size from the captured pixels rather than an assumed ratio, so a tall chart
-  // is scaled down instead of being squeezed or cropped.
-  const imgAspect = image.aspect > 0 ? image.aspect : 2;
-  const imgH = Math.min(maxH, maxW / imgAspect);
-  const imgW = imgH * imgAspect;
-  const xOffset = (TEXT_WIDTH - imgW) / 2;
+/**
+ * Height a figure occupies. Sized from the captured pixels rather than an
+ * assumed ratio, so a tall chart is scaled down instead of squeezed or cropped.
+ */
+function figureHeight(image: ChartImage): number {
+  const aspect = image.aspect > 0 ? image.aspect : 2;
+  return Math.min(FIGURE_MAX_HEIGHT, FIGURE_WIDTH / aspect);
+}
 
-  state = checkPageBreak(state, imgH + 8, leftHeader, rightHeader);
-  state.y += 4;
+/** Total room a figure needs, including the air above and below it. */
+function figureSpace(image: ChartImage): number {
+  return FIGURE_GAP_ABOVE + figureHeight(image) + FIGURE_GAP_BELOW;
+}
+
+/** Draws a figure at the current position. Never breaks the page itself. */
+function addChartImage(state: DocState, image: ChartImage): DocState {
+  const imgAspect = image.aspect > 0 ? image.aspect : 2;
+  const imgH = figureHeight(image);
+  const imgW = imgH * imgAspect;
+  const xLeft = (PAGE_WIDTH - imgW) / 2;
+
+  state.y += FIGURE_GAP_ABOVE;
   // No border is drawn here: the captured image is a ChartFrame, which already
   // carries its own. Adding one put every figure in the book inside a box
   // inside a box.
@@ -288,15 +347,24 @@ function addChartImage(
   state.doc.addImage(
     image.dataUrl,
     "PNG",
-    MARGIN_LEFT + xOffset,
+    xLeft,
     state.y,
     imgW,
     imgH,
     undefined,
     "MEDIUM"
   );
-  state.y += imgH + 6;
+  state.y += imgH + FIGURE_GAP_BELOW;
   return state;
+}
+
+/**
+ * Most quotes in the source already carry their own quotation marks; add a
+ * pair only when neither end has one.
+ */
+function quotedText(text: string): string {
+  const already = /^["\u201c\u2018']/.test(text) || /["\u201d\u2019']$/.test(text);
+  return already ? text : `"${text}"`;
 }
 
 function isTableRow(line: string): boolean {
@@ -320,12 +388,6 @@ function splitTableRow(line: string): string[] {
 const SMALL_TABLE_ROWS = 5;
 const TABLE_ROW_PADDING = 2;
 const TABLE_CELL_LINE_HEIGHT = 4.6;
-
-/** Height a captured chart will occupy, so a heading can reserve it. */
-function chartHeight(image: ChartImage): number {
-  const aspect = image.aspect > 0 ? image.aspect : 2;
-  return Math.min(110, TEXT_WIDTH / aspect);
-}
 
 /** Height of a list item, which never splits across a page. */
 function listItemHeight(state: DocState, text: string, indent: number): number {
@@ -430,7 +492,7 @@ function tableRowHeight(state: DocState, row: string[], columns: number, bold: b
   const { doc } = state;
   doc.setFont("times", bold ? "bold" : "normal");
   doc.setFontSize(FONT_SIZE_SMALL);
-  const colWidth = TEXT_WIDTH / columns;
+  const colWidth = TABLE_WIDTH / columns;
   const lines = Array.from({ length: columns }, (_, i) =>
     (doc.splitTextToSize(row[i] ?? "", colWidth - 2 * TABLE_ROW_PADDING) as string[]).length
   );
@@ -464,7 +526,7 @@ function addTable(
   const columnCount = Math.max(...rows.map((r) => r.length));
   if (columnCount === 0) return state;
 
-  const colWidth = TEXT_WIDTH / columnCount;
+  const colWidth = TABLE_WIDTH / columnCount;
   const { doc } = state;
 
   /** Lays a row out without drawing it, so its height is known in advance. */
@@ -489,14 +551,14 @@ function addTable(
     doc.setFontSize(FONT_SIZE_SMALL);
     if (isHeaderRow) {
       doc.setFillColor(240, 245, 255);
-      doc.rect(MARGIN_LEFT, state.y, TEXT_WIDTH, laid.height, "F");
+      doc.rect(TABLE_LEFT, state.y, TABLE_WIDTH, laid.height, "F");
     }
     doc.setDrawColor(210, 216, 228);
     doc.setLineWidth(0.2);
-    doc.rect(MARGIN_LEFT, state.y, TEXT_WIDTH, laid.height);
+    doc.rect(TABLE_LEFT, state.y, TABLE_WIDTH, laid.height);
     doc.setTextColor(26, 26, 26);
     laid.wrapped.forEach((lines, colIndex) => {
-      const x = MARGIN_LEFT + colIndex * colWidth;
+      const x = TABLE_LEFT + colIndex * colWidth;
       if (colIndex > 0) doc.line(x, state.y, x, state.y + laid.height);
       lines.forEach((line, lineIndex) => {
         doc.text(
@@ -519,7 +581,7 @@ function addTable(
   // page when it would fit there.
   if (
     state.y + total > PAGE_FLOOR &&
-    total <= PAGE_FLOOR - (MARGIN_TOP + 10) &&
+    total <= PAGE_FLOOR - (TEXT_TOP) &&
     rows.length <= SMALL_TABLE_ROWS
   ) {
     state = newPage(state, leftHeader, rightHeader);
@@ -574,6 +636,8 @@ async function renderMarkdownContent(
     return head.before + count * lineHeightFor(head.size) + head.after;
   };
 
+  const pendingHeight = () => pending.reduce((sum, h) => sum + headingHeight(h), 0);
+
   const placeHeading = (followHeight: number) => {
     if (pending.length === 0) return;
     const group = pending;
@@ -591,14 +655,78 @@ async function renderMarkdownContent(
 
   /**
    * Height a heading must clear for the text that follows it: the leading gap
-   * plus the first `MIN_ORPHAN` lines. Leaving the gap out of the reserve was
-   * enough on its own to strand a heading on a page that was almost full.
+   * plus as much of the paragraph as will actually come with it. Leaving the
+   * gap out of the reserve was enough on its own to strand a heading on a page
+   * that was almost full — and so was assuming a paragraph can always leave
+   * `MIN_ORPHAN` lines behind. One of three lines cannot: two here and one
+   * over the break is a widow, one here and two over is an orphan, so the
+   * paragraph moves whole and the heading is left on its own.
    */
   const openingHeight = (text: string, indent = 0, gap = 2) => {
     state.doc.setFontSize(FONT_SIZE_NORMAL);
     state.doc.setFont("times", "normal");
     const n = (state.doc.splitTextToSize(text, TEXT_WIDTH - indent) as string[]).length;
-    return gap + Math.min(n, MIN_ORPHAN) * LINE_HEIGHT_NORMAL;
+    const carried = n < MIN_ORPHAN + MIN_WIDOW ? n : MIN_ORPHAN;
+    return gap + carried * LINE_HEIGHT_NORMAL;
+  };
+
+  /**
+   * The same, for a pulled quote — which is set atomic, so it comes with the
+   * heading whole or not at all.
+   */
+  const quoteOpeningHeight = (text: string) => {
+    state.doc.setFontSize(FONT_SIZE_NORMAL);
+    state.doc.setFont("times", "italic");
+    const n = (
+      state.doc.splitTextToSize(text, TEXT_WIDTH - 2 * QUOTE_INSET) as string[]
+    ).length;
+    const carried =
+      n <= linesLeft(TEXT_TOP, LINE_HEIGHT_NORMAL) || n < MIN_ORPHAN + MIN_WIDOW
+        ? n
+        : MIN_ORPHAN;
+    return QUOTE_GAP + carried * LINE_HEIGHT_NORMAL;
+  };
+
+  /**
+   * A figure waiting for room.
+   *
+   * A chart is up to 110 mm tall and never splits, so setting it in sequence
+   * meant that whenever it did not fit, it and the heading above it both moved
+   * to the next page and left the rest of this one blank — up to 130 mm of it.
+   * Books have always handled this by floating the plate to the next page that
+   * can take it and letting the prose close up behind. That is what this does:
+   * the figure is held, the text carries on filling the page, and the figure
+   * is set at the first point it fits whole.
+   */
+  let floating: { image: ChartImage; label: string } | null = null;
+
+  const logFigure = (label: string) => {
+    // Fourteen figures are referenced by two chapters. A list of figures names
+    // each one once, at its first appearance — and that keeps the list the same
+    // length as the reservation made for it up front.
+    if (figureLog && !figureLog.some((f) => f.label === label)) {
+      figureLog.push({ label, page: state.pageNum, isChapter: false });
+    }
+  };
+
+  /** Sets the held figure if it fits here whole. */
+  const tryFloat = () => {
+    if (!floating || paraBuffer.length > 0) return;
+    if (state.y + figureSpace(floating.image) > PAGE_FLOOR) return;
+    state = addChartImage(state, floating.image);
+    logFigure(floating.label);
+    floating = null;
+  };
+
+  /** Sets the held figure now, taking a new page if that is what it needs. */
+  const flushFloat = () => {
+    if (!floating) return;
+    if (state.y + figureSpace(floating.image) > PAGE_FLOOR) {
+      state = newPage(state, leftHeader, rightHeader);
+    }
+    state = addChartImage(state, floating.image);
+    logFigure(floating.label);
+    floating = null;
   };
 
   const flushPara = () => {
@@ -641,6 +769,8 @@ async function renderMarkdownContent(
     const line = lines[i];
     const trimmed = line.trim();
 
+    tryFloat();
+
     // The references are gathered into one bibliography at the back; skip the
     // section here rather than interrupting the reader 85 times.
     if (/^##\s+References\s*$/.test(trimmed)) {
@@ -660,15 +790,22 @@ async function renderMarkdownContent(
         while (i < lines.length - 1 && lines[i + 1].trim() !== "```") i++;
         i++;
       }
-      if (chartImages[chartName]) {
-        placeHeading(chartHeight(chartImages[chartName]) + 8);
-        state = addChartImage(state, chartImages[chartName], leftHeader, rightHeader);
-        // Fourteen figures are referenced by two chapters. A list of figures
-        // names each one once, at its first appearance — and that keeps the
-        // list the same length as the reservation made for it up front.
+      const image = chartImages[chartName];
+      if (image) {
+        // Only one figure floats at a time; a second one setting off before the
+        // first has landed would reverse them.
+        flushFloat();
         const label = figureTitle(chartName);
-        if (figureLog && !figureLog.some((f) => f.label === label)) {
-          figureLog.push({ label, page: state.pageNum, isChapter: false });
+        // A heading above a figure is only set here if the figure is going to
+        // land under it. Otherwise it stays pending and is set against the
+        // text that follows instead, which is what keeps it off the foot of
+        // the page on its own while the figure floats on ahead.
+        if (state.y + pendingHeight() + figureSpace(image) <= PAGE_FLOOR) {
+          placeHeading(figureSpace(image));
+          state = addChartImage(state, image);
+          logFigure(label);
+        } else {
+          floating = { image, label };
         }
       } else {
         placeHeading(LINE_HEIGHT_NORMAL);
@@ -702,7 +839,7 @@ async function renderMarkdownContent(
     if (/^######\s/.test(line) || /^#####\s/.test(line) || /^####\s/.test(line)) {
       flushPara();
       const text = stripMarkdownForPdf(line.replace(/^#{4,6}\s+/, ""));
-      pending.push({ text, size: FONT_SIZE_H4, before: 4, after: 2 });
+      pending.push({ text, size: FONT_SIZE_H4, before: 5, after: 1 });
     } else if (/^###\s/.test(line)) {
       flushPara();
       const text = stripMarkdownForPdf(line.replace(/^###\s+/, ""));
@@ -710,7 +847,7 @@ async function renderMarkdownContent(
     } else if (/^##\s/.test(line)) {
       flushPara();
       const text = stripMarkdownForPdf(line.replace(/^##\s+/, ""));
-      pending.push({ text, size: FONT_SIZE_H2, before: 8, after: 4 });
+      pending.push({ text, size: FONT_SIZE_H2, before: 9, after: 4 });
     } else if (/^#\s/.test(line)) {
       flushPara();
     } else if (/^>\s?/.test(line)) {
@@ -725,24 +862,32 @@ async function renderMarkdownContent(
       i--;
       const text = stripMarkdownForPdf(quoteLines.join(" ").replace(/\s+/g, " "));
       if (text) {
-        placeHeading(openingHeight(text, 8, 3));
-        state.y += 3;
+        placeHeading(quoteOpeningHeight(quotedText(text)));
+        state.y += QUOTE_GAP;
         state = checkPageBreak(state, 8, leftHeader, rightHeader);
         state.doc.setDrawColor(180, 180, 180);
         state.doc.setLineWidth(0.8);
         const startY = state.y - 1;
-        // Most quotes in the source already carry their own quotation marks;
-        // add a pair only when neither end has one.
-        const alreadyQuoted = /^["\u201c\u2018']/.test(text) || /["\u201d\u2019']$/.test(text);
-        const quoted = alreadyQuoted ? text : `"${text}"`;
-        state = addText(state, quoted, FONT_SIZE_NORMAL, "italic", leftHeader, rightHeader, 8, [80, 80, 80], true);
+        const quoted = quotedText(text);
+        state = addText(
+          state,
+          quoted,
+          FONT_SIZE_NORMAL,
+          "italic",
+          leftHeader,
+          rightHeader,
+          QUOTE_INSET,
+          [80, 80, 80],
+          true,
+          QUOTE_INSET
+        );
         // Only rule the margin when the quote stayed on one page; a split one
         // would otherwise draw its bar from the old y to the new.
         if (state.y > startY) {
           state.doc.line(MARGIN_LEFT + 2, startY, MARGIN_LEFT + 2, state.y);
         }
         state.doc.setLineWidth(0.2);
-        state.y += 3;
+        state.y += QUOTE_GAP;
       }
     } else if (/^\s*[-*+]\s/.test(line) || /^\s*\d+\.\s/.test(line)) {
       flushPara();
@@ -795,6 +940,9 @@ async function renderMarkdownContent(
   flushPara();
   // A section that ends on a heading still has to print it.
   placeHeading(0);
+  // A figure held back at the end of a section is set before the section ends,
+  // not carried into the next one.
+  flushFloat();
   return state;
 }
 
@@ -940,7 +1088,7 @@ function measureListPages(doc: jsPDF, entries: TocEntry[], gapEvery: number): nu
     const h = tocRowHeight(doc, entry);
     if (y + h > PAGE_HEIGHT - MARGIN_BOTTOM - 10) {
       pages++;
-      y = MARGIN_TOP + 10;
+      y = TEXT_TOP;
     }
     y += h;
     if (gapEvery && (i + 1) % gapEvery === 0) y += 2;
@@ -972,7 +1120,7 @@ function drawList(
     if (y + h > PAGE_HEIGHT - MARGIN_BOTTOM - 10) {
       page++;
       doc.setPage(page);
-      y = MARGIN_TOP + 10;
+      y = TEXT_TOP;
     }
     const lineH = entry.isChapter ? TOC_CHAPTER_LINE : TOC_SUB_LINE;
     doc.setFont("times", entry.isChapter ? "bold" : "normal");
@@ -1134,7 +1282,7 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
 
   let state: DocState = {
     doc,
-    y: MARGIN_TOP + 10,
+    y: TEXT_TOP,
     pageNum: 2 + reserved,
   };
 
@@ -1148,12 +1296,14 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     firstChapter = false;
     doc.addPage("letter");
     state.pageNum++;
-    state.y = MARGIN_TOP + 10;
+    state.y = TEXT_TOP + CHAPTER_SINK;
     toc.push({ label: `${chapter.order}. ${chapter.title}`, page: state.pageNum, isChapter: true });
 
+    // No running header on an opener: the page announces the chapter itself,
+    // and a strap repeating it above the title is the mark of a page produced
+    // by a loop rather than laid out.
     const leftH = bookInfo.title;
     const rightH = `Chapter ${chapter.order}`;
-    addRunningHeader(state, leftH, rightH);
 
     // Lay the opener out before painting the tint, so the band always fits its
     // contents and the eyebrow never collides with the title baseline.
@@ -1204,7 +1354,7 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
       addPageNumber(state);
       doc.addPage("letter");
       state.pageNum++;
-      state.y = MARGIN_TOP + 10;
+      state.y = TEXT_TOP + SUBCHAPTER_SINK;
       toc.push({
         label: `${chapter.order}.${sub.order}  ${sub.title}`,
         page: state.pageNum,
@@ -1213,7 +1363,6 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
 
       const subLeftH = chapter.title;
       const subRightH = sub.title;
-      addRunningHeader(state, subLeftH, subRightH);
 
       doc.setFont("times", "normal");
       doc.setFontSize(9);
@@ -1248,9 +1397,8 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     addPageNumber(state);
     doc.addPage("letter");
     state.pageNum++;
-    state.y = MARGIN_TOP + 10;
+    state.y = TEXT_TOP + SUBCHAPTER_SINK;
     toc.push({ label: bibHeader, page: state.pageNum, isChapter: true });
-    addRunningHeader(state, bookInfo.title, bibHeader);
 
     doc.setFont("times", "bold");
     doc.setFontSize(18);
@@ -1279,7 +1427,7 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
   addPageNumber(state);
   doc.addPage("letter");
   state.pageNum++;
-  state.y = MARGIN_TOP + 10;
+  state.y = TEXT_TOP;
 
   doc.setFont("times", "bold");
   doc.setFontSize(18);
