@@ -35,11 +35,28 @@ import {
  * clears it afterwards, so the value is constant for the whole of any render
  * pass that reads it.
  */
-let staticCharts = false;
+/**
+ * Motion is a common trigger for people with vestibular conditions and for some
+ * trauma survivors, so a reader who has asked their system for less of it gets
+ * static charts too. Recharts animates in JavaScript, so the CSS rule in
+ * index.css cannot reach this; read the same media query here. The value is
+ * sampled once per render pass rather than subscribed to — a chart already on
+ * screen would not re-animate anyway.
+ */
+function prefersReducedMotion(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
+let staticCharts = prefersReducedMotion();
 
 /** Turns entry animation off while charts are being captured for the PDF. */
 export function setStaticCharts(value: boolean) {
-  staticCharts = value;
+  // Clearing the exporter's flag returns to the reader's preference, not to on.
+  staticCharts = value || prefersReducedMotion();
 }
 
 /**

@@ -3,13 +3,15 @@
 A staged plan for taking this from "a book that renders" to "a book people finish."
 Written after a full audit of the repository on 2026-08-28.
 
-Phase 0 is done and merged. A second pass has since integrated the author's
-treatment journal — eight new subchapters and 22 new figures, covering chapters
-1, 3, 4, 7, 8, 9, 10 and 13 — which changes a few of the numbers below and
-front-loads part of Phase 3.
+Phase 0 is done and merged. A second pass integrated the author's treatment
+journal — eight new subchapters and 22 new figures, covering chapters 1, 3, 4,
+7, 8, 9, 10 and 13.
 
-Phases 1–4 are proposals, ordered by value-per-effort. Nothing below requires
-abandoning the current architecture.
+**Phases 1–4 have since been worked through**, along with a fifth piece of work
+that was not in the original plan: the printed book itself. Each phase below now
+carries a status; items that are done say so and say what was built, and the ones
+that are not carry the reason. The short version of what is left is at the end,
+under [Still open](#still-open).
 
 ---
 
@@ -47,7 +49,7 @@ markdown syntax left in the text layer.
 
 ---
 
-## Phase 1 — Make the first load fast (highest value)
+## Phase 1 — Make the first load fast (done)
 
 The single largest chunk is now over 1 MB and it is **mostly book text**: all 14
 chapters, ~119,000 words, are bundled into the entry chunk because
@@ -55,6 +57,16 @@ chapters, ~119,000 words, are bundled into the entry chunk because
 sidebar and home page all import `chapters` just to read titles and slugs. The
 journal integration added roughly 12,000 words, so this has got worse, not
 better — it is now the clearest single win available.
+
+**Done.** `manifest.ts` holds the metadata, `load.ts` resolves one chapter module
+per `import.meta.glob` loader behind a cached promise, and every navigation surface
+reads the manifest. `validate:content` fails if the manifest or the search index has
+drifted from the chapter modules. `trauma-charts.tsx` is a separate lazily-loaded
+chunk rather than split per figure, and the Open Sans face is still fetched from
+Google rather than self-hosted — both remain worth doing, neither is on the critical
+path any more.
+
+The original plan follows, for the reasoning.
 
 **Split metadata from content.**
 
@@ -84,7 +96,23 @@ it is actually opened.
 
 ---
 
-## Phase 2 — Make it a better reading experience
+## Phase 2 — Make it a better reading experience (mostly done)
+
+**Done:** reading position, search, and heading anchors. **Not done:** read-state
+marks, an in-page table of contents, reading preferences, and per-chapter PDF export.
+
+Two notes on how the done ones landed, because they differ from the proposal:
+
+- The bookmark is a *"continue reading"* link, not a restored scroll offset. Being
+  dropped part-way down a page you do not remember opening is disorienting, and this
+  is a book people put down mid-chapter and come back to days later.
+- Search is a compile-time index of 980 entries with hand-written ranking (heading
+  matches beat body matches, word-boundary matches beat substring ones, every term
+  has to appear). `cmdk` provides the dialog but its own fuzzy filter is switched
+  off — it scores against the item value, which here is a URL, and dropped every
+  result.
+
+The original proposals follow.
 
 - **Persist reading position.** Store the last chapter/subchapter and scroll offset in
   `localStorage` and offer "Continue where you left off" on the home page. For a 107,000-word
@@ -106,9 +134,22 @@ it is actually opened.
 
 ---
 
-## Phase 3 — Accessibility and content safety
+## Phase 3 — Accessibility and content safety (mostly done)
 
 This is a mental-health resource, so both matter more than usual.
+
+**Done:** every one of the 81 figures now sits in a shared `ChartFrame` — a real
+`<figure>` with a `<figcaption>` and a stated source — the crisis dialog is one click
+away in the header on every page, `prefers-reduced-motion` is honoured in CSS and in
+the Recharts entry animations, and there is a skip-to-content link before the sticky
+header.
+
+**Not done:** the visually-hidden data tables behind the Recharts plots, trigger
+warnings on the heaviest chapters, and axe-core in CI. The first two are editorial as
+much as technical — a content note is the author's voice, not a component — and the
+third needs a Playwright suite that does not exist yet (see Phase 4).
+
+The original proposals follow.
 
 - **Most charts have no text alternative.** The 13 figures added with the journal
   material are built as `<figure>` elements with real captions, `role="img"` with
@@ -131,7 +172,13 @@ This is a mental-health resource, so both matter more than usual.
 
 ---
 
-## Phase 4 — Project hygiene
+## Phase 4 — Project hygiene (partly done)
+
+**Done:** the package metadata, licence and `tsconfig` target (in Phase 0), and 18
+unused packages removed during the dependency upgrade. Everything else here is still
+open and is listed under [Still open](#still-open) with the reason.
+
+The original list follows.
 
 - **No tests exist.** Start with the cheap, high-value ones:
   - Vitest unit tests for `markdown-renderer` (chart placeholder resolution, unknown chart
@@ -168,14 +215,75 @@ This is a mental-health resource, so both matter more than usual.
 
 ---
 
-## Suggested sequencing
+## Phase 5 — The printed book (done)
 
-| Phase | Effort | Reader-visible impact |
-|-------|--------|----------------------|
-| 1 — performance | ~1 day | Large. First paint on mobile goes from seconds to sub-second |
-| 2 — reading experience | ~2–3 days | Large. Progress, search and per-chapter PDF are what make a long book usable |
-| 3 — accessibility & safety | ~2 days | Large for the readers who need it most; also the right thing for this subject matter |
-| 4 — hygiene | ~1 day | None directly, but it is what keeps phases 1–3 from regressing |
+Not in the original plan, because the PDF was assumed to be a byproduct. It is the
+form most of these readers will actually use, and it was the worst-typeset thing in
+the repository.
 
-Phase 1 first: everything else is easier to build and test on a codebase that loads in a
-second rather than five.
+| Fix | Why it mattered |
+|-----|-----------------|
+| Page grid rebuilt: 137.9 mm text block at 11.5 pt on US Letter | The median line ran **102 characters**, half again the length an eye tracks back from without losing its place. Now 76 |
+| Running head and folio put on a real grid | They floated 15 mm and 23 mm clear of the text; the reclaimed space is three more lines a page |
+| Figures and tables break the measure at 165 mm | Narrowing the line was for the prose; there was no reason to shrink every chart's axis labels with it |
+| Figures float | A chart that did not fit took the heading above it to the next page and left up to 130 mm of blank paper behind |
+| Widow and orphan control, and heading reserves that model it | 77 stranded headings at the start of this work, then 3, now **0** |
+| Inline `## References` sections gathered into one bibliography at the back | 73 pages of references interrupting the reader 85 times |
+| Contents and list of figures with page numbers, plus 88 PDF bookmarks | Neither existed; the contents had no page numbers at all |
+| Front matter reserved and then filled | Every folio was two low against its physical page |
+| Charts captured after their entry animation, not during | Pies and radars were screenshotted mid-sweep |
+| Fabricated ISBN removed; invented colons in 66 paragraphs fixed | Both were printing in the book |
+
+**Verification:** the book is generated end to end, every page's text geometry is read
+back with pdfjs, and pages are rendered to PNG and looked at. A clean text layer is not
+a clean book — mid-animation charts, stranded headings and the folio offset all extracted
+perfectly and were visibly wrong on the page. Current state: 718 pages, 92 figure
+placements, 0 stranded headings, every folio matching its physical page, all 14 contents
+entries and all 78 figure-list entries resolving correctly.
+
+---
+
+## Still open
+
+Ordered by how much they matter, not by effort.
+
+**Needs the author, not a developer**
+
+- **Six references cite a 2024 edition beside an earlier one, and none of the 2024
+  editions could be confirmed** — Harris *ACT Made Simple*, Hayes/Strosahl/Wilson,
+  *A Liberated Mind*, Gottman *Seven Principles*, Walker *Battered Woman Syndrome*,
+  WHO ICD-11. Outbound access to publisher and journal sites is blocked from CI, so
+  they are left as they stand rather than guessed at.
+- **Three orphan charts** — `IPVPTSDChart`, `MeadowsTreatmentModelChart`,
+  `MeadowsOutcomeChart`. Complete, labelled, referenced by no chapter. Place them or
+  delete them; `validate:content` warns about them every build.
+- **Trigger warnings** on the childhood-trauma, sexual-compulsivity and self-harm
+  chapters. A content note is the author's voice, which is why it has not been written.
+- **Chapters 6 and 11 are thin** — three subchapters each, against a book average of
+  five, on two subjects that carry a lot of weight.
+
+**Needs a decision, then a deliberate action**
+
+- **`attached_assets/` (22 MB)** of unimported files, including two copies of a
+  third-party treatment centre's manual. Publishing this repository publicly publishes
+  that manual. Deleting the directory is easy; purging it from git history is a
+  `git filter-repo` that rewrites every commit SHA, so it should be its own action on a
+  quiet day, not folded into a feature branch.
+- **What the Express server is for.** It serves one `/api/health` endpoint and a static
+  directory, and `drizzle.config.ts` plus an unused `users` table imply a database that
+  does not exist. Either give it a purpose or delete it and its dependencies.
+
+**Straightforward work nobody has done**
+
+- **No tests.** The verification harness used throughout this work — a route sweep in
+  headless Chromium, and the PDF geometry checks — exists as scratch scripts and should
+  be a Playwright suite in CI. That is also the prerequisite for axe-core.
+- **No linter or formatter.** ESLint (`react-hooks`, `jsx-a11y`) and Prettier.
+- **Visually-hidden data tables** behind the Recharts plots. The `<figure>`/`<figcaption>`
+  half is done; the numbers are still only in the SVG.
+- **Self-host the Open Sans face** and drop the render-blocking Google Fonts request.
+- **Split `trauma-charts.tsx`** — 3,700 lines and 81 figures in one lazily-loaded chunk,
+  where a typical chapter shows one to four.
+- **Per-chapter PDF export.** The full book takes about 90 seconds; most readers want
+  one chapter, and the generator already works chapter by chapter internally.
+- **Prune the ~45 vendored shadcn/ui components** down to the handful in use.
