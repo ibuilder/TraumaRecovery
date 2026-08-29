@@ -544,7 +544,9 @@ async function renderMarkdownContent(
   content: string,
   leftHeader: string,
   rightHeader: string,
-  chartImages: Record<string, ChartImage>
+  chartImages: Record<string, ChartImage>,
+  /** Collects where each figure landed, for the list of figures. */
+  figureLog?: TocEntry[]
 ): Promise<DocState> {
   const lines = content.split("\n");
   let paraBuffer: string[] = [];
@@ -661,6 +663,13 @@ async function renderMarkdownContent(
       if (chartImages[chartName]) {
         placeHeading(chartHeight(chartImages[chartName]) + 8);
         state = addChartImage(state, chartImages[chartName], leftHeader, rightHeader);
+        // Fourteen figures are referenced by two chapters. A list of figures
+        // names each one once, at its first appearance — and that keeps the
+        // list the same length as the reservation made for it up front.
+        const label = figureTitle(chartName);
+        if (figureLog && !figureLog.some((f) => f.label === label)) {
+          figureLog.push({ label, page: state.pageNum, isChapter: false });
+        }
       } else {
         placeHeading(LINE_HEIGHT_NORMAL);
         state.y += 2;
@@ -868,50 +877,136 @@ function buildCopyrightPage(doc: jsPDF): void {
     "professional medical or mental health advice, diagnosis, or treatment. Always seek the guidance of " +
     "your physician or other qualified health provider with any questions regarding a medical or mental health condition."
   );
-  addLine("If you are in crisis, please contact the 988 Suicide and Crisis Lifeline by calling or texting 988.");
+  y += 6;
+  doc.setFont("times", "bold");
+  doc.setFontSize(11);
+  doc.setTextColor(26, 26, 26);
+  doc.text("If you need help right now", MARGIN_LEFT, y);
+  y += 7;
+  doc.setFont("times", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(60, 60, 60);
+  // These belong at the front as well as the back. A reader who needs them
+  // should not have to reach the end of a seven-hundred-page book to find them.
+  [
+    "988 Suicide and Crisis Lifeline — call or text 988",
+    "Crisis Text Line — text HOME to 741741",
+    "SAMHSA National Helpline — 1-800-662-4357",
+    "National Domestic Violence Hotline — 1-800-799-7233",
+  ].forEach((line) => { doc.text(line, MARGIN_LEFT, y); y += 5.5; });
+  y += 2;
+  doc.setFontSize(9);
+  addLine("These numbers are for the United States. Elsewhere, findahelpline.com lists services by country.");
 
-  y += 10;
+  doc.setFontSize(10);
+  y += 8;
   addLine("Published by Recovery Works Publishing");
   addLine("First Edition, 2025");
 }
 
-function buildTOCPage(doc: jsPDF, chaps: Chapter[]): void {
+interface TocEntry {
+  label: string;
+  page: number;
+  isChapter: boolean;
+}
+
+const TOC_CHAPTER_LINE = 7;
+const TOC_SUB_LINE = 5.5;
+const TOC_TOP = 62;
+
+/** One row of the contents, with a leader and a folio. */
+function tocRowHeight(doc: jsPDF, entry: TocEntry): number {
+  const lineH = entry.isChapter ? TOC_CHAPTER_LINE : TOC_SUB_LINE;
+  doc.setFont("times", entry.isChapter ? "bold" : "normal");
+  doc.setFontSize(entry.isChapter ? 12 : 10);
+  const indent = entry.isChapter ? 0 : 10;
+  const lines = doc.splitTextToSize(entry.label, TEXT_WIDTH - indent - 20) as string[];
+  return lines.length * lineH + (entry.isChapter ? 4 : 2);
+}
+
+/**
+ * How many pages a list of this shape will need.
+ *
+ * The contents has to carry real page numbers, which are only known once the
+ * book is set — but the number of pages the contents itself needs depends only
+ * on how many entries there are. Measuring first lets those pages be reserved
+ * up front, so the folios printed on the chapters are right the first time and
+ * the contents can be drawn onto the reserved pages afterwards.
+ */
+function measureListPages(doc: jsPDF, entries: TocEntry[], gapEvery: number): number {
+  let pages = 1;
+  let y = TOC_TOP;
+  entries.forEach((entry, i) => {
+    const h = tocRowHeight(doc, entry);
+    if (y + h > PAGE_HEIGHT - MARGIN_BOTTOM - 10) {
+      pages++;
+      y = MARGIN_TOP + 10;
+    }
+    y += h;
+    if (gapEvery && (i + 1) % gapEvery === 0) y += 2;
+  });
+  return pages;
+}
+
+/** Draws a contents-style list onto pages already reserved for it. */
+function drawList(
+  doc: jsPDF,
+  firstPage: number,
+  heading: string,
+  entries: TocEntry[]
+): void {
+  let page = firstPage;
+  doc.setPage(page);
   doc.setFont("times", "bold");
   doc.setFontSize(20);
   doc.setTextColor(15, 23, 42);
-  doc.text("TABLE OF CONTENTS", PAGE_WIDTH / 2, 45, { align: "center" });
-
+  doc.text(heading, PAGE_WIDTH / 2, 45, { align: "center" });
   doc.setDrawColor(59, 130, 246);
   doc.setLineWidth(0.5);
   doc.line(MARGIN_LEFT, 50, PAGE_WIDTH - MARGIN_RIGHT, 50);
   doc.setLineWidth(0.2);
 
-  let y = 62;
-  const addTOCEntry = (text: string, isChapter: boolean) => {
-    if (y > PAGE_HEIGHT - MARGIN_BOTTOM - 10) {
-      doc.addPage("letter");
+  let y = TOC_TOP;
+  for (const entry of entries) {
+    const h = tocRowHeight(doc, entry);
+    if (y + h > PAGE_HEIGHT - MARGIN_BOTTOM - 10) {
+      page++;
+      doc.setPage(page);
       y = MARGIN_TOP + 10;
     }
-    doc.setFont("times", isChapter ? "bold" : "normal");
-    doc.setFontSize(isChapter ? 12 : 10);
-    doc.setTextColor(isChapter ? 15 : 70, isChapter ? 23 : 80, isChapter ? 42 : 90);
-    const indent = isChapter ? 0 : 10;
-    const lines = doc.splitTextToSize(text, TEXT_WIDTH - indent - 20);
-    lines.forEach((l: string, i: number) => {
-      doc.text(l, MARGIN_LEFT + indent, y + i * (isChapter ? 7 : 5.5));
-    });
-    y += lines.length * (isChapter ? 7 : 5.5) + (isChapter ? 4 : 2);
-  };
+    const lineH = entry.isChapter ? TOC_CHAPTER_LINE : TOC_SUB_LINE;
+    doc.setFont("times", entry.isChapter ? "bold" : "normal");
+    doc.setFontSize(entry.isChapter ? 12 : 10);
+    doc.setTextColor(entry.isChapter ? 15 : 70, entry.isChapter ? 23 : 80, entry.isChapter ? 42 : 90);
+    const indent = entry.isChapter ? 0 : 10;
+    const lines = doc.splitTextToSize(entry.label, TEXT_WIDTH - indent - 20) as string[];
+    lines.forEach((l, i) => doc.text(l, MARGIN_LEFT + indent, y + i * lineH));
 
-  chaps.forEach((chapter) => {
-    addTOCEntry(`${chapter.order}. ${chapter.title}`, true);
-    chapter.subchapters.forEach((sub) => {
-      addTOCEntry(`${chapter.order}.${sub.order}  ${sub.title}`, false);
-    });
-    y += 2;
-  });
+    // The folio sits hard against the right margin with a dotted leader, so
+    // the eye can travel from a long title to its number without losing the row.
+    const folio = String(entry.page);
+    const lastY = y + (lines.length - 1) * lineH;
+    doc.text(folio, PAGE_WIDTH - MARGIN_RIGHT, lastY, { align: "right" });
+    const textEnd = MARGIN_LEFT + indent + doc.getTextWidth(lines[lines.length - 1]!);
+    const folioStart = PAGE_WIDTH - MARGIN_RIGHT - doc.getTextWidth(folio) - 2;
+    if (folioStart - textEnd > 6) {
+      doc.setLineDashPattern([0.4, 1.4], 0);
+      doc.setDrawColor(170, 175, 185);
+      doc.line(textEnd + 2, lastY - 1, folioStart, lastY - 1);
+      doc.setLineDashPattern([], 0);
+    }
+    y += h;
+  }
+  doc.setTextColor(26, 26, 26);
+}
 
-  addTOCEntry("Sources and Further Reading", true);
+/** "PTSDPrevalenceChart" reads as "PTSD Prevalence" in a list of figures. */
+function figureTitle(componentName: string): string {
+  return componentName
+    .replace(/Chart$/, "")
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
+    .trim();
 }
 
 type Html2Canvas = typeof import("html2canvas").default;
@@ -1008,22 +1103,53 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
   buildCoverPage(doc);
   doc.addPage("letter");
   buildCopyrightPage(doc);
-  doc.addPage("letter");
-  buildTOCPage(doc, chapters);
+
+  // The contents and the list of figures need page numbers that only exist
+  // once the book is set. Measure how many pages each will take, reserve them
+  // now, and draw onto them at the end — that way the folios printed on the
+  // chapters are right the first time, with no second pass over the book.
+  const tocShape: TocEntry[] = chapters.flatMap((c) => [
+    { label: `${c.order}. ${c.title}`, page: 0, isChapter: true },
+    ...c.subchapters.map((sub) => ({
+      label: `${c.order}.${sub.order}  ${sub.title}`,
+      page: 0,
+      isChapter: false,
+    })),
+  ]);
+  tocShape.push({ label: "Sources and Further Reading", page: 0, isChapter: true });
+
+  const figureShape: TocEntry[] = referencedCharts.map((name) => ({
+    label: figureTitle(name),
+    page: 0,
+    isChapter: false,
+  }));
+
+  const tocPages = measureListPages(doc, tocShape, 0);
+  const figurePages = measureListPages(doc, figureShape, 0);
+  const reserved = tocPages + figurePages;
+  for (let i = 0; i < reserved; i++) doc.addPage("letter");
+
+  const toc: TocEntry[] = [];
+  const figures: TocEntry[] = [];
 
   let state: DocState = {
     doc,
     y: MARGIN_TOP + 10,
-    pageNum: 4,
+    pageNum: 2 + reserved,
   };
 
+  let firstChapter = true;
   for (const chapter of chapters) {
     onProgress(`Writing chapter ${chapter.order}: ${chapter.title}`);
 
-    addPageNumber(state);
+    // The reserved pages already exist; stamping a folio on the last of them
+    // would print a page number on the contents.
+    if (!firstChapter) addPageNumber(state);
+    firstChapter = false;
     doc.addPage("letter");
     state.pageNum++;
     state.y = MARGIN_TOP + 10;
+    toc.push({ label: `${chapter.order}. ${chapter.title}`, page: state.pageNum, isChapter: true });
 
     const leftH = bookInfo.title;
     const rightH = `Chapter ${chapter.order}`;
@@ -1072,13 +1198,18 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     doc.line(MARGIN_LEFT, state.y, PAGE_WIDTH - MARGIN_RIGHT, state.y);
     state.y += 8;
 
-    state = await renderMarkdownContent(state, chapter.content, leftH, chapter.title, chartImages);
+    state = await renderMarkdownContent(state, chapter.content, leftH, chapter.title, chartImages, figures);
 
     for (const sub of chapter.subchapters) {
       addPageNumber(state);
       doc.addPage("letter");
       state.pageNum++;
       state.y = MARGIN_TOP + 10;
+      toc.push({
+        label: `${chapter.order}.${sub.order}  ${sub.title}`,
+        page: state.pageNum,
+        isChapter: false,
+      });
 
       const subLeftH = chapter.title;
       const subRightH = sub.title;
@@ -1106,7 +1237,7 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
       state.y += 8;
 
       doc.setTextColor(26, 26, 26);
-      state = await renderMarkdownContent(state, sub.content, subLeftH, subRightH, chartImages);
+      state = await renderMarkdownContent(state, sub.content, subLeftH, subRightH, chartImages, figures);
     }
   }
 
@@ -1118,6 +1249,7 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     doc.addPage("letter");
     state.pageNum++;
     state.y = MARGIN_TOP + 10;
+    toc.push({ label: bibHeader, page: state.pageNum, isChapter: true });
     addRunningHeader(state, bookInfo.title, bibHeader);
 
     doc.setFont("times", "bold");
@@ -1205,6 +1337,26 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
   doc.text("Recovery Works Publishing • 2025", MARGIN_LEFT, state.y);
 
   addPageNumber(state);
+
+  // ---- Fill in the pages reserved at the front ----
+  drawList(doc, 3, "TABLE OF CONTENTS", toc);
+  if (figures.length) {
+    drawList(doc, 3 + tocPages, "LIST OF FIGURES", figures);
+  }
+
+  // ---- Bookmarks, so the digital copy has a sidebar ----
+  for (const entry of toc) {
+    if (entry.isChapter) {
+      const parent = doc.outline.add(null, entry.label, { pageNumber: entry.page });
+      for (const sub of toc) {
+        // Subchapters sit between this chapter and the next one.
+        if (sub.isChapter || sub.page < entry.page) continue;
+        const nextChapter = toc.find((t) => t.isChapter && t.page > entry.page);
+        if (nextChapter && sub.page >= nextChapter.page) continue;
+        doc.outline.add(parent, sub.label, { pageNumber: sub.page });
+      }
+    }
+  }
 
   onProgress("Saving PDF...");
   doc.save("healing-together-matthew-emma.pdf");
