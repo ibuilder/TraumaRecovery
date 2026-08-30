@@ -81,9 +81,15 @@ shared/
 script/
 ├── build.ts                      # Client + server production build
 ├── build-pages.ts                # Static build for GitHub Pages
+├── serve-static.ts               # Serves dist/public the way Pages does
 ├── generate-manifest.ts          # Writes lib/chapters/manifest.ts
 ├── generate-search-index.ts      # Writes lib/search-index.json
 └── validate-content.ts           # Content structure checks
+
+tests/
+├── site.spec.ts                  # Every route, search, accessibility
+├── book.spec.ts                  # The printed book's typeset invariants
+└── helpers/                      # Route list, chapter content, PDF reader
 ```
 
 ## Key Features
@@ -135,6 +141,7 @@ Other entry points:
 - `npm run check` — TypeScript typecheck
 - `npm run validate:content` — content structure checks
 - `npm run manifest` / `npm run search-index` — regenerate the two generated files
+- `npm test` — the browser suite (see the [README](../README.md#tests))
 - `npm run build` — client + bundled Express server
 - `npm run build:pages` — static build for GitHub Pages (see README)
 
@@ -191,7 +198,9 @@ de-duplicated on surname, year and main title.
 
 Verifying a change here means looking at pages, not at the text layer: mid-animation
 charts, stranded headings and an off-by-two folio all produced a clean extraction and
-a visibly wrong book.
+a visibly wrong book. `tests/book.spec.ts` holds the measurable half of that —
+`npm run test:book` generates the book and reads every page back. It will not tell
+you a page is ugly, so still look at one.
 
 ## Design Philosophy
 - Calm, professional aesthetic suitable for mental health content

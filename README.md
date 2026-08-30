@@ -81,9 +81,41 @@ npm run dev          # http://localhost:5000
 | `npm run validate:content` | Structural checks on the book content (see below) |
 | `npm run manifest` | Regenerate `lib/chapters/manifest.ts` from the chapter modules |
 | `npm run search-index` | Regenerate `lib/search-index.json` from the chapter modules |
+| `npm test` | Browser tests — see [Tests](#tests) |
+| `npm run test:site` | Just the route sweep, search and accessibility checks (~35 s) |
+| `npm run test:book` | Just the printed-book checks (~90 s) |
+| `npm run serve:static` | Serve `dist/public` the way GitHub Pages does |
 | `npm run build` | Full build: static client + bundled Express server → `dist/` |
 | `npm run build:pages` | Static-only build for GitHub Pages → `dist/public/` |
 | `npm start` | Run the production Express build |
+
+## Tests
+
+```bash
+VITE_BASE_PATH=/traumarecovery/ npm run build:pages
+npm test
+```
+
+Playwright, against a real production build served the way GitHub Pages serves it —
+base path and `404.html` fallback included. Every defect these catch only appears in the
+built, base-pathed site.
+
+- **`tests/site.spec.ts`** walks all 90 routes, derived from the manifest rather than
+  listed, and fails on a console error, a React key warning, a blank `<main>`, an
+  unresolved chart placeholder, or a page whose figure count does not match its markdown.
+  Then search, the skip link, and `prefers-reduced-motion`.
+- **`tests/book.spec.ts`** generates the full PDF through the site's own download button
+  and reads every page's geometry back with pdf.js: folios against physical pages,
+  stranded headings, the measure in characters per line, contents and list-of-figures
+  entries resolving to the right page, references gathered at the back, no placeholder
+  identifiers in print. A clean text layer is not a clean book — every one of these
+  extracted perfectly while being visibly wrong on paper, which is why they are measured
+  rather than eyeballed.
+
+Generating the book takes about 90 seconds; `npm run test:site` skips it.
+
+If your sandbox ships a browser but cannot reach Playwright's CDN, point at the one you
+have rather than downloading: `PLAYWRIGHT_CHROMIUM_PATH=/path/to/chrome npm test`.
 
 ## Deploying to GitHub Pages
 
@@ -141,9 +173,14 @@ shared/schema.ts                    # Chapter / Subchapter / BookInfo types
 script/
 ├── build.ts                        # client + server build
 ├── build-pages.ts                  # static build for GitHub Pages
+├── serve-static.ts                 # serves dist/public the way Pages does
 ├── generate-manifest.ts            # writes lib/chapters/manifest.ts
 ├── generate-search-index.ts        # writes lib/search-index.json
 └── validate-content.ts             # content structure checks
+tests/
+├── site.spec.ts                    # every route, search, accessibility
+├── book.spec.ts                    # the printed book's typeset invariants
+└── helpers/                        # route list, chapter content, PDF reader
 ```
 
 ## Authoring content

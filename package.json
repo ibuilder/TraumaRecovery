@@ -24,6 +24,10 @@
     "manifest": "tsx script/generate-manifest.ts",
     "search-index": "tsx script/generate-search-index.ts",
     "validate:content": "tsx script/validate-content.ts",
+    "serve:static": "tsx script/serve-static.ts",
+    "test": "playwright test",
+    "test:site": "playwright test tests/site.spec.ts",
+    "test:book": "playwright test tests/book.spec.ts",
     "db:push": "drizzle-kit push"
   },
   "dependencies": {
@@ -85,6 +89,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@tailwindcss/typography": "^0.5.15",
     "@tailwindcss/vite": "^4.1.18",
     "@types/express": "4.17.21",
@@ -95,6 +100,7 @@
     "autoprefixer": "^10.4.20",
     "drizzle-kit": "^0.31.10",
     "esbuild": "^0.28.2",
+    "pdfjs-dist": "^6.3.289",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.20.5",

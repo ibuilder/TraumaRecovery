@@ -161,7 +161,12 @@ export default function Chapter() {
           <div className="flex gap-12 mx-auto max-w-6xl">
             <ChapterSidebar currentChapter={chapter} />
 
-            <main className="flex-1 min-w-0">
+            {/*
+              A div, not a second <main>: the app shell already provides the
+              one main landmark, and two of them is ambiguous to a screen
+              reader — "skip to main content" no longer has a single target.
+            */}
+            <div className="flex-1 min-w-0">
               <article className="max-w-3xl">
                 <header className="mb-8 pb-8 border-b">
                   <div className="flex items-center gap-2 mb-4 flex-wrap">
@@ -284,7 +289,7 @@ export default function Chapter() {
                   </div>
                 </nav>
               </article>
-            </main>
+            </div>
           </div>
         </div>
       </div>

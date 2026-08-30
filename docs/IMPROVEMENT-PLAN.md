@@ -243,6 +243,31 @@ entries and all 78 figure-list entries resolving correctly.
 
 ---
 
+## Phase 6 — Tests (done)
+
+The verification harness that caught everything above existed only as scratch
+scripts. It is now `tests/`, run by Playwright against a real production build
+served the way Pages serves it, in its own CI job.
+
+| Spec | What it holds |
+|------|---------------|
+| `site.spec.ts` | All 90 routes, derived from the manifest rather than listed: no console error, no React key warning, no blank `<main>`, no unresolved chart placeholder, and a figure count matching the route's own markdown. Then search, the skip link, and `prefers-reduced-motion` |
+| `book.spec.ts` | The book generated through the site's own download button, then every page's geometry read back with pdf.js: folios against physical pages, stranded headings, characters per line, contents and figure-list entries resolving, references gathered at the back, no placeholder identifiers |
+
+103 tests, about ninety seconds of which is generating the book.
+
+Two things worth knowing about them. The book checks are measured rather than
+eyeballed because a clean text layer is not a clean book — mid-animation charts,
+stranded headings and an off-by-two folio all extracted perfectly. And the suite
+was verified by putting two of the fixed defects back: widening the text block
+and restoring the old widow reserve, both of which it caught.
+
+It found one defect on its first run: the chapter page rendered a second
+`<main>` inside the app shell's, so the page had two main landmarks and the new
+skip link had no single target.
+
+---
+
 ## Still open
 
 Ordered by how much they matter, not by effort.
@@ -275,10 +300,8 @@ Ordered by how much they matter, not by effort.
 
 **Straightforward work nobody has done**
 
-- **No tests.** The verification harness used throughout this work — a route sweep in
-  headless Chromium, and the PDF geometry checks — exists as scratch scripts and should
-  be a Playwright suite in CI. That is also the prerequisite for axe-core.
 - **No linter or formatter.** ESLint (`react-hooks`, `jsx-a11y`) and Prettier.
+- **axe-core in CI**, now that there is a Playwright suite to hang it on.
 - **Visually-hidden data tables** behind the Recharts plots. The `<figure>`/`<figcaption>`
   half is done; the numbers are still only in the SVG.
 - **Self-host the Open Sans face** and drop the render-blocking Google Fonts request.
