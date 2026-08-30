@@ -83,6 +83,13 @@ import {
   FearDareChart,
   AddictiveSystemChart,
   ThreeCirclesGuideChart,
+  RelapsePrecipitantsChart,
+  StagesOfChangeChart,
+  ThreeStagesOfRelapseChart,
+  UrgeEscalationChart,
+  SmartFourPointChart,
+  MutualAidComparisonChart,
+  EightPrinciplesChart,
 } from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
@@ -172,6 +179,13 @@ const chartComponents: Record<string, React.ComponentType> = {
   "FearDareChart": FearDareChart,
   "AddictiveSystemChart": AddictiveSystemChart,
   "ThreeCirclesGuideChart": ThreeCirclesGuideChart,
+  "RelapsePrecipitantsChart": RelapsePrecipitantsChart,
+  "StagesOfChangeChart": StagesOfChangeChart,
+  "ThreeStagesOfRelapseChart": ThreeStagesOfRelapseChart,
+  "UrgeEscalationChart": UrgeEscalationChart,
+  "SmartFourPointChart": SmartFourPointChart,
+  "MutualAidComparisonChart": MutualAidComparisonChart,
+  "EightPrinciplesChart": EightPrinciplesChart,
 };
 
 /**

@@ -4365,3 +4365,451 @@ export function ThreeCirclesGuideChart() {
     </ChartFrame>
   );
 }
+
+// ─── Relapse prevention, mutual aid, and the daily plan ──────────────────────
+
+const relapsePrecipitantData = [
+  { situation: "Negative emotional states", share: 35 },
+  { situation: "Social pressure", share: 20 },
+  { situation: "Interpersonal conflict", share: 16 },
+  { situation: "Everything else", share: 29 },
+];
+
+const relapsePrecipitantConfig: ChartConfig = {
+  share: { label: "Share of relapse episodes (%)", color: "hsl(var(--chart-1))" },
+};
+
+export function RelapsePrecipitantsChart() {
+  return (
+    <ChartFrame
+      title="What Actually Precedes a Relapse"
+      subtitle="Situations reported at the point of first use, across substances"
+      source={
+        <>
+          Marlatt's relapse-precipitant taxonomy, as reported in Cummings, C.,
+          Gordon, J. R., &amp; Marlatt, G. A. (1980) and developed in Marlatt, G. A.,
+          &amp; Gordon, J. R. (1985). <em>Relapse Prevention</em>. Guilford Press.
+          Proportions vary by substance and sample; the ordering is the robust
+          finding, not the exact figures.
+        </>
+      }
+    >
+      <ChartContainer config={relapsePrecipitantConfig} className="h-[260px] w-full">
+        <BarChart
+          layout="vertical"
+          data={relapsePrecipitantData}
+          margin={{ top: 8, right: 44, bottom: 5, left: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+          <XAxis type="number" domain={[0, 40]} tickFormatter={(v) => `${v}%`} />
+          <YAxis type="category" dataKey="situation" width={160} tick={{ fontSize: 11 }} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar isAnimationActive={!staticCharts} dataKey="share" fill="var(--color-share)" radius={4}>
+            <LabelList
+              dataKey="share"
+              position="right"
+              formatter={percentLabel}
+              className="fill-foreground"
+              fontSize={11}
+            />
+          </Bar>
+        </BarChart>
+      </ChartContainer>
+    </ChartFrame>
+  );
+}
+
+export function StagesOfChangeChart() {
+  const stages = [
+    {
+      n: 1,
+      name: "Precontemplation",
+      inside: "There is no problem, or the problem is everyone else.",
+      helps: "Information without argument. Pushing here produces defence, not change.",
+    },
+    {
+      n: 2,
+      name: "Contemplation",
+      inside: "I can see it. I am not ready. Both of those are true at once.",
+      helps: "Ambivalence explored rather than resolved for you — a cost–benefit sheet, not a lecture.",
+    },
+    {
+      n: 3,
+      name: "Preparation",
+      inside: "I am going to do something, and I am working out what.",
+      helps: "A date, a first appointment, a phone number in your pocket. Small commitments made out loud.",
+    },
+    {
+      n: 4,
+      name: "Action",
+      inside: "The behaviour has changed and it is taking everything I have.",
+      helps: "Structure, substitution, and people who have done it. This stage is expensive; plan for that.",
+    },
+    {
+      n: 5,
+      name: "Maintenance",
+      inside: "The change is holding, and the risk is now complacency rather than craving.",
+      helps: "The relapse-prevention plan itself. Maintenance is where a written plan earns its keep.",
+    },
+  ];
+  return (
+    <ChartFrame
+      title="The Stages of Change"
+      subtitle="Change as a cycle people move around, usually more than once"
+      source={
+        <>
+          Prochaska, J. O., &amp; DiClemente, C. C. (1983). Stages and processes of
+          self-change of smoking. <em>Journal of Consulting and Clinical Psychology,
+          51</em>(3), 390–395. The model is descriptive: knowing which stage you are in
+          tells you what kind of help will land, not how long it will take.
+        </>
+      }
+    >
+      <div className="space-y-2.5">
+        {stages.map((s) => (
+          <div key={s.n} className="flex gap-3 rounded-md border bg-card p-3.5">
+            <div
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary"
+              aria-hidden="true"
+            >
+              {s.n}
+            </div>
+            <div className="min-w-0">
+              <p className="font-semibold">{s.name}</p>
+              <p className="mt-1 text-sm italic text-muted-foreground">“{s.inside}”</p>
+              <p className="mt-1.5 text-sm">
+                <span className="text-muted-foreground">What helps here: </span>
+                {s.helps}
+              </p>
+            </div>
+          </div>
+        ))}
+        <div className="rounded-md border border-dashed bg-muted/40 p-3.5">
+          <p className="text-sm">
+            <span className="font-semibold">Recurrence returns you to the cycle, not to the
+            start.</span>{" "}
+            Prochaska and DiClemente drew this as a wheel for a reason. Most people go round
+            it several times, and each pass usually begins further along than the last one
+            did. A return to use is information about which stage the plan was actually in —
+            not proof that none of it counted.
+          </p>
+        </div>
+      </div>
+    </ChartFrame>
+  );
+}
+
+export function ThreeStagesOfRelapseChart() {
+  const stages = [
+    {
+      name: "Emotional relapse",
+      when: "Weeks or months out",
+      tone: "border-primary/40 bg-primary/5",
+      signs:
+        "Not thinking about using at all. Bottling things up, isolating, skipping meetings or going and not speaking, poor sleep, poor eating, self-care sliding.",
+      doing:
+        "Name it as a stage rather than a bad patch. The intervention here is small and boring: sleep, food, one phone call, one meeting where you actually talk.",
+    },
+    {
+      name: "Mental relapse",
+      when: "Days to weeks out",
+      tone: "border-chart-4/50 bg-chart-4/5",
+      signs:
+        "A war inside. Craving, romanticising past use, minimising consequences, lying, hunting for a situation where it would be possible, bargaining and planning.",
+      doing:
+        "Tell someone within the hour — secrecy is the fuel. Play the tape forward past the first drink. Wait it out: urges peak and pass in minutes, not hours.",
+    },
+    {
+      name: "Physical relapse",
+      when: "The event",
+      tone: "border-destructive/50 bg-destructive/5",
+      signs:
+        "The drink, the drug, the behaviour. By the time you are here the decisions that mattered were made in the two stages above.",
+      doing:
+        "Get help the same day, not once you have tidied it up. The gap between the lapse and the phone call is where a lapse becomes a run.",
+    },
+  ];
+  return (
+    <ChartFrame
+      title="Relapse Happens in Three Stages"
+      subtitle="It starts long before anybody picks anything up"
+      source={
+        <>
+          Melemis, S. M. (2015). Relapse prevention and the five rules of recovery.{" "}
+          <em>Yale Journal of Biology and Medicine, 88</em>(3), 325–332; the staged
+          model follows Gorski's earlier work on relapse warning signs.
+        </>
+      }
+    >
+      <div className="space-y-3">
+        {stages.map((s, i) => (
+          <div key={s.name} className={`rounded-md border p-4 ${s.tone}`}>
+            <div className="flex items-baseline gap-2 flex-wrap">
+              <p className="font-semibold">
+                {i + 1}. {s.name}
+              </p>
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">{s.when}</p>
+            </div>
+            <p className="mt-1.5 text-sm text-muted-foreground">{s.signs}</p>
+            <p className="mt-2 text-sm">
+              <span className="text-muted-foreground">What to do: </span>
+              {s.doing}
+            </p>
+          </div>
+        ))}
+      </div>
+    </ChartFrame>
+  );
+}
+
+export function UrgeEscalationChart() {
+  const steps = [
+    {
+      name: "Thought",
+      body: "A cue lands — a street, a song, a face, an hour of the day. At this point it is only a thought, and it costs nothing to let it go past.",
+      exit: "Notice and name it. “That is a thought about using.” Then change what you are doing.",
+    },
+    {
+      name: "Craving",
+      body: "The thought was allowed to run and has picked up a body: warmth, restlessness, a pull toward somewhere specific.",
+      exit: "Ride it rather than fight it. Time it — most cravings crest inside twenty minutes. Call someone while it crests.",
+    },
+    {
+      name: "Urge",
+      body: "The felt sense that you absolutely must. Not a fact, but it is very good at impersonating one.",
+      exit: "Put distance and people between you and the substance. This is what the crisis column of your plan is for.",
+    },
+  ];
+  return (
+    <ChartFrame
+      title="Thought → Craving → Urge"
+      subtitle="Three points to get off, and they get harder in that order"
+      source={
+        <>
+          The escalation is SMART Recovery's; see SMART Recovery (2008).{" "}
+          <em>Members' Handbook</em>, and Horvath, A. T., &amp; Yeterian, J. (2012).
+          SMART Recovery: Self-empowering, science-based addiction recovery support.{" "}
+          <em>Journal of Groups in Addiction &amp; Recovery, 7</em>(2–4), 102–117.
+        </>
+      }
+    >
+      <div className="space-y-2.5">
+        {steps.map((s, i) => (
+          <div key={s.name}>
+            <div className="rounded-md border bg-card p-3.5">
+              <p className="font-semibold">{s.name}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{s.body}</p>
+              <p className="mt-2 text-sm">
+                <span className="text-muted-foreground">Getting off here: </span>
+                {s.exit}
+              </p>
+            </div>
+            {i < steps.length - 1 ? (
+              <p className="py-1 text-center text-lg leading-none text-muted-foreground" aria-hidden="true">
+                ↓
+              </p>
+            ) : null}
+          </div>
+        ))}
+        <p className="pt-1 text-sm text-muted-foreground">
+          Every urge you have ever had has ended. That is not encouragement, it is
+          arithmetic — you are still here, so every one of them passed.
+        </p>
+      </div>
+    </ChartFrame>
+  );
+}
+
+export function SmartFourPointChart() {
+  const points = [
+    {
+      n: 1,
+      name: "Building and maintaining motivation",
+      tools: "Cost–benefit analysis · hierarchy of values · change plan",
+      body: "Motivation is treated as something you construct and top up on purpose, not a mood you wait for.",
+    },
+    {
+      n: 2,
+      name: "Coping with urges",
+      tools: "Urge surfing · DISARM · distraction and delay",
+      body: "An urge is a sensation with a shelf life, and the programme drills the specific moves that outlast one.",
+    },
+    {
+      n: 3,
+      name: "Managing thoughts, feelings and behaviours",
+      tools: "The ABC · disputing demands · unconditional self-acceptance",
+      body: "Straight rational emotive behaviour therapy: the belief in the middle is what turns an event into a consequence.",
+    },
+    {
+      n: 4,
+      name: "Living a balanced life",
+      tools: "Values clarification · goal setting · lifestyle planning",
+      body: "The programme's own answer to what abstinence is for. Empty time is a risk factor, so the calendar is part of the treatment.",
+    },
+  ];
+  return (
+    <ChartFrame
+      title="SMART Recovery's Four-Point Program"
+      subtitle="A cognitive-behavioural alternative to the twelve steps, with tools rather than steps"
+      source={
+        <>
+          SMART Recovery (2008). <em>Members' Handbook</em>. Self Management And
+          Recovery Training; Horvath, A. T., &amp; Yeterian, J. (2012).{" "}
+          <em>Journal of Groups in Addiction &amp; Recovery, 7</em>(2–4), 102–117.
+          The four points are worked in any order and revisited, unlike the twelve
+          steps, which are worked through.
+        </>
+      }
+    >
+      <div className="grid gap-3 sm:grid-cols-2">
+        {points.map((p) => (
+          <div key={p.n} className="rounded-md border bg-card p-4">
+            <div className="flex items-baseline gap-2">
+              <span className="text-sm font-semibold text-primary">{p.n}</span>
+              <p className="font-semibold leading-snug">{p.name}</p>
+            </div>
+            <p className="mt-1.5 text-sm text-muted-foreground">{p.body}</p>
+            <p className="mt-2 text-xs uppercase tracking-wide text-muted-foreground">
+              {p.tools}
+            </p>
+          </div>
+        ))}
+      </div>
+    </ChartFrame>
+  );
+}
+
+export function MutualAidComparisonChart() {
+  const rows = [
+    {
+      programme: "AA / NA",
+      problem: "A disease of body, mind and spirit; powerlessness is the starting admission",
+      change: "A higher power, the twelve steps, sponsorship and service",
+      shape: "Open and closed meetings, readings, shares, no cross-talk; lifelong",
+    },
+    {
+      programme: "SMART Recovery",
+      problem: "A learned, changeable behaviour maintained by beliefs and reinforcement",
+      change: "Self-management: REBT and CBT tools worked with a trained facilitator",
+      shape: "Facilitated discussion around an agenda and a whiteboard; graduation expected",
+    },
+    {
+      programme: "Celebrate Recovery",
+      problem: "A hurt, hang-up or habit — deliberately wider than substances",
+      change: "Explicitly Christian: eight principles from the Beatitudes, mapped onto the twelve steps",
+      shape: "Large-group teaching then small groups by issue and gender; church-hosted",
+    },
+    {
+      programme: "Refuge Recovery",
+      problem: "Craving and the suffering it produces, framed by the Four Noble Truths",
+      change: "Buddhist practice — meditation, inventory, an eightfold path adapted to recovery",
+      shape: "Meditation then reading and sharing; secular in tone, Buddhist in structure",
+    },
+  ];
+  return (
+    <ChartFrame
+      title="Four Mutual-Aid Programmes, Side by Side"
+      subtitle="They disagree about the mechanism and agree about the room"
+      source={
+        <>
+          Compiled from each programme's own literature. On effectiveness, the
+          strongest evidence is for manualised twelve-step facilitation: Kelly, J. F.,
+          Humphreys, K., &amp; Ferri, M. (2020). Alcoholics Anonymous and other
+          12-step programs for alcohol use disorder. <em>Cochrane Database of
+          Systematic Reviews</em>, 3, CD012880. The others have far less trial
+          evidence, which is a statement about how much research has been done, not a
+          finding that they do not work.
+        </>
+      }
+    >
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[42rem] border-collapse text-sm">
+          <caption className="sr-only">
+            Comparison of AA/NA, SMART Recovery, Celebrate Recovery and Refuge Recovery by
+            how each frames the problem, where change is said to come from, and what a
+            meeting looks like.
+          </caption>
+          <thead>
+            <tr className="border-b text-left align-bottom">
+              <th scope="col" className="py-2 pr-3 font-semibold">Programme</th>
+              <th scope="col" className="py-2 pr-3 font-semibold">The problem is…</th>
+              <th scope="col" className="py-2 pr-3 font-semibold">Change comes from…</th>
+              <th scope="col" className="py-2 font-semibold">A meeting looks like</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.programme} className="border-b last:border-0 align-top">
+                <th scope="row" className="py-2.5 pr-3 text-left font-medium">
+                  {r.programme}
+                </th>
+                <td className="py-2.5 pr-3 text-muted-foreground">{r.problem}</td>
+                <td className="py-2.5 pr-3 text-muted-foreground">{r.change}</td>
+                <td className="py-2.5 text-muted-foreground">{r.shape}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="mt-3 text-sm text-muted-foreground">
+        Trying more than one is normal and costs nothing. The variable that predicts
+        benefit best is not which programme you pick — it is whether you keep turning up.
+      </p>
+    </ChartFrame>
+  );
+}
+
+export function EightPrinciplesChart() {
+  const rows = [
+    { n: 1, word: "Realise", principle: "I am not God, and my life is unmanageable", steps: "1" },
+    { n: 2, word: "Earnestly believe", principle: "That God exists and can help me recover", steps: "2" },
+    { n: 3, word: "Consciously choose", principle: "To commit my life and will to his care", steps: "3" },
+    { n: 4, word: "Openly examine", principle: "And confess my faults to myself, to God and to someone I trust", steps: "4–5" },
+    { n: 5, word: "Voluntarily submit", principle: "To the changes and ask for my defects to be removed", steps: "6–7" },
+    { n: 6, word: "Evaluate", principle: "All my relationships; forgive, and make amends where I did harm", steps: "8–9" },
+    { n: 7, word: "Reserve", principle: "A daily time for self-examination, reading and prayer", steps: "10–11" },
+    { n: 8, word: "Yield", principle: "Myself to carry this to others, by example and by word", steps: "12" },
+  ];
+  return (
+    <ChartFrame
+      title="Eight Principles, Twelve Steps"
+      subtitle="How Celebrate Recovery's principles map onto the steps they were built from"
+      source={
+        <>
+          Warren, R. Celebrate Recovery's eight recovery principles, drawn from the
+          Beatitudes (Matthew 5) and aligned to the twelve steps of Alcoholics
+          Anonymous. Paraphrased here; the wording is Saddleback Church's. The initials
+          of the eight spell RECOVERY, which is the point of the ordering.
+        </>
+      }
+    >
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[34rem] border-collapse text-sm">
+          <caption className="sr-only">
+            The eight Celebrate Recovery principles with the twelve-step numbers each
+            corresponds to.
+          </caption>
+          <thead>
+            <tr className="border-b text-left">
+              <th scope="col" className="py-2 pr-3 font-semibold">#</th>
+              <th scope="col" className="py-2 pr-3 font-semibold">Principle</th>
+              <th scope="col" className="py-2 font-semibold">Steps</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.n} className="border-b last:border-0 align-top">
+                <th scope="row" className="py-2 pr-3 text-left font-medium">{r.n}</th>
+                <td className="py-2 pr-3">
+                  <span className="font-medium">{r.word}</span>{" "}
+                  <span className="text-muted-foreground">{r.principle}</span>
+                </td>
+                <td className="py-2 tabular-nums text-muted-foreground">{r.steps}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </ChartFrame>
+  );
+}

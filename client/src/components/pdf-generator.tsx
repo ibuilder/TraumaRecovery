@@ -49,6 +49,13 @@ import {
   FearDareChart,
   AddictiveSystemChart,
   ThreeCirclesGuideChart,
+  RelapsePrecipitantsChart,
+  StagesOfChangeChart,
+  ThreeStagesOfRelapseChart,
+  UrgeEscalationChart,
+  SmartFourPointChart,
+  MutualAidComparisonChart,
+  EightPrinciplesChart,
   setStaticCharts,
 } from "@/components/trauma-charts";
 
@@ -127,6 +134,13 @@ const ALL_CHART_COMPONENTS: Record<string, React.ComponentType> = {
   FearDareChart,
   AddictiveSystemChart,
   ThreeCirclesGuideChart,
+  RelapsePrecipitantsChart,
+  StagesOfChangeChart,
+  ThreeStagesOfRelapseChart,
+  UrgeEscalationChart,
+  SmartFourPointChart,
+  MutualAidComparisonChart,
+  EightPrinciplesChart,
 };
 
 /** Every chart placeholder the book actually references, in first-use order. */

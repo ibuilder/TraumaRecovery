@@ -73,7 +73,12 @@ function sectionsOf(markdown: string): { heading: string | null; body: string }[
   };
 
   for (const line of markdown.split("\n")) {
-    if (/^\s*```/.test(line)) inFence = !inFence;
+    // A one-line ```chart:Name``` placeholder opens and closes on the same line.
+    // Toggling on it left the flag stuck, so every heading after an odd number
+    // of charts in a page stopped being indexed — 60 sections of the book were
+    // simply missing from search.
+    const ticks = line.match(/```/g)?.length ?? 0;
+    if (/^\s*```/.test(line) && ticks % 2 === 1) inFence = !inFence;
     const m = !inFence && /^(#{2,3})\s+(.+?)\s*$/.exec(line);
     if (m) {
       push();
