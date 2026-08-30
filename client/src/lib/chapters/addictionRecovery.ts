@@ -591,13 +591,46 @@ Multiple pathways to recovery exist. This chapter provides comprehensive informa
 3. **Managing Thoughts, Feelings, and Behaviors** - Rational thinking skills
 4. **Living a Balanced Life** - Lifestyle balance for prevention
 
-**Tools Used:**
-- Cost-Benefit Analysis
-- Hierarchy of Values
-- DISARM technique for urges
-- ABC tool for irrational beliefs
-
 **Meetings:** www.smartrecovery.org - In-person and online
+
+\`\`\`chart:SmartFourPointChart\`\`\`
+
+#### The three tools worth knowing before your first meeting
+
+You do not have to arrive prepared. But SMART meetings run on a small set of
+tools, and three of them do most of the work.
+
+**The ABC.** Straight from rational emotive behaviour therapy, and the reason
+SMART sits so close to the CBT in chapter 8. An **A**ctivating event happens.
+You hold a **B**elief about it. The **C**onsequence — the feeling, and then the
+behaviour — follows from the belief, not from the event. The move is to find the
+demand hiding in B and to **D**ispute it, which usually means noticing a *must*
+or a *should* and downgrading it to a *prefer*:
+
+| | |
+|---|---|
+| **A** — Activating event | The party is going to be full of people drinking. |
+| **B** — Belief | I *can't stand* being the only sober person in a room. |
+| **C** — Consequence | Dread all week; then either avoid everyone, or drink. |
+| **D** — Dispute | Can't stand it, or don't like it? Which is it, exactly? |
+| **E** — Effective new belief | I would *prefer* not to be the only one. I have done harder things than be uncomfortable at a party for an hour. |
+
+The distinction between *I can't stand this* and *I don't like this* looks like
+a word game until the first time it works on you. Low frustration tolerance is
+close to universal in early recovery, and this is the tool aimed directly at it.
+
+**The cost–benefit analysis.** Four questions, and the order matters: what do I
+*enjoy* about it, what do I *hate* about it, what do I think I will *like* about
+stopping, and what will I *miss*. Most people expect to be asked only the second
+one. Being asked the first is the point — you were getting something from it, you
+are not stupid, and a plan built on pretending otherwise falls over the first
+time you remember that it worked. Write it while you are well, and read it when
+you are not.
+
+**The hierarchy of values.** List what matters most to you, then cut the list to
+five. Almost nobody puts their drug of choice on that list. Then look at where
+last week's hours and money actually went. The gap between the five and the week
+is the whole argument, made by you rather than to you.
 
 ---
 
@@ -806,12 +839,31 @@ Multiple pathways to recovery exist. This chapter provides comprehensive informa
 4. **Philosophy:** Disease model or behavioral approach?
 5. **Availability:** What's accessible in my area?
 
+\`\`\`chart:MutualAidComparisonChart\`\`\`
+
 ### Try Multiple Programs
+
+These programmes disagree about almost everything that sounds important. One
+says you are powerless; another says the power is precisely yours and the job is
+learning to use it. One asks you to turn your will over; another hands you a
+whiteboard and a worksheet.
+
+That disagreement matters less than it looks. The thing that predicts whether
+mutual aid helps is not which model of the problem you find convincing — it is
+attendance, and how much of your week ends up spent around people who are not
+using. Manualised twelve-step facilitation has the strongest trial evidence of
+any of them, and the Cochrane review that established this is worth knowing
+about. But the others have less evidence largely because far less research has
+been done on them, which is a fact about funding, not about them.
+
+So: go to several. Go to a few of each before deciding, because one bad room
+tells you about that room. Combining them is normal — a Tuesday SMART meeting
+and a Saturday AA meeting is not a contradiction, and nobody will check.
 
 - Most people benefit from trying different approaches
 - What works for one person may not work for another
 - Programs can be combined
-- The best program is one you'll attend
+- **The best program is the one you will actually attend**
 
 ---
 
@@ -830,35 +882,36 @@ White, W. L. (2014). *Slaying the dragon: The history of addiction treatment and
 
 Relapse is common in recovery—studies suggest 40-60% of people in recovery will relapse at some point. Rather than viewing relapse as failure, understand it as a learning opportunity and part of the recovery process. A solid prevention plan significantly reduces risk.
 
+## Where you are in the change, and why it matters
+
+Before the plan, a piece of orientation that saves a lot of wasted effort. People
+do not go from using to not using in one move, and the kind of help that works
+depends entirely on which part of that arc somebody is standing in. Handing a
+detailed prevention plan to someone who has not yet decided anything is like
+handing somebody a map before they have agreed to leave the house.
+
+\`\`\`chart:StagesOfChangeChart\`\`\`
+
+The reason this belongs at the top of a chapter about relapse prevention is the
+last box. A written plan is a **maintenance** tool. If you are honestly in
+contemplation — able to see it, not ready — then the useful work this week is the
+cost–benefit sheet in the previous section, not a laminated crisis card. Both are
+recovery. They are just not the same week's work.
+
 ## Understanding Relapse
 
 ### Relapse is a Process, Not an Event
 
-Relapse typically unfolds in three stages:
+The single most useful idea in this chapter is that the drink is the *last* event
+in a relapse, not the first. By the time anybody picks anything up, the decisions
+that mattered were made weeks earlier, in a stage where using was not even being
+considered.
 
-**1. Emotional Relapse**
-You're not thinking about using, but emotions and behaviors set the stage:
-- Bottling up emotions
-- Isolating from support
-- Not attending meetings
-- Poor self-care (sleep, nutrition, exercise)
-- Not asking for help
-- Focusing on others' problems instead of your own
+\`\`\`chart:ThreeStagesOfRelapseChart\`\`\`
 
-**2. Mental Relapse**
-Internal battle between wanting to use and wanting to stay sober:
-- Thinking about people, places, things from use
-- Glamorizing past use
-- Minimizing consequences
-- Bargaining ("Maybe just once...")
-- Planning relapse around others' schedules
-- Looking for opportunities to use
-
-**3. Physical Relapse**
-Actual use of substances:
-- Seeking out the substance
-- Using the substance
-- May be brief or progress to full relapse
+Read that as a set of three alarms with very different volumes. The first is
+almost silent, which is exactly why it is the one worth learning. Nobody needs
+help noticing physical relapse.
 
 ### Warning Signs
 
@@ -891,6 +944,23 @@ Learn to recognize your personal warning signs:
 ## Building Your Relapse Prevention Plan
 
 ### Step 1: Know Your Triggers
+
+It is worth knowing, before you write your own list, what actually shows up on
+everybody else's. When researchers asked large numbers of people what was
+happening at the moment they first used again, the answers were not evenly
+spread. Three categories accounted for roughly three-quarters of them.
+
+\`\`\`chart:RelapsePrecipitantsChart\`\`\`
+
+Notice what is *not* at the top. The dealer, the bar, the bottle in the cupboard —
+the physical availability that most plans are built around — sits inside
+"everything else." The big one is a feeling. The second is other people, in two
+different flavours: being offered, and being in conflict.
+
+That has a direct consequence for your plan. A plan made entirely of avoidance
+covers the smallest slice of the risk. Most of what will come for you is an
+emotional state you cannot move house to escape, which is why the emotion-regulation
+and distress-tolerance chapters are load-bearing here rather than optional extras.
 
 **High-Risk Situations:**
 List specific situations that increase your risk:
@@ -1041,6 +1111,67 @@ Create a list with names and numbers:
 6. **Increase support** - More meetings, more check-ins
 7. **Consider treatment** - May need higher level of care
 
+## My own plan, in case it helps
+
+Everything above is the general shape. This is the specific version I wrote for
+myself and have used since. I am putting it here not because it is a template
+worth copying line for line — yours should be yours — but because an abstract
+plan and somebody's actual plan are different kinds of document, and it is easier
+to write one when you have seen one.
+
+### Three cardinal rules
+
+Before the ten commitments there are three rules, and they are short because they
+have to survive being remembered on a bad day.
+
+1. **Do not use mind-altering substances.**
+2. **Trust the friends in recovery who love you.** On the days your own judgement
+   is compromised, theirs is the instrument that still reads true.
+3. **Pause, pray, proceed.** Three words, in that order. The pause is the part
+   that does the work; the rest of it is what keeps the pause from collapsing
+   back into a decision made at speed.
+
+The second rule is the one that people new to this find hardest, and it is worth
+saying why it is a *rule* rather than a suggestion. Addiction is the one condition
+whose primary symptom is an argument against treating it. When the disease is
+talking, it sounds exactly like you thinking clearly. Delegating the verdict to
+people who love you and are not currently inside your head is not weakness — it is
+the only available workaround for an instrument that cannot calibrate itself.
+
+### The ten commitments
+
+| | Commitment | What it is protecting |
+|---|---|---|
+| 1 | Develop a positive support system, and use it **daily** | Connection |
+| 2 | Use prayer and meditation in my daily life | Spiritual |
+| 3 | Be my own best support — daily affirmations, and honest awareness of when I am isolating or withdrawing | Mental |
+| 4 | Read nightly in my AA/NA literature, as part of a meditation practice | Spiritual |
+| 5 | Reach out to peers in recovery, to support and encourage each other | Connection |
+| 6 | Engage in spirituality and fellowship with others in recovery | Spiritual + connection |
+| 7 | If I feel in danger of relapsing, contact my support group — **before** I pick up | Crisis |
+| 8 | Cultivate exercise, fellowship, service, and something I am genuinely interested in | Physical + mental |
+| 9 | Seek out friendships in recovery — home group, sponsor's recommendations — as a group I am accountable to and honest with | Connection |
+| 10 | Keep an association with rehabilitation facilities and similar institutions | Structural |
+
+Three things about that list are deliberate, and they are the parts worth stealing
+even if none of the specifics fit you.
+
+**Number seven has the word "before" in it.** Every other commitment is a habit.
+That one is a trigger with a threshold and a defined action, written down while
+well, so that the version of me who is not well does not have to invent anything.
+That is the entire function of a crisis plan: to remove decisions from the moment
+when deciding is the broken faculty.
+
+**Six of the ten are about other people.** Not because connection is nice, but
+because of the figure earlier in this section — most relapse happens in an
+emotional state or an interpersonal one, and both of those are answered by
+people rather than by willpower.
+
+**None of them mention not drinking.** That is in the cardinal rules, where it
+belongs, and it is the only line in the whole plan about the substance. Everything
+else is about building a life with enough in it that the substance has to compete.
+A plan that is only a list of things not to do gives you nothing to do instead.
+
 ## The Relapse Prevention Worksheet
 
 Complete this worksheet and keep it accessible:
@@ -1147,6 +1278,19 @@ Cravings and urges are temporary neurological events. Research shows that most u
 Understanding this science is crucial: you don't have to act on an urge. If you can ride it out, it will pass.
 
 ---
+
+## Three places to get off, not one
+
+Urge surfing is the technique for the last stage of a process that has two earlier
+ones. Both of those are easier to interrupt, and knowing they exist means you are
+not left with a single move that only works under maximum pressure.
+
+\`\`\`chart:UrgeEscalationChart\`\`\`
+
+Surfing is what you do at the bottom of that diagram, once you are already in it.
+The skill is real and this section teaches it properly. But most of the time the
+cheapest intervention is at the top, where it is still only a thought and letting
+it go past costs nothing at all.
 
 ## Why Traditional "Fighting" Doesn't Work
 
