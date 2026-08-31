@@ -4813,3 +4813,143 @@ export function EightPrinciplesChart() {
     </ChartFrame>
   );
 }
+
+export function DailyPracticeChart() {
+  const domains = [
+    {
+      name: "Mental",
+      items: ["A deliberately positive frame for the day", "Recovery-centred reading or a podcast"],
+      why: "Sets what the mind is chewing on before the day sets it for you.",
+    },
+    {
+      name: "Physical",
+      items: ["Wake at a fixed time", "Move — anything", "Water", "Eat something"],
+      why: "The four that get skipped first, and skipping them is itself a warning sign.",
+    },
+    {
+      name: "Spiritual",
+      items: [
+        "Meditate",
+        "The Serenity Prayer",
+        "Step prayers, or whatever your equivalent is",
+        "Look at the stars",
+        "Stand barefoot on the ground",
+        "Listen to water or to wind",
+      ],
+      why: "Half of these have no theology in them at all. They point attention outward, which is the whole job of this row.",
+    },
+    {
+      name: "Connection",
+      items: [
+        "Talk to peers in recovery",
+        "Send a message to somebody who is struggling",
+        "Phone another person in recovery",
+        "Go to a meeting",
+      ],
+      why: "The row that notices when you go quiet. Nothing else on the page can do that.",
+    },
+  ];
+  return (
+    <ChartFrame
+      title="What One Day Contains"
+      subtitle="A daily routine across four domains — small enough to survive a bad morning"
+      source={
+        <>
+          The author's own daily routine during and after treatment. Each item is
+          deliberately trivial: willpower is exactly what is missing on the days the
+          routine matters most, so nothing here is allowed to require any.
+        </>
+      }
+    >
+      <div className="grid gap-3 sm:grid-cols-2">
+        {domains.map((d) => (
+          <div key={d.name} className="rounded-md border bg-card p-4">
+            <p className="font-semibold">{d.name}</p>
+            <ul className="mt-2 space-y-1 text-sm">
+              {d.items.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span className="text-muted-foreground" aria-hidden="true">
+                    ·
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-2.5 text-xs text-muted-foreground">{d.why}</p>
+          </div>
+        ))}
+      </div>
+    </ChartFrame>
+  );
+}
+
+export function AmendsKindsChart() {
+  const kinds = [
+    {
+      name: "Direct",
+      tone: "border-primary/40 bg-primary/5",
+      what: "Going to the person, naming the specific harm without excusing it, and asking what would put it right.",
+      when: "The default. Most amends are this, and most of the dread beforehand is out of proportion to how they actually go.",
+      note: "Not an apology. An apology is words about how you feel; an amends is a change and, where possible, a repair.",
+    },
+    {
+      name: "Indirect",
+      tone: "border-chart-4/50 bg-chart-4/5",
+      what: "Repair made to someone else, or to the world, when the person is dead, unreachable, or would be harmed by contact.",
+      when: "When a direct approach is impossible — or when it would serve you at their expense.",
+      note: "Paying a debt to a charity because the creditor cannot be found still pays the debt. The point is restitution, not absolution.",
+    },
+    {
+      name: "Living",
+      tone: "border-chart-2/50 bg-muted/50",
+      what: "A sustained change in conduct toward the person, or toward the class of people you harmed, carried out over years.",
+      when: "Where the harm was chronic rather than a single event — most family harm is this kind.",
+      note: "The only sort you cannot finish in an afternoon, and the only sort that convinces anybody who watched the last ten years.",
+    },
+  ];
+  return (
+    <ChartFrame
+      title="Three Kinds of Amends"
+      subtitle="Direct is the default, and it is not the only one"
+      source={
+        <>
+          The ninth step of Alcoholics Anonymous — "made direct amends to such people
+          wherever possible, except when to do so would injure them or others" — and
+          the practice that has grown around it. On what the process does for the
+          person making them, see Seperack, A. (2012). <em>The process of making
+          amends in the Alcoholics Anonymous program: A qualitative study</em>
+          (master's thesis, University of Rhode Island).
+        </>
+      }
+    >
+      <div className="space-y-3">
+        {kinds.map((k) => (
+          <div key={k.name} className={`rounded-md border p-4 ${k.tone}`}>
+            <p className="font-semibold">{k.name} amends</p>
+            <p className="mt-1.5 text-sm text-muted-foreground">{k.what}</p>
+            <p className="mt-2 text-sm">
+              <span className="text-muted-foreground">When: </span>
+              {k.when}
+            </p>
+            <p className="mt-1.5 text-sm italic text-muted-foreground">{k.note}</p>
+          </div>
+        ))}
+        <div className="rounded-md border border-destructive/40 bg-destructive/5 p-4">
+          <p className="text-sm">
+            <span className="font-semibold">
+              “Except when to do so would injure them or others.”
+            </span>{" "}
+            That clause is not a loophole and it is not optional. An amends that
+            transfers your discomfort onto somebody who has already been harmed by you
+            is not an amends — it is one more thing done to them for your benefit.
+            Disclosing an affair to a spouse who did not know, contacting someone who
+            asked you never to, telling a child something they cannot carry: those are
+            confessions, and they belong with a sponsor or a therapist, not with the
+            person you hurt. Work the list with someone else before you work it with
+            them.
+          </p>
+        </div>
+      </div>
+    </ChartFrame>
+  );
+}
