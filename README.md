@@ -32,6 +32,9 @@ a reflowable EPUB for Kindle.
 - **Dark / light theme** with system-preference detection
 - **Reading progress bar**, per-chapter sidebar, and prev/next chapter navigation
 - **Responsive** layout with a mobile navigation drawer
+- **No third-party requests.** Open Sans is served from this origin, so nobody
+  outside learns which chapter a reader opened; `check:pages` fails the build if
+  that ever changes
 - **Kindle edition** — a reflowable EPUB 3 built from the same chapters, with the figures
   as images *and* as reflowable data tables (see [The Kindle edition](#the-kindle-edition))
 
@@ -136,8 +139,9 @@ A base-path mistake is the one deployment failure that is silent and total: the
 build succeeds, the HTML is valid, every file is present, and the site is a blank
 white page because the browser asks the origin for a path Pages does not serve.
 `check:pages` reads the built `index.html`, resolves every asset URL against the
-base and against the disk, and checks the `404.html` fallback and the chunking. It
-runs in CI and again in the deploy, before anything is uploaded.
+base and against the disk, and checks the `404.html` fallback, the chunking, that
+the fonts were emitted, and that nothing on the page reaches off-origin. It runs
+in CI and again in the deploy, before anything is uploaded.
 
 Generating the book takes about two minutes; `npm run test:site` skips it.
 
@@ -345,4 +349,5 @@ that directory is published to the site.
 ## License
 
 The application code is MIT-licensed. The book text is © Matthew M. Emma; see the copyright
-page in the generated PDF.
+page in the generated PDF. Two bundled typefaces — Open Sans on the website, Liberation Serif
+embedded in the PDF — are SIL OFL 1.1, which permits both. See [LICENSE](LICENSE).
