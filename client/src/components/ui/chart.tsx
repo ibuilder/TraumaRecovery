@@ -18,6 +18,20 @@ export type ChartConfig = {
   )
 }
 
+/**
+ * Recharts 3 no longer exposes the shapes it injects into custom tooltip and
+ * legend content through its own prop types, so they are declared here. Every
+ * field is optional: Recharts supplies them at render time, the call sites do not.
+ */
+type ChartPayloadItem = {
+  name?: string | number
+  value?: unknown
+  dataKey?: string | number
+  color?: string
+  fill?: string
+  payload?: Record<string, unknown> & { fill?: string }
+}
+
 type ChartContextProps = {
   config: ChartConfig
 }
@@ -104,14 +118,29 @@ const ChartTooltip = RechartsPrimitive.Tooltip
 
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
-    React.ComponentProps<"div"> & {
-      hideLabel?: boolean
-      hideIndicator?: boolean
-      indicator?: "line" | "dot" | "dashed"
-      nameKey?: string
-      labelKey?: string
-    }
+  Omit<React.ComponentProps<"div">, "color"> & {
+    active?: boolean
+    payload?: ChartPayloadItem[]
+    label?: unknown
+    labelFormatter?: (
+      label: unknown,
+      payload: ChartPayloadItem[]
+    ) => React.ReactNode
+    labelClassName?: string
+    formatter?: (
+      value: unknown,
+      name: unknown,
+      item: ChartPayloadItem,
+      index: number,
+      itemPayload: unknown
+    ) => React.ReactNode
+    color?: string
+    hideLabel?: boolean
+    hideIndicator?: boolean
+    indicator?: "line" | "dot" | "dashed"
+    nameKey?: string
+    labelKey?: string
+  }
 >(
   (
     {
@@ -188,7 +217,7 @@ const ChartTooltipContent = React.forwardRef<
           {payload.map((item, index) => {
             const key = `${nameKey || item.name || item.dataKey || "value"}`
             const itemConfig = getPayloadConfigFromPayload(config, item, key)
-            const indicatorColor = color || item.payload.fill || item.color
+            const indicatorColor = color || item.payload?.fill || item.color
 
             return (
               <div
@@ -238,7 +267,8 @@ const ChartTooltipContent = React.forwardRef<
                           {itemConfig?.label || item.name}
                         </span>
                       </div>
-                      {item.value && (
+                      {(typeof item.value === "number" ||
+                        typeof item.value === "string") && (
                         <span className="font-mono font-medium tabular-nums text-foreground">
                           {item.value.toLocaleString()}
                         </span>
@@ -260,11 +290,12 @@ const ChartLegend = RechartsPrimitive.Legend
 
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<"div"> &
-    Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-      hideIcon?: boolean
-      nameKey?: string
-    }
+  React.ComponentProps<"div"> & {
+    payload?: ChartPayloadItem[]
+    verticalAlign?: "top" | "middle" | "bottom"
+    hideIcon?: boolean
+    nameKey?: string
+  }
 >(
   (
     { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
@@ -276,6 +307,19 @@ const ChartLegendContent = React.forwardRef<
       return null
     }
 
+    // Recharts hands the legend its entries in registration order, which does
+    // not reliably match the order the series are drawn in. Sort by the config
+    // instead, so the legend reads left-to-right in the same order as the bars.
+    const order = Object.keys(config)
+    const rank = (item: ChartPayloadItem) => {
+      for (const candidate of [item.dataKey, item.value]) {
+        const i = order.indexOf(String(candidate ?? ""))
+        if (i !== -1) return i
+      }
+      return order.length
+    }
+    const items = [...payload].sort((a, b) => rank(a) - rank(b))
+
     return (
       <div
         ref={ref}
@@ -285,13 +329,13 @@ const ChartLegendContent = React.forwardRef<
           className
         )}
       >
-        {payload.map((item) => {
+        {items.map((item) => {
           const key = `${nameKey || item.dataKey || "value"}`
           const itemConfig = getPayloadConfigFromPayload(config, item, key)
 
           return (
             <div
-              key={item.value}
+              key={String(item.value ?? item.dataKey)}
               className={cn(
                 "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"
               )}

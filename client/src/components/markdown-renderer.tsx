@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import {
@@ -60,6 +61,38 @@ import {
   SexAddictionRecoveryProgressChart,
   SexAddictionRecoveryRoadmapChart,
   TreatmentAccessChart,
+  AddictionHeritabilityChart,
+  DopamineRateChart,
+  AlcoholGabaGlutamateChart,
+  RelationshipTypesChart,
+  SobrietyChallengesChart,
+  CarnesRecoveryStagesChart,
+  WorryWindowChart,
+  FunctionalAdultCurveChart,
+  DramaTriangleChart,
+  ACATreeChart,
+  CoreSymptomsChart,
+  FourHorsemenChart,
+  BoundaryLadderChart,
+  AttachmentMapChart,
+  CatastrophizingIcebergChart,
+  CBTTriangleChart,
+  CoreBeliefCycleChart,
+  AskIntensityChart,
+  MiddlePathChart,
+  BullseyeChart,
+  FearDareChart,
+  AddictiveSystemChart,
+  ThreeCirclesGuideChart,
+  RelapsePrecipitantsChart,
+  StagesOfChangeChart,
+  ThreeStagesOfRelapseChart,
+  UrgeEscalationChart,
+  SmartFourPointChart,
+  MutualAidComparisonChart,
+  EightPrinciplesChart,
+  DailyPracticeChart,
+  AmendsKindsChart,
 } from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
@@ -127,6 +160,38 @@ const chartComponents: Record<string, React.ComponentType> = {
   "SexAddictionRecoveryProgressChart": SexAddictionRecoveryProgressChart,
   "SexAddictionRecoveryRoadmapChart": SexAddictionRecoveryRoadmapChart,
   "TreatmentAccessChart": TreatmentAccessChart,
+  "AddictionHeritabilityChart": AddictionHeritabilityChart,
+  "DopamineRateChart": DopamineRateChart,
+  "AlcoholGabaGlutamateChart": AlcoholGabaGlutamateChart,
+  "RelationshipTypesChart": RelationshipTypesChart,
+  "SobrietyChallengesChart": SobrietyChallengesChart,
+  "CarnesRecoveryStagesChart": CarnesRecoveryStagesChart,
+  "WorryWindowChart": WorryWindowChart,
+  "FunctionalAdultCurveChart": FunctionalAdultCurveChart,
+  "DramaTriangleChart": DramaTriangleChart,
+  "ACATreeChart": ACATreeChart,
+  "CoreSymptomsChart": CoreSymptomsChart,
+  "FourHorsemenChart": FourHorsemenChart,
+  "BoundaryLadderChart": BoundaryLadderChart,
+  "AttachmentMapChart": AttachmentMapChart,
+  "CatastrophizingIcebergChart": CatastrophizingIcebergChart,
+  "CBTTriangleChart": CBTTriangleChart,
+  "CoreBeliefCycleChart": CoreBeliefCycleChart,
+  "AskIntensityChart": AskIntensityChart,
+  "MiddlePathChart": MiddlePathChart,
+  "BullseyeChart": BullseyeChart,
+  "FearDareChart": FearDareChart,
+  "AddictiveSystemChart": AddictiveSystemChart,
+  "ThreeCirclesGuideChart": ThreeCirclesGuideChart,
+  "RelapsePrecipitantsChart": RelapsePrecipitantsChart,
+  "StagesOfChangeChart": StagesOfChangeChart,
+  "ThreeStagesOfRelapseChart": ThreeStagesOfRelapseChart,
+  "UrgeEscalationChart": UrgeEscalationChart,
+  "SmartFourPointChart": SmartFourPointChart,
+  "MutualAidComparisonChart": MutualAidComparisonChart,
+  "EightPrinciplesChart": EightPrinciplesChart,
+  "DailyPracticeChart": DailyPracticeChart,
+  "AmendsKindsChart": AmendsKindsChart,
 };
 
 /**
@@ -147,7 +212,43 @@ function isChartElement(node: unknown): boolean {
   );
 }
 
+/**
+ * Anchor slug for a heading. Kept in step with `slugifyHeading` in
+ * script/generate-search-index.ts — search results deep-link to these ids, so
+ * the two have to agree character for character.
+ */
+export function slugifyHeading(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+}
+
+/** The visible text of a heading, so it can be turned into an anchor. */
+function headingText(node: ReactNode): string {
+  if (node === null || node === undefined || typeof node === "boolean") return "";
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(headingText).join("");
+  if (typeof node === "object" && "props" in (node as any)) {
+    return headingText((node as any).props?.children);
+  }
+  return "";
+}
+
 export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendererProps) {
+  // Two sections in a chapter can both be called "What it is". The counter is
+  // recreated on every render and react-markdown walks the document in order,
+  // so repeats get -2, -3 and stay stable between renders.
+  const seen = new Map<string, number>();
+  const anchor = (children: ReactNode) => {
+    const base = slugifyHeading(headingText(children));
+    if (!base) return undefined;
+    const n = (seen.get(base) ?? 0) + 1;
+    seen.set(base, n);
+    return n === 1 ? base : `${base}-${n}`;
+  };
+
   return (
     <div className="prose prose-lg dark:prose-invert max-w-none">
       <ReactMarkdown
@@ -161,7 +262,15 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
             if (chartName && showCharts) {
               const ChartComponent = chartComponents[chartName];
               if (ChartComponent) {
-                return <ChartComponent />;
+                // Tagged with the component name so tooling can map a rendered
+                // figure back to the placeholder that asked for it. Guessing
+                // the mapping from the figure's visible title silently lost
+                // sixty of the hundred placements in the EPUB build.
+                return (
+                  <div data-chart={chartName} className="contents">
+                    <ChartComponent />
+                  </div>
+                );
               }
               if (import.meta.env.DEV) {
                 console.warn(`Unknown chart referenced in content: "${chartName}"`);
@@ -171,14 +280,26 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
 
             return <code className={className}>{children}</code>;
           },
+          th: ({ children, ...props }) => {
+            // A comparison table's corner cell heads nothing, and an empty
+            // `<th>` claims to. HTML's answer is a `<td>`; markdown has no way
+            // to say it, so it is said here. Five tables in the book have one.
+            const empty = children == null || (Array.isArray(children) && children.length === 0);
+            return empty ? <td /> : <th {...props}>{children}</th>;
+          },
           pre: ({ children }) => {
             // A fenced chart block renders a full-width figure, not a code block.
             const kids = Array.isArray(children) ? children : [children];
             if (showCharts && kids.some(isChartElement)) {
               return <>{children}</>;
             }
+            // `text-foreground` is load-bearing: the typography plugin styles
+            // `pre` for a dark block and sets the code colour to gray-200,
+            // which against `bg-muted` measured a contrast ratio of 1.01 — the
+            // book's one ASCII diagram was invisible in light mode, not merely
+            // hard to read.
             return (
-              <pre className="mb-6 overflow-x-auto rounded-md bg-muted p-4 text-sm">
+              <pre className="mb-6 overflow-x-auto rounded-md bg-muted p-4 text-sm text-foreground">
                 {children}
               </pre>
             );
@@ -189,12 +310,18 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
             </h1>
           ),
           h2: ({ children }) => (
-            <h2 className="text-2xl md:text-3xl font-semibold mt-12 mb-4 text-foreground border-b pb-2">
+            <h2
+              id={anchor(children)}
+              className="text-2xl md:text-3xl font-semibold mt-12 mb-4 text-foreground border-b pb-2 scroll-mt-20"
+            >
               {children}
             </h2>
           ),
           h3: ({ children }) => (
-            <h3 className="text-xl md:text-2xl font-semibold mt-8 mb-3 text-foreground">
+            <h3
+              id={anchor(children)}
+              className="text-xl md:text-2xl font-semibold mt-8 mb-3 text-foreground scroll-mt-20"
+            >
               {children}
             </h3>
           ),

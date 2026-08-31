@@ -1,3 +1,5 @@
-// Re-export all chapter content from the modular structure
-export { bookInfo, chapters } from "./chapters/index";
-export type { Chapter } from "./chapters/types";
+// Navigation and layout read the manifest: metadata only, no prose.
+export { chapterManifest as chapters } from "./chapters/manifest";
+export { bookInfo } from "./chapters/types";
+export { loadChapter, loadAllChapters } from "./chapters/load";
+export type { Chapter, ChapterMeta, SubchapterMeta } from "./chapters/types";

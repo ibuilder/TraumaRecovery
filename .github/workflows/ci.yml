@@ -18,7 +18,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - run: npm ci
@@ -31,3 +31,84 @@ jobs:
 
       - name: Build static site
         run: npm run build:pages
+        env:
+          VITE_BASE_PATH: /traumarecovery/
+
+      # The same check the deploy runs, so a base-path or chunking fault shows
+      # up on the pull request rather than as a blank page after merge.
+      - name: Check the build is servable
+        run: npm run check:pages
+        env:
+          VITE_BASE_PATH: /traumarecovery/
+
+  test:
+    name: Browser tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      # The tests run against a real production build served the way Pages
+      # serves it, base path and 404 fallback included.
+      - name: Build static site
+        run: npm run build:pages
+        env:
+          VITE_BASE_PATH: /traumarecovery/
+
+      - name: Run tests
+        run: npm test
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  # Its own job rather than a step after the tests. Building the ebook means
+  # screenshotting 87 figures out of a real browser, which takes longer than
+  # everything else here put together; run in parallel it costs no wall clock,
+  # and the test result — the signal anyone is waiting on — is not stuck behind
+  # it.
+  epub:
+    name: Kindle edition
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build static site
+        run: npm run build:pages
+        env:
+          VITE_BASE_PATH: /traumarecovery/
+
+      # The ebook comes from the same chapter markdown and the same rendered
+      # figures, so a change that breaks it breaks it here rather than at upload.
+      - name: Build and preflight the EPUB
+        run: |
+          npm run epub
+          npm run check:epub
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: healing-together-epub
+          path: dist/healing-together.epub
+          retention-days: 14

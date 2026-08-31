@@ -1,8 +1,14 @@
+import { lazy, Suspense } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ChapterCard } from "@/components/chapter-card";
+import { ContinueReading } from "@/components/continue-reading";
 import { bookInfo, chapters } from "@/lib/chapters";
-import { PDFDownloadButton } from "@/components/pdf-generator";
+// The PDF exporter pulls in every chart plus jsPDF; keep it off the home page's
+// critical path until someone is actually looking at the button.
+const PDFDownloadButton = lazy(() =>
+  import("@/components/pdf-generator").then((m) => ({ default: m.PDFDownloadButton }))
+);
 import { ArrowRight, BookOpen, Heart, Users, Shield } from "lucide-react";
 
 export default function Home() {
@@ -43,7 +49,13 @@ export default function Home() {
                   View All Chapters
                 </Button>
               </Link>
-              <PDFDownloadButton />
+              <Suspense fallback={<div className="h-11" aria-hidden="true" />}>
+                <PDFDownloadButton />
+              </Suspense>
+            </div>
+
+            <div className="mx-auto max-w-md pt-2">
+              <ContinueReading />
             </div>
           </div>
         </div>
@@ -56,7 +68,7 @@ export default function Home() {
               <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                 <Heart className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-semibold">Compassionate Approach</h3>
+              <h2 className="font-semibold">Compassionate Approach</h2>
               <p className="text-sm text-muted-foreground">
                 Written with understanding and care for those on the healing journey
               </p>
@@ -65,7 +77,7 @@ export default function Home() {
               <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                 <Users className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-semibold">For Everyone</h3>
+              <h2 className="font-semibold">For Everyone</h2>
               <p className="text-sm text-muted-foreground">
                 Practical guidance accessible to ordinary people, not just professionals
               </p>
@@ -74,7 +86,7 @@ export default function Home() {
               <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                 <Shield className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-semibold">Evidence-Based</h3>
+              <h2 className="font-semibold">Evidence-Based</h2>
               <p className="text-sm text-muted-foreground">
                 Grounded in CBT, DBT, ACT and other proven therapeutic approaches
               </p>

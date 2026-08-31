@@ -510,6 +510,38 @@ Multiple pathways to recovery exist. This chapter provides comprehensive informa
 
 **Meetings:** www.aa.org - Find local meetings worldwide
 
+#### Steps eight and nine, since they are the ones people stall on
+
+Most people who leave the steps leave somewhere around eight and nine, and it is
+worth saying plainly why. Steps four through seven happen inside you, with a
+sponsor. Step nine happens in somebody else's living room, and it is the first
+one where another person gets a vote on how it goes.
+
+\`\`\`chart:AmendsKindsChart\`\`\`
+
+Two distinctions do most of the work here.
+
+**An amends is not an apology.** An apology is a statement about your feelings,
+and it invites the other person to manage them — which is very often the same
+dynamic that did the harm. An amends names the specific thing you did, without
+the surrounding explanation that makes it smaller, and then either repairs it or
+changes the behaviour going forward. "I am sorry I was like that" is an apology.
+"I took four hundred pounds from you in 2019 and lied about it; here is the first
+hundred" is an amends.
+
+**You are not owed a response.** Some people will be gracious. Some will be cold,
+or will use the moment to say things they have been holding for years, or will
+say nothing at all. None of that is a verdict on whether the amends worked. The
+qualitative research on this — people interviewed about what the process actually
+did for them — keeps landing on the same finding: what changed was the relation
+to the harm itself, not the reception. Going in wanting to be forgiven is the
+most common way to turn an amends back into something you are doing for you.
+
+The eighth step is where the work really is: make the list, all of it, and become
+*willing* — which is a separate and slower thing from being ready. Willingness
+that has to be manufactured before the list is written usually produces a shorter
+list.
+
 ---
 
 ### Narcotics Anonymous (NA)
@@ -591,13 +623,46 @@ Multiple pathways to recovery exist. This chapter provides comprehensive informa
 3. **Managing Thoughts, Feelings, and Behaviors** - Rational thinking skills
 4. **Living a Balanced Life** - Lifestyle balance for prevention
 
-**Tools Used:**
-- Cost-Benefit Analysis
-- Hierarchy of Values
-- DISARM technique for urges
-- ABC tool for irrational beliefs
-
 **Meetings:** www.smartrecovery.org - In-person and online
+
+\`\`\`chart:SmartFourPointChart\`\`\`
+
+#### The three tools worth knowing before your first meeting
+
+You do not have to arrive prepared. But SMART meetings run on a small set of
+tools, and three of them do most of the work.
+
+**The ABC.** Straight from rational emotive behaviour therapy, and the reason
+SMART sits so close to the CBT in chapter 8. An **A**ctivating event happens.
+You hold a **B**elief about it. The **C**onsequence — the feeling, and then the
+behaviour — follows from the belief, not from the event. The move is to find the
+demand hiding in B and to **D**ispute it, which usually means noticing a *must*
+or a *should* and downgrading it to a *prefer*:
+
+| | |
+|---|---|
+| **A** — Activating event | The party is going to be full of people drinking. |
+| **B** — Belief | I *can't stand* being the only sober person in a room. |
+| **C** — Consequence | Dread all week; then either avoid everyone, or drink. |
+| **D** — Dispute | Can't stand it, or don't like it? Which is it, exactly? |
+| **E** — Effective new belief | I would *prefer* not to be the only one. I have done harder things than be uncomfortable at a party for an hour. |
+
+The distinction between *I can't stand this* and *I don't like this* looks like
+a word game until the first time it works on you. Low frustration tolerance is
+close to universal in early recovery, and this is the tool aimed directly at it.
+
+**The cost–benefit analysis.** Four questions, and the order matters: what do I
+*enjoy* about it, what do I *hate* about it, what do I think I will *like* about
+stopping, and what will I *miss*. Most people expect to be asked only the second
+one. Being asked the first is the point — you were getting something from it, you
+are not stupid, and a plan built on pretending otherwise falls over the first
+time you remember that it worked. Write it while you are well, and read it when
+you are not.
+
+**The hierarchy of values.** List what matters most to you, then cut the list to
+five. Almost nobody puts their drug of choice on that list. Then look at where
+last week's hours and money actually went. The gap between the five and the week
+is the whole argument, made by you rather than to you.
 
 ---
 
@@ -806,12 +871,31 @@ Multiple pathways to recovery exist. This chapter provides comprehensive informa
 4. **Philosophy:** Disease model or behavioral approach?
 5. **Availability:** What's accessible in my area?
 
+\`\`\`chart:MutualAidComparisonChart\`\`\`
+
 ### Try Multiple Programs
+
+These programmes disagree about almost everything that sounds important. One
+says you are powerless; another says the power is precisely yours and the job is
+learning to use it. One asks you to turn your will over; another hands you a
+whiteboard and a worksheet.
+
+That disagreement matters less than it looks. The thing that predicts whether
+mutual aid helps is not which model of the problem you find convincing — it is
+attendance, and how much of your week ends up spent around people who are not
+using. Manualised twelve-step facilitation has the strongest trial evidence of
+any of them, and the Cochrane review that established this is worth knowing
+about. But the others have less evidence largely because far less research has
+been done on them, which is a fact about funding, not about them.
+
+So: go to several. Go to a few of each before deciding, because one bad room
+tells you about that room. Combining them is normal — a Tuesday SMART meeting
+and a Saturday AA meeting is not a contradiction, and nobody will check.
 
 - Most people benefit from trying different approaches
 - What works for one person may not work for another
 - Programs can be combined
-- The best program is one you'll attend
+- **The best program is the one you will actually attend**
 
 ---
 
@@ -830,35 +914,36 @@ White, W. L. (2014). *Slaying the dragon: The history of addiction treatment and
 
 Relapse is common in recovery—studies suggest 40-60% of people in recovery will relapse at some point. Rather than viewing relapse as failure, understand it as a learning opportunity and part of the recovery process. A solid prevention plan significantly reduces risk.
 
+## Where you are in the change, and why it matters
+
+Before the plan, a piece of orientation that saves a lot of wasted effort. People
+do not go from using to not using in one move, and the kind of help that works
+depends entirely on which part of that arc somebody is standing in. Handing a
+detailed prevention plan to someone who has not yet decided anything is like
+handing somebody a map before they have agreed to leave the house.
+
+\`\`\`chart:StagesOfChangeChart\`\`\`
+
+The reason this belongs at the top of a chapter about relapse prevention is the
+last box. A written plan is a **maintenance** tool. If you are honestly in
+contemplation — able to see it, not ready — then the useful work this week is the
+cost–benefit sheet in the previous section, not a laminated crisis card. Both are
+recovery. They are just not the same week's work.
+
 ## Understanding Relapse
 
 ### Relapse is a Process, Not an Event
 
-Relapse typically unfolds in three stages:
+The single most useful idea in this chapter is that the drink is the *last* event
+in a relapse, not the first. By the time anybody picks anything up, the decisions
+that mattered were made weeks earlier, in a stage where using was not even being
+considered.
 
-**1. Emotional Relapse**
-You're not thinking about using, but emotions and behaviors set the stage:
-- Bottling up emotions
-- Isolating from support
-- Not attending meetings
-- Poor self-care (sleep, nutrition, exercise)
-- Not asking for help
-- Focusing on others' problems instead of your own
+\`\`\`chart:ThreeStagesOfRelapseChart\`\`\`
 
-**2. Mental Relapse**
-Internal battle between wanting to use and wanting to stay sober:
-- Thinking about people, places, things from use
-- Glamorizing past use
-- Minimizing consequences
-- Bargaining ("Maybe just once...")
-- Planning relapse around others' schedules
-- Looking for opportunities to use
-
-**3. Physical Relapse**
-Actual use of substances:
-- Seeking out the substance
-- Using the substance
-- May be brief or progress to full relapse
+Read that as a set of three alarms with very different volumes. The first is
+almost silent, which is exactly why it is the one worth learning. Nobody needs
+help noticing physical relapse.
 
 ### Warning Signs
 
@@ -891,6 +976,23 @@ Learn to recognize your personal warning signs:
 ## Building Your Relapse Prevention Plan
 
 ### Step 1: Know Your Triggers
+
+It is worth knowing, before you write your own list, what actually shows up on
+everybody else's. When researchers asked large numbers of people what was
+happening at the moment they first used again, the answers were not evenly
+spread. Three categories accounted for roughly three-quarters of them.
+
+\`\`\`chart:RelapsePrecipitantsChart\`\`\`
+
+Notice what is *not* at the top. The dealer, the bar, the bottle in the cupboard —
+the physical availability that most plans are built around — sits inside
+"everything else." The big one is a feeling. The second is other people, in two
+different flavours: being offered, and being in conflict.
+
+That has a direct consequence for your plan. A plan made entirely of avoidance
+covers the smallest slice of the risk. Most of what will come for you is an
+emotional state you cannot move house to escape, which is why the emotion-regulation
+and distress-tolerance chapters are load-bearing here rather than optional extras.
 
 **High-Risk Situations:**
 List specific situations that increase your risk:
@@ -1041,6 +1143,67 @@ Create a list with names and numbers:
 6. **Increase support** - More meetings, more check-ins
 7. **Consider treatment** - May need higher level of care
 
+## My own plan, in case it helps
+
+Everything above is the general shape. This is the specific version I wrote for
+myself and have used since. I am putting it here not because it is a template
+worth copying line for line — yours should be yours — but because an abstract
+plan and somebody's actual plan are different kinds of document, and it is easier
+to write one when you have seen one.
+
+### Three cardinal rules
+
+Before the ten commitments there are three rules, and they are short because they
+have to survive being remembered on a bad day.
+
+1. **Do not use mind-altering substances.**
+2. **Trust the friends in recovery who love you.** On the days your own judgement
+   is compromised, theirs is the instrument that still reads true.
+3. **Pause, pray, proceed.** Three words, in that order. The pause is the part
+   that does the work; the rest of it is what keeps the pause from collapsing
+   back into a decision made at speed.
+
+The second rule is the one that people new to this find hardest, and it is worth
+saying why it is a *rule* rather than a suggestion. Addiction is the one condition
+whose primary symptom is an argument against treating it. When the disease is
+talking, it sounds exactly like you thinking clearly. Delegating the verdict to
+people who love you and are not currently inside your head is not weakness — it is
+the only available workaround for an instrument that cannot calibrate itself.
+
+### The ten commitments
+
+| | Commitment | What it is protecting |
+|---|---|---|
+| 1 | Develop a positive support system, and use it **daily** | Connection |
+| 2 | Use prayer and meditation in my daily life | Spiritual |
+| 3 | Be my own best support — daily affirmations, and honest awareness of when I am isolating or withdrawing | Mental |
+| 4 | Read nightly in my AA/NA literature, as part of a meditation practice | Spiritual |
+| 5 | Reach out to peers in recovery, to support and encourage each other | Connection |
+| 6 | Engage in spirituality and fellowship with others in recovery | Spiritual + connection |
+| 7 | If I feel in danger of relapsing, contact my support group — **before** I pick up | Crisis |
+| 8 | Cultivate exercise, fellowship, service, and something I am genuinely interested in | Physical + mental |
+| 9 | Seek out friendships in recovery — home group, sponsor's recommendations — as a group I am accountable to and honest with | Connection |
+| 10 | Keep an association with rehabilitation facilities and similar institutions | Structural |
+
+Three things about that list are deliberate, and they are the parts worth stealing
+even if none of the specifics fit you.
+
+**Number seven has the word "before" in it.** Every other commitment is a habit.
+That one is a trigger with a threshold and a defined action, written down while
+well, so that the version of me who is not well does not have to invent anything.
+That is the entire function of a crisis plan: to remove decisions from the moment
+when deciding is the broken faculty.
+
+**Six of the ten are about other people.** Not because connection is nice, but
+because of the figure earlier in this section — most relapse happens in an
+emotional state or an interpersonal one, and both of those are answered by
+people rather than by willpower.
+
+**None of them mention not drinking.** That is in the cardinal rules, where it
+belongs, and it is the only line in the whole plan about the substance. Everything
+else is about building a life with enough in it that the substance has to compete.
+A plan that is only a list of things not to do gives you nothing to do instead.
+
 ## The Relapse Prevention Worksheet
 
 Complete this worksheet and keep it accessible:
@@ -1147,6 +1310,19 @@ Cravings and urges are temporary neurological events. Research shows that most u
 Understanding this science is crucial: you don't have to act on an urge. If you can ride it out, it will pass.
 
 ---
+
+## Three places to get off, not one
+
+Urge surfing is the technique for the last stage of a process that has two earlier
+ones. Both of those are easier to interrupt, and knowing they exist means you are
+not left with a single move that only works under maximum pressure.
+
+\`\`\`chart:UrgeEscalationChart\`\`\`
+
+Surfing is what you do at the bottom of that diagram, once you are already in it.
+The skill is real and this section teaches it properly. But most of the time the
+cheapest intervention is at the top, where it is still only a thought and letting
+it go past costs nothing at all.
 
 ## Why Traditional "Fighting" Doesn't Work
 
@@ -1395,6 +1571,188 @@ Marlatt, G. A., & Gordon, J. R. (1985). *Relapse prevention: Maintenance strateg
 Witkiewitz, K., & Bowen, S. (2010). Depression, craving, and substance use following a randomized trial of mindfulness-based relapse prevention. *Journal of Consulting and Clinical Psychology, 78*(3), 362-374.
 
 Brewer, J. A. (2017). *The craving mind: From cigarettes to smartphones to love—why we get hooked and how we can break bad habits*. Yale University Press.`,
+    },
+    {
+      id: "3-7",
+      title: "Rate, Genes, and Interaction",
+      slug: "rate-genes-interaction",
+      order: 7,
+      content: `# Rate, Genes, and Interaction
+
+Three ideas from an addiction-medicine lecture that changed how I understood my
+own history. None of them were comforting exactly. All three were a relief,
+because they replaced a story about character with a story about mechanism.
+
+## It's not about how much — it's about how fast
+
+I had always measured my use in quantities. How much, how often, how many days.
+The number that actually matters is a slope.
+
+Every rewarding thing raises dopamine in the reward circuit. Food does it. So
+does a text from someone you love. What separates a pleasure from a drug is not
+the height the dopamine reaches — it is **how quickly it gets there**.
+
+\`\`\`chart:DopamineRateChart\`\`\`
+
+The same molecule, the same dose, delivered by four different routes, produces
+four completely different risks. Coca leaf chewed over an afternoon and cocaine
+smoked are chemically the same story with a different first derivative. Nicotine
+in a patch and nicotine in a cigarette. Oral opioids and injected ones.
+
+This is why "I only used on weekends" was never the protection I thought it was,
+and why the route I chose mattered more than the amount I chose. A steep enough
+spike teaches the brain something a slow rise cannot: *this, above everything
+else, is what survival looks like.* Dopamine is not the pleasure chemical. It is
+the **stamping-in** chemical. It marks what is worth doing again.
+
+### Wanting is not liking
+
+The corollary took me longer to accept. Dopamine drives **wanting**. The systems
+that produce **liking** — endogenous opioids, endocannabinoids, GABA, serotonin,
+oxytocin — are separate.
+
+That separation is the whole tragedy of late addiction. Wanting sensitises: it
+gets stronger with repetition. Liking blunts: the receptors downregulate and the
+same dose returns less. So the wanting climbs while the liking falls, and you
+end up in the position every addict eventually describes and nobody outside
+believes — *I don't even enjoy it any more, and I cannot stop.*
+
+You are not weak for wanting something you no longer like. That gap is what the
+disease is.
+
+## Addiction is heritable, and heritable is not destiny
+
+\`\`\`chart:AddictionHeritabilityChart\`\`\`
+
+When I first saw these numbers I read them as a verdict. They are not. Two
+things about them matter more than the size of the bars.
+
+**First, they are ranges, not numbers.** Studies disagree, populations differ,
+and every bar here is a span rather than a point. Anyone quoting you a single
+confident percentage is rounding away most of the science.
+
+**Second, and this is the part that took me a while: heritability is a fact
+about populations, not about people.** A heritability of 50% does not mean half
+of your addiction came from your genes. It means that in the population studied,
+about half of the *variation between people* tracked with genetic variation. It
+says nothing about you specifically, and it says nothing at all about what is
+possible for you.
+
+The full formulation from that lecture was this: addiction is a
+**stress-induced, genetically mediated disorder of the reward and executive
+systems of the brain.**
+
+Read the order of that sentence. Stress comes first. Genes mediate — they set
+how hard the same stress lands. And what gets damaged is not your character, it
+is the reward system and the frontal lobes: the parts that decide what is worth
+doing, and the parts that stop you.
+
+### And the stress is often older than you
+
+The epigenetics research is the strangest part of this. Work following the
+Överkalix cohort in northern Sweden found associations between grandparents'
+early-life food availability and their grandchildren's health outcomes.
+Rachel Yehuda's studies of Holocaust survivors and of pregnant women who
+survived 9/11 found altered stress-hormone regulation in their children.
+
+The mechanisms are still being argued over, and the popular version — "trauma is
+inherited" — outruns the evidence considerably. But the direction is real
+enough to change the question. It stops being *why am I like this* and becomes
+*how far back does this go, and where does it stop.*
+
+It stops with whoever does the work. That can be you.
+
+## Cross-addiction: the thing nobody warned me about
+
+> "When you are recovering from one addiction, you are vulnerable to substitution,
+> or to an increase in another."
+
+I understood relapse. Nobody sat me down and explained that addictions **interact**
+— that they are not separate problems in separate boxes but a system that
+reorganises itself when you remove one part.
+
+Five specific ways it happens:
+
+- **Cross-tolerance.** Adaptation to one raises the threshold for the other.
+- **Replacement.** One stops and another expands to fill the same function. The
+  drinking ends and the spending starts. This is the one that gets celebrated as
+  recovery.
+- **Withdrawal mediation.** One is used specifically to manage coming off the
+  other — the classic pattern of drinking through a stimulant crash.
+- **Masking.** One conceals the other, including from you. The visible addiction
+  absorbs all the attention, all the treatment, all the shame, and the other one
+  runs untouched underneath.
+- **Fusion.** Two behaviours become a single ritual and stop being separable at
+  all. Neither can be treated alone because there is no longer an "alone."
+
+The practical consequence is that a recovery plan aimed at one substance is
+usually aimed at the wrong target. When I finally scored every compulsive
+behaviour I had — the same ten criteria, one column per behaviour, one to five —
+the shape of the problem looked nothing like the shape I had been treating.
+
+Do that inventory. Loss of control, compulsive behaviour, failed efforts to
+stop, loss of time, preoccupation, unmet obligations, continuation despite
+consequences, escalation, losses, withdrawal. Score every candidate, not just
+the obvious one. The columns you were not planning to fill in are the point of
+the exercise.
+
+## Why the hangover keeps getting worse
+
+One more piece of mechanism, because it explains something that felt like moral
+decline and was actually pharmacology.
+
+\`\`\`chart:AlcoholGabaGlutamateChart\`\`\`
+
+Alcohol does two things at once. It potentiates GABA, the brain's main brake —
+that is the buzz — and it inhibits glutamate, the main accelerator. The brain,
+which will not tolerate being held down, compensates by upregulating glutamate.
+
+Each drink is a GABA wave that rises and falls. The glutamate compensation does
+**not** fall between drinks. It accumulates. So every buzz starts from a higher
+floor, delivers less, and leaves more exposed when the alcohol clears.
+
+The rising floor is the hangover. It is also the anxiety, the 3am waking, and
+eventually the withdrawal seizures. Nothing about it is a failure of will. It is
+a brake and an accelerator being pressed at the same time for long enough that
+the accelerator wins.
+
+## Something genuinely new
+
+I want to flag one active area of research, with appropriate caution.
+
+GLP-1 receptor agonists — semaglutide and the related drugs prescribed for
+diabetes and obesity — generated a flood of anecdotal reports that people taking
+them simply wanted alcohol less. That anecdote is now being tested properly. A
+2025 phase 2 randomised trial found that low-dose semaglutide reduced weekly
+alcohol craving and some drinking measures relative to placebo in adults with
+alcohol use disorder, and a larger trial has since followed.
+
+This is early. Forty-eight participants, nine weeks, one site. It is not a
+treatment you should expect your doctor to offer for addiction today, and it is
+not a reason to delay anything that already works. But it is the first
+genuinely new pharmacological direction in this field in a long time, and if you
+are reading this some years after it was written, it is the thing worth
+searching for an update on.
+
+---
+
+## References
+
+Goldman, D., Oroszi, G., & Ducci, F. (2005). The genetics of addictions: Uncovering the genes. *Nature Reviews Genetics, 6*(7), 521–532. https://doi.org/10.1038/nrg1635
+
+Hendershot, C. S., Bremmer, M. P., Paladino, M. B., et al. (2025). Once-weekly semaglutide in adults with alcohol use disorder: A randomized clinical trial. *JAMA Psychiatry, 82*(4), 395–405. https://doi.org/10.1001/jamapsychiatry.2024.4789
+
+McCauley, K. (2010). *Pleasure unwoven: An explanation of the brain disease of addiction* [Film]. Institute for Addiction Study.
+
+Carnes, P. J., Murray, R. E., & Charpentier, L. (2005). Bargains with chaos: Sex addicts and addiction interaction disorder. *Sexual Addiction & Compulsivity, 12*(2–3), 79–120. https://doi.org/10.1080/10720160500201371
+
+Robinson, T. E., & Berridge, K. C. (2008). The incentive sensitization theory of addiction: Some current issues. *Philosophical Transactions of the Royal Society B, 363*(1507), 3137–3146. https://doi.org/10.1098/rstb.2008.0093
+
+Valenzuela, C. F. (1997). Alcohol and neurotransmitter interactions. *Alcohol Health & Research World, 21*(2), 144–148.
+
+Volkow, N. D., Wang, G. J., Fischman, M. W., et al. (2000). Effects of route of administration on cocaine-induced dopamine transporter blockade in the human brain. *Life Sciences, 67*(12), 1507–1515. https://doi.org/10.1016/S0024-3205(00)00731-1
+
+Yehuda, R., & Lehrner, A. (2018). Intergenerational transmission of trauma effects: Putative role of epigenetic mechanisms. *World Psychiatry, 17*(3), 243–257. https://doi.org/10.1002/wps.20568`,
     },
   ],
 };

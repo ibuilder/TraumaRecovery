@@ -17,7 +17,7 @@ import {
   Video,
   Waves,
 } from "lucide-react";
-import type { Chapter } from "@shared/schema";
+import type { ChapterMeta } from "@/lib/chapters";
 
 // Must cover every `icon` used in client/src/lib/chapters/*.ts, or the chapter
 // silently falls back to the generic heart.
@@ -37,7 +37,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 interface ChapterCardProps {
-  chapter: Chapter;
+  chapter: ChapterMeta;
 }
 
 export function ChapterCard({ chapter }: ChapterCardProps) {

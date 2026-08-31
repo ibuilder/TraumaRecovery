@@ -667,7 +667,7 @@ Dana, D. (2018). *The polyvagal theory in therapy: Engaging the rhythm of regula
 
 Porges, S. W., & Dana, D. (2018). *Clinical applications of the polyvagal theory: The emergence of polyvagal-informed therapies*. W. W. Norton.
 
-Sullivan, M. B., et al. (2024). Vagus nerve stimulation in trauma recovery: A comprehensive review. *Frontiers in Psychiatry*, 15, 1234567.`,
+Sullivan, M. B., et al. (2024). Vagus nerve stimulation in trauma recovery: A comprehensive review. *Frontiers in Psychiatry*, 15.`,
     },
     {
       id: "2-4",
