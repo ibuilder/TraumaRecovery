@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 import {
   bodyItems,
+  countEmbeddedFontPrograms,
   downloadBook,
   layoutConstants,
   readBook,
@@ -24,11 +25,14 @@ const LAYOUT = layoutConstants();
 
 let pages: BookPage[];
 let outline: number;
+let embeddedFontPrograms: number;
+let lowestImageDpi: number;
 
 test.beforeAll(async ({ browser }) => {
   const page = await browser.newPage();
   const bytes = await downloadBook(page);
-  ({ pages, outline } = await readBook(bytes));
+  embeddedFontPrograms = countEmbeddedFontPrograms(bytes);
+  ({ pages, outline, lowestImageDpi } = await readBook(bytes));
   await page.close();
 });
 
@@ -191,6 +195,18 @@ test("the references are gathered at the back, not scattered through the book", 
   expect(bibliography.length, "bibliography pages").toBeGreaterThan(3);
   // And it belongs at the back.
   expect(bibliography[0]!.number).toBeGreaterThan(pages.length * 0.9);
+});
+
+test("the file is fit to hand to a printer", () => {
+  // The checks a print service runs and a reader never notices. Trim and page
+  // count are deliberately not asserted here — those depend on which edition is
+  // being made, and `npm run check:print` reports them against KDP's table.
+  // These three are true of any print-ready interior.
+  expect(pages.length % 2, "a printed book has an even number of sides").toBe(0);
+  expect(embeddedFontPrograms, "font programs embedded in the file").toBeGreaterThan(0);
+  expect(Math.round(lowestImageDpi), "lowest image DPI at its placed size").toBeGreaterThanOrEqual(
+    300
+  );
 });
 
 test("no fabricated identifiers survive into print", () => {

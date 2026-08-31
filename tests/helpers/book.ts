@@ -52,10 +52,24 @@ export async function downloadBook(page: Page): Promise<Uint8Array> {
   return new Uint8Array(Buffer.concat(chunks));
 }
 
+/**
+ * How many font programs the file carries.
+ *
+ * Must run before `readBook`: pdf.js detaches the array it is handed, and a
+ * scan of the same bytes afterwards silently reads zeros. Zero here means the
+ * text relies on the PDF base-14 — fonts the reader's viewer is expected to
+ * supply — which every print service rejects.
+ */
+export function countEmbeddedFontPrograms(data: Uint8Array): number {
+  return (Buffer.from(data).toString("latin1").match(/\/FontFile\d?\b/g) ?? []).length;
+}
+
 /** Reads back every page's text geometry, and whether it carries a figure. */
 export async function readBook(data: Uint8Array): Promise<{
   pages: BookPage[];
   outline: number;
+  /** Lowest image resolution at the size it is actually placed on the page. */
+  lowestImageDpi: number;
 }> {
   const { getDocument, OPS } = (await import(PDFJS)) as typeof import("pdfjs-dist");
   const standardFontDataUrl = path.join(
@@ -71,10 +85,38 @@ export async function readBook(data: Uint8Array): Promise<{
     OPS.paintImageMaskXObject,
   ]);
   const pages: BookPage[] = [];
+  let lowestImageDpi = Infinity;
 
   for (let n = 1; n <= doc.numPages; n++) {
     const page = await doc.getPage(n);
     const [content, ops] = await Promise.all([page.getTextContent(), page.getOperatorList()]);
+
+    // Resolution has to be measured against the size an image is placed at, not
+    // its pixel count: the same bitmap is 300 DPI in a column and 150 across a
+    // spread. Track the transform to find out which.
+    let ctm = [1, 0, 0, 1, 0, 0];
+    const stack: number[][] = [];
+    const mul = (m: number[], o: number[]) => [
+      m[0]! * o[0]! + m[2]! * o[1]!,
+      m[1]! * o[0]! + m[3]! * o[1]!,
+      m[0]! * o[2]! + m[2]! * o[3]!,
+      m[1]! * o[2]! + m[3]! * o[3]!,
+      m[0]! * o[4]! + m[2]! * o[5]! + m[4]!,
+      m[1]! * o[4]! + m[3]! * o[5]! + m[5]!,
+    ];
+    for (let i = 0; i < ops.fnArray.length; i++) {
+      const fn = ops.fnArray[i]!;
+      if (fn === OPS.save) stack.push(ctm.slice());
+      else if (fn === OPS.restore) ctm = stack.pop() ?? ctm;
+      else if (fn === OPS.transform) ctm = mul(ctm, ops.argsArray[i] as number[]);
+      else if (fn === OPS.paintImageXObject) {
+        const [name, w] = ops.argsArray[i] as [string, number, number];
+        const obj = page.objs.has(name) ? (page.objs.get(name) as { width?: number }) : null;
+        const px = obj?.width ?? w;
+        const placedIn = Math.abs(ctm[0]!) / 72;
+        if (px && placedIn > 0.1) lowestImageDpi = Math.min(lowestImageDpi, px / placedIn);
+      }
+    }
 
     const items: TextItem[] = [];
     for (const item of content.items) {
@@ -98,7 +140,7 @@ export async function readBook(data: Uint8Array): Promise<{
 
   const outline = (await doc.getOutline())?.length ?? 0;
   await task.destroy();
-  return { pages, outline };
+  return { pages, outline, lowestImageDpi };
 }
 
 /** Loads the constants the exporter typesets to, so the tests cannot drift. */

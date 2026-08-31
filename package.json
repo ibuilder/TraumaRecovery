@@ -23,6 +23,8 @@
     "check": "tsc",
     "manifest": "tsx script/generate-manifest.ts",
     "search-index": "tsx script/generate-search-index.ts",
+    "book-fonts": "tsx script/generate-book-fonts.ts",
+    "check:print": "tsx script/check-print-ready.ts",
     "validate:content": "tsx script/validate-content.ts",
     "serve:static": "tsx script/serve-static.ts",
     "test": "playwright test",

@@ -142,6 +142,7 @@ Other entry points:
 - `npm run validate:content` — content structure checks
 - `npm run manifest` / `npm run search-index` — regenerate the two generated files
 - `npm test` — the browser suite (see the [README](../README.md#tests))
+- `npm run check:print` — preflight an exported PDF against Amazon KDP's rules
 - `npm run build` — client + bundled Express server
 - `npm run build:pages` — static build for GitHub Pages (see README)
 
@@ -195,6 +196,13 @@ match its physical page and every contents entry point at the right one.
 **References.** Each chapter's inline `## References` section is skipped during export
 and the whole book's citations are gathered into one bibliography at the back,
 de-duplicated on surname, year and main title.
+
+**The fonts are in the file.** `client/src/lib/book-fonts-data.ts` is Liberation
+Serif, subset to the characters the book uses. jsPDF's `times` is one of the PDF
+base-14, which is a reference to a font rather than a font, and print services
+reject it. Liberation Serif is metric-compatible with Times, so the swap changed
+nothing about where the lines break. Regenerate with `npm run book-fonts`; see
+[PRINT-AND-PUBLISHING.md](./PRINT-AND-PUBLISHING.md) for why it matters.
 
 Verifying a change here means looking at pages, not at the text layer: mid-animation
 charts, stranded headings and an off-by-two folio all produced a clean extraction and

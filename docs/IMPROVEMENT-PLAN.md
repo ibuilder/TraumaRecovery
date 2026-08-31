@@ -289,6 +289,13 @@ Ordered by how much they matter, not by effort.
 
 **Needs a decision, then a deliberate action**
 
+- **The paperback edition.** The export now passes eight of KDP's ten interior
+  checks; the two it fails are the same fact twice, which is that 734 pages does
+  not fit on US Letter (max 590) and a colour interior caps at 600 pages at every
+  trim. See [PRINT-AND-PUBLISHING.md](./PRINT-AND-PUBLISHING.md) for the three
+  ways out and a recommendation. A cover, an ISBN and a separate EPUB for Kindle
+  are all still outstanding.
+
 - **`attached_assets/` (22 MB)** of unimported files, including two copies of a
   third-party treatment centre's manual. Publishing this repository publicly publishes
   that manual. Deleting the directory is easy; purging it from git history is a
