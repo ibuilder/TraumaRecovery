@@ -260,7 +260,15 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
             if (chartName && showCharts) {
               const ChartComponent = chartComponents[chartName];
               if (ChartComponent) {
-                return <ChartComponent />;
+                // Tagged with the component name so tooling can map a rendered
+                // figure back to the placeholder that asked for it. Guessing
+                // the mapping from the figure's visible title silently lost
+                // sixty of the hundred placements in the EPUB build.
+                return (
+                  <div data-chart={chartName} className="contents">
+                    <ChartComponent />
+                  </div>
+                );
               }
               if (import.meta.env.DEV) {
                 console.warn(`Unknown chart referenced in content: "${chartName}"`);

@@ -130,6 +130,30 @@ reading it in distress.
 
 ---
 
+## The Kindle edition is done
+
+Amazon wants EPUB or KPF for a reflowable ebook, and a PDF uploaded as one
+becomes a fixed-layout file that is miserable on a phone — pinching and
+scrolling sideways through a column sized for paper. So the ebook is built
+separately, from the chapter markdown rather than from the PDF:
+
+```bash
+npm run epub && npm run check:epub
+```
+
+87 sections, 87 figures across 101 placements, 4.7 MB, and it passes all 18
+preflight checks. Two things about it are better than the PDF: the text reflows
+to whatever size the reader has set, and every figure carries real alt text
+taken from its own title and subtitle, which the PDF cannot do.
+
+None of it depends on the trim decision — an EPUB has no pages, so it has no
+page count, no trim and no margins. It is ready to upload now.
+
+Both the build and the preflight run in CI, which uploads the ebook as an
+artifact on every push.
+
+---
+
 ## Not yet done, whichever route is taken
 
 - **A cover.** KDP takes the cover as a separate upload, not as page 1 of the
@@ -143,7 +167,3 @@ reading it in distress.
   met on both sides because the margins are generous. In a bound book the text
   block will sit slightly toward the outside edge. Not a rejection — a quality
   point that only matters once the trim is settled.
-- **The Kindle edition is a different file.** KDP wants EPUB or KPF for
-  reflowable ebooks; a PDF uploaded as an ebook produces a fixed-layout file
-  that is unpleasant on a phone. The site's chapter markdown is a much better
-  starting point for EPUB than the PDF is.

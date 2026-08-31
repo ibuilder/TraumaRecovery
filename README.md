@@ -82,6 +82,8 @@ npm run dev          # http://localhost:5000
 | `npm run manifest` | Regenerate `lib/chapters/manifest.ts` from the chapter modules |
 | `npm run book-fonts` | Re-subset the embedded Liberation Serif from the system fonts |
 | `npm run check:print` | Preflight an exported PDF against Amazon KDP's paperback rules |
+| `npm run epub` | Build the reflowable Kindle edition into `dist/` |
+| `npm run check:epub` | Preflight the EPUB against what a reading system enforces |
 | `npm run search-index` | Regenerate `lib/search-index.json` from the chapter modules |
 | `npm test` | Browser tests — see [Tests](#tests) |
 | `npm run test:site` | Just the route sweep, search and accessibility checks (~35 s) |
@@ -130,6 +132,25 @@ printer will accept, and none of what KDP rejects on is visible to a reader.
 
 `docs/PRINT-AND-PUBLISHING.md` records what the current export passes, what it
 does not, and what would have to change.
+
+### The Kindle edition
+
+```bash
+VITE_BASE_PATH=/traumarecovery/ npm run build:pages
+npm run epub && npm run check:epub
+```
+
+A reflowable EPUB 3, built from the same chapter markdown rather than converted
+from the PDF — a PDF uploaded as an ebook becomes a fixed-layout file that is
+miserable on a phone. Figures are screenshotted from the real components, since
+they are React and Recharts rather than static assets, and each carries the alt
+text its `ChartFrame` already provides.
+
+`npm run check:epub` checks the things that fail silently and then totally: the
+mimetype entry has to be first and stored or the file is not recognised as an
+EPUB at all, and every XHTML document has to be well-formed XML, because one
+unclosed `<hr>` is valid HTML and a fatal parse error. Both run in CI, which
+also uploads the built ebook as an artifact.
 
 If your sandbox ships a browser but cannot reach Playwright's CDN, point at the one you
 have rather than downloading: `PLAYWRIGHT_CHROMIUM_PATH=/path/to/chrome npm test`.
