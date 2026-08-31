@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createRoot } from "react-dom/client";
 import type { jsPDF } from "jspdf";
+import { BOOK_FONT, loadBookFontFaces } from "@/lib/book-fonts";
 import { Button } from "@/components/ui/button";
 import { Download, Loader2 } from "lucide-react";
 import { bookInfo, loadAllChapters } from "@/lib/chapters";
@@ -175,6 +176,26 @@ function stripMarkdownForPdf(text: string): string {
   );
 }
 
+/**
+ * Puts the book's typeface inside the file.
+ *
+ * jsPDF's "times" is one of the PDF base-14: a reference to a font the reader's
+ * viewer is expected to supply, not the font itself. That is why print services
+ * reject it — the same file can set differently on two machines. Liberation
+ * Serif is metric-compatible with Times, so embedding it changes what is in the
+ * file and changes nothing about where the lines break.
+ *
+ * The faces are subset to the characters this book uses and loaded with the
+ * exporter rather than the app, so a reader who never exports never fetches
+ * them.
+ */
+async function embedBookFont(doc: jsPDF): Promise<void> {
+  for (const face of await loadBookFontFaces()) {
+    doc.addFileToVFS(face.file, face.base64);
+    doc.addFont(face.file, BOOK_FONT, face.style);
+  }
+}
+
 interface DocState {
   doc: jsPDF;
   y: number;
@@ -202,6 +223,22 @@ const CHAPTER_SINK = 22;
  */
 const FIGURE_WIDTH = 165;
 const FIGURE_MAX_HEIGHT = 110;
+
+/**
+ * How many pixels a captured figure needs.
+ *
+ * Print services want 300 DPI at the size an image is actually placed, and a
+ * figure here is placed up to FIGURE_WIDTH across. Captured at 1.5x the 800 px
+ * layout width it came out at 185 DPI — perfectly good on a screen, and a
+ * rejection from Amazon KDP. Derived rather than hardcoded so widening a figure
+ * cannot quietly drop the resolution under the floor again.
+ */
+const PRINT_DPI = 300;
+/** A little over, so rounding at the printer's end never lands under the floor. */
+const PRINT_DPI_HEADROOM = 1.05;
+const CAPTURE_CSS_WIDTH = 800;
+const CAPTURE_SCALE =
+  (PRINT_DPI * PRINT_DPI_HEADROOM * (FIGURE_WIDTH / 25.4)) / CAPTURE_CSS_WIDTH;
 const FIGURE_GAP_ABOVE = 4;
 const FIGURE_GAP_BELOW = 6;
 /** Tables are a grid to scan, not a line to read, so they get the same room. */
@@ -219,7 +256,7 @@ const FOLIO_BASELINE = 264;
 function addRunningHeader(state: DocState, leftText: string, rightText: string) {
   const { doc } = state;
   doc.setFontSize(8);
-  doc.setFont("times", "italic");
+  doc.setFont(BOOK_FONT, "italic");
   doc.setTextColor(150, 150, 150);
   doc.text(leftText, MARGIN_LEFT, HEADER_BASELINE);
   doc.text(rightText, PAGE_WIDTH - MARGIN_RIGHT, HEADER_BASELINE, { align: "right" });
@@ -231,7 +268,7 @@ function addRunningHeader(state: DocState, leftText: string, rightText: string) 
 function addPageNumber(state: DocState) {
   const { doc, pageNum } = state;
   doc.setFontSize(9);
-  doc.setFont("times", "normal");
+  doc.setFont(BOOK_FONT, "normal");
   doc.setTextColor(150, 150, 150);
   doc.text(String(pageNum), PAGE_WIDTH / 2, FOLIO_BASELINE, { align: "center" });
   doc.setTextColor(26, 26, 26);
@@ -295,7 +332,7 @@ function addText(
   if (!text.trim()) return state;
   const { doc } = state;
   doc.setFontSize(fontSize);
-  doc.setFont("times", fontStyle);
+  doc.setFont(BOOK_FONT, fontStyle);
   doc.setTextColor(...color);
 
   const lineH = lineHeightFor(fontSize);
@@ -410,7 +447,7 @@ const TABLE_CELL_LINE_HEIGHT = 4.6;
 /** Height of a list item, which never splits across a page. */
 function listItemHeight(state: DocState, text: string, indent: number): number {
   state.doc.setFontSize(FONT_SIZE_NORMAL);
-  state.doc.setFont("times", "normal");
+  state.doc.setFont(BOOK_FONT, "normal");
   const n = (state.doc.splitTextToSize(text, TEXT_WIDTH - indent) as string[]).length;
   return n * LINE_HEIGHT_NORMAL;
 }
@@ -486,7 +523,7 @@ function addHangingEntry(
   rightHeader: string
 ): DocState {
   const { doc } = state;
-  doc.setFont("times", "normal");
+  doc.setFont(BOOK_FONT, "normal");
   doc.setFontSize(FONT_SIZE_SMALL);
   doc.setTextColor(26, 26, 26);
   const indent = 6;
@@ -508,7 +545,7 @@ function addHangingEntry(
 /** Height of one laid-out table row. */
 function tableRowHeight(state: DocState, row: string[], columns: number, bold: boolean): number {
   const { doc } = state;
-  doc.setFont("times", bold ? "bold" : "normal");
+  doc.setFont(BOOK_FONT, bold ? "bold" : "normal");
   doc.setFontSize(FONT_SIZE_SMALL);
   const colWidth = TABLE_WIDTH / columns;
   const lines = Array.from({ length: columns }, (_, i) =>
@@ -549,7 +586,7 @@ function addTable(
 
   /** Lays a row out without drawing it, so its height is known in advance. */
   const layout = (row: string[], isHeaderRow: boolean) => {
-    doc.setFont("times", isHeaderRow ? "bold" : "normal");
+    doc.setFont(BOOK_FONT, isHeaderRow ? "bold" : "normal");
     doc.setFontSize(FONT_SIZE_SMALL);
     const cells = Array.from({ length: columnCount }, (_, i) => row[i] ?? "");
     const wrapped = cells.map(
@@ -565,7 +602,7 @@ function addTable(
     laid: { wrapped: string[][]; height: number },
     isHeaderRow: boolean
   ) => {
-    doc.setFont("times", isHeaderRow ? "bold" : "normal");
+    doc.setFont(BOOK_FONT, isHeaderRow ? "bold" : "normal");
     doc.setFontSize(FONT_SIZE_SMALL);
     if (isHeaderRow) {
       doc.setFillColor(240, 245, 255);
@@ -649,7 +686,7 @@ async function renderMarkdownContent(
   const headingHeight = (head: Heading) => {
     const { doc } = state;
     doc.setFontSize(head.size);
-    doc.setFont("times", "bold");
+    doc.setFont(BOOK_FONT, "bold");
     const count = (doc.splitTextToSize(head.text, TEXT_WIDTH) as string[]).length;
     return head.before + count * lineHeightFor(head.size) + head.after;
   };
@@ -682,7 +719,7 @@ async function renderMarkdownContent(
    */
   const openingHeight = (text: string, indent = 0, gap = 2) => {
     state.doc.setFontSize(FONT_SIZE_NORMAL);
-    state.doc.setFont("times", "normal");
+    state.doc.setFont(BOOK_FONT, "normal");
     const n = (state.doc.splitTextToSize(text, TEXT_WIDTH - indent) as string[]).length;
     const carried = n < MIN_ORPHAN + MIN_WIDOW ? n : MIN_ORPHAN;
     return gap + carried * LINE_HEIGHT_NORMAL;
@@ -694,7 +731,7 @@ async function renderMarkdownContent(
    */
   const quoteOpeningHeight = (text: string) => {
     state.doc.setFontSize(FONT_SIZE_NORMAL);
-    state.doc.setFont("times", "italic");
+    state.doc.setFont(BOOK_FONT, "italic");
     const n = (
       state.doc.splitTextToSize(text, TEXT_WIDTH - 2 * QUOTE_INSET) as string[]
     ).length;
@@ -970,7 +1007,7 @@ function buildCoverPage(doc: jsPDF): void {
   doc.setFillColor(59, 130, 246);
   doc.rect(0, 0, PAGE_WIDTH, 8, "F");
 
-  doc.setFont("times", "bold");
+  doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(32);
   doc.setTextColor(15, 23, 42);
   doc.text(bookInfo.title, PAGE_WIDTH / 2, 80, { align: "center" });
@@ -980,7 +1017,7 @@ function buildCoverPage(doc: jsPDF): void {
   doc.line(60, 92, PAGE_WIDTH - 60, 92);
   doc.setLineWidth(0.2);
 
-  doc.setFont("times", "italic");
+  doc.setFont(BOOK_FONT, "italic");
   doc.setFontSize(14);
   doc.setTextColor(71, 85, 105);
   const subtitleLines = doc.splitTextToSize(bookInfo.subtitle, 140);
@@ -988,7 +1025,7 @@ function buildCoverPage(doc: jsPDF): void {
     doc.text(line, PAGE_WIDTH / 2, 104 + i * 8, { align: "center" });
   });
 
-  doc.setFont("times", "normal");
+  doc.setFont(BOOK_FONT, "normal");
   doc.setFontSize(11);
   doc.setTextColor(100, 116, 139);
   const descLines = doc.splitTextToSize(bookInfo.description, 130);
@@ -996,12 +1033,12 @@ function buildCoverPage(doc: jsPDF): void {
     doc.text(line, PAGE_WIDTH / 2, 130 + i * 6.5, { align: "center" });
   });
 
-  doc.setFont("times", "bold");
+  doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(14);
   doc.setTextColor(15, 23, 42);
   doc.text(bookInfo.author, PAGE_WIDTH / 2, 185, { align: "center" });
 
-  doc.setFont("times", "normal");
+  doc.setFont(BOOK_FONT, "normal");
   doc.setFontSize(10);
   doc.setTextColor(100, 116, 139);
   doc.text("Recovery Works Publishing", PAGE_WIDTH / 2, 230, { align: "center" });
@@ -1012,7 +1049,7 @@ function buildCoverPage(doc: jsPDF): void {
 }
 
 function buildCopyrightPage(doc: jsPDF): void {
-  doc.setFont("times", "normal");
+  doc.setFont(BOOK_FONT, "normal");
   doc.setFontSize(10);
   doc.setTextColor(80, 80, 80);
   let y = 60;
@@ -1022,13 +1059,13 @@ function buildCopyrightPage(doc: jsPDF): void {
     y += 2;
   };
 
-  doc.setFont("times", "bold");
+  doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(12);
   doc.text(bookInfo.title, MARGIN_LEFT, y); y += 8;
-  doc.setFont("times", "italic");
+  doc.setFont(BOOK_FONT, "italic");
   doc.setFontSize(10);
   doc.text(bookInfo.subtitle, MARGIN_LEFT, y); y += 10;
-  doc.setFont("times", "normal");
+  doc.setFont(BOOK_FONT, "normal");
 
   addLine(`By ${bookInfo.author}`, 8);
   addLine(`Copyright © 2025 ${bookInfo.author}. All rights reserved.`);
@@ -1044,12 +1081,12 @@ function buildCopyrightPage(doc: jsPDF): void {
     "your physician or other qualified health provider with any questions regarding a medical or mental health condition."
   );
   y += 6;
-  doc.setFont("times", "bold");
+  doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(11);
   doc.setTextColor(26, 26, 26);
   doc.text("If you need help right now", MARGIN_LEFT, y);
   y += 7;
-  doc.setFont("times", "normal");
+  doc.setFont(BOOK_FONT, "normal");
   doc.setFontSize(10);
   doc.setTextColor(60, 60, 60);
   // These belong at the front as well as the back. A reader who needs them
@@ -1083,7 +1120,7 @@ const TOC_TOP = 62;
 /** One row of the contents, with a leader and a folio. */
 function tocRowHeight(doc: jsPDF, entry: TocEntry): number {
   const lineH = entry.isChapter ? TOC_CHAPTER_LINE : TOC_SUB_LINE;
-  doc.setFont("times", entry.isChapter ? "bold" : "normal");
+  doc.setFont(BOOK_FONT, entry.isChapter ? "bold" : "normal");
   doc.setFontSize(entry.isChapter ? 12 : 10);
   const indent = entry.isChapter ? 0 : 10;
   const lines = doc.splitTextToSize(entry.label, TEXT_WIDTH - indent - 20) as string[];
@@ -1123,7 +1160,7 @@ function drawList(
 ): void {
   let page = firstPage;
   doc.setPage(page);
-  doc.setFont("times", "bold");
+  doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(20);
   doc.setTextColor(15, 23, 42);
   doc.text(heading, PAGE_WIDTH / 2, 45, { align: "center" });
@@ -1141,7 +1178,7 @@ function drawList(
       y = TEXT_TOP;
     }
     const lineH = entry.isChapter ? TOC_CHAPTER_LINE : TOC_SUB_LINE;
-    doc.setFont("times", entry.isChapter ? "bold" : "normal");
+    doc.setFont(BOOK_FONT, entry.isChapter ? "bold" : "normal");
     doc.setFontSize(entry.isChapter ? 12 : 10);
     doc.setTextColor(entry.isChapter ? 15 : 70, entry.isChapter ? 23 : 80, entry.isChapter ? 42 : 90);
     const indent = entry.isChapter ? 0 : 10;
@@ -1211,7 +1248,7 @@ async function captureCharts(
       // Height is left to the content: a fixed 400px box cropped the taller
       // charts (axis labels and the last series were cut off in the PDF).
       const chartDiv = document.createElement("div");
-      chartDiv.style.cssText = "width:800px;padding:16px;background:#fff;";
+      chartDiv.style.cssText = `width:${CAPTURE_CSS_WIDTH}px;padding:16px;background:#fff;`;
       container.appendChild(chartDiv);
 
       const root = createRoot(chartDiv);
@@ -1224,7 +1261,7 @@ async function captureCharts(
         });
 
         const canvas = await html2canvas(chartDiv, {
-          scale: 1.5,
+          scale: CAPTURE_SCALE,
           useCORS: true,
           backgroundColor: "#ffffff",
           logging: false,
@@ -1265,6 +1302,7 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
 
   onProgress("Building PDF...");
   const doc = new JsPDF({ unit: "mm", format: "letter", orientation: "portrait" });
+  await embedBookFont(doc);
 
   buildCoverPage(doc);
   doc.addPage("letter");
@@ -1325,10 +1363,10 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
 
     // Lay the opener out before painting the tint, so the band always fits its
     // contents and the eyebrow never collides with the title baseline.
-    doc.setFont("times", "bold");
+    doc.setFont(BOOK_FONT, "bold");
     doc.setFontSize(FONT_SIZE_H1);
     const titleLines = doc.splitTextToSize(chapter.title, TEXT_WIDTH) as string[];
-    doc.setFont("times", "italic");
+    doc.setFont(BOOK_FONT, "italic");
     doc.setFontSize(12);
     const descLines = doc.splitTextToSize(chapter.description, TEXT_WIDTH) as string[];
 
@@ -1337,14 +1375,14 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     doc.setFillColor(240, 245, 255);
     doc.rect(MARGIN_LEFT - 2, bandTop, TEXT_WIDTH + 4, bandHeight, "F");
 
-    doc.setFont("times", "normal");
+    doc.setFont(BOOK_FONT, "normal");
     doc.setFontSize(10);
     doc.setTextColor(59, 130, 246);
     state.y += 5;
     doc.text(`CHAPTER ${chapter.order}`, MARGIN_LEFT, state.y);
     state.y += 12;
 
-    doc.setFont("times", "bold");
+    doc.setFont(BOOK_FONT, "bold");
     doc.setFontSize(FONT_SIZE_H1);
     doc.setTextColor(15, 23, 42);
     titleLines.forEach((l) => {
@@ -1352,7 +1390,7 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
       state.y += 11;
     });
 
-    doc.setFont("times", "italic");
+    doc.setFont(BOOK_FONT, "italic");
     doc.setFontSize(12);
     doc.setTextColor(71, 85, 105);
     descLines.forEach((l) => {
@@ -1382,7 +1420,7 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
       const subLeftH = chapter.title;
       const subRightH = sub.title;
 
-      doc.setFont("times", "normal");
+      doc.setFont(BOOK_FONT, "normal");
       doc.setFontSize(9);
       doc.setTextColor(59, 130, 246);
       // The label needs clearance: at +4/+7 its baseline sat inside the 18pt
@@ -1390,7 +1428,7 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
       doc.text(`${chapter.order}.${sub.order}`, MARGIN_LEFT, state.y + 4);
       state.y += 12;
 
-      doc.setFont("times", "bold");
+      doc.setFont(BOOK_FONT, "bold");
       doc.setFontSize(18);
       doc.setTextColor(15, 23, 42);
       const subTitleLines = doc.splitTextToSize(sub.title, TEXT_WIDTH);
@@ -1418,7 +1456,7 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     state.y = TEXT_TOP + SUBCHAPTER_SINK;
     toc.push({ label: bibHeader, page: state.pageNum, isChapter: true });
 
-    doc.setFont("times", "bold");
+    doc.setFont(BOOK_FONT, "bold");
     doc.setFontSize(18);
     doc.setTextColor(15, 23, 42);
     doc.text(bibHeader, MARGIN_LEFT, state.y + 8);
@@ -1427,7 +1465,7 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     doc.line(MARGIN_LEFT, state.y, PAGE_WIDTH - MARGIN_RIGHT, state.y);
     state.y += 8;
 
-    doc.setFont("times", "italic");
+    doc.setFont(BOOK_FONT, "italic");
     doc.setFontSize(FONT_SIZE_SMALL);
     doc.setTextColor(90, 90, 90);
     const bibNote = doc.splitTextToSize(
@@ -1447,7 +1485,7 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
   state.pageNum++;
   state.y = TEXT_TOP;
 
-  doc.setFont("times", "bold");
+  doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(18);
   doc.setTextColor(15, 23, 42);
   doc.text("A Note from the Author", PAGE_WIDTH / 2, state.y + 15, { align: "center" });
@@ -1458,24 +1496,24 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
   state.y += 10;
 
   const noteText = `Writing this book has been a labor of love, born from witnessing the profound courage it takes for ordinary people to face extraordinary pain. Healing is not linear, and it is rarely neat — but it is always possible.\n\nIf even one person finds comfort, clarity, or hope in these pages, the work has been worthwhile. You are not alone. Recovery is possible. You deserve to heal.`;
-  doc.setFont("times", "italic");
+  doc.setFont(BOOK_FONT, "italic");
   doc.setFontSize(FONT_SIZE_NORMAL);
   doc.setTextColor(60, 60, 60);
   const noteLines = doc.splitTextToSize(noteText, TEXT_WIDTH);
   noteLines.forEach((l: string) => { doc.text(l, MARGIN_LEFT, state.y); state.y += 6.5; });
 
   state.y += 8;
-  doc.setFont("times", "bold");
+  doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(11);
   doc.setTextColor(26, 26, 26);
   doc.text(`— ${bookInfo.author}`, MARGIN_LEFT + 20, state.y);
   state.y += 20;
 
-  doc.setFont("times", "bold");
+  doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(13);
   doc.text("Crisis Resources", MARGIN_LEFT, state.y);
   state.y += 8;
-  doc.setFont("times", "normal");
+  doc.setFont(BOOK_FONT, "normal");
   doc.setFontSize(10);
   doc.setTextColor(60, 60, 60);
   const resources = [
@@ -1492,11 +1530,11 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
   doc.line(MARGIN_LEFT, state.y, PAGE_WIDTH - MARGIN_RIGHT, state.y);
   state.y += 10;
 
-  doc.setFont("times", "bold");
+  doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(12);
   doc.setTextColor(15, 23, 42);
   doc.text(bookInfo.title, MARGIN_LEFT, state.y); state.y += 7;
-  doc.setFont("times", "normal");
+  doc.setFont(BOOK_FONT, "normal");
   doc.setFontSize(10);
   doc.setTextColor(80, 80, 80);
   doc.text(`By ${bookInfo.author}`, MARGIN_LEFT, state.y); state.y += 6;
@@ -1523,6 +1561,12 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
       }
     }
   }
+
+  // A printed book is made from folded sheets, so it always has an even number
+  // of sides. Print services either reject an odd count or insert the blank
+  // themselves, in which case it lands after the last page rather than where
+  // the book would want it. Better to own it.
+  if (doc.getNumberOfPages() % 2 === 1) doc.addPage("letter");
 
   onProgress("Saving PDF...");
   doc.save("healing-together-matthew-emma.pdf");

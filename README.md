@@ -80,6 +80,8 @@ npm run dev          # http://localhost:5000
 | `npm run check` | TypeScript typecheck |
 | `npm run validate:content` | Structural checks on the book content (see below) |
 | `npm run manifest` | Regenerate `lib/chapters/manifest.ts` from the chapter modules |
+| `npm run book-fonts` | Re-subset the embedded Liberation Serif from the system fonts |
+| `npm run check:print` | Preflight an exported PDF against Amazon KDP's paperback rules |
 | `npm run search-index` | Regenerate `lib/search-index.json` from the chapter modules |
 | `npm test` | Browser tests — see [Tests](#tests) |
 | `npm run test:site` | Just the route sweep, search and accessibility checks (~35 s) |
@@ -112,7 +114,22 @@ built, base-pathed site.
   extracted perfectly while being visibly wrong on paper, which is why they are measured
   rather than eyeballed.
 
-Generating the book takes about 90 seconds; `npm run test:site` skips it.
+Generating the book takes about two minutes; `npm run test:site` skips it.
+
+### Print readiness
+
+```bash
+npm run check:print ~/Downloads/healing-together-matthew-emma.pdf
+```
+
+Checks the exported PDF against Amazon KDP's paperback interior rules — trim
+size, page count against the maximum for that trim, even page count, embedded
+fonts, image DPI measured at the size each image is actually placed, and the
+gutter required at that thickness. A PDF that opens correctly is not a PDF a
+printer will accept, and none of what KDP rejects on is visible to a reader.
+
+`docs/PRINT-AND-PUBLISHING.md` records what the current export passes, what it
+does not, and what would have to change.
 
 If your sandbox ships a browser but cannot reach Playwright's CDN, point at the one you
 have rather than downloading: `PLAYWRIGHT_CHROMIUM_PATH=/path/to/chrome npm test`.
