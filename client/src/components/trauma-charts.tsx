@@ -60,6 +60,41 @@ export function setStaticCharts(value: boolean) {
 }
 
 /**
+ * The series colours, re-tuned for a book that will be printed in black.
+ *
+ * A colour interior caps at 600 pages on every print service worth using and
+ * this book is past that, so the paperback is black ink whatever else gets
+ * decided. On screen the figures separate by hue, which is right for a calm
+ * page and useless once the colour is gone.
+ *
+ * Eight variables carry series identity here, which is the trap: `--primary`
+ * and `--destructive` are used more often than most of the numbered ones, so
+ * re-tuning only `--chart-N` moves some colours onto others. Measured together
+ * the eight spanned 28% to 48% luminance with two of them 0.3 points apart, and
+ * thirteen figures had a pair inside 8 points — three of those inside 1.5,
+ * which is to say identical in grey.
+ *
+ * These keep every hue and saturation and move only lightness, putting the
+ * eight on a ladder from 17% to 80% luminance, 8.6 points apart at the closest.
+ * The lightness values are whole percents chosen against the luminance they
+ * actually produce once rounded, because the stylesheet rounds them anyway and
+ * a ladder solved in fractions lands short. `--muted-foreground` is deliberately left where it is: it is the
+ * caption and subtitle colour as well as a series colour, and lightening it to
+ * separate six charts washed out the text under every one of the hundred.
+ *
+ * Applied to the offscreen host at capture time rather than to the site, which
+ * has colour and does not need this. The darkest is the one that means "bad",
+ * so the ladder carries meaning rather than only separating.
+ */
+export const PRINT_CHART_PALETTE: Record<string, string> = {
+  "--destructive": "0 72% 29%",
+  "--chart-4": "340 62% 38%",
+  "--primary": "210 65% 48%",
+  "--chart-3": "158 62% 40%",
+  "--chart-1": "212 68% 66%",
+  "--chart-5": "265 52% 78%",
+  "--chart-2": "27 82% 79%",
+};/**
  * The shared frame every figure in the book sits in.
  *
  * Charts are `<figure>` rather than `<div>` so a screen reader announces them

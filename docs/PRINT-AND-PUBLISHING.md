@@ -50,6 +50,26 @@ capture is 300 DPI in a column and 150 across a spread. The capture scale is now
 derived from `FIGURE_WIDTH` rather than hardcoded, so widening a figure cannot
 quietly drop it back under the floor. Costs about 9 MB.
 
+**The figures survive being printed in black.** Because a colour interior caps
+at 600 pages at every trim and this book is past that, the paperback is black
+ink whatever else gets decided — so the figures had to stop separating by hue
+alone. Measured across all 101 figure placements, thirteen had two series within
+8 luminance points of each other and three of those were within 1.5, which is
+identical once the colour is gone.
+
+The trap was that eight variables carry series identity, not just `--chart-N`:
+`--primary` and `--destructive` are used more often than most of the numbered
+ones, so re-tuning only the numbered ones moved some colours *onto* others — the
+first attempt made it worse, not better. The palette now keeps every hue and
+saturation and moves only lightness, putting the eight on a ladder from 17% to
+80% luminance, 8.6 points apart at the closest. It is applied to the offscreen
+host at capture time rather than to the site, which has colour and does not need
+it. Thirteen collapsing figures became zero.
+
+`--muted-foreground` is deliberately left where it is. It is the caption and
+subtitle colour as well as a series colour, and lightening it to separate six
+charts washed out the text under every one of the hundred.
+
 **The page count is even.** A printed book is made from folded sheets and always
 has an even number of sides. Print services either reject an odd count or insert
 the blank themselves, after the last page rather than where the book would want
@@ -80,12 +100,9 @@ the trim of a paperback.
 
 ### A colour interior caps at 600 pages, at every trim
 
-So the paperback has to be **black ink**. That is not just a price decision: the
-figures currently use an eight-hue categorical palette, and in greyscale a
-categorical palette collapses. Some figures survive it — every bar carries its
-value as a label, which is exactly the property that makes a chart readable
-without colour. Others do not: anything distinguishing series by hue alone needs
-patterns, direct labels, or different lightness.
+So the paperback has to be **black ink**. That is handled: the exporter now
+swaps in a palette spread across luminance rather than hue, and no figure in the
+book collapses in greyscale. See "what was fixed" above.
 
 ### Three ways out
 
@@ -94,8 +111,8 @@ under. It will not fit at the current type size: 6 x 9 with the 0.875 in gutter
 required at this thickness leaves about 4.6 in of measure, which at 11.5 pt is
 roughly 68 characters and around 33 lines a page — call it 900+ pages. Dropping
 to 10.5 pt with tighter leading brings it to roughly 770. That is a real edition
-and a real piece of work: a second print profile in the exporter, figures
-re-sized to a 120 mm measure, and a greyscale-safe palette.
+and a real piece of work: a second print profile in the exporter and figures
+re-sized to a 120 mm measure.
 
 **2. Two volumes.** Chapters 1–7 and 8–14 are roughly 380 and 350 pages. Both fit
 comfortably at 6 x 9 without shrinking the type, both stay under the colour

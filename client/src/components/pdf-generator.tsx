@@ -60,6 +60,7 @@ import {
   DailyPracticeChart,
   AmendsKindsChart,
   setStaticCharts,
+  PRINT_CHART_PALETTE,
 } from "@/components/trauma-charts";
 
 /**
@@ -1230,7 +1231,15 @@ async function captureCharts(
   // Offscreen host for the charts we mount one at a time.
   const container = document.createElement("div");
   container.style.cssText =
-    "position:fixed;left:-9999px;top:0;width:800px;background:#fff;z-index:-1;pointer-events:none;";
+    `position:fixed;left:-9999px;top:0;width:${CAPTURE_CSS_WIDTH}px;background:#fff;` +
+    "z-index:-1;pointer-events:none;";
+  // The book prints in black ink, so the series colours are swapped here for a
+  // set spread evenly across luminance. Set on the host rather than on the
+  // document: the site keeps its own palette, which has colour and does not
+  // need to survive being turned grey.
+  for (const [name, value] of Object.entries(PRINT_CHART_PALETTE)) {
+    container.style.setProperty(name, value);
+  }
   document.body.appendChild(container);
 
   // Charts must be captured with their entry animation off: at 600ms a pie is
