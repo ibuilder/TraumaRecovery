@@ -95,7 +95,7 @@ tests/
 
 ## Key Features
 - **14 comprehensive chapters** (73 subchapters) covering trauma recovery topics
-- **90 figures** — Recharts plots for data, inline SVG and markup for diagrams; every
+- **91 figures** — Recharts plots for data, inline SVG and markup for diagrams; every
   plot carries its numbers as a table and every diagram describes itself, so the whole
   set is readable without seeing it
 - **Full-book PDF export** generated client-side (jsPDF + html2canvas, lazy-loaded)

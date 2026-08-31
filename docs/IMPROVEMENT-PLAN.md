@@ -134,20 +134,26 @@ The original proposals follow.
 
 ---
 
-## Phase 3 — Accessibility and content safety (mostly done)
+## Phase 3 — Accessibility and content safety (done, bar the editorial part)
 
 This is a mental-health resource, so both matter more than usual.
 
-**Done:** every one of the 81 figures now sits in a shared `ChartFrame` — a real
-`<figure>` with a `<figcaption>` and a stated source — the crisis dialog is one click
-away in the header on every page, `prefers-reduced-motion` is honoured in CSS and in
-the Recharts entry animations, and there is a skip-to-content link before the sticky
-header.
+**Done:** every one of the 91 figures sits in a shared `ChartFrame` — a real
+`<figure>` with a stated source — the crisis dialog is one click away in the header
+on every page, `prefers-reduced-motion` is honoured in CSS and in the Recharts entry
+animations, and there is a skip-to-content link before the sticky header.
 
-**Not done:** the visually-hidden data tables behind the Recharts plots, trigger
-warnings on the heaviest chapters, and axe-core in CI. The first two are editorial as
-much as technical — a content note is the author's voice, not a component — and the
-third needs a Playwright suite that does not exist yet (see Phase 4).
+Then the part that was open for a long time. **Every plotted figure now carries its
+numbers as a real table** and the drawing is `inert`, and **axe-core runs over all 89
+routes in CI**. Sweeping the whole site rather than a sample is what found the rest:
+the book's one ASCII diagram sitting at a contrast ratio of 1.01 — invisible, to
+everyone, in light mode — seven empty `<th>` corner cells, eight unlabelled `<nav>`
+landmarks and two heading-order skips. `tests/a11y.spec.ts` also asserts what axe
+cannot: that every figure is announced, that every drawing hands over its content,
+and that none of them takes a Tab stop.
+
+**Not done:** trigger warnings on the heaviest chapters. That one is editorial rather
+than technical — a content note is the author's voice, not a component.
 
 The original proposals follow.
 
@@ -293,8 +299,9 @@ Ordered by how much they matter, not by effort.
   checks; the two it fails are the same fact twice, which is that 734 pages does
   not fit on US Letter (max 590) and a colour interior caps at 600 pages at every
   trim. See [PRINT-AND-PUBLISHING.md](./PRINT-AND-PUBLISHING.md) for the three
-  ways out and a recommendation. A cover, an ISBN and a separate EPUB for Kindle
-  are all still outstanding.
+  ways out and a recommendation. The Kindle EPUB is **done** and depends on none of
+  this — an ebook has no pages, so it has no page count, trim or margins. A cover and
+  an ISBN are still outstanding, and both need the trim settled first.
 
 - **`attached_assets/` (22 MB)** of unimported files, including two copies of a
   third-party treatment centre's manual. Publishing this repository publicly publishes
@@ -308,12 +315,11 @@ Ordered by how much they matter, not by effort.
 **Straightforward work nobody has done**
 
 - **No linter or formatter.** ESLint (`react-hooks`, `jsx-a11y`) and Prettier.
-- **axe-core in CI**, now that there is a Playwright suite to hang it on.
-- **Visually-hidden data tables** behind the Recharts plots. The `<figure>`/`<figcaption>`
-  half is done; the numbers are still only in the SVG.
 - **Self-host the Open Sans face** and drop the render-blocking Google Fonts request.
-- **Split `trauma-charts.tsx`** — 3,700 lines and 81 figures in one lazily-loaded chunk,
-  where a typical chapter shows one to four.
+  Worth more here than on most sites: a third party currently learns that a given
+  reader opened a chapter of a trauma-recovery book.
+- **Split `trauma-charts.tsx`** — over 5,000 lines and 91 figures in one lazily-loaded
+  chunk, where a typical chapter shows one to four.
 - **Per-chapter PDF export.** The full book takes about 90 seconds; most readers want
   one chapter, and the generator already works chapter by chapter internally.
 - **Prune the ~45 vendored shadcn/ui components** down to the handful in use.

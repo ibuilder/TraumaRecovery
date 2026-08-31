@@ -43,6 +43,7 @@ import {
   BoundaryLadderChart,
   AttachmentMapChart,
   CatastrophizingIcebergChart,
+  CBTTriangleChart,
   CoreBeliefCycleChart,
   AskIntensityChart,
   MiddlePathChart,
@@ -131,6 +132,7 @@ const ALL_CHART_COMPONENTS: Record<string, React.ComponentType> = {
   BoundaryLadderChart,
   AttachmentMapChart,
   CatastrophizingIcebergChart,
+  CBTTriangleChart,
   CoreBeliefCycleChart,
   AskIntensityChart,
   MiddlePathChart,
@@ -872,8 +874,19 @@ async function renderMarkdownContent(
       continue;
     }
     if (trimmed.startsWith("```")) {
+      // A fence that is not a chart. The exporter has no monospace face — the
+      // embedded fonts are Liberation Serif only — so it cannot set one, and it
+      // used to drop them without a word: the CBT triangle, an ASCII drawing,
+      // was missing from the printed book entirely and nothing said so.
+      // `validate:content` now rejects these at build time; this is the belt to
+      // that pair of braces, and it is loud.
       flushPara();
+      const start = i;
       while (i < lines.length - 1 && !lines[++i].trim().startsWith("```")) {}
+      console.warn(
+        `pdf-generator: skipped a fenced block at line ${start + 1} — the ` +
+          `exporter cannot typeset one. Make it a chart component instead.`
+      );
       continue;
     }
 

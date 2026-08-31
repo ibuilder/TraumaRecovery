@@ -2,7 +2,7 @@
   "name": "healing-together",
   "version": "1.0.0",
   "private": true,
-  "description": "Healing Together — A Practical Guide to Trauma Recovery for Ordinary People",
+  "description": "Healing Together \u2014 A Practical Guide to Trauma Recovery for Ordinary People",
   "author": "Matthew M. Emma",
   "license": "MIT",
   "type": "module",
@@ -32,7 +32,8 @@
     "test": "playwright test",
     "test:site": "playwright test tests/site.spec.ts",
     "test:book": "playwright test tests/book.spec.ts",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "check:pages": "tsx script/check-pages-build.ts"
   },
   "dependencies": {
     "@jridgewell/trace-mapping": "^0.3.25",

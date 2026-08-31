@@ -102,17 +102,31 @@ async function captureFigures(names: string[], imageDir: string): Promise<Map<st
 
   // Walk the chapters rather than mounting components directly: the site is
   // already the harness that renders them, and it is the rendering readers see.
-  const routes = new Set<string>();
+  //
+  // Which route holds which figure is already written down, in the placeholders
+  // in the prose. Reading it here rather than walking every route is worth
+  // several minutes of CI: a route with no figure on it used to sit out the
+  // whole 8-second wait for one to appear before moving on, and roughly a third
+  // of the book's pages carry none.
+  const routeCharts = new Map<string, string[]>();
+  const placements = (markdown: string) =>
+    [...markdown.matchAll(/^```chart:(\w+)/gm)].map((m) => m[1]!);
   for (const chapter of chapters) {
-    routes.add(`/chapter/${chapter.slug}`);
+    routeCharts.set(`/chapter/${chapter.slug}`, placements(chapter.content));
     for (const sub of chapter.subchapters) {
-      routes.add(`/chapter/${chapter.slug}/subchapter/${sub.slug}`);
+      routeCharts.set(
+        `/chapter/${chapter.slug}/subchapter/${sub.slug}`,
+        placements(sub.content)
+      );
     }
   }
 
   const wanted = new Set(names);
-  for (const route of routes) {
+  for (const [route, charts] of routeCharts) {
     if (found.size === wanted.size) break;
+    // Nothing here that is both wanted and still missing.
+    if (!charts.some((c) => wanted.has(c) && !found.has(c))) continue;
+
     await page.goto(`http://localhost:${PORT}${BASE}${route}`, { waitUntil: "load" });
     await page.locator("main figure").first().waitFor({ timeout: 8000 }).catch(() => null);
     // Long enough for the entry animations to land; a chart caught mid-sweep is
