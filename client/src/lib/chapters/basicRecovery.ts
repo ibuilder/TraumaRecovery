@@ -561,7 +561,7 @@ Sleep is when the body heals. Trauma often disrupts sleep through nightmares, hy
 
 Rosenbaum, S., Vancampfort, D., Steel, Z., Newby, J., Ward, P. B., & Stubbs, B. (2015). Physical activity in the treatment of post-traumatic stress disorder: A systematic review and meta-analysis. *Psychiatry Research, 230*(2), 130-136.
 
-Schuch, F. B., et al. (2024). Exercise for anxiety and PTSD: A systematic review and meta-analysis of randomized controlled trials. *Frontiers in Psychology, 15*, 1234567.
+Schuch, F. B., et al. (2024). Exercise for anxiety and PTSD: A systematic review and meta-analysis of randomized controlled trials. *Frontiers in Psychology, 15*.
 
 van der Kolk, B. A. (2014). *The body keeps the score: Brain, mind, and body in the healing of trauma*. Viking.
 
@@ -898,7 +898,7 @@ Trauma survivors often have difficulty staying present with strong emotions. Bui
 
 Gross, J. J., & Thompson, R. A. (2024). Emotion regulation and trauma recovery: A prospective study. *Emotion, 24*(2), 234-248.
 
-Linehan, M. M. (2014). *DBT skills training manual* (2nd ed.). Guilford Press.
+Linehan, M. M. (2015). *DBT skills training manual* (2nd ed.). Guilford Press.
 
 Neff, K., & Germer, C. (2018). *The mindful self-compassion workbook*. Guilford Press.
 
@@ -2553,7 +2553,7 @@ Maté, G. (2022). *The myth of normal: Trauma, illness, and healing in a toxic c
 
 Porges, S. W. (2024). Polyvagal theory and the treatment of trauma. *Psychophysiology, 61*(2), e14532.
 
-Siegel, D. J. (2024). The developing mind: How relationships and the brain interact to shape who we are (3rd ed.). Guilford Press.
+Siegel, D. J. (2020). The developing mind: How relationships and the brain interact to shape who we are (3rd ed.). Guilford Press.
 
 Substance Abuse and Mental Health Services Administration. (2024). *Trauma-informed care in behavioral health services*. SAMHSA.
 
@@ -3169,9 +3169,165 @@ Ogden, P., & Fisher, J. (2024). *Sensorimotor psychotherapy: Interventions for t
 
 Porges, S. W. (2024). Polyvagal theory and the treatment of trauma. *Psychophysiology, 61*(2), e14532.
 
-Siegel, D. J. (2024). *The developing mind: How relationships and the brain interact to shape who we are* (3rd ed.). Guilford Press.
+Siegel, D. J. (2020). *The developing mind: How relationships and the brain interact to shape who we are* (3rd ed.). Guilford Press.
 
 van der Kolk, B. A. (2014). *The body keeps the score: Brain, mind, and body in the healing of trauma*. Viking.`,
+    },
+    {
+      id: "1-10",
+      title: "The Recovery Grid",
+      slug: "recovery-grid",
+      order: 10,
+      content: `# The Recovery Grid
+
+Everything in this chapter so far has been a piece. This is the page that holds
+them together.
+
+Near the end of my treatment program I stopped taking notes on new material and
+drew a grid instead. Five domains down the side. Three columns across:
+daily, weekly, monthly. Then, because I already knew what was coming, a fourth
+column in red pen: **in crisis**.
+
+I have used that grid ever since. It is the single most useful thing I made in
+treatment, and it took about twenty minutes.
+
+## Why a grid and not a list
+
+A recovery plan that is a list has a hidden assumption in it: that you will be
+the same person tomorrow as you are today. You will not be. Some days you have
+an hour and a clear head. Some days you have four minutes and you are shaking.
+
+The grid is built for both. Reading across a row tells you what taking care of
+one part of yourself looks like at different scales. Reading down a column tells
+you what a Tuesday actually contains. And the last column tells you what to do
+when the plan has already fallen apart — which is the exact moment nobody can
+think of anything.
+
+## My grid
+
+| | Daily | Weekly | Monthly | **In crisis** |
+|---|---|---|---|---|
+| **Physical** | 20 pushups, sit-ups, squats; or yoga; or a run | Gym; yoga three or four times; or a run | Go on a hike | **Go for a run** |
+| **Spiritual** | Pray | Church and Bible study | Volunteer with the church | **Pause, Pray, Proceed** |
+| **Emotional** | Meditate to regulate the emotional mind — name how I feel | Journal about the week, and relate it back to trauma treatment | A day of self-reflection with DBT skills practice | **Distress tolerance** |
+| **Mental** | Therapy homework; read the therapy book | See the primary therapist | See the specialty therapist — EMDR, somatic | **Call the therapist** |
+| **Social** | Call or text three friends in recovery | Go to a meeting; meet the mentor or sponsor | Attend a conference | **Call the mentor** |
+
+Yours will not look like mine, and it should not. But notice a few things about
+the shape of it.
+
+**The daily column is small on purpose.** Twenty pushups. One prayer. Three text
+messages. Nothing in that column takes real willpower, because willpower is
+exactly what is missing on the days the column matters most.
+
+**The monthly column is where the expensive things live.** The specialty
+therapist, the conference, the hike. These are the things that never happen
+unless they are scheduled, and they are also the things that produce the most
+change per hour.
+
+**The in-crisis column is a single item per row.** Not a menu. When the
+prefrontal cortex goes offline you cannot evaluate options, so the plan has to
+be one thing, decided in advance, by a version of you who was thinking clearly.
+
+## The fifth domain
+
+The four pillars in this chapter are physical, emotional, mental and social.
+My grid has a fifth row: spiritual.
+
+I want to be careful here, because "spiritual" is a word that makes some people
+close a book. It does not have to mean God, and in the grid it is not doing
+theological work. It is doing a specific psychological job: it is the row that
+answers *what is this for?*
+
+You can fill that row with prayer, or with a twelve-step program, or with
+service, or with time in the woods, or with a practice of gratitude that has no
+metaphysics attached to it at all. What matters is that something in your week
+points outward, past your own symptoms. Every other row is about managing
+yourself. This one is about why bothering is worth it.
+
+Chapter 12 goes into this properly. For the grid, one line is enough.
+
+## Building your own
+
+Do it badly and do it today. A grid you actually use beats a grid you are still
+designing.
+
+1. **Draw the five rows and four columns.** Physical, spiritual, emotional,
+   mental, social. Daily, weekly, monthly, in crisis.
+2. **Fill the daily column first, and make each cell embarrassingly small.**
+   If a cell would take more than fifteen minutes on your worst day, cut it down
+   until it wouldn't.
+3. **Fill the in-crisis column second.** One thing per row. Make each one
+   something you can do while feeling terrible, without deciding anything.
+   "Call my mentor" works. "Reach out to someone" does not — that is a decision,
+   and decisions are the thing you have just lost.
+4. **Fill weekly and monthly last.** These are the ones that need a calendar
+   entry, so put them in the calendar while you are writing them down.
+5. **Put it where you will see it.** Mine lives in a notebook that stays open.
+   The fridge works. The back of a phone case works.
+
+## The daily routine underneath it
+
+The grid says what. A routine says when. Mine, at the time:
+
+**Morning, 5:00am** — pushups, sit-ups and squats · drink water · shower ·
+medication · pray · call friends in recovery
+
+**Night, 8:00pm** — meditate · journal · read
+
+Six things and three things. That is the whole scaffold.
+
+Cut a different way — by what each part of the day is *for* rather than by when
+it happens — the same routine looks like this:
+
+\`\`\`chart:DailyPracticeChart\`\`\`
+
+Both cuts are worth having. The times are what get you through a morning. The
+domains are what tell you, when a day falls apart, which part of yourself did not
+get looked after.
+
+There is a weekly layer under it too, and mine was almost embarrassingly simple —
+a rotation, not a programme:
+
+| | |
+|---|---|
+| **Monday** | Cardio · yoga |
+| **Tuesday** | Cardio · biceps and chest |
+| **Wednesday** | Cardio · triceps and shoulders |
+| **Thursday** | Cardio · yoga |
+| **Friday** | Cardio · biceps and chest |
+| **Saturday** | Cardio · triceps and shoulders |
+| **Sunday** | Rest your spirit — which is to say, self-love |
+
+Nothing in that table is clever. It exists because a decision made on Sunday is
+a decision you do not have to make on Wednesday, and Wednesday is when the
+deciding faculty is thin. Sunday being explicitly for rest matters as much as the
+other six: a recovery routine with no permission to stop in it is just another
+way of running. It is not impressive
+and it was never supposed to be. The point of a routine in early recovery is not
+optimisation, it is that the day has rails, so that the hours where you are most
+likely to reach for something are already spoken for.
+
+> **The time is going to pass anyway.**
+
+That sentence got me through more mornings than any insight in this book. A year
+of recovery takes a year. So does a year of using. The year happens either way.
+
+## What to do with it
+
+Once a month, sit with the grid and mark it honestly. Not "did I do everything"
+— you didn't, nobody does. Ask a better question:
+
+- **Which row went quiet?** A row that has gone blank for three weeks is not a
+  discipline problem, it is information. Usually it means that domain has become
+  painful, and the avoidance is telling you where the work is.
+- **Did I use the crisis column?** If you hit a crisis and did not use it, the
+  plan is wrong — the item was too big, or you did not believe it would help.
+  Fix the item.
+- **Is the daily column still small enough?** Daily items grow. Twenty pushups
+  becomes a workout, becomes a thing you skip. Shrink it back.
+
+That is the whole practice. Five rows, four columns, one honest look a month.`,
     },
   ],
 };

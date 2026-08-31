@@ -42,11 +42,22 @@ html {
   --destructive-foreground: 0 72% 98%;
   --input: 210 15% 65%;
   --ring: 210 65% 42%;
-  --chart-1: 210 70% 40%;
-  --chart-2: 180 65% 38%;
-  --chart-3: 240 68% 42%;
-  --chart-4: 30 70% 45%;
-  --chart-5: 150 65% 40%;
+  /*
+     Categorical palette. The hues are spread far enough apart to stay apart
+     under deuteranopia and protanopia — the common failure mode is a blue and
+     a teal reading as one colour, so 1/2/3 are blue, orange and green rather
+     than three shades of cool. Lightness is held near-constant so no series
+     looks heavier than another, and the dark-mode set lifts every value to
+     keep contrast against the dark card.
+  */
+  --chart-1: 212 68% 42%;
+  --chart-2: 27 82% 45%;
+  --chart-3: 158 62% 32%;
+  --chart-4: 340 62% 47%;
+  --chart-5: 265 52% 52%;
+  --chart-6: 43 78% 40%;
+  --chart-7: 192 72% 34%;
+  --chart-8: 12 55% 40%;
   --font-sans: Open Sans, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
@@ -126,11 +137,14 @@ html {
   --destructive-foreground: 0 72% 98%;
   --input: 210 15% 35%;
   --ring: 210 65% 55%;
-  --chart-1: 210 70% 65%;
-  --chart-2: 180 65% 68%;
-  --chart-3: 240 68% 70%;
-  --chart-4: 30 70% 65%;
-  --chart-5: 150 65% 68%;
+  --chart-1: 212 78% 68%;
+  --chart-2: 27 88% 62%;
+  --chart-3: 158 55% 55%;
+  --chart-4: 340 72% 70%;
+  --chart-5: 265 65% 74%;
+  --chart-6: 43 82% 60%;
+  --chart-7: 192 65% 58%;
+  --chart-8: 12 68% 65%;
   --shadow-2xs: 0px 2px 0px 0px hsl(210 3% 96% / 0.00);
   --shadow-xs: 0px 2px 0px 0px hsl(210 3% 96% / 0.00);
   --shadow-sm: 0px 2px 0px 0px hsl(210 3% 96% / 0.00), 0px 1px 2px -1px hsl(210 3% 96% / 0.00);
@@ -243,8 +257,11 @@ html {
     background-color: var(--elevate-2);
   }
 
-  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
-  .border.toggle-elevate::before {
+  /* If there's a 1px border, adjust the inset so that it covers that parent's border.
+     `[class~="border"]` matches the same elements as `.border` but keeps Tailwind from
+     registering these rules under the `border` utility: a variant such as `after:border`
+     would otherwise be applied to them too and emit an invalid `::after::before`. */
+  [class~="border"].toggle-elevate::before {
     inset: -1px;
   }
 
@@ -281,12 +298,34 @@ html {
     background-color: var(--elevate-2);
   }
 
-  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
-  .border.hover-elevate:not(.no-hover-interaction-elevate)::after,
-  .border.active-elevate:not(.no-active-interaction-elevate)::after,
-  .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
-  .border.active-elevate-2:not(.no-active-interaction-elevate)::after,
-  .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
+  /* If there's a 1px border, adjust the inset so that it covers that parent's border.
+     See the note above on `[class~="border"]`. */
+  [class~="border"].hover-elevate:not(.no-hover-interaction-elevate)::after,
+  [class~="border"].active-elevate:not(.no-active-interaction-elevate)::after,
+  [class~="border"].hover-elevate-2:not(.no-hover-interaction-elevate)::after,
+  [class~="border"].active-elevate-2:not(.no-active-interaction-elevate)::after {
     inset: -1px;
+  }
+}
+
+/**
+ * Motion is a common trigger for people with vestibular conditions, and for
+ * some trauma survivors, which is not a small consideration for this subject
+ * matter. Honour the system setting: no smooth scrolling, no transitions, no
+ * chart entry animations. Recharts animates in JavaScript rather than CSS, so
+ * `prefersReducedMotion()` in trauma-charts.tsx reads the same preference.
+ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

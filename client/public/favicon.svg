@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Healing Together">
+  <title>Healing Together</title>
+  <!--
+    A kintsugi mark: the vessel broke, and the seam where it was rejoined is
+    filled with gold rather than hidden. The motif comes from the author's own
+    treatment notes — "kintsugi: the art of precious scars".
+
+    The seam is kept fine and off-centre so it reads as a repair rather than a
+    crack, and stays legible down to 16px.
+  -->
+  <defs>
+    <linearGradient id="ht-vessel" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0" stop-color="#4a86c4" />
+      <stop offset="1" stop-color="#2a5c8f" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="32" cy="32" r="30" fill="url(#ht-vessel)" />
+
+  <!-- The join: two halves brought back together. -->
+  <path
+    d="M26.5 2.9 L30.2 19 L24.6 30.5 L34.4 39.4 L30.6 49.6 L35.4 61.4"
+    fill="none"
+    stroke="#f0bd57"
+    stroke-width="2.6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <!-- Two smaller branches, the way a real repair spreads. -->
+  <path d="M30.2 19 L38.4 16.2" fill="none" stroke="#f0bd57" stroke-width="1.7" stroke-linecap="round" opacity="0.9" />
+  <path d="M34.4 39.4 L42.6 37.4" fill="none" stroke="#f0bd57" stroke-width="1.7" stroke-linecap="round" opacity="0.9" />
+
+  <!-- A faint rim, so the circle reads as a vessel rather than a dot. -->
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.16" />
+</svg>

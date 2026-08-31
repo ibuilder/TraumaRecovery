@@ -8,3 +8,10 @@ vite.config.ts.*
 .env
 .env.*
 !.env.example
+
+# Playwright
+test-results
+playwright-report
+blob-report
+# EPUB build staging
+dist/epub

@@ -1,0 +1,15 @@
+{
+  "name": "Healing Together",
+  "short_name": "Healing Together",
+  "description": "A Practical Guide to Trauma Recovery for Ordinary People",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#2a5c8f",
+  "icons": [
+    { "src": "favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

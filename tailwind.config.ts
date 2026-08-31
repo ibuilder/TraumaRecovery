@@ -4,11 +4,29 @@ export default {
   darkMode: ["class"],
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    // Tailwind's `container` sets a max width but does not centre it, so every
+    // `container` on the site was pinned to the left edge and wide screens got a
+    // large dead gutter on the right.
+    container: {
+      center: true,
+      padding: { DEFAULT: "1rem", md: "1.5rem" },
+    },
     extend: {
       borderRadius: {
         lg: ".5625rem", /* 9px */
         md: ".375rem", /* 6px */
         sm: ".1875rem", /* 3px */
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            // The prose already carries its own quotation marks, so the pair
+            // the typography plugin adds around every blockquote showed up as
+            // a second set: ""Trauma is not what happens to you." — Maté".
+            "blockquote p:first-of-type::before": { content: "none" },
+            "blockquote p:last-of-type::after": { content: "none" },
+          },
+        },
       },
       colors: {
         // Flat / base colors (regular buttons)
@@ -58,6 +76,9 @@ export default {
           "3": "hsl(var(--chart-3) / <alpha-value>)",
           "4": "hsl(var(--chart-4) / <alpha-value>)",
           "5": "hsl(var(--chart-5) / <alpha-value>)",
+          "6": "hsl(var(--chart-6) / <alpha-value>)",
+          "7": "hsl(var(--chart-7) / <alpha-value>)",
+          "8": "hsl(var(--chart-8) / <alpha-value>)",
         },
         sidebar: {
           ring: "hsl(var(--sidebar-ring) / <alpha-value>)",

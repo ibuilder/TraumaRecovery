@@ -741,7 +741,7 @@ Coping skills work best when practiced regularly, not just in crisis:
 
 ## References
 
-Linehan, M. M. (2024). *DBT skills training manual* (3rd ed.). Guilford Press.
+Linehan, M. M. (2015). *DBT skills training manual* (2nd ed.). Guilford Press.
 
 van der Kolk, B. (2024). *The body keeps the score* (updated ed.). Penguin Books.`,
     },

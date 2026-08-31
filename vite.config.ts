@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 // GitHub Pages serves project sites from /<repo>/, so the asset base has to be
 // injected at build time. Defaults to "/" for local dev and any root deployment.
@@ -9,21 +8,7 @@ const base = process.env.VITE_BASE_PATH ?? "/";
 
 export default defineConfig({
   base,
-  plugins: [
-    react(),
-    runtimeErrorOverlay(),
-    ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
-      ? [
-          await import("@replit/vite-plugin-cartographer").then((m) =>
-            m.cartographer(),
-          ),
-          await import("@replit/vite-plugin-dev-banner").then((m) =>
-            m.devBanner(),
-          ),
-        ]
-      : []),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
@@ -35,18 +20,26 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
-    // Recharts, jsPDF and html2canvas are the bulk of the bundle; splitting them
-    // out keeps the first paint of a chapter from waiting on the PDF toolchain.
+    // Recharts, the markdown pipeline, jsPDF and every chapter's prose are
+    // reached only through dynamic imports, so the bundler splits them out on
+    // its own. Grouping them by hand would pull them back into the entry graph
+    // and get them preloaded. Only the framework is worth pinning: it is shared
+    // by every route and always needed.
+    // (Vite 8 bundles with Rolldown, whose `advancedChunks.groups` replaces
+    // Rollup's object-form `manualChunks`.)
     rollupOptions: {
       output: {
-        manualChunks: {
-          react: ["react", "react-dom", "wouter"],
-          charts: ["recharts"],
-          markdown: ["react-markdown", "remark-gfm"],
+        advancedChunks: {
+          groups: [
+            {
+              name: "react",
+              test: /[\\/]node_modules[\\/](react|react-dom|scheduler|wouter)[\\/]/,
+            },
+          ],
         },
       },
     },
-    chunkSizeWarningLimit: 900,
+    chunkSizeWarningLimit: 600,
   },
   server: {
     fs: {

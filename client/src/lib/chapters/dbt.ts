@@ -1660,5 +1660,236 @@ Linehan, M. M. (2015). *DBT skills training handouts and worksheets* (2nd ed.). 
 
 McKay, M., Wood, J. C., & Brantley, J. (2019). *The dialectical behavior therapy skills workbook* (2nd ed.). New Harbinger Publications.`,
     },
+    {
+      id: "9-7",
+      title: "Two Things Can Be True at Once",
+      slug: "dialectics-middle-path",
+      order: 7,
+      content: `# Two Things Can Be True at Once
+
+The instructor drew a platypus on the whiteboard.
+
+It lays eggs. It has a bill. It is also a mammal, and it produces milk. There is
+no contradiction to resolve. Both descriptions are complete and both are correct,
+and the animal is entirely unbothered by our filing system.
+
+That is dialectics, and it is the load-bearing idea of DBT.
+
+## Why this matters more than it sounds like it does
+
+If you grew up somewhere unsafe, your thinking is probably binary — and not
+because you are simple, but because binary thinking is *faster*, and speed was
+the thing that kept you alive. Safe or dangerous. Good or bad. All in or gone.
+There is no time to hold nuance when you are reading a room for threat.
+
+The cost arrives later, when the danger is over and the equipment is still
+running. Now the person who loves you is either perfect or a betrayer. Now one
+mistake means you have failed completely. Now recovery is going well or has
+collapsed, with nothing in between.
+
+> **Live in the grey, not the black and white.**
+
+The grey is not indecision. It is accuracy.
+
+## The dialectics I could not hold
+
+The exercise was to write down the opposing pairs actually running in my life.
+Mine, exactly as I wrote them:
+
+- *Loss hurts, I want them back, and there is nothing I can do about it.*
+- *I'm craving, and I know using would be bad.*
+- *I need to feel this emotion, and I hate this emotion.*
+- *I don't want to live any more, and I want to live.*
+- *You can't pick your family — I don't like them, and I still love them.*
+- *I want to be liked by everyone, and I don't want to be around people.*
+- *I am worthy. I am lonely.*
+
+I want to sit with the fourth one for a moment, because it is the reason I am
+careful about this chapter.
+
+*I don't want to live any more, and I want to live.* Both of those were true at
+the same time. For a long while I thought that meant I was lying about one of
+them — that one was the real feeling and the other was a performance. Learning
+that both were genuinely true, simultaneously, was one of the things that kept
+me here. The part of me that wanted to live did not have to defeat the other
+part. It just had to also exist.
+
+If you are in that pair right now, that both-ness is real, and it is worth
+telling someone about today. In the US you can call or text **988**. It is
+worth more than finishing this chapter.
+
+## Sitting in it
+
+Two opposing thoughts held at once produce cognitive dissonance, and dissonance
+is genuinely uncomfortable — the mind wants to collapse it into one answer and
+will accept a bad answer to get relief.
+
+Which means the skill being trained here is not clever thinking. It is
+tolerance. From my notes, in capitals, underlined twice:
+
+> **Get uncomfortable with being uncomfortable.**
+
+The whole of distress tolerance is downstream of that sentence.
+
+## The middle path
+
+\`\`\`chart:MiddlePathChart\`\`\`
+
+Read the third line carefully, because it is the one people get wrong.
+
+*Wanting change* and *radical acceptance* look like opposites, and treating them
+as opposites is how acceptance gets confused with giving up. It is not. You can
+want your situation to be completely different, work hard to change it, and
+simultaneously accept that right now it is exactly what it is. Refusing to
+accept the present does not change the present. It only adds a second layer of
+suffering on top of the first.
+
+> **Pain is inevitable. Suffering is a choice.**
+
+Pain is what happened. Suffering is the argument with what happened.
+
+## Radical acceptance
+
+The practice, as it was taught:
+
+- Notice that you are fighting reality. That noticing is the whole first step.
+- Remind yourself that the unpleasant reality is as it is, and cannot currently
+  be otherwise.
+- Remind yourself that there are causes. A history led to this. Given that
+  history, this had to occur.
+- Practise accepting with the whole self — mind, body and voice. Half-smiling.
+  Open hands. It sounds ridiculous and it changes the physiology.
+- Practise opposite action.
+- Cope ahead: rehearse, in advance, what you would do.
+- Attend to the body sensations that arrive while you think about it.
+- Let the disappointment, sadness or grief actually arrive.
+- Acknowledge that a life can be worth living even with pain in it.
+- If you find yourself resisting the practice, do a pros and cons list on the
+  resistance itself.
+
+### And what it is not
+
+This matters as much as the practice, because the word "acceptance" does real
+damage when it is misheard:
+
+**Radical acceptance is not approval.** It is not forgiveness, and it is not
+saying the thing was acceptable. Accepting that you were abused is not agreeing
+that abuse is tolerable. It is stopping the exhausting internal argument with a
+fact that has already happened.
+
+**It is not passivity.** Accepting where you are is the precondition for moving,
+not an alternative to it. You cannot navigate from a position you refuse to
+occupy.
+
+**It is not against change.** See the middle path above.
+
+## Wise mind
+
+Reasonable mind is logic with the feeling stripped out. Emotional mind is
+feeling with the logic stripped out. Both are real, both are useful, and both
+are dangerous on their own.
+
+Wise mind is the overlap — and the word "wise" is unhelpfully mystical for what
+is a fairly practical thing. It is the state in which you can name what you feel
+*and* what you think, and let the decision come from both.
+
+The version I actually use is a two-question check:
+
+- **How am I thinking about this?**
+- **How am I feeling about this?**
+
+All calculation and no risk is one failure mode. All risk and no calculation is
+the other. What you want is a calculated risk, which requires an honest answer
+to both questions.
+
+## Building a life worth living
+
+DBT's answer to the fact that not all misery is symptomatic. Some of it is just
+a life that has nothing good in it.
+
+**ABC PLEASE.**
+
+**A — Accumulate positive emotions.** In the short term: do a pleasant thing
+today. In the long term: work out your values and build toward them. And — the
+part everyone skips — *be mindful of the positive experience while it is
+happening.* Focus on it. Refocus when you drift. Be **un**mindful of the worries
+that show up to spoil it: *when will this end, do I deserve this, how much more
+will I want now?* Those three questions arrived reliably for me every time
+something good happened, and naming them as a predictable intrusion took most
+of their power.
+
+**B — Build mastery.** Do something difficult **but possible**, on a schedule.
+Not to relax — to accumulate evidence that you are capable. Both halves matter:
+too easy proves nothing, too hard proves the wrong thing.
+
+**C — Cope ahead.** Describe the situation that will prompt the unwanted
+emotion. Decide the coping. Rehearse it in imagination, in detail, including it
+going badly. You are pre-loading a decision for a moment when you will not be
+able to make one.
+
+**PLEASE** is the physical floor underneath all of it:
+
+- Treat **P**hysica**L** illness
+- **E**at in a balanced way
+- **A**void mood-altering substances
+- **S**leep in a balanced way
+- **E**xercise
+
+Because emotional vulnerability climbs when you are **hungry, angry, lonely or
+tired**, and no amount of skill compensates for a body that has not slept.
+
+## How hard to ask
+
+The most immediately useful handout I was given in any group.
+
+\`\`\`chart:AskIntensityChart\`\`\`
+
+The insight is that intensity is a **dial**, not a switch — and that most of us
+own two or three settings out of ten and apply them to everything. I lived at 1
+and 2 for most of my life (do not ask, hint indirectly) and then occasionally
+detonated at 10, because the unasked requests had accumulated. Both ends were
+the same skill deficit.
+
+What sets the number is not how frightened you feel. It is the situation:
+whether the other person is capable of giving it, how urgent it is, what the
+relationship can carry, your own priorities, and — the one that took me longest
+— your self-respect.
+
+And when it is time to actually say it, **DEAR MAN**:
+
+- **D**escribe the situation, factually
+- **E**xpress how you feel about it, using "I"
+- **A**ssert what you are asking for, plainly
+- **R**einforce — say why it is worth it for them
+- **M**indful — stay on the point; do not get dragged sideways
+- **A**ppear confident, even if you are not
+- **N**egotiate — be willing to give something
+
+## When it is all too loud: WIN
+
+Last one, and the smallest.
+
+When every skill in this chapter is more than you can hold, the question is
+three words:
+
+> **What's Important Now?**
+
+Not what is important in your life. Not what is important today. Right now, in
+the next five minutes. Usually the answer is something like *don't drink*, or
+*get to the meeting*, or *call one person*, and that is enough to be going on
+with.
+
+---
+
+## References
+
+Linehan, M. M. (2015). *DBT skills training manual* (2nd ed.). Guilford Press.
+
+Linehan, M. M. (2015). *DBT skills training handouts and worksheets* (2nd ed.). Guilford Press.
+
+Neacsiu, A. D., Bohus, M., & Linehan, M. M. (2014). Dialectical behavior therapy: An intervention for emotion dysregulation. In J. J. Gross (Ed.), *Handbook of emotion regulation* (2nd ed., pp. 491–507). Guilford Press.
+
+Van Dijk, S. (2013). *DBT made simple: A step-by-step guide to dialectical behavior therapy*. New Harbinger Publications.`,
+    },
   ],
 };

@@ -668,6 +668,46 @@ Often used in Step 11 meditation:
 
 ---
 
+## Doing it with other people at six in the morning
+
+Everything above is a solitary practice. There is a second kind, and for some
+people it is the one that works: the same practice, at the same time, with other
+people on a call.
+
+The sunrise meeting I have been part of runs to a fixed shape, and the fixedness
+is most of the point. Nobody has to decide anything at 6 a.m.
+
+1. **Introduction**, and a plain statement of what the meeting is.
+2. **The Serenity Prayer**, together.
+3. **A reading on waking** — the passage from the Big Book at page 86 about how
+   to begin a day.
+4. **Daily readings**, one per book, each read for today's date. *Just for
+   Today*, *Keep It Simple*, *Daily Reflections*, *Day by Day*, *Trauma and the
+   Twelve Steps*, *Eye Opener*, and a random passage from *As Bill Sees It*.
+5. **The Lord's Prayer**, or whatever the group closes with.
+
+Any daily reflection book that acknowledges something larger than the self can
+substitute for any of those. The list is a list of what our group happened to
+own, not a canon.
+
+Three things make this work, and they are worth naming because they transfer to
+whatever version you build.
+
+**It is dated, not chosen.** Each book is read at today's date. Nobody selects a
+passage to suit the mood in the room, which means the reading regularly lands on
+something nobody would have picked and occasionally lands on exactly the thing.
+
+**It is early.** The hour before the day starts is the one hour that is reliably
+yours, and it is also the hour when a mind left alone with itself tends to go
+somewhere unhelpful. Filling it deliberately is cheap insurance.
+
+**It is other people.** A reading you do alone is a practice. The same reading
+with eleven other people on a call is a practice plus a roll call — and the roll
+call is the part that notices when somebody has gone quiet for three days.
+
+Most of these books are available in one app, which matters more than it sounds
+at that hour: *Everything AA* on iOS and Android carries the majority of them.
+
 ## Prayers from Various Traditions
 
 ### Jewish Prayer for Healing
@@ -709,6 +749,35 @@ Often used in Step 11 meditation:
 > I seek strength, not to be superior to my brother, but to fight my greatest enemy—myself.**
 
 ---
+
+## When the steps come with a different frame
+
+Not everyone who wants the twelve steps wants them from Alcoholics Anonymous, and
+one of the most widely used alternatives keeps the steps almost exactly while
+changing the frame around them. Celebrate Recovery, which runs out of churches
+rather than church halls, teaches eight principles drawn from the Beatitudes and
+maps them onto the twelve.
+
+\`\`\`chart:EightPrinciplesChart\`\`\`
+
+Two things are worth noticing about that mapping, whatever your own beliefs.
+
+The first is how little the *actions* change. Admit, believe, decide, inventory,
+confess, become willing, ask, list, amend, examine, pray, carry it to others. The
+eight principles and the twelve steps prescribe nearly the same sequence of
+behaviours. What differs is who is named at step two and three, and how explicit
+the theology is.
+
+The second is the deliberate widening of scope. Celebrate Recovery says *hurts,
+hang-ups and habits* rather than *alcohol*, which puts grief, anger, codependence
+and compulsion in the same room as substance use. For someone whose problem never
+had a substance attached to it, that framing can be the difference between a
+programme that fits and one that does not.
+
+If a Christian frame is your frame, this is the version to look for. If it is
+actively not — if church is a place where harm happened — then it is not a small
+adjustment to make, and Recovery Dharma or SMART will serve you better. Nobody
+gets extra credit for recovering inside a tradition that hurts them.
 
 ## Creating Your Own Prayers
 
@@ -934,6 +1003,44 @@ Offer yourself blessings:
 "May I be blessed with love."
 
 Touch your head, heart, and hands as you speak each blessing.
+
+## The two wolves
+
+A story that turns up in nearly every recovery room, usually told badly and
+landing anyway.
+
+> A boy comes to his grandfather full of hatred for someone who wronged him. The
+> grandfather says: I have felt that too. Hate wears you down, and it does not
+> touch your enemy — it is like drinking poison and waiting for him to die.
+>
+> It is as if two wolves live in me. One does no harm, lives at peace with what
+> is around him, takes no offence where none was meant, and fights only when
+> fighting is right. The other is made of anger. The smallest thing sets him off.
+> He fights everyone, all the time, and cannot think, because the anger is too
+> loud. It is a helpless anger, because it changes nothing.
+>
+> *Which wolf wins, grandfather?*
+>
+> The one I feed.
+
+One honest note on provenance: this is usually told as Cherokee, and it is far
+more likely to be twentieth-century American, circulating first in Christian and
+then in recovery settings. Worth not passing on an attribution that probably is
+not true. The story stands without it.
+
+What makes it useful is the last line, and specifically its tense. Not *which
+wolf is stronger* — that would be a question about your character, and therefore
+a question about shame. **Which one you feed.** Present tense, repeated, a thing
+you are doing today and will do again in an hour.
+
+Both wolves stay. That matters. The practice is not killing one of them, which is
+the reading that sends people looking for a version of themselves with no anger
+in it. It is noticing, several times a day, which one you just handed something
+to. Rumination feeds one. A phone call feeds the other. So does what you read
+before bed, and who you spend Saturday with.
+
+It belongs in a chapter on practice rather than belief because it requires no
+metaphysics at all. It is a claim about attention, and it happens to be true.
 
 ## Service as Spiritual Practice
 
