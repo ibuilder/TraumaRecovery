@@ -52,6 +52,24 @@ also gives it a `<desc>` and arrows running both ways, which is the point of the
 model. `validate:content` rejects any new non-chart fence, and the exporter warns
 rather than skipping in silence.
 
+### The fonts are served from this origin
+
+Open Sans came from Google on every page load. Three reasons that is the wrong
+trade for this book, in the order they matter: a reader was disclosing to a
+third party which chapter of a trauma-recovery text they had opened, and the
+book should not make that trade on their behalf; it cost two extra DNS-plus-TLS
+handshakes and a render-blocking stylesheet round-trip before first paint; and
+it failed closed on any network that blocks Google — the browser tests have to
+abort those requests to run at all, which was the tell.
+
+Four variable WOFF2 faces, 176 kB in total, split by `unicode-range` so a reader
+who never meets an accented Central European character never downloads that
+file. In practice most fetch the two `latin` ones. Verified in a browser: zero
+requests to Google, Open Sans loading from our own origin, `latin-ext` staying
+unloaded. `check:pages` now fails if anything reaches off-origin again — privacy
+properties rot quietly, and one `<link>` added back for convenience would undo
+it in silence.
+
 ### A deploy cannot ship a blank page
 
 `npm run check:pages` reads the built `index.html`, resolves every asset URL

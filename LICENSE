@@ -30,3 +30,20 @@ The book text in `client/src/lib/chapters/` — "Healing Together: A Practical
 Guide to Trauma Recovery for Ordinary People" — is Copyright (c) 2025
 Matthew M. Emma, All Rights Reserved, and is not licensed under the MIT terms
 above.
+
+BUNDLED FONTS
+
+Two typefaces are redistributed with this repository, both under the SIL Open
+Font License 1.1, which permits bundling and embedding:
+
+  Open Sans, in `client/src/assets/fonts/`, served to the website.
+  Copyright 2020 The Open Sans Project Authors
+  https://github.com/googlefonts/opensans
+
+  Liberation Serif, subset into `client/src/lib/book-fonts-data.ts` and embedded
+  in the exported PDF. Copyright (c) 2012 Red Hat, Inc. with Reserved Font Name
+  Liberation. Digitized data copyright (c) 2010 Google Corporation with Reserved
+  Font Name Arimo, Tinos and Cousine.
+
+The full text of the SIL Open Font License 1.1 is at
+https://openfontlicense.org/open-font-license-official-text/.

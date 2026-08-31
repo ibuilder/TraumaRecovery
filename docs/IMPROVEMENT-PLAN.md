@@ -61,10 +61,11 @@ better — it is now the clearest single win available.
 **Done.** `manifest.ts` holds the metadata, `load.ts` resolves one chapter module
 per `import.meta.glob` loader behind a cached promise, and every navigation surface
 reads the manifest. `validate:content` fails if the manifest or the search index has
-drifted from the chapter modules. `trauma-charts.tsx` is a separate lazily-loaded
-chunk rather than split per figure, and the Open Sans face is still fetched from
-Google rather than self-hosted — both remain worth doing, neither is on the critical
-path any more.
+drifted from the chapter modules. Open Sans is **self-hosted** — four variable
+WOFF2 faces split by `unicode-range`, no third-party request, and `check:pages`
+fails the build if anything reaches off-origin again. `trauma-charts.tsx` is a
+separate lazily-loaded chunk rather than split per figure, which remains worth
+doing and is not on the critical path.
 
 The original plan follows, for the reasoning.
 
@@ -315,9 +316,6 @@ Ordered by how much they matter, not by effort.
 **Straightforward work nobody has done**
 
 - **No linter or formatter.** ESLint (`react-hooks`, `jsx-a11y`) and Prettier.
-- **Self-host the Open Sans face** and drop the render-blocking Google Fonts request.
-  Worth more here than on most sites: a third party currently learns that a given
-  reader opened a chapter of a trauma-recovery book.
 - **Split `trauma-charts.tsx`** — over 5,000 lines and 91 figures in one lazily-loaded
   chunk, where a typical chapter shows one to four.
 - **Per-chapter PDF export.** The full book takes about 90 seconds; most readers want

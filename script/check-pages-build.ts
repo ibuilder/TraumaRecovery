@@ -84,9 +84,32 @@ function main() {
     else fail("Asset references", `${missing.length} point at missing files, first ${missing[0]}`);
   }
 
+  // Self-hosted fonts are a privacy property, and privacy properties rot
+  // quietly: one `<link href="https://fonts.googleapis…">` added back for
+  // convenience and every reader is disclosing to a third party which chapter
+  // of a trauma-recovery book they opened. Cheap to assert, so assert it.
   const assetDir = path.join(OUT, "assets");
+  const assetFiles = existsSync(assetDir) ? readdirSync(assetDir) : [];
+  const cssFiles = assetFiles
+    .filter((f) => f.endsWith(".css"))
+    .map((f) => path.join(assetDir, f));
+  const thirdParty = new Set<string>();
+  for (const file of [indexPath, ...cssFiles]) {
+    for (const [, host] of readFileSync(file, "utf8").matchAll(
+      /https?:\/\/((?:[a-z0-9-]+\.)*(?:googleapis|gstatic|typekit|fontawesome)\.com)/g
+    )) {
+      thirdParty.add(host);
+    }
+  }
+  if (thirdParty.size === 0) pass("No third-party assets", "nothing is fetched off-origin");
+  else fail("No third-party assets", `the page reaches out to ${[...thirdParty].join(", ")}`);
+
+  const fonts = assetFiles.filter((f) => f.endsWith(".woff2"));
+  if (fonts.length > 0) pass("Fonts", `${fonts.length} self-hosted woff2 files`);
+  else fail("Fonts", "no woff2 emitted; the site would fall back to a system face");
+
   if (existsSync(assetDir)) {
-    const chunks = readdirSync(assetDir).filter((f) => f.endsWith(".js"));
+    const chunks = assetFiles.filter((f) => f.endsWith(".js"));
     const empty = chunks.filter((f) => statSync(path.join(assetDir, f)).size === 0);
     if (chunks.length < 10) fail("Chunks", `only ${chunks.length} JS chunks; the book is split per chapter`);
     else if (empty.length) fail("Chunks", `${empty.length} are zero bytes, first ${empty[0]}`);

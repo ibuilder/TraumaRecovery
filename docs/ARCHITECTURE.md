@@ -110,6 +110,8 @@ tests/
 - **Crisis resources** in the footer and one click away in the header
 - **Accessibility** checked mechanically — axe-core over all 89 routes in CI, plus
   assertions axe cannot make about figures and tab order
+- **No third-party requests** — Open Sans is self-hosted, so no outside party learns
+  which chapter a reader opened; the Pages preflight fails the build if that changes
 
 ## Book Chapters
 1. Understanding Trauma & Basic Recovery (10 subchapters: Four Pillars Framework, Addiction & Self-Harm, Types of Trauma, Window of Tolerance, and more)
