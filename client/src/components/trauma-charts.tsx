@@ -4285,6 +4285,101 @@ export function CatastrophizingIcebergChart() {
   );
 }
 
+/**
+ * Replaces the book's one piece of ASCII art.
+ *
+ * It was a fenced code block, which three things did badly: the site set it in
+ * the typography plugin's dark-block colour against a light background, at a
+ * contrast ratio of 1.01; the PDF exporter dropped every fenced block on the
+ * floor, so the central diagram of the CBT chapter was simply missing from the
+ * printed book; and a screen reader got a column of slashes. Drawn properly it
+ * survives all three, and it says more than the original did — the arrows run
+ * both ways, which is the whole point of the model.
+ */
+export function CBTTriangleChart() {
+  return (
+    <ChartFrame
+      title="The CBT Triangle"
+      subtitle={
+        <>
+          Thoughts, feelings and behaviours, each one feeding the other two.
+        </>
+      }
+      source={
+        <>
+          The cognitive model as set out in Beck, A. T. (1979). <em>Cognitive Therapy of
+          Depression</em>. Guilford. The arrows run both ways on purpose: no corner is
+          the cause of the others, which is why a change at any one of them moves
+          the whole triangle.
+        </>
+      }
+    >
+      <div className="overflow-x-auto">
+        <svg
+          viewBox="0 0 520 320"
+          className="w-full min-w-[420px] h-auto"
+          role="img"
+          aria-labelledby="cbt-triangle-title cbt-triangle-desc"
+        >
+          <title id="cbt-triangle-title">The CBT triangle</title>
+          <desc id="cbt-triangle-desc">
+            Thoughts sit at the top, feelings at the bottom left, behaviours at
+            the bottom right. Each corner is joined to the other two by an arrow
+            pointing in both directions: thoughts shape feelings and feelings
+            shape thoughts, thoughts drive behaviour and behaviour confirms
+            thoughts, and feelings drive behaviour while behaviour changes
+            feelings. Thoughts are what you think, feelings what you feel, and
+            behaviours what you do.
+          </desc>
+
+          <defs>
+            <marker
+              id="cbt-arrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="6"
+              markerHeight="6"
+              orient="auto-start-reverse"
+            >
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="hsl(var(--primary))" />
+            </marker>
+          </defs>
+
+          {/* Each side is a single line arrowed at both ends: no corner causes
+              the others, and drawing one-way arrows would say that it did. */}
+          <g
+            stroke="hsl(var(--primary))"
+            strokeWidth="2"
+            markerStart="url(#cbt-arrow)"
+            markerEnd="url(#cbt-arrow)"
+          >
+            <line x1="238" y1="96" x2="118" y2="216" />
+            <line x1="282" y1="96" x2="402" y2="216" />
+            <line x1="150" y1="243" x2="370" y2="243" />
+          </g>
+
+          <g textAnchor="middle" fill="hsl(var(--foreground))" fontSize="16" fontWeight="600">
+            <text x="260" y="42">THOUGHTS</text>
+            <text x="96" y="272">FEELINGS</text>
+            <text x="424" y="272">BEHAVIOURS</text>
+          </g>
+          <g textAnchor="middle" fill="hsl(var(--muted-foreground))" fontSize="12">
+            <text x="260" y="60">(cognitions)</text>
+            <text x="96" y="290">(emotions)</text>
+            <text x="424" y="290">(actions)</text>
+          </g>
+          <g textAnchor="middle" fill="hsl(var(--muted-foreground))" fontSize="12" fontStyle="italic">
+            <text x="260" y="78">“what I think”</text>
+            <text x="96" y="308">“what I feel”</text>
+            <text x="424" y="308">“what I do”</text>
+          </g>
+        </svg>
+      </div>
+    </ChartFrame>
+  );
+}
+
 export function CoreBeliefCycleChart() {
   const nodes = [
     { label: "Negative core belief", detail: "“I'm not worth anything.”" },

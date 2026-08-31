@@ -141,7 +141,7 @@ separately, from the chapter markdown rather than from the PDF:
 npm run epub && npm run check:epub
 ```
 
-87 sections, 87 figures across 101 placements, 4.7 MB, and it passes all 18
+87 sections, 88 figures across 102 placements, 4.8 MB, and it passes all 18
 preflight checks. Two things about it are better than the PDF: the text reflows
 to whatever size the reader has set, and every figure carries real alt text
 taken from its own title and subtitle, which the PDF cannot do.
@@ -149,8 +149,13 @@ taken from its own title and subtitle, which the PDF cannot do.
 None of it depends on the trim decision — an EPUB has no pages, so it has no
 page count, no trim and no margins. It is ready to upload now.
 
-Both the build and the preflight run in CI, which uploads the ebook as an
-artifact on every push.
+Both the build and the preflight run in CI, in their own job alongside the tests,
+and the ebook is uploaded as an artifact on every push.
+
+Every figure also arrives twice: as the picture, and as the numbers behind it in a
+real table. An ebook is read on a phone as often as anywhere, and a reader who has
+scaled the text up cannot scale up a bitmap of a bar chart — a screen reader cannot
+read one at all.
 
 ---
 

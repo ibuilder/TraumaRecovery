@@ -3,17 +3,21 @@
 *A Practical Guide to Trauma Recovery for Ordinary People* by Matthew M. Emma.
 
 A static-first React reading app that presents the full book: 14 chapters, 73 subchapters,
-81 figures and data visualisations, and a downloadable print-ready PDF of the whole thing.
+91 figures and data visualisations, a downloadable print-ready PDF of the whole thing, and
+a reflowable EPUB for Kindle.
 
 > **This content is educational and is not a substitute for professional mental health care.**
 > If you are in crisis, call or text **988** (US Suicide & Crisis Lifeline).
+
+[Changelog](CHANGELOG.md) · [Architecture](docs/ARCHITECTURE.md) ·
+[Print and publishing](docs/PRINT-AND-PUBLISHING.md) · [Roadmap](docs/IMPROVEMENT-PLAN.md)
 
 ---
 
 ## Features
 
 - **14 chapters / 73 subchapters** of markdown content (~119,000 words) rendered with `react-markdown` + GFM
-- **81 figures** embedded in the prose via a ` ```chart:ChartName``` ` placeholder — Recharts plots for data, and hand-built accessible SVG/markup for diagrams
+- **91 figures** embedded in the prose via a ` ```chart:ChartName``` ` placeholder — Recharts plots for data, and hand-built SVG/markup for diagrams. Every one is readable without seeing it: the plots carry their numbers as a table, the diagrams describe themselves (see [Reading the figures](#reading-the-figures-without-seeing-them))
 - **Full-book PDF export** generated in the browser — a typeset 718-page book with a cover,
   copyright page, contents and list of figures with page numbers, PDF bookmarks, running heads,
   folios, floated figures, widow and orphan control, and one bibliography at the back
@@ -28,6 +32,8 @@ A static-first React reading app that presents the full book: 14 chapters, 73 su
 - **Dark / light theme** with system-preference detection
 - **Reading progress bar**, per-chapter sidebar, and prev/next chapter navigation
 - **Responsive** layout with a mobile navigation drawer
+- **Kindle edition** — a reflowable EPUB 3 built from the same chapters, with the figures
+  as images *and* as reflowable data tables (see [The Kindle edition](#the-kindle-edition))
 
 ## Chapters
 
@@ -84,9 +90,10 @@ npm run dev          # http://localhost:5000
 | `npm run check:print` | Preflight an exported PDF against Amazon KDP's paperback rules |
 | `npm run epub` | Build the reflowable Kindle edition into `dist/` |
 | `npm run check:epub` | Preflight the EPUB against what a reading system enforces |
+| `npm run check:pages` | Check a built site is servable from Pages before deploying it |
 | `npm run search-index` | Regenerate `lib/search-index.json` from the chapter modules |
 | `npm test` | Browser tests — see [Tests](#tests) |
-| `npm run test:site` | Just the route sweep, search and accessibility checks (~35 s) |
+| `npm run test:site` | Just the route sweep and search (~35 s) |
 | `npm run test:book` | Just the printed-book checks (~90 s) |
 | `npm run serve:static` | Serve `dist/public` the way GitHub Pages does |
 | `npm run build` | Full build: static client + bundled Express server → `dist/` |
@@ -120,6 +127,17 @@ built, base-pathed site.
   cannot: that every figure has an accessible name, that every drawing hands over
   its content — as a data table or as its own `<desc>` — and that no drawing takes
   a Tab stop.
+
+```bash
+npm run check:pages     # is the built site actually servable from Pages?
+```
+
+A base-path mistake is the one deployment failure that is silent and total: the
+build succeeds, the HTML is valid, every file is present, and the site is a blank
+white page because the browser asks the origin for a path Pages does not serve.
+`check:pages` reads the built `index.html`, resolves every asset URL against the
+base and against the disk, and checks the `404.html` fallback and the chunking. It
+runs in CI and again in the deploy, before anything is uploaded.
 
 Generating the book takes about two minutes; `npm run test:site` skips it.
 
@@ -192,13 +210,16 @@ A reflowable EPUB 3, built from the same chapter markdown rather than converted
 from the PDF — a PDF uploaded as an ebook becomes a fixed-layout file that is
 miserable on a phone. Figures are screenshotted from the real components, since
 they are React and Recharts rather than static assets, and each carries the alt
-text its `ChartFrame` already provides.
+text its `ChartFrame` already provides — plus, for the plotted ones, the same data
+table the site shows, as XHTML that reflows with the reader's type size.
 
 `npm run check:epub` checks the things that fail silently and then totally: the
 mimetype entry has to be first and stored or the file is not recognised as an
 EPUB at all, and every XHTML document has to be well-formed XML, because one
-unclosed `<hr>` is valid HTML and a fatal parse error. Both run in CI, which
-also uploads the built ebook as an artifact.
+unclosed `<hr>` is valid HTML and a fatal parse error. Both run in CI, in their
+own job alongside the tests rather than after them — screenshotting 87 figures out
+of a browser takes longer than everything else put together — and the built ebook
+is uploaded as an artifact.
 
 If your sandbox ships a browser but cannot reach Playwright's CDN, point at the one you
 have rather than downloading: `PLAYWRIGHT_CHROMIUM_PATH=/path/to/chrome npm test`.
@@ -264,8 +285,9 @@ script/
 ├── generate-search-index.ts        # writes lib/search-index.json
 └── validate-content.ts             # content structure checks
 tests/
-├── site.spec.ts                    # every route, search, accessibility
+├── site.spec.ts                    # every route, search, the skip link
 ├── book.spec.ts                    # the printed book's typeset invariants
+├── a11y.spec.ts                    # axe over every route; figures and tab order
 └── helpers/                        # route list, chapter content, PDF reader
 ```
 

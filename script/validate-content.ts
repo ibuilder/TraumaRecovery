@@ -72,12 +72,44 @@ chapters.forEach((chapter, index) => {
     check(sub.content.trimStart().startsWith("# "), `${subWhere}: content has no H1`);
   });
 
-  for (const source of [chapter.content, ...chapter.subchapters.map((s) => s.content)]) {
+  const sources: Array<{ where: string; source: string }> = [
+    { where, source: chapter.content },
+    ...chapter.subchapters.map((s) => ({
+      where: `${where} / subchapter "${s.slug}"`,
+      source: s.content,
+    })),
+  ];
+  for (const { where, source } of sources) {
     for (const match of source.matchAll(/chart:(\w+)/g)) {
       referencedCharts.add(match[1]);
       check(
         definedCharts.has(match[1]),
         `${where}: references unknown chart "${match[1]}"`
+      );
+    }
+
+    // A fenced block that is not a chart cannot reach the printed book: the
+    // exporter embeds Liberation Serif and nothing monospaced, so it skips the
+    // block. It used to do so in silence, and the CBT triangle — the central
+    // diagram of its chapter, drawn in ASCII — was missing from the PDF with
+    // nothing anywhere to say so. Draw it as a chart component instead.
+    let open = false;
+    for (const line of source.split("\n")) {
+      const fence = /^```(\S*)/.exec(line.trim());
+      if (!fence) continue;
+      const info = fence[1]!;
+      // A one-line ```chart:Name``` placeholder opens and closes at once.
+      if (line.trim().length > 3 && line.trim().endsWith("```")) continue;
+      if (open) {
+        open = false;
+        continue;
+      }
+      open = true;
+      check(
+        info === "chart" || info.startsWith("chart:"),
+        `${where}: has a fenced \`\`\`${info} block; the PDF exporter cannot ` +
+          `typeset one, so it would be missing from the printed book. Make it a ` +
+          `chart component.`
       );
     }
   }

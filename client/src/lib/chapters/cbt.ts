@@ -496,23 +496,7 @@ The CBT Triangle is one of the most powerful tools for understanding how our inn
 
 This isn't just theory—it's a map of how human experience actually works. Understanding this triangle gives you insight into why you react the way you do and, more importantly, shows you where you have the power to create change.
 
-**The Triangle Structure:**
-
-\`\`\`
-           THOUGHTS
-          (Cognitions)
-         "What I think"
-              /\\
-             /  \\
-            /    \\
-           /      \\
-          /        \\
-         /          \\
-        /            \\
-   FEELINGS -------- BEHAVIORS
-   (Emotions)         (Actions)
-  "What I feel"     "What I do"
-\`\`\`
+\`\`\`chart:CBTTriangleChart\`\`\`
 
 ---
 

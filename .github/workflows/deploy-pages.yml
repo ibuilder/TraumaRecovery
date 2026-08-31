@@ -37,6 +37,14 @@ jobs:
         env:
           VITE_BASE_PATH: ${{ github.event.repository.name == format('{0}.github.io', github.repository_owner) && '/' || format('/{0}/', github.event.repository.name) }}
 
+      # A base-path mistake here is silent and total: the build succeeds, the
+      # HTML is valid, and the deployed site is a blank page because the browser
+      # asks the origin for a path Pages does not serve. Fail before deploying.
+      - name: Check the build is servable
+        run: npm run check:pages
+        env:
+          VITE_BASE_PATH: ${{ github.event.repository.name == format('{0}.github.io', github.repository_owner) && '/' || format('/{0}/', github.event.repository.name) }}
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
