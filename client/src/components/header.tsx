@@ -55,7 +55,7 @@ export function Header() {
                 </Link>
               </div>
               <ScrollArea className="h-[calc(100vh-5rem)]">
-                <nav className="p-4 space-y-1">
+                <nav className="p-4 space-y-1" aria-label="Main menu">
                   <Link
                     href="/"
                     onClick={() => setOpen(false)}
@@ -90,7 +90,7 @@ export function Header() {
           </Link>
         </div>
 
-        <nav className="hidden md:flex items-center gap-1 flex-wrap">
+        <nav className="hidden md:flex items-center gap-1 flex-wrap" aria-label="Main">
           <Link href="/">
             <Button
               variant={location === "/" ? "secondary" : "ghost"}

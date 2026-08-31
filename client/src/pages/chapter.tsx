@@ -122,7 +122,7 @@ export default function Chapter() {
       <ReadingProgress />
       <div className="min-h-screen">
         <div className="container px-4 md:px-6 py-8">
-          <nav className="mb-8 mx-auto max-w-6xl">
+          <nav className="mb-8 mx-auto max-w-6xl" aria-label="Breadcrumb">
             <ol className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
               <li>
                 <Link href="/" className="hover:text-foreground transition-colors" data-testid="breadcrumb-home">
@@ -211,7 +211,7 @@ export default function Chapter() {
                   </div>
                 )}
 
-                <nav className="mt-12 pt-8 border-t">
+                <nav className="mt-12 pt-8 border-t" aria-label="Previous and next">
                   <div className="flex items-center justify-between gap-4 flex-wrap">
                     {subchapter ? (
                       <>

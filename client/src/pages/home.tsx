@@ -68,7 +68,7 @@ export default function Home() {
               <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                 <Heart className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-semibold">Compassionate Approach</h3>
+              <h2 className="font-semibold">Compassionate Approach</h2>
               <p className="text-sm text-muted-foreground">
                 Written with understanding and care for those on the healing journey
               </p>
@@ -77,7 +77,7 @@ export default function Home() {
               <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                 <Users className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-semibold">For Everyone</h3>
+              <h2 className="font-semibold">For Everyone</h2>
               <p className="text-sm text-muted-foreground">
                 Practical guidance accessible to ordinary people, not just professionals
               </p>
@@ -86,7 +86,7 @@ export default function Home() {
               <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                 <Shield className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-semibold">Evidence-Based</h3>
+              <h2 className="font-semibold">Evidence-Based</h2>
               <p className="text-sm text-muted-foreground">
                 Grounded in CBT, DBT, ACT and other proven therapeutic approaches
               </p>

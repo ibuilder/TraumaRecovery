@@ -18,7 +18,7 @@ export function ChapterSidebar({ currentChapter }: ChapterSidebarProps) {
             <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-4">
               In This Chapter
             </h3>
-            <nav className="space-y-1">
+            <nav className="space-y-1" aria-label="In this chapter">
               <Link
                 href={`/chapter/${currentChapter.slug}`}
                 className={`block px-3 py-2 rounded-md text-sm transition-colors hover-elevate ${
@@ -50,7 +50,7 @@ export function ChapterSidebar({ currentChapter }: ChapterSidebarProps) {
               <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-4">
                 All Chapters
               </h3>
-              <nav className="space-y-1">
+              <nav className="space-y-1" aria-label="All chapters">
                 {chapters.map((chapter) => (
                   <Link
                     key={chapter.id}

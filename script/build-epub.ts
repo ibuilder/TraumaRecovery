@@ -71,6 +71,8 @@ interface Figure {
   name: string;
   file: string;
   alt: string;
+  /** Header row then body rows, when the figure has tabular data behind it. */
+  table?: { head: string[]; rows: string[][] };
 }
 
 /**
@@ -79,6 +81,11 @@ interface Figure {
  * Rendered rather than re-implemented: the figures are React components with a
  * Recharts runtime, and the only honest way to get a picture of one is to let a
  * browser draw it. Alt text comes from the figure's own title and subtitle.
+ *
+ * The numbers behind each figure come across as a real table rather than only
+ * as pixels. An ebook is read on a phone as often as anywhere, and a reader who
+ * has scaled the text up cannot scale up a bitmap of a bar chart; a screen
+ * reader cannot read one at all.
  */
 async function captureFigures(names: string[], imageDir: string): Promise<Map<string, Figure>> {
   const found = new Map<string, Figure>();
@@ -118,15 +125,40 @@ async function captureFigures(names: string[], imageDir: string): Promise<Map<st
       if (!component || !wanted.has(component) || found.has(component)) continue;
       const fig = holder.locator("figure").first();
       if (!(await fig.count())) continue;
-      const title = (await fig.locator("h4").first().textContent().catch(() => ""))?.trim() ?? "";
-      const subtitle =
-        (await fig.locator("p").first().textContent().catch(() => ""))?.trim() ?? "";
+      const text = async (sel: string) =>
+        (await fig.locator(sel).first().textContent().catch(() => ""))?.trim() ?? "";
+      const title = await text("[data-chart-title]");
+      const subtitle = await text("[data-chart-subtitle]");
+
+      // No named helper inside this callback: tsx builds with esbuild's
+      // keepNames, which wraps a named function in a `__name` call that does
+      // not exist in the page — the evaluate throws `__name is not defined`.
+      const table = await fig.evaluate((el) => {
+        const t = el.querySelector("[data-chart-data] table");
+        if (!t) return undefined;
+        const rows = Array.from(t.querySelectorAll("tr")).map((row) =>
+          Array.from(row.children).map((c) => c.textContent?.trim() ?? "")
+        );
+        const [head, ...body] = rows;
+        if (!head) return undefined;
+        return { head, rows: body };
+      });
+
+      // The disclosure is a website affordance; in the ebook the table is laid
+      // out as its own element, so it must not also appear inside the picture.
+      await fig.evaluate((el) =>
+        el.querySelectorAll<HTMLElement>("[data-chart-data]").forEach((d) => {
+          d.style.display = "none";
+        })
+      );
+
       const file = `${component}.png`;
       await fig.screenshot({ path: path.join(imageDir, file) });
       found.set(component, {
         name: component,
         file,
         alt: subtitle ? `${title}. ${subtitle}` : title || component,
+        table,
       });
     }
   }
@@ -148,6 +180,31 @@ function toXhtml(html: string): string {
   );
 }
 
+/** The figure's numbers as XHTML, so they reflow and can be read aloud. */
+function renderFigureTable(fig: Figure): string {
+  if (!fig.table || fig.table.rows.length === 0) return "";
+  const { head, rows } = fig.table;
+  const cell = (tag: string, scope: string, value: string) =>
+    `<${tag} scope="${scope}">${xml(value)}</${tag}>`;
+  const body = rows
+    .map(
+      (row) =>
+        "<tr>" +
+        row
+          .map((value, i) => (i === 0 ? cell("th", "row", value) : `<td>${xml(value)}</td>`))
+          .join("") +
+        "</tr>"
+    )
+    .join("\n");
+  // No caption: the image's alt text directly above already names the figure,
+  // and a caption repeating it would have a reader hear the title twice.
+  return (
+    `\n<table class="chart-data">` +
+    `<thead><tr>${head.map((h) => cell("th", "col", h)).join("")}</tr></thead>` +
+    `<tbody>\n${body}\n</tbody></table>\n`
+  );
+}
+
 /** Renders one section's markdown, swapping chart placeholders for the images. */
 function renderSection(
   section: Section,
@@ -162,9 +219,12 @@ function renderSection(
         missing.add(component);
         return "";
       }
-      return `\n<figure class="chart"><img src="../images/${fig.file}" alt="${xml(
-        fig.alt
-      )}"/></figure>\n`;
+      return (
+        `\n<figure class="chart">` +
+        `<img src="../images/${fig.file}" alt="${xml(fig.alt)}"/>` +
+        renderFigureTable(fig) +
+        `</figure>\n`
+      );
     }
   );
 
@@ -199,6 +259,9 @@ blockquote {
 }
 figure.chart { margin: 1.4em 0; text-align: center; page-break-inside: avoid; }
 figure.chart img { max-width: 100%; height: auto; }
+/* The figure's own numbers. Left-aligned inside a centred figure, and allowed
+   to break across pages — some of these run to a dozen rows. */
+table.chart-data { text-align: left; page-break-inside: auto; margin-top: 0.6em; }
 table { border-collapse: collapse; width: 100%; margin: 1.2em 0; font-size: 0.9em; }
 th, td { border: 1px solid #bbb; padding: 0.35em 0.5em; text-align: left; vertical-align: top; }
 th { background: #f2f2f2; }
