@@ -90,6 +90,8 @@ import {
   SmartFourPointChart,
   MutualAidComparisonChart,
   EightPrinciplesChart,
+  DailyPracticeChart,
+  AmendsKindsChart,
 } from "@/components/trauma-charts";
 
 interface MarkdownRendererProps {
@@ -186,6 +188,8 @@ const chartComponents: Record<string, React.ComponentType> = {
   "SmartFourPointChart": SmartFourPointChart,
   "MutualAidComparisonChart": MutualAidComparisonChart,
   "EightPrinciplesChart": EightPrinciplesChart,
+  "DailyPracticeChart": DailyPracticeChart,
+  "AmendsKindsChart": AmendsKindsChart,
 };
 
 /**

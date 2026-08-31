@@ -56,6 +56,8 @@ import {
   SmartFourPointChart,
   MutualAidComparisonChart,
   EightPrinciplesChart,
+  DailyPracticeChart,
+  AmendsKindsChart,
   setStaticCharts,
 } from "@/components/trauma-charts";
 
@@ -141,6 +143,8 @@ const ALL_CHART_COMPONENTS: Record<string, React.ComponentType> = {
   SmartFourPointChart,
   MutualAidComparisonChart,
   EightPrinciplesChart,
+  DailyPracticeChart,
+  AmendsKindsChart,
 };
 
 /** Every chart placeholder the book actually references, in first-use order. */

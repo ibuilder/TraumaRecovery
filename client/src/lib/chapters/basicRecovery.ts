@@ -3275,7 +3275,35 @@ medication · pray · call friends in recovery
 
 **Night, 8:00pm** — meditate · journal · read
 
-Six things and three things. That is the whole scaffold. It is not impressive
+Six things and three things. That is the whole scaffold.
+
+Cut a different way — by what each part of the day is *for* rather than by when
+it happens — the same routine looks like this:
+
+\`\`\`chart:DailyPracticeChart\`\`\`
+
+Both cuts are worth having. The times are what get you through a morning. The
+domains are what tell you, when a day falls apart, which part of yourself did not
+get looked after.
+
+There is a weekly layer under it too, and mine was almost embarrassingly simple —
+a rotation, not a programme:
+
+| | |
+|---|---|
+| **Monday** | Cardio · yoga |
+| **Tuesday** | Cardio · biceps and chest |
+| **Wednesday** | Cardio · triceps and shoulders |
+| **Thursday** | Cardio · yoga |
+| **Friday** | Cardio · biceps and chest |
+| **Saturday** | Cardio · triceps and shoulders |
+| **Sunday** | Rest your spirit — which is to say, self-love |
+
+Nothing in that table is clever. It exists because a decision made on Sunday is
+a decision you do not have to make on Wednesday, and Wednesday is when the
+deciding faculty is thin. Sunday being explicitly for rest matters as much as the
+other six: a recovery routine with no permission to stop in it is just another
+way of running. It is not impressive
 and it was never supposed to be. The point of a routine in early recovery is not
 optimisation, it is that the day has rails, so that the hours where you are most
 likely to reach for something are already spoken for.

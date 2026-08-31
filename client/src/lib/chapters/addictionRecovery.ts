@@ -510,6 +510,38 @@ Multiple pathways to recovery exist. This chapter provides comprehensive informa
 
 **Meetings:** www.aa.org - Find local meetings worldwide
 
+#### Steps eight and nine, since they are the ones people stall on
+
+Most people who leave the steps leave somewhere around eight and nine, and it is
+worth saying plainly why. Steps four through seven happen inside you, with a
+sponsor. Step nine happens in somebody else's living room, and it is the first
+one where another person gets a vote on how it goes.
+
+\`\`\`chart:AmendsKindsChart\`\`\`
+
+Two distinctions do most of the work here.
+
+**An amends is not an apology.** An apology is a statement about your feelings,
+and it invites the other person to manage them — which is very often the same
+dynamic that did the harm. An amends names the specific thing you did, without
+the surrounding explanation that makes it smaller, and then either repairs it or
+changes the behaviour going forward. "I am sorry I was like that" is an apology.
+"I took four hundred pounds from you in 2019 and lied about it; here is the first
+hundred" is an amends.
+
+**You are not owed a response.** Some people will be gracious. Some will be cold,
+or will use the moment to say things they have been holding for years, or will
+say nothing at all. None of that is a verdict on whether the amends worked. The
+qualitative research on this — people interviewed about what the process actually
+did for them — keeps landing on the same finding: what changed was the relation
+to the harm itself, not the reception. Going in wanting to be forgiven is the
+most common way to turn an amends back into something you are doing for you.
+
+The eighth step is where the work really is: make the list, all of it, and become
+*willing* — which is a separate and slower thing from being ready. Willingness
+that has to be manufactured before the list is written usually produces a shorter
+list.
+
 ---
 
 ### Narcotics Anonymous (NA)
