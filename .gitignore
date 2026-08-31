@@ -13,3 +13,5 @@ vite.config.ts.*
 test-results
 playwright-report
 blob-report
+# EPUB build staging
+dist/epub
