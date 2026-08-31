@@ -87,14 +87,17 @@ script/
 └── validate-content.ts           # Content structure checks
 
 tests/
-├── site.spec.ts                  # Every route, search, accessibility
+├── site.spec.ts                  # Every route, search, the skip link
 ├── book.spec.ts                  # The printed book's typeset invariants
+├── a11y.spec.ts                  # axe over every route; figures and tab order
 └── helpers/                      # Route list, chapter content, PDF reader
 ```
 
 ## Key Features
 - **14 comprehensive chapters** (73 subchapters) covering trauma recovery topics
-- **81 figures** — Recharts plots for data, accessible inline SVG and markup for diagrams
+- **90 figures** — Recharts plots for data, inline SVG and markup for diagrams; every
+  plot carries its numbers as a table and every diagram describes itself, so the whole
+  set is readable without seeing it
 - **Full-book PDF export** generated client-side (jsPDF + html2canvas, lazy-loaded)
 - **Markdown rendering** with react-markdown and remark-gfm
 - **Dark/light theme** with system preference detection
@@ -105,6 +108,8 @@ tests/
 - **Full-text search** (Cmd-K) over a compile-time index, ranked heading-first
 - **Continue reading** from where the reader left off, stored in the browser only
 - **Crisis resources** in the footer and one click away in the header
+- **Accessibility** checked mechanically — axe-core over all 89 routes in CI, plus
+  assertions axe cannot make about figures and tab order
 
 ## Book Chapters
 1. Understanding Trauma & Basic Recovery (10 subchapters: Four Pillars Framework, Addiction & Self-Harm, Types of Trauma, Window of Tolerance, and more)

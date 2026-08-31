@@ -59,7 +59,7 @@ import {
   EightPrinciplesChart,
   DailyPracticeChart,
   AmendsKindsChart,
-  setStaticCharts,
+  setChartCaptureMode,
   PRINT_CHART_PALETTE,
 } from "@/components/trauma-charts";
 
@@ -1244,8 +1244,9 @@ async function captureCharts(
 
   // Charts must be captured with their entry animation off: at 600ms a pie is
   // still a sliver and a radar is still growing, and Recharts does not paint
-  // its value labels until the animation lands.
-  setStaticCharts(true);
+  // its value labels until the animation lands. The same switch drops the
+  // website's "Show the numbers" disclosure, which has nothing to say on paper.
+  setChartCaptureMode(true);
 
   try {
     for (let i = 0; i < chartNames.length; i++) {
@@ -1288,7 +1289,7 @@ async function captureCharts(
       }
     }
   } finally {
-    setStaticCharts(false);
+    setChartCaptureMode(false);
     container.remove();
   }
 

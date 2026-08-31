@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useId, type ReactNode } from "react";
 import {
   ChartContainer,
   ChartTooltip,
@@ -52,9 +52,18 @@ function prefersReducedMotion(): boolean {
 }
 
 let staticCharts = prefersReducedMotion();
+let capturing = false;
 
-/** Turns entry animation off while charts are being captured for the PDF. */
-export function setStaticCharts(value: boolean) {
+/**
+ * Switches the charts into the form the PDF exporter needs: no entry
+ * animation, and no data disclosure.
+ *
+ * The disclosure is a screen-reader affordance for the website. In the book
+ * the numbers are already on the page, and a "Show the numbers" line printed
+ * under every figure would be nonsense.
+ */
+export function setChartCaptureMode(value: boolean) {
+  capturing = value;
   // Clearing the exporter's flag returns to the reader's preference, not to on.
   staticCharts = value || prefersReducedMotion();
 }
@@ -110,24 +119,161 @@ export const PRINT_CHART_PALETTE: Record<string, string> = {
 const percentLabel = (value: unknown) => `${value}%`;
 const plainLabel = (value: unknown) => `${value}`;
 
+/** A row of a chart's source data: flat, one key per column. */
+type ChartRow = Record<string, string | number | null | undefined>;
+
+/**
+ * Keys that carry presentation rather than data. Recharts takes per-slice
+ * colours on the row itself, and a colour is not something to put in a table.
+ */
+const NON_DATA_KEYS = new Set(["fill", "color", "stroke"]);
+
+/** `avoidancePct` -> `Avoidance Pct`, for a column with no configured label. */
+function humanizeKey(key: string): string {
+  return key
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .replace(/^./, (c) => c.toUpperCase());
+}
+
+/**
+ * The figure's data as a real table.
+ *
+ * Recharts renders into an SVG it marks `role="application"`, which is the
+ * most hostile role in ARIA: it tells the screen reader to stop interpreting
+ * the content and forward keystrokes to the widget. What a reader gets from
+ * inside one is the `<text>` nodes in paint order — "0%", "15%", "30%",
+ * "General Population", "Women", ..., "3.9%", "8%" — the categories and their
+ * values in separate runs with nothing tying them together. On a radar or a
+ * pie the values are not in the SVG at all, so the data is simply absent.
+ *
+ * So the drawing is marked decorative and this table is the figure's real
+ * content. It is a `<details>` rather than visually-hidden text because the
+ * numbers are worth having for everyone: this is a book largely made of
+ * statistics, and a sighted reader who wants the exact figure behind a bar
+ * currently has to hover it.
+ */
+function ChartDataTable({ title, data, config }: { title?: string; data: ChartRow[]; config?: ChartConfig }) {
+  const keys = Array.from(new Set(data.flatMap((row) => Object.keys(row)))).filter(
+    (key) => !NON_DATA_KEYS.has(key)
+  );
+  if (keys.length === 0 || data.length === 0) return null;
+
+  return (
+    <details className="mt-4 text-sm" data-chart-data>
+      <summary className="cursor-pointer text-muted-foreground hover:text-foreground">
+        Show the numbers
+      </summary>
+      <div className="overflow-x-auto mt-3">
+        <table className="w-full text-left border-collapse">
+          {title ? <caption className="sr-only">{title}</caption> : null}
+          <thead>
+            <tr>
+              {keys.map((key) => (
+                <th key={key} scope="col" className="border-b py-1.5 pr-4 font-medium">
+                  {config?.[key]?.label ?? humanizeKey(key)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, i) => (
+              <tr key={i}>
+                {keys.map((key, j) => {
+                  // A null is a deliberate gap in the series, not a zero.
+                  const value = row[key] ?? "\u2014";
+                  return j === 0 ? (
+                    <th key={key} scope="row" className="border-b py-1.5 pr-4 font-normal">
+                      {value}
+                    </th>
+                  ) : (
+                    <td key={key} className="border-b py-1.5 pr-4 tabular-nums">
+                      {value}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </details>
+  );
+}
+
 function ChartFrame({
   title,
   subtitle,
   source,
+  data,
+  config,
+  description,
   children,
 }: {
   title: ReactNode;
   subtitle?: ReactNode;
   source?: ReactNode;
+  /**
+   * The rows behind the drawing. Omitted by the hand-drawn diagrams, which
+   * have no tabular data and carry their own `<title>` and `<desc>` instead.
+   */
+  data?: ChartRow[];
+  config?: ChartConfig;
+  /**
+   * What the drawing says, for a figure whose meaning a table cannot carry —
+   * a diagram whose proportions are illustrative rather than measured. Read to
+   * a screen reader in place of the drawing.
+   */
+  description?: string;
   children: ReactNode;
 }) {
+  const id = useId();
+  const hasTable = !!data && data.length > 0;
+  const decorative = hasTable || !!description;
   return (
-    <figure className="my-8 p-6 bg-card rounded-md border">
-      <h4 className="text-lg font-semibold mb-2">{title}</h4>
+    /*
+      The title labels the figure rather than heading a section. It was an
+      `<h4>`, which put a heading-order skip under every `<h2>` in the book and
+      buried the real outline under a hundred figure titles. Naming the
+      `<figure>` instead keeps it announced — "figure, PTSD Prevalence by
+      Population" — without pretending it is a section of the chapter.
+    */
+    <figure
+      className="my-8 p-6 bg-card rounded-md border"
+      aria-labelledby={`${id}-title`}
+      aria-describedby={description ? `${id}-desc` : undefined}
+    >
+      <p id={`${id}-title`} data-chart-title className="text-lg font-semibold mb-2">
+        {title}
+      </p>
       {subtitle ? (
-        <p className="text-sm text-muted-foreground mb-4">{subtitle}</p>
+        <p data-chart-subtitle className="text-sm text-muted-foreground mb-4">
+          {subtitle}
+        </p>
       ) : null}
-      {children}
+      {description ? (
+        <p id={`${id}-desc`} className="sr-only">
+          {description}
+        </p>
+      ) : null}
+      {/*
+        Once the table or the description is here the drawing repeats it, so it
+        is not read out twice — and `role=application` cannot be removed from a
+        Recharts surface, only hidden along with it. `inert` rather than
+        `aria-hidden` alone because Recharts leaves the surface focusable, and
+        hiding it from a screen reader while it still takes a Tab stop is a
+        trap, not a fix.
+      */}
+      <div inert={decorative} aria-hidden={decorative || undefined}>
+        {children}
+      </div>
+      {hasTable && !capturing ? (
+        <ChartDataTable
+          title={typeof title === "string" ? title : undefined}
+          data={data}
+          config={config}
+        />
+      ) : null}
       {source ? (
         <figcaption className="text-xs text-muted-foreground mt-3">
           {source}
@@ -156,6 +302,8 @@ const ptsdConfig: ChartConfig = {
 export function PTSDPrevalenceChart() {
   return (
     <ChartFrame
+      data={ptsdPrevalenceData}
+      config={ptsdConfig}
       title="PTSD Prevalence by Population"
       subtitle="Lifetime PTSD prevalence rates across different populations"
       source={
@@ -207,6 +355,8 @@ const acesConfig: ChartConfig = {
 export function ACEsPrevalenceChart() {
   return (
     <ChartFrame
+      data={acesPrevalenceData}
+      config={acesConfig}
       title="Adverse Childhood Experiences (ACEs) Distribution"
       subtitle="Percentage of U.S. adults by number of ACEs experienced"
       source={
@@ -257,6 +407,8 @@ const recoveryConfig: ChartConfig = {
 export function RecoveryTimelineChart() {
   return (
     <ChartFrame
+      data={recoveryTimelineData}
+      config={recoveryConfig}
       title="Natural PTSD Recovery Timeline"
       subtitle="Percentage of individuals who recover from PTSD over time"
       source={
@@ -298,6 +450,8 @@ const addictionConfig: ChartConfig = {
 export function TraumaAddictionChart() {
   return (
     <ChartFrame
+      data={traumaAddictionData}
+      config={addictionConfig}
       title="Trauma-Addiction Connection"
       subtitle="Relationship between trauma exposure and substance use disorders"
       source={
@@ -349,6 +503,8 @@ const therapyConfig: ChartConfig = {
 export function TherapyEffectivenessChart() {
   return (
     <ChartFrame
+      data={therapyEffectivenessData}
+      config={therapyConfig}
       title="Trauma Therapy Effectiveness"
       subtitle="Effect sizes (Cohen's d) for evidence-based trauma treatments"
       source={
@@ -413,6 +569,8 @@ const attachmentConfig: ChartConfig = {
 export function AttachmentStylesChart() {
   return (
     <ChartFrame
+      data={attachmentStylesData}
+      config={attachmentConfig}
       title="Attachment Style Distribution"
       subtitle="Population distribution of attachment patterns in general population"
       source={
@@ -473,6 +631,8 @@ const acesHealthConfig: ChartConfig = {
 export function ACEsHealthRiskChart() {
   return (
     <ChartFrame
+      data={acesHealthData}
+      config={acesHealthConfig}
       title="ACEs and Health Risk Increase"
       subtitle="Relative risk increase for adults with 4+ ACEs vs 0 ACEs"
       source={
@@ -517,6 +677,8 @@ const ptgConfig: ChartConfig = {
 export function PostTraumaticGrowthChart() {
   return (
     <ChartFrame
+      data={ptgDomainsData}
+      config={ptgConfig}
       title="Post-Traumatic Growth Domains"
       subtitle="Areas where trauma survivors commonly report positive growth"
       source={
@@ -559,6 +721,8 @@ const ipvConfig: ChartConfig = {
 export function IPVPTSDChart() {
   return (
     <ChartFrame
+      data={ipvPtsdData}
+      config={ipvConfig}
       title="PTSD Rates in Intimate Partner Violence Survivors"
       subtitle="PTSD development rates by type of IPV exposure"
       source={
@@ -608,6 +772,8 @@ const dbtConfig: ChartConfig = {
 export function DBTSkillsChart() {
   return (
     <ChartFrame
+      data={dbtSkillsData}
+      config={dbtConfig}
       title="DBT Skills Module Effectiveness"
       subtitle="Patient-reported improvement by DBT skill module"
       source={
@@ -667,6 +833,8 @@ const physicalConfig: ChartConfig = {
 export function PhysicalWellnessChart() {
   return (
     <ChartFrame
+      data={physicalWellnessData}
+      config={physicalConfig}
       title="Physical Wellness Progress Over Time"
       subtitle="Expected improvement in physical health markers during trauma recovery"
       source={
@@ -718,6 +886,8 @@ const exerciseConfig: ChartConfig = {
 export function ExerciseImpactChart() {
   return (
     <ChartFrame
+      data={exerciseImpactData}
+      config={exerciseConfig}
       title="Exercise Frequency and Mental Health Symptoms"
       subtitle="Relative symptom levels by exercise frequency"
       source={
@@ -771,6 +941,8 @@ const pillarsConfig: ChartConfig = {
 export function FourPillarsChart() {
   return (
     <ChartFrame
+      data={fourPillarsData}
+      config={pillarsConfig}
       title="The Four Pillars of Recovery"
       subtitle="Wellness levels across the four pillars at different stages of recovery"
       source={
@@ -823,6 +995,8 @@ const emotionalConfig: ChartConfig = {
 export function EmotionalRegulationChart() {
   return (
     <ChartFrame
+      data={emotionalRegulationData}
+      config={emotionalConfig}
       title="Emotional Wellness Development Through Recovery"
       subtitle="Growth in emotional skills across recovery stages"
       source={
@@ -867,6 +1041,8 @@ const mentalConfig: ChartConfig = {
 export function MentalWellnessChart() {
   return (
     <ChartFrame
+      data={mentalWellnessData}
+      config={mentalConfig}
       title="Mental Wellness Factors in Recovery"
       subtitle="Average improvement in mental wellness components after 12 weeks of treatment"
       source={
@@ -921,6 +1097,8 @@ const socialConfig: ChartConfig = {
 export function SocialConnectionChart() {
   return (
     <ChartFrame
+      data={socialConnectionData}
+      config={socialConfig}
       title="Social Connection and Recovery Outcomes"
       subtitle="Relationship between social support network size and recovery success"
       source={
@@ -970,6 +1148,8 @@ const nutritionConfig: ChartConfig = {
 export function NutritionImpactChart() {
   return (
     <ChartFrame
+      data={nutritionImpactData}
+      config={nutritionConfig}
       title="Key Nutrients and Mental Health Benefits"
       subtitle="Research-supported nutritional interventions for mental health"
       source={
@@ -1019,6 +1199,8 @@ const sleepConfig: ChartConfig = {
 export function SleepRecoveryChart() {
   return (
     <ChartFrame
+      data={sleepRecoveryData}
+      config={sleepConfig}
       title="Sleep Duration and Trauma Recovery"
       subtitle="Relationship between sleep hours and PTSD symptoms/recovery"
       source={
@@ -1063,6 +1245,8 @@ const amygdalaConfig: ChartConfig = {
 export function AmygdalaActivityChart() {
   return (
     <ChartFrame
+      data={amygdalaActivityData}
+      config={amygdalaConfig}
       title="Amygdala Hyperactivity in PTSD"
       subtitle="Amygdala activation levels during trauma reminders vs. baseline and after treatment"
       source={
@@ -1112,6 +1296,8 @@ const brainRegionsConfig: ChartConfig = {
 export function BrainRegionsTraumaChart() {
   return (
     <ChartFrame
+      data={brainRegionsData}
+      config={brainRegionsConfig}
       title="Brain Region Changes in PTSD"
       subtitle="Percentage change in activity/volume compared to non-traumatized controls"
       source={
@@ -1159,6 +1345,8 @@ const neurotransmitterConfig: ChartConfig = {
 export function NeurotransmitterLevelsChart() {
   return (
     <ChartFrame
+      data={neurotransmitterData}
+      config={neurotransmitterConfig}
       title="Neurotransmitter Levels: Normal vs. PTSD"
       subtitle="Comparison of neurochemical levels (100% = healthy baseline)"
       source={
@@ -1210,6 +1398,8 @@ const cortisolConfig: ChartConfig = {
 export function CortisolPatternChart() {
   return (
     <ChartFrame
+      data={cortisolPatternData}
+      config={cortisolConfig}
       title="Daily Cortisol Patterns"
       subtitle="Normal vs. PTSD cortisol rhythms throughout the day"
       source={
@@ -1260,6 +1450,8 @@ const polyvagalConfig: ChartConfig = {
 export function PolyvagalStatesChart() {
   return (
     <ChartFrame
+      data={polyvagalStatesData}
+      config={polyvagalConfig}
       title="Polyvagal Theory: The Three States"
       subtitle="Characteristics of each autonomic nervous system state"
       source={
@@ -1304,6 +1496,8 @@ const ptsdSymptomsConfig: ChartConfig = {
 export function PTSDSymptomsChart() {
   return (
     <ChartFrame
+      data={ptsdSymptomsData}
+      config={ptsdSymptomsConfig}
       title="PTSD Symptom Clusters"
       subtitle="Prevalence of each symptom cluster in PTSD patients"
       source={
@@ -1356,6 +1550,8 @@ const complexPTSDConfig: ChartConfig = {
 export function ComplexPTSDChart() {
   return (
     <ChartFrame
+      data={complexPTSDData}
+      config={complexPTSDConfig}
       title="Complex PTSD vs. Standard PTSD"
       subtitle="Disturbances in Self-Organization (DSO) symptoms"
       source={
@@ -1404,6 +1600,8 @@ const brainHealingConfig: ChartConfig = {
 export function BrainHealingChart() {
   return (
     <ChartFrame
+      data={brainHealingData}
+      config={brainHealingConfig}
       title="Brain Changes with Trauma Treatment"
       subtitle="Neurological measures before and after evidence-based trauma therapy (100% = healthy baseline)"
       source={
@@ -1450,6 +1648,8 @@ const actHexaflexConfig: ChartConfig = {
 export function ACTHexaflexChart() {
   return (
     <ChartFrame
+      data={actHexaflexData}
+      config={actHexaflexConfig}
       title="The ACT Hexaflex: Six Core Processes"
       subtitle="Psychological flexibility develops through strengthening all six interconnected processes"
       source={
@@ -1493,6 +1693,8 @@ const familyDysfunctionConfig: ChartConfig = {
 export function FamilyDysfunctionChart() {
   return (
     <ChartFrame
+      data={familyDysfunctionData}
+      config={familyDysfunctionConfig}
       title="Common Dysfunctional Family Patterns"
       subtitle="Prevalence of dysfunctional patterns in families with identified dysfunction"
       source={
@@ -1543,6 +1745,8 @@ const childhoodTimelineConfig: ChartConfig = {
 export function ChildhoodTraumaTimelineChart() {
   return (
     <ChartFrame
+      data={childhoodTraumaTimelineData}
+      config={childhoodTimelineConfig}
       title="Trauma Impact by Developmental Stage"
       subtitle="Earlier trauma during critical periods has greater developmental impact"
       source={
@@ -1593,6 +1797,8 @@ const relationshipSafetyConfig: ChartConfig = {
 export function RelationshipSafetyChart() {
   return (
     <ChartFrame
+      data={relationshipSafetyData}
+      config={relationshipSafetyConfig}
       title="Relationship Safety Indicators"
       subtitle="Comparison of safety indicators across relationship health levels"
       source={
@@ -1641,6 +1847,8 @@ const windowToleranceConfig: ChartConfig = {
 export function WindowToleranceChart() {
   return (
     <ChartFrame
+      data={windowToleranceData}
+      config={windowToleranceConfig}
       title="The Window of Tolerance"
       subtitle="Arousal states and optimal functioning zones"
       source={
@@ -1687,6 +1895,8 @@ const adultTraumaTypesConfig: ChartConfig = {
 export function AdultTraumaTypesChart() {
   return (
     <ChartFrame
+      data={adultTraumaTypesData}
+      config={adultTraumaTypesConfig}
       title="Common Types of Adult Trauma"
       subtitle="Prevalence of different trauma types in adult populations"
       source={
@@ -1738,6 +1948,8 @@ const groundingTechniquesConfig: ChartConfig = {
 export function GroundingTechniquesChart() {
   return (
     <ChartFrame
+      data={groundingTechniquesData}
+      config={groundingTechniquesConfig}
       title="Grounding Techniques Effectiveness"
       subtitle="Effectiveness ratings for common grounding techniques"
       source={
@@ -1791,6 +2003,8 @@ const copingStrategiesConfig: ChartConfig = {
 export function CopingStrategiesChart() {
   return (
     <ChartFrame
+      data={copingStrategiesData}
+      config={copingStrategiesConfig}
       title="Coping Strategies: Adaptive vs. Maladaptive"
       subtitle="Comparison of healthy and unhealthy coping mechanisms"
       source={
@@ -1836,6 +2050,8 @@ const resilienceFactorsConfig: ChartConfig = {
 export function ResilienceFactorsChart() {
   return (
     <ChartFrame
+      data={resilienceFactorsData}
+      config={resilienceFactorsConfig}
       title="Key Resilience Factors"
       subtitle="Factors that contribute to post-trauma resilience"
       source={
@@ -1890,6 +2106,8 @@ const spiritualPracticesConfig: ChartConfig = {
 export function SpiritualPracticesChart() {
   return (
     <ChartFrame
+      data={spiritualPracticesData}
+      config={spiritualPracticesConfig}
       title="Spiritual Practices in Recovery"
       subtitle="Benefits and adoption rates of spiritual practices"
       source={
@@ -1937,6 +2155,8 @@ const recoveryValuesConfig: ChartConfig = {
 export function RecoveryValuesChart() {
   return (
     <ChartFrame
+      data={recoveryValuesData}
+      config={recoveryValuesConfig}
       title="Core Values in Recovery"
       subtitle="Values commonly prioritized by those in trauma recovery"
       source={
@@ -1994,6 +2214,8 @@ const treatmentModalitiesConfig: ChartConfig = {
 export function TreatmentModalitiesChart() {
   return (
     <ChartFrame
+      data={treatmentModalitiesData}
+      config={treatmentModalitiesConfig}
       title="Treatment Modality Effectiveness"
       subtitle="Effectiveness of trauma treatment approaches by condition"
       source={
@@ -2042,6 +2264,8 @@ const cognitiveDistortionsConfig: ChartConfig = {
 export function CognitiveDistortionsChart() {
   return (
     <ChartFrame
+      data={cognitiveDistortionsData}
+      config={cognitiveDistortionsConfig}
       title="Common Cognitive Distortions in Trauma"
       subtitle="Prevalence of thinking errors among trauma survivors"
       source={
@@ -2100,6 +2324,8 @@ const mindfulnessBenefitsConfig: ChartConfig = {
 export function MindfulnessBenefitsChart() {
   return (
     <ChartFrame
+      data={mindfulnessBenefitsData}
+      config={mindfulnessBenefitsConfig}
       title="Mindfulness Practice Benefits Over Time"
       subtitle="Improvements from regular mindfulness practice"
       source={
@@ -2147,6 +2373,8 @@ const somaticTherapyConfig: ChartConfig = {
 export function SomaticTherapyChart() {
   return (
     <ChartFrame
+      data={somaticTherapyData}
+      config={somaticTherapyConfig}
       title="Somatic Therapy Techniques"
       subtitle="Effectiveness of body-based trauma interventions"
       source={
@@ -2203,6 +2431,8 @@ const emdrPhasesConfig: ChartConfig = {
 export function EMDRPhasesChart() {
   return (
     <ChartFrame
+      data={emdrPhasesData}
+      config={emdrPhasesConfig}
       title="EMDR Treatment Phases"
       subtitle="The 8-phase EMDR protocol"
       source={
@@ -2256,6 +2486,8 @@ const boundaryTypesConfig: ChartConfig = {
 export function BoundaryTypesChart() {
   return (
     <ChartFrame
+      data={boundaryTypesData}
+      config={boundaryTypesConfig}
       title="Types of Boundaries"
       subtitle="Distribution of boundary styles across different areas"
       source={
@@ -2310,6 +2542,8 @@ const innerChildHealingConfig: ChartConfig = {
 export function InnerChildHealingChart() {
   return (
     <ChartFrame
+      data={innerChildHealingData}
+      config={innerChildHealingConfig}
       title="Inner Child Healing Progress"
       subtitle="Typical healing trajectory in inner child work"
       source={
@@ -2356,6 +2590,8 @@ const distressToleranceConfig: ChartConfig = {
 export function DistressToleranceSkillsChart() {
   return (
     <ChartFrame
+      data={distressToleranceData}
+      config={distressToleranceConfig}
       title="DBT Distress Tolerance Skills"
       subtitle="Effectiveness ratings for crisis survival skills"
       source={
@@ -2412,6 +2648,8 @@ const interpersonalEffectivenessConfig: ChartConfig = {
 export function InterpersonalEffectivenessChart() {
   return (
     <ChartFrame
+      data={interpersonalEffectivenessData}
+      config={interpersonalEffectivenessConfig}
       title="DBT Interpersonal Effectiveness Skills"
       subtitle="When to use each skill set"
       source={
@@ -2454,6 +2692,8 @@ const sexAddictionPrevalenceConfig: ChartConfig = {
 export function SexAddictionPrevalenceChart() {
   return (
     <ChartFrame
+      data={sexAddictionPrevalenceData}
+      config={sexAddictionPrevalenceConfig}
       title="Sex Addiction Prevalence by Population"
       subtitle="Estimated prevalence of compulsive sexual behavior disorder across populations"
       source={
@@ -2502,6 +2742,8 @@ const sexAddictionBrainConfig: ChartConfig = {
 export function SexAddictionBrainChart() {
   return (
     <ChartFrame
+      data={sexAddictionBrainData}
+      config={sexAddictionBrainConfig}
       title="Brain Region Activity: Sex Addiction vs. Healthy Controls"
       subtitle="Relative activation levels in key brain regions during sexual cue exposure"
       source={
@@ -2543,6 +2785,8 @@ const sexAddictionTraumaConfig: ChartConfig = {
 export function SexAddictionTraumaChart() {
   return (
     <ChartFrame
+      data={sexAddictionTraumaData}
+      config={sexAddictionTraumaConfig}
       title="Childhood Trauma in Sex Addiction"
       subtitle="Percentage of sex addicts reporting specific childhood trauma types"
       source={
@@ -2589,6 +2833,8 @@ const carnesCycleConfig: ChartConfig = {
 export function CarnesAddictionCycleChart() {
   return (
     <ChartFrame
+      data={carnesCycleData}
+      config={carnesCycleConfig}
       title="Carnes' Four-Phase Addiction Cycle"
       subtitle="Relative neurochemical intensity and duration of each phase"
       source={
@@ -2629,6 +2875,8 @@ const sexAddictionBeliefsConfig: ChartConfig = {
 export function SexAddictionBeliefsChart() {
   return (
     <ChartFrame
+      data={sexAddictionBeliefsData}
+      config={sexAddictionBeliefsConfig}
       title="Core Belief System in Sex Addiction"
       subtitle="Percentage of sex addicts endorsing core distorted beliefs"
       source={
@@ -2665,11 +2913,25 @@ const threeCirclesData = [
   { name: "Outer Circle (Healthy)", value: 45, fill: "hsl(var(--chart-2))" },
 ];
 
+/**
+ * The one plotted figure with no table behind it.
+ *
+ * Its slices are drawn at 20, 35 and 45 per cent for legibility and mean
+ * nothing, as the source note says. Tabulating those numbers would present an
+ * illustration as a measurement, so it carries a description instead.
+ */
 export function ThreeCirclesChart() {
   return (
     <ChartFrame
       title="Three Circles Model of Sexual Recovery"
       subtitle="Framework for defining personal sexual sobriety"
+      description={
+        "Three concentric circles. The inner circle holds the behaviours that " +
+        "count as acting out, the middle circle the ones that lead there, and " +
+        "the outer circle the healthy activity that recovery is for. What goes " +
+        "in each is defined by the individual. The areas drawn are illustrative " +
+        "and carry no meaning."
+      }
       source={
         <>
           The three-circle tool as used in Sex Addicts Anonymous, <em>Sex Addicts
@@ -2709,6 +2971,8 @@ const loveAddictionPatternsConfig: ChartConfig = {
 export function LoveAddictionPatternsChart() {
   return (
     <ChartFrame
+      data={loveAddictionPatternsData}
+      config={loveAddictionPatternsConfig}
       title="Love Addiction vs. Love Avoidance Patterns"
       subtitle="Comparison of behavioral patterns in love addiction and love avoidance"
       source={
@@ -2751,6 +3015,8 @@ const traumaBondingConfig: ChartConfig = {
 export function TraumaBondingCycleChart() {
   return (
     <ChartFrame
+      data={traumaBondingData}
+      config={traumaBondingConfig}
       title="Trauma Bonding Cycle"
       subtitle="Intermittent reinforcement patterns that create powerful trauma bonds"
       source={
@@ -2792,6 +3058,8 @@ const meadowsTreatmentConfig: ChartConfig = {
 export function MeadowsTreatmentModelChart() {
   return (
     <ChartFrame
+      data={meadowsTreatmentData}
+      config={meadowsTreatmentConfig}
       title="Meadows Treatment Components & Effectiveness"
       subtitle="Patient-reported benefit ratings for key Meadows treatment modalities"
       source={
@@ -2841,6 +3109,8 @@ const meadowsOutcomeConfig: ChartConfig = {
 export function MeadowsOutcomeChart() {
   return (
     <ChartFrame
+      data={meadowsOutcomeData}
+      config={meadowsOutcomeConfig}
       title="Recovery Outcomes Over Time"
       subtitle="Trajectory of sobriety maintenance, well-being, and relationship quality during recovery"
       source={
@@ -2883,6 +3153,8 @@ const sexAddictionRecoveryProgressConfig: ChartConfig = {
 export function SexAddictionRecoveryProgressChart() {
   return (
     <ChartFrame
+      data={sexAddictionRecoveryProgressData}
+      config={sexAddictionRecoveryProgressConfig}
       title="Recovery Progress Through the Three Circles"
       subtitle="Shift in behavioral patterns across recovery stages"
       source={
@@ -2927,6 +3199,8 @@ const sexAddictionRecoveryRoadmapConfig: ChartConfig = {
 export function SexAddictionRecoveryRoadmapChart() {
   return (
     <ChartFrame
+      data={sexAddictionRecoveryRoadmapData}
+      config={sexAddictionRecoveryRoadmapConfig}
       title="Sex Addiction Recovery Milestones"
       subtitle="Key recovery milestones and typical completion rates in sex addiction treatment"
       source={
@@ -2973,6 +3247,8 @@ const treatmentAccessConfig: ChartConfig = {
 export function TreatmentAccessChart() {
   return (
     <ChartFrame
+      data={treatmentAccessData}
+      config={treatmentAccessConfig}
       title="Treatment Options: Accessibility & Availability"
       subtitle="Relative accessibility and national availability of sex addiction treatment options"
       source={
@@ -3079,6 +3355,8 @@ const heritabilityConfig: ChartConfig = {
 export function AddictionHeritabilityChart() {
   return (
     <ChartFrame
+      data={heritabilityData}
+      config={heritabilityConfig}
       title="How Heritable Is Addiction?"
       subtitle={
         <>
@@ -3132,6 +3410,8 @@ const dopamineKineticsConfig: ChartConfig = {
 export function DopamineRateChart() {
   return (
     <ChartFrame
+      data={dopamineKineticsData}
+      config={dopamineKineticsConfig}
       title="It's Not How Much — It's How Fast"
       subtitle={
         <>
@@ -3189,6 +3469,8 @@ const alcoholConfig: ChartConfig = {
 export function AlcoholGabaGlutamateChart() {
   return (
     <ChartFrame
+      data={alcoholNeurotransmitterData}
+      config={alcoholConfig}
       title="Why the Hangover Gets Worse: GABA and Glutamate"
       subtitle={
         <>
@@ -3248,6 +3530,8 @@ const relationshipTypesConfig: ChartConfig = {
 export function RelationshipTypesChart() {
   return (
     <ChartFrame
+      data={relationshipTypesData}
+      config={relationshipTypesConfig}
       title="Three Ways a Relationship Can Go"
       subtitle={
         <>
@@ -3308,6 +3592,8 @@ const sobrietyChallengesConfig: ChartConfig = {
 export function SobrietyChallengesChart() {
   return (
     <ChartFrame
+      data={sobrietyChallengesData}
+      config={sobrietyChallengesConfig}
       title="Every Challenge Has Two Failure Modes"
       subtitle={
         <>
@@ -3354,6 +3640,8 @@ const recoveryStagesConfig: ChartConfig = {
 export function CarnesRecoveryStagesChart() {
   return (
     <ChartFrame
+      data={recoveryStagesData}
+      config={recoveryStagesConfig}
       title="The Stages Overlap"
       subtitle={
         <>
@@ -3404,6 +3692,8 @@ const worryWindowConfig: ChartConfig = {
 export function WorryWindowChart() {
   return (
     <ChartFrame
+      data={worryWindowData}
+      config={worryWindowConfig}
       title="Widen the Window, and the Worry Shrinks"
       subtitle={
         <>
@@ -3474,6 +3764,8 @@ const enufCurveConfig: ChartConfig = {
 export function FunctionalAdultCurveChart() {
   return (
     <ChartFrame
+      data={enufCurveData}
+      config={enufCurveConfig}
       title={<>"Enough" Is the Middle of the Curve</>}
       subtitle={
         <>
@@ -4417,6 +4709,8 @@ const relapsePrecipitantConfig: ChartConfig = {
 export function RelapsePrecipitantsChart() {
   return (
     <ChartFrame
+      data={relapsePrecipitantData}
+      config={relapsePrecipitantConfig}
       title="What Actually Precedes a Relapse"
       subtitle="Situations reported at the point of first use, across substances"
       source={

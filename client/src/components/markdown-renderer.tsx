@@ -278,14 +278,26 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
 
             return <code className={className}>{children}</code>;
           },
+          th: ({ children, ...props }) => {
+            // A comparison table's corner cell heads nothing, and an empty
+            // `<th>` claims to. HTML's answer is a `<td>`; markdown has no way
+            // to say it, so it is said here. Five tables in the book have one.
+            const empty = children == null || (Array.isArray(children) && children.length === 0);
+            return empty ? <td /> : <th {...props}>{children}</th>;
+          },
           pre: ({ children }) => {
             // A fenced chart block renders a full-width figure, not a code block.
             const kids = Array.isArray(children) ? children : [children];
             if (showCharts && kids.some(isChartElement)) {
               return <>{children}</>;
             }
+            // `text-foreground` is load-bearing: the typography plugin styles
+            // `pre` for a dark block and sets the code colour to gray-200,
+            // which against `bg-muted` measured a contrast ratio of 1.01 — the
+            // book's one ASCII diagram was invisible in light mode, not merely
+            // hard to read.
             return (
-              <pre className="mb-6 overflow-x-auto rounded-md bg-muted p-4 text-sm">
+              <pre className="mb-6 overflow-x-auto rounded-md bg-muted p-4 text-sm text-foreground">
                 {children}
               </pre>
             );

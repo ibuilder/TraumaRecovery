@@ -22,8 +22,8 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="font-semibold">Quick Links</h3>
-            <nav className="space-y-2">
+            <h2 className="font-semibold">Quick Links</h2>
+            <nav className="space-y-2" aria-label="Quick links">
               <Link href="/" className="block text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-home">
                 Home
               </Link>
@@ -34,8 +34,8 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="font-semibold">Chapters</h3>
-            <nav className="space-y-2">
+            <h2 className="font-semibold">Chapters</h2>
+            <nav className="space-y-2" aria-label="Chapters">
               {chapters.slice(0, 5).map((chapter) => (
                 <Link
                   key={chapter.id}
@@ -50,10 +50,10 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="font-semibold flex items-center gap-2">
+            <h2 className="font-semibold flex items-center gap-2">
               <Phone className="h-4 w-4" />
               Crisis Resources
-            </h3>
+            </h2>
             <div className="space-y-3 text-sm">
               <div>
                 <p className="font-medium">National Suicide Prevention</p>

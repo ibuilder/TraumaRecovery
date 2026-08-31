@@ -104,7 +104,7 @@ Playwright, against a real production build served the way GitHub Pages serves i
 base path and `404.html` fallback included. Every defect these catch only appears in the
 built, base-pathed site.
 
-- **`tests/site.spec.ts`** walks all 90 routes, derived from the manifest rather than
+- **`tests/site.spec.ts`** walks all 89 routes, derived from the manifest rather than
   listed, and fails on a console error, a React key warning, a blank `<main>`, an
   unresolved chart placeholder, or a page whose figure count does not match its markdown.
   Then search, the skip link, and `prefers-reduced-motion`.
@@ -116,7 +116,55 @@ built, base-pathed site.
   extracted perfectly while being visibly wrong on paper, which is why they are measured
   rather than eyeballed.
 
+- **`tests/a11y.spec.ts`** runs axe-core over all 89 routes, then checks what axe
+  cannot: that every figure has an accessible name, that every drawing hands over
+  its content — as a data table or as its own `<desc>` — and that no drawing takes
+  a Tab stop.
+
 Generating the book takes about two minutes; `npm run test:site` skips it.
+
+### Reading the figures without seeing them
+
+This book is largely made of statistics, and until recently a screen reader got
+almost none of them. Recharts draws into an SVG it marks `role="application"`,
+which is the most hostile role in ARIA: it tells the reader to stop interpreting
+the content and forward keystrokes to the widget. What came out of one was the
+`<text>` nodes in paint order —
+
+```
+"0%" "15%" "30%" "45%" "60%" "General Population" "Women" "Men" ... "3.9%" "8%"
+```
+
+— the categories and their values in separate runs with nothing tying them
+together. On the radars and pies the values are not in the SVG at all, so the
+data was simply absent. Every one of those surfaces also took a Tab stop that
+announced nothing.
+
+So each of the 67 plotted figures now carries its own numbers as a real table,
+behind a **Show the numbers** disclosure, and the drawing is marked `inert` —
+which takes it out of both the accessibility tree and the tab order, rather than
+hiding it from a screen reader while leaving it focusable. The figure is named
+by its title, so it announces as "figure, PTSD Prevalence by Population".
+
+The remaining 22 figures needed nothing: they are hand-drawn, and every one that
+is SVG already carries a `<title>` and `<desc>` while the rest are laid out in
+plain HTML that reads as it stands.
+
+One figure is deliberately not tabulated. The Three Circles pie is drawn at 20,
+35 and 45 per cent for legibility and the sizes mean nothing, as its own source
+note says; a table of those numbers would present an illustration as a
+measurement. It carries a written description instead.
+
+The table is worth having sighted too — the exact figure behind a bar used to
+require hovering it — and the ebook now ships the same tables as XHTML, so they
+reflow and scale with the reader's type size in a way a bitmap of a bar chart
+cannot.
+
+Sweeping all 89 routes rather than a sample also turned up two things a spot
+check missed: five comparison tables whose empty corner cells — seven of them —
+were marked up as a `<th>` that heads nothing, and the CBT triangle — the book's one ASCII diagram —
+sitting at a contrast ratio of **1.01**, which is to say invisible to everyone in
+light mode, not merely hard to read.
 
 ### Print readiness
 
