@@ -6,63 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Download, Loader2 } from "lucide-react";
 import { bookInfo, loadAllChapters } from "@/lib/chapters";
 import type { Chapter } from "@/lib/chapters";
-import {
-  PTSDPrevalenceChart, ACEsPrevalenceChart, RecoveryTimelineChart,
-  TraumaAddictionChart, TherapyEffectivenessChart, AttachmentStylesChart,
-  ACEsHealthRiskChart, PostTraumaticGrowthChart, IPVPTSDChart,
-  DBTSkillsChart, PhysicalWellnessChart, ExerciseImpactChart,
-  FourPillarsChart, EmotionalRegulationChart, MentalWellnessChart,
-  SocialConnectionChart, NutritionImpactChart, SleepRecoveryChart,
-  AmygdalaActivityChart, BrainRegionsTraumaChart, NeurotransmitterLevelsChart,
-  CortisolPatternChart, PolyvagalStatesChart, PTSDSymptomsChart,
-  ComplexPTSDChart, BrainHealingChart, WindowToleranceChart,
-  ACTHexaflexChart, FamilyDysfunctionChart, ChildhoodTraumaTimelineChart,
-  RelationshipSafetyChart, AdultTraumaTypesChart, GroundingTechniquesChart,
-  CopingStrategiesChart, ResilienceFactorsChart, SpiritualPracticesChart,
-  RecoveryValuesChart, TreatmentModalitiesChart, CognitiveDistortionsChart,
-  MindfulnessBenefitsChart, SomaticTherapyChart, EMDRPhasesChart,
-  BoundaryTypesChart, InnerChildHealingChart, DistressToleranceSkillsChart,
-  InterpersonalEffectivenessChart, SexAddictionPrevalenceChart,
-  SexAddictionBrainChart, SexAddictionTraumaChart, CarnesAddictionCycleChart,
-  SexAddictionBeliefsChart, ThreeCirclesChart, LoveAddictionPatternsChart,
-  TraumaBondingCycleChart, MeadowsTreatmentModelChart, MeadowsOutcomeChart,
-  SexAddictionRecoveryProgressChart, SexAddictionRecoveryRoadmapChart,
-  TreatmentAccessChart,
-  AddictionHeritabilityChart,
-  DopamineRateChart,
-  AlcoholGabaGlutamateChart,
-  RelationshipTypesChart,
-  SobrietyChallengesChart,
-  CarnesRecoveryStagesChart,
-  WorryWindowChart,
-  FunctionalAdultCurveChart,
-  DramaTriangleChart,
-  ACATreeChart,
-  CoreSymptomsChart,
-  FourHorsemenChart,
-  BoundaryLadderChart,
-  AttachmentMapChart,
-  CatastrophizingIcebergChart,
-  CBTTriangleChart,
-  CoreBeliefCycleChart,
-  AskIntensityChart,
-  MiddlePathChart,
-  BullseyeChart,
-  FearDareChart,
-  AddictiveSystemChart,
-  ThreeCirclesGuideChart,
-  RelapsePrecipitantsChart,
-  StagesOfChangeChart,
-  ThreeStagesOfRelapseChart,
-  UrgeEscalationChart,
-  SmartFourPointChart,
-  MutualAidComparisonChart,
-  EightPrinciplesChart,
-  DailyPracticeChart,
-  AmendsKindsChart,
-  setChartCaptureMode,
-  PRINT_CHART_PALETTE,
-} from "@/components/trauma-charts";
 
 /**
  * The page grid.
@@ -95,70 +38,17 @@ const FONT_SIZE_H3 = 13;
 const FONT_SIZE_H4 = 11.5;
 const FONT_SIZE_SMALL = 9;
 
-const ALL_CHART_COMPONENTS: Record<string, React.ComponentType> = {
-  PTSDPrevalenceChart, ACEsPrevalenceChart, RecoveryTimelineChart,
-  TraumaAddictionChart, TherapyEffectivenessChart, AttachmentStylesChart,
-  ACEsHealthRiskChart, PostTraumaticGrowthChart, IPVPTSDChart,
-  DBTSkillsChart, PhysicalWellnessChart, ExerciseImpactChart,
-  FourPillarsChart, EmotionalRegulationChart, MentalWellnessChart,
-  SocialConnectionChart, NutritionImpactChart, SleepRecoveryChart,
-  AmygdalaActivityChart, BrainRegionsTraumaChart, NeurotransmitterLevelsChart,
-  CortisolPatternChart, PolyvagalStatesChart, PTSDSymptomsChart,
-  ComplexPTSDChart, BrainHealingChart, WindowToleranceChart,
-  ACTHexaflexChart, FamilyDysfunctionChart, ChildhoodTraumaTimelineChart,
-  RelationshipSafetyChart, AdultTraumaTypesChart, GroundingTechniquesChart,
-  CopingStrategiesChart, ResilienceFactorsChart, SpiritualPracticesChart,
-  RecoveryValuesChart, TreatmentModalitiesChart, CognitiveDistortionsChart,
-  MindfulnessBenefitsChart, SomaticTherapyChart, EMDRPhasesChart,
-  BoundaryTypesChart, InnerChildHealingChart, DistressToleranceSkillsChart,
-  InterpersonalEffectivenessChart, SexAddictionPrevalenceChart,
-  SexAddictionBrainChart, SexAddictionTraumaChart, CarnesAddictionCycleChart,
-  SexAddictionBeliefsChart, ThreeCirclesChart, LoveAddictionPatternsChart,
-  TraumaBondingCycleChart, MeadowsTreatmentModelChart, MeadowsOutcomeChart,
-  SexAddictionRecoveryProgressChart, SexAddictionRecoveryRoadmapChart,
-  TreatmentAccessChart,
-  AddictionHeritabilityChart,
-  DopamineRateChart,
-  AlcoholGabaGlutamateChart,
-  RelationshipTypesChart,
-  SobrietyChallengesChart,
-  CarnesRecoveryStagesChart,
-  WorryWindowChart,
-  FunctionalAdultCurveChart,
-  DramaTriangleChart,
-  ACATreeChart,
-  CoreSymptomsChart,
-  FourHorsemenChart,
-  BoundaryLadderChart,
-  AttachmentMapChart,
-  CatastrophizingIcebergChart,
-  CBTTriangleChart,
-  CoreBeliefCycleChart,
-  AskIntensityChart,
-  MiddlePathChart,
-  BullseyeChart,
-  FearDareChart,
-  AddictiveSystemChart,
-  ThreeCirclesGuideChart,
-  RelapsePrecipitantsChart,
-  StagesOfChangeChart,
-  ThreeStagesOfRelapseChart,
-  UrgeEscalationChart,
-  SmartFourPointChart,
-  MutualAidComparisonChart,
-  EightPrinciplesChart,
-  DailyPracticeChart,
-  AmendsKindsChart,
-};
-
 /** Every chart placeholder the book actually references, in first-use order. */
-function collectReferencedCharts(chapters: Chapter[]): string[] {
+function collectReferencedCharts(
+  chapters: Chapter[],
+  components: Record<string, React.ComponentType>
+): string[] {
   const seen = new Set<string>();
   for (const chapter of chapters) {
     const sources = [chapter.content, ...chapter.subchapters.map((s) => s.content)];
     for (const source of sources) {
       for (const match of source.matchAll(/chart:(\w+)/g)) {
-        if (ALL_CHART_COMPONENTS[match[1]]) seen.add(match[1]);
+        if (components[match[1]]) seen.add(match[1]);
       }
     }
   }
@@ -1228,6 +1118,16 @@ function figureTitle(componentName: string): string {
 
 type Html2Canvas = typeof import("html2canvas").default;
 
+/**
+ * The figures, loaded when someone asks for the PDF rather than imported.
+ *
+ * A static import here put all ninety-one of them — 154 kB gzipped, the single
+ * largest thing on the page — onto the home page, because the download button
+ * is lazy but its module is not. Measured: the home page fetched 349 kB and 44
+ * per cent of it was charts nobody had asked to see.
+ */
+type ChartsModule = typeof import("@/components/chart-registry");
+
 /** A captured chart plus its real pixel aspect, so the PDF can size it without guessing. */
 interface ChartImage {
   dataUrl: string;
@@ -1237,8 +1137,10 @@ interface ChartImage {
 async function captureCharts(
   chartNames: string[],
   html2canvas: Html2Canvas,
+  charts: ChartsModule,
   onProgress: (msg: string) => void
 ): Promise<Record<string, ChartImage>> {
+  const { ALL_CHART_COMPONENTS, PRINT_CHART_PALETTE, setChartCaptureMode } = charts;
   const chartImages: Record<string, ChartImage> = {};
 
   // Offscreen host for the charts we mount one at a time.
@@ -1313,15 +1215,16 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
   // jsPDF + html2canvas are ~600 kB, and the full book text is over a megabyte.
   // None of it is fetched until someone actually asks for the PDF.
   onProgress("Loading the book...");
-  const [{ jsPDF: JsPDF }, { default: html2canvas }, chapters] = await Promise.all([
+  const [{ jsPDF: JsPDF }, { default: html2canvas }, charts, chapters] = await Promise.all([
     import("jspdf"),
     import("html2canvas"),
+    import("@/components/chart-registry"),
     loadAllChapters(),
   ]);
 
-  const referencedCharts = collectReferencedCharts(chapters);
+  const referencedCharts = collectReferencedCharts(chapters, charts.ALL_CHART_COMPONENTS);
   onProgress(`Capturing ${referencedCharts.length} charts (this takes a minute)...`);
-  const chartImages = await captureCharts(referencedCharts, html2canvas, onProgress);
+  const chartImages = await captureCharts(referencedCharts, html2canvas, charts, onProgress);
 
   onProgress("Building PDF...");
   const doc = new JsPDF({ unit: "mm", format: "letter", orientation: "portrait" });

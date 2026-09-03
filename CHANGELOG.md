@@ -52,6 +52,35 @@ also gives it a `<desc>` and arrows running both ways, which is the point of the
 model. `validate:content` rejects any new non-chart fence, and the exporter warns
 rather than skipping in silence.
 
+### The home page stopped downloading the whole book's figures
+
+Measured, not guessed: the home page fetched **349 kB** gzipped and 44 per cent
+of it was `trauma-charts` — all ninety-one figures, on a page that shows none.
+
+The download button is lazily loaded, and its comment said the exporter is not
+fetched "until someone actually asks for the PDF". That was half true. React
+resolves a `lazy()` import when the component renders, and the button renders
+on load, so the module arrived immediately — and it imported every chart
+statically, because it needs them when someone clicks Download. The charts now
+load inside the same dynamic import as jsPDF, where they were always meant to
+be. **Home is 194 kB.**
+
+The two registries — ninety-one entries in the markdown renderer, ninety-one
+more in the exporter — are gone, replaced by one derived from the module's own
+exports in `chart-registry.ts`. 282 lines removed. Adding a figure used to mean
+editing three files, and a figure registered in one map but not the other would
+render on the website and be silently missing from the printed book. They were
+in sync; nothing was keeping them there.
+
+`validate:content` now fails if a component renders a `<ChartFrame>` but the
+registry cannot see it. The first version of that check was vacuous — it
+compared the naming convention against itself and could never fail — so it
+looks for what a figure *is* rather than what it is called.
+
+Chapter pages are unchanged at 485 kB: a chapter with figures needs them. The
+31 routes that carry none still pay for them, which is the next thing worth
+doing and wants a Suspense boundary per figure.
+
 ### The fonts are served from this origin
 
 Open Sans came from Google on every page load. Three reasons that is the wrong

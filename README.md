@@ -310,9 +310,15 @@ Some prose.
 ```chart:TherapyEffectivenessChart```
 ```
 
-The name must match an exported component in `client/src/components/trauma-charts.tsx`.
-The same placeholder is understood by the PDF exporter, which renders the chart offscreen and
-embeds it as an image.
+The name must match an exported component in `client/src/components/trauma-charts.tsx`, and
+it has to end in `Chart` — `chart-registry.ts` finds the figures by that convention rather
+than by a hand-written map, so a component named otherwise is invisible to it. The same
+placeholder is understood by the PDF exporter, which renders the chart offscreen and embeds
+it as an image, and by the EPUB builder.
+
+Nothing else needs editing. There used to be two registries of ninety-one entries — one in
+the renderer, one in the exporter — so a new figure had to be added in three places, and one
+added to only one of them would appear on the website and be silently absent from the book.
 
 ### Content rules
 
@@ -322,7 +328,8 @@ previously shipped:
 - chapter and subchapter `id`s are unique (duplicates cause React key collisions in the sidebar)
 - `order` matches the position in the array (navigation follows the array, badges show `order`)
 - every chapter and subchapter body starts with an `# H1`
-- every `chart:Name` placeholder resolves to a real component
+- every `chart:Name` placeholder resolves to a real component, and every component that
+  renders a `<ChartFrame>` is one the registry can actually see
 - `manifest.ts` and `search-index.json` are in step with the chapter modules — both are
   generated, and a stale one means chapters go missing from navigation or from search
 

@@ -98,7 +98,8 @@ tests/
 - **91 figures** — Recharts plots for data, inline SVG and markup for diagrams; every
   plot carries its numbers as a table and every diagram describes itself, so the whole
   set is readable without seeing it
-- **Full-book PDF export** generated client-side (jsPDF + html2canvas, lazy-loaded)
+- **Full-book PDF export** generated client-side (jsPDF + html2canvas and the 91 figures,
+  none of it fetched until someone asks for the PDF)
 - **Markdown rendering** with react-markdown and remark-gfm
 - **Dark/light theme** with system preference detection
 - **Reading progress bar** for tracking position
