@@ -24,7 +24,8 @@ Not in the original plan and also done: the **printed book** as an object (embed
 fonts, 300 DPI figures, a greyscale-safe palette, KDP preflight), the **Kindle EPUB**
 with its own preflight, **axe-core over all 89 routes** plus figure data tables, the
 **fonts served from this origin**, and a **Pages preflight** that makes a blank-page
-deploy impossible to ship. `CHANGELOG.md` has the detail.
+deploy impossible to ship, a **secret scan** on every push, and the vendored UI kit
+cut to the twelve components the site reaches. `CHANGELOG.md` has the detail.
 
 ---
 
@@ -295,18 +296,23 @@ skip link had no single target.
 Everything above is history. This is the queue, top first. Each item says why it is
 where it is, so the order can be argued with.
 
-### 1. Purge `attached_assets/` before the repository is public
+### 1. Purge `attached_assets/` from git history
 
-22 MB of unimported files, including **two copies of a third-party treatment centre's
-outpatient manual**. Publishing the repository publishes the manual. This is first
-because it is the only open item that gets *worse* with time: every day the repository
-is public is a day the manual is fetchable, and every commit added makes the history
-rewrite more disruptive.
+**Half done, and the remaining half is the half that matters.** The directory is gone
+from the working tree and `.gitignore`d, so a clone, a `git archive` or a GitHub zip
+download no longer contains it. **The blobs are still in every commit that carried
+them** — two copies of a third-party treatment centre's outpatient manual, 22 MB —
+and anyone who thinks to look in the history will find them.
 
-Deleting the directory is a one-liner. Purging it from history is `git filter-repo`,
-which rewrites every SHA and needs coordinating with any open branch — so it wants to
-be its own action on a quiet day, not folded into a feature branch. **Needs the author
-to pick the day.**
+Finishing it is `git filter-repo`, which rewrites every SHA. That needs coordinating
+with the open branch and any clone anyone holds, so it wants to be its own action on a
+quiet day rather than folded into a feature branch. **Needs the author to pick the
+day.** Pair it with a one-time full-history `gitleaks detect` while the history is
+being rewritten anyway — per-push CI deliberately scans only the working tree, so
+history has never been swept.
+
+Still first because it is the only open item that gets *worse* with time: every commit
+added makes the rewrite more disruptive.
 
 ### 2. Trigger warnings on the heaviest chapters
 
@@ -316,15 +322,7 @@ middle of chapter 4 from a search result with no warning. **Needs the author** �
 content note is a voice, not a component. Second because it affects readers in distress
 and nothing else on this list does.
 
-### 3. Secret and PII scanning in CI
-
-`gitleaks` in the workflow, failing the build on a hit. The book was written from
-photographed clinical notes; a clinician's personal email address and a private file
-link were found and redacted by hand during transcription. Hand-redaction is not a
-control — nothing stops the next paste. This is cheap, mechanical, and it guards
-exactly the failure this repository has already had once.
-
-### 4. The paperback trim
+### 3. The paperback trim
 
 The export passes eight of KDP's ten interior checks. The two failures are one fact
 stated twice: 734 pages fits no trim it could be printed at. See
@@ -332,14 +330,14 @@ stated twice: 734 pages fits no trim it could be printed at. See
 recommendation (two volumes at 6×9). A cover and an ISBN both wait on it. **Needs the
 author.** The Kindle EPUB depends on none of this and can go up today.
 
-### 5. A linter and a formatter
+### 4. A linter and a formatter
 
 ESLint with `react-hooks` and `jsx-a11y`, plus Prettier. Worth more now than it was:
 the accessibility work put real invariants into the code — `inert` on decorative
 drawings, labelled landmarks, no heading-order skips — and `jsx-a11y` catches a
 regression at the keystroke rather than at the axe sweep six minutes into CI.
 
-### 6. Split `trauma-charts.tsx`
+### 5. Split `trauma-charts.tsx`
 
 Over 5,000 lines and 91 figures in one chunk, where a typical chapter shows one to
 four. The home page no longer pays for it (349 kB → 194 kB gzipped, measured), but the
@@ -347,19 +345,19 @@ four. The home page no longer pays for it (349 kB → 194 kB gzipped, measured),
 Suspense boundary per figure placement, and the risk to watch is visible flicker on a
 page someone is reading, so it needs measuring rather than assuming.
 
-### 7. Decide what the Express server is for
+### 6. Decide what the Express server is for
 
 One `/api/health` endpoint and a static directory, plus a `drizzle.config.ts` and an
 unused `users` table implying a database that does not exist. Either give it a purpose
 or delete it and the four dependencies (`drizzle-orm`, `drizzle-zod`, `pg`, `zod`) that
 exist only to serve it.
 
-### 8. Per-chapter PDF export
+### 7. Per-chapter PDF export
 
 The full book takes about 90 seconds; most readers want one chapter, and the generator
 already works chapter by chapter internally.
 
-### 9. An audio edition
+### 8. An audio edition
 
 A trauma-recovery book has readers who cannot comfortably read: people mid-crisis,
 people with dyslexia, people who would listen on a commute and never open a browser.
@@ -414,6 +412,6 @@ polygon boolean geometry. `DenverCoder1/github-readme-streak-stats` decorates a
 personal GitHub profile, not a book. `charlax/professional-programming` is a reading
 list rather than a tool.
 
-**Taken** — `gitleaks/gitleaks` became item 3 above. `assemblyai.com` is
+**Taken** — `gitleaks/gitleaks` is now the `secrets` job in CI. `assemblyai.com` is
 speech-to-text rather than text-to-speech, so it is not the vendor for item 9, but
 raising it is what put the audio edition on the list at all.
