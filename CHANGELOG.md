@@ -52,6 +52,28 @@ also gives it a `<desc>` and arrows running both ways, which is the point of the
 model. `validate:content` rejects any new non-chart fence, and the exporter warns
 rather than skipping in silence.
 
+### The vendored UI kit is down to what the site uses
+
+47 shadcn/ui components were checked in; **12 were reachable from the app** and
+35 were not. Reachability rather than "is it imported anywhere": four of them —
+`input`, `label`, `separator`, `toggle` — looked used until you notice their
+only importers were themselves unused, so a first pass that counted any import
+would have kept them.
+
+`<Toaster />` was mounted in `App.tsx` and `toast()` is called nowhere in the
+codebase, so every page rendered an empty toast region and shipped the code for
+it. That went too, along with the `use-mobile` hook nothing imported.
+
+**4,806 lines of unused component code, and 30 unreferenced npm dependencies.**
+The dependency list is 56 → 26. A first pass at that would have removed
+`drizzle-orm`, `zod`, `pg` and `date-fns`, which are used by `shared/schema.ts`
+and `drizzle.config.ts` — files the first scan did not look at. `npm ci` from
+the pruned lockfile installs 459 packages and the whole suite still passes.
+
+This changes nothing a reader downloads — unused components were already
+tree-shaken out. It is repository hygiene: less code to audit and a smaller
+supply-chain surface for a repository about to be public.
+
 ### The home page stopped downloading the whole book's figures
 
 Measured, not guessed: the home page fetched **349 kB** gzipped and 44 per cent

@@ -34,7 +34,7 @@ client/
 │   │   ├── theme-provider.tsx    # Dark/light theme context
 │   │   ├── theme-toggle.tsx      # Theme toggle button
 │   │   ├── trauma-charts.tsx     # Data visualization components
-│   │   └── ui/                   # shadcn/ui components
+│   │   └── ui/                   # the 12 shadcn/ui primitives the site uses
 │   ├── lib/
 │   │   ├── chapters/             # Book content, one module per chapter
 │   │   │   ├── index.ts          # Chapter exports
