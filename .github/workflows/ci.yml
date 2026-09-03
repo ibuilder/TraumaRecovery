@@ -74,6 +74,42 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
+  # A book written from photographed clinical notes. A clinician's personal email
+  # address and a private file link were found and redacted by hand during
+  # transcription — hand-redaction is not a control, and nothing stops the next
+  # paste. This is the control.
+  #
+  # `--no-git` scans the working tree rather than history on purpose. Per-push CI
+  # should answer "did this change add a secret", which is a property of the tree;
+  # scanning all history on every push re-asks a question whose answer cannot
+  # change without a history rewrite, and would fail every build until that
+  # rewrite happens rather than at the commit that caused it. The one-time
+  # history audit belongs with that rewrite.
+  secrets:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install gitleaks
+        env:
+          VERSION: 8.30.1
+          SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
+        run: |
+          set -euo pipefail
+          curl -sSLo gitleaks.tar.gz \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_linux_x64.tar.gz"
+          echo "${SHA256}  gitleaks.tar.gz" | sha256sum -c -
+          tar -xzf gitleaks.tar.gz gitleaks
+          sudo install -m 0755 gitleaks /usr/local/bin/gitleaks
+          gitleaks version
+
+      # `--redact` so a finding never puts the secret itself in a public log.
+      # `.gitleaks.toml` extends the default ruleset and exempts two generated
+      # high-entropy files by path; it says why in the file.
+      - name: Scan the working tree
+        run: gitleaks detect --no-git --redact --verbose --config .gitleaks.toml
+
   # Its own job rather than a step after the tests. Building the ebook means
   # screenshotting 87 figures out of a real browser, which takes longer than
   # everything else here put together; run in parallel it costs no wall clock,

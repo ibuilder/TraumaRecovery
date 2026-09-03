@@ -15,3 +15,8 @@ playwright-report
 blob-report
 # EPUB build staging
 dist/epub
+
+# Scratch material that is not part of the site: superseded chapter drafts and
+# two copies of a third-party treatment manual. Removed from the working tree;
+# the blobs are still in git history until that is rewritten separately.
+attached_assets
