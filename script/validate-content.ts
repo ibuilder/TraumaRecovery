@@ -115,6 +115,26 @@ chapters.forEach((chapter, index) => {
   }
 });
 
+// The registry derives itself from the module's exports by name, so a figure
+// component called something that does not end in `Chart` is invisible to it:
+// the placeholder resolves to nothing and the figure is silently absent from
+// the page and the book. A figure is anything that renders a `<ChartFrame>`,
+// which is what this looks for — checking the name against the name would
+// prove nothing, since both sides use the same convention.
+const { ALL_CHART_COMPONENTS } = await import("../client/src/components/chart-registry");
+const registered = new Set(Object.keys(ALL_CHART_COMPONENTS));
+const exportedComponents = [
+  ...chartSource.matchAll(/^export function (\w+)\(\)[\s\S]*?(?=^export |\Z)/gm),
+];
+for (const [body, name] of exportedComponents) {
+  if (!body.includes("<ChartFrame")) continue;
+  check(
+    registered.has(name),
+    `"${name}" renders a figure but is not in the chart registry — a figure ` +
+      `component's name has to end in "Chart" for chart-registry.ts to find it`
+  );
+}
+
 for (const chart of definedCharts) {
   if (!referencedCharts.has(chart)) {
     warnings.push(`chart "${chart}" is defined but never referenced by any chapter`);

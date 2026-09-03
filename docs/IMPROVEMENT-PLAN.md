@@ -317,7 +317,9 @@ Ordered by how much they matter, not by effort.
 
 - **No linter or formatter.** ESLint (`react-hooks`, `jsx-a11y`) and Prettier.
 - **Split `trauma-charts.tsx`** — over 5,000 lines and 91 figures in one lazily-loaded
-  chunk, where a typical chapter shows one to four.
+  chunk, where a typical chapter shows one to four. The home page no longer pays for
+  it (349 kB → 194 kB gzipped, measured); the 31 chapter routes with no figures still
+  do, and fixing that wants a Suspense boundary per figure placement.
 - **Per-chapter PDF export.** The full book takes about 90 seconds; most readers want
   one chapter, and the generator already works chapter by chapter internally.
 - **Prune the ~45 vendored shadcn/ui components** down to the handful in use.
