@@ -296,23 +296,27 @@ skip link had no single target.
 Everything above is history. This is the queue, top first. Each item says why it is
 where it is, so the order can be argued with.
 
-### 1. Purge `attached_assets/` from git history
+### 1. Ask GitHub to garbage-collect the old objects
 
-**Half done, and the remaining half is the half that matters.** The directory is gone
-from the working tree and `.gitignore`d, so a clone, a `git archive` or a GitHub zip
-download no longer contains it. **The blobs are still in every commit that carried
-them** — two copies of a third-party treatment centre's outpatient manual, 22 MB —
-and anyone who thinks to look in the history will find them.
+**The history rewrite is done; this is the half that finishes it.**
+`git filter-repo` ran on 2026-09-04 and was force-pushed to both branches. 79
+commits kept, 0 touching `attached_assets`, `.git` 16 MB → 1.8 MB, working tree
+byte-identical. A fresh clone contains no trace of the directory.
 
-Finishing it is `git filter-repo`, which rewrites every SHA. That needs coordinating
-with the open branch and any clone anyone holds, so it wants to be its own action on a
-quiet day rather than folded into a feature branch. **Needs the author to pick the
-day.** Pair it with a one-time full-history `gitleaks detect` while the history is
-being rewritten anyway — per-push CI deliberately scans only the working tree, so
-history has never been swept.
+But rewriting history does not delete anything from GitHub. The old commits are
+unreferenced and still served at their direct SHA URL, and those SHAs are not
+secret — they are in the pull-request pages and the public events feed. **Until
+GitHub garbage-collects, the third-party manual is still retrievable.** Only
+Support can force that.
 
-Still first because it is the only open item that gets *worse* with time: every commit
-added makes the rewrite more disruptive.
+The ticket is drafted, with the pre-rewrite SHAs and a rollback procedure, in
+[GITHUB-SUPPORT-REQUEST.md](./GITHUB-SUPPORT-REQUEST.md). **Needs the author to
+send it** — and to check first that no fork exists, because a fork keeps its own
+copy of the objects and GitHub will not delete someone else's fork.
+
+While the history is short, run the one-time full-history secret sweep described
+in the same file. Per-push CI scans only the working tree by design, so history
+has never been swept.
 
 ### 2. Trigger warnings on the heaviest chapters
 

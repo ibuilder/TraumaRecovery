@@ -52,6 +52,23 @@ also gives it a `<desc>` and arrows running both ways, which is the point of the
 model. `validate:content` rejects any new non-chart fence, and the exporter warns
 rather than skipping in silence.
 
+### The scratch directory is out of history
+
+`git filter-repo --path attached_assets --invert-paths`, force-pushed to both
+branches. **79 commits kept, 0 touching the directory, `.git` 16 MB → 1.8 MB**,
+and the working tree byte-identical to before — verified with an empty
+`git diff` against the pre-rewrite head, and by cloning the published repository
+fresh and finding no reference to the directory or the manual.
+
+**This does not finish the job, and it is worth being blunt about that.**
+Rewriting history does not delete anything from GitHub: the old commits become
+unreferenced but are still served at their direct SHA URL, and those SHAs appear
+in the pull-request pages and the public events feed. The manual stays
+retrievable until GitHub garbage-collects, which only Support can force. The
+ticket is drafted in `docs/GITHUB-SUPPORT-REQUEST.md`, along with the
+pre-rewrite SHAs and a rollback procedure — GitHub holding those objects is what
+makes rollback possible, so the two facts are the same fact.
+
 ### A secret scan on every push, and the scratch directory is gone from the tree
 
 This book was written from photographed clinical notes. During transcription a
