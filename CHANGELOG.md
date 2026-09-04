@@ -52,6 +52,45 @@ also gives it a `<desc>` and arrows running both ways, which is the point of the
 model. `validate:content` rejects any new non-chart fence, and the exporter warns
 rather than skipping in silence.
 
+### The scratch directory is out of history
+
+`git filter-repo --path attached_assets --invert-paths`, force-pushed to both
+branches. **79 commits kept, 0 touching the directory, `.git` 16 MB → 1.8 MB**,
+and the working tree byte-identical to before — verified with an empty
+`git diff` against the pre-rewrite head, and by cloning the published repository
+fresh: no path under `attached_assets`, and no blob from it added by any commit.
+
+Precisely, because the looser version of this claim is misleading: what is gone
+is the directory and its blobs. The *name* "The Meadows" still appears in tracked
+files, deliberately in every case but one. Outside the documentation of this
+cleanup it is in three places: a bibliography citation in the sex-addiction
+chapter; the rights-holder register in `docs/source-notes/COPYRIGHT-NOTES.md`,
+which exists in order to name what must not be reproduced, so stripping the name
+would defeat it; and the two orphan charts, which reach no reader and which the
+roadmap now recommends deleting for an unrelated and better reason.
+
+**This does not finish the job, and it is worth being blunt about that.**
+Rewriting history does not delete anything from GitHub: the old commits become
+unreferenced but are still served at their direct SHA URL, and those SHAs appear
+in the pull-request pages and the public events feed. The manual stays
+retrievable until GitHub garbage-collects, which only Support can force. The
+ticket is drafted in `docs/GITHUB-SUPPORT-REQUEST.md`, along with the
+pre-rewrite SHAs and a rollback procedure — GitHub holding those objects is what
+makes rollback possible, so the two facts are the same fact.
+
+### The full history has been swept for secrets, once
+
+Per-push CI scans only the working tree, by design. So the history had never been
+swept — and it is short and cheap to sweep exactly now. gitleaks 8.30.1, the same
+build CI pins and checksum-verified, over every commit on every branch:
+**no leaks, 4.15 MB scanned.**
+
+The tool reports 69 commits against the repository's 80, which is accounted for
+rather than a gap: 3 merge commits carry no diff of their own, and 8 are commits
+`filter-repo` emptied when it took `attached_assets` — their only content — away.
+Those eight were read by hand as well; all carry generic scaffolding messages
+from the original host and name nothing.
+
 ### A secret scan on every push, and the scratch directory is gone from the tree
 
 This book was written from photographed clinical notes. During transcription a

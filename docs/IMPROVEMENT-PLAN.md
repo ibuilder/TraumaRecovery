@@ -226,8 +226,10 @@ The original list follows.
   deliberate, separate action.
 - **Three orphan charts.** `IPVPTSDChart`, `MeadowsTreatmentModelChart` and
   `MeadowsOutcomeChart` are defined but referenced by no chapter. The two Meadows ones also
-  survived the commit that set out to remove Meadows branding. Either place them in the text
-  or delete them; `validate:content` warns about them today.
+  survived the commit that set out to remove Meadows branding, and carry unsupported
+  efficacy percentages for a named treatment provider; see the queue entry above for why
+  the recommendation is to delete those two rather than place them.
+  `validate:content` warns about all three today.
 - **Photographs of the source journal are not committed**, deliberately: they are
   personal medical material. If they are ever needed for verification they live
   with the author, and `docs/source-notes/journal-transcription.md` is the record.
@@ -296,23 +298,33 @@ skip link had no single target.
 Everything above is history. This is the queue, top first. Each item says why it is
 where it is, so the order can be argued with.
 
-### 1. Purge `attached_assets/` from git history
+### 1. Ask GitHub to garbage-collect the old objects
 
-**Half done, and the remaining half is the half that matters.** The directory is gone
-from the working tree and `.gitignore`d, so a clone, a `git archive` or a GitHub zip
-download no longer contains it. **The blobs are still in every commit that carried
-them** — two copies of a third-party treatment centre's outpatient manual, 22 MB —
-and anyone who thinks to look in the history will find them.
+**The history rewrite is done; this is the half that finishes it.**
+`git filter-repo` ran on 2026-09-04 and was force-pushed to both branches. 79
+commits kept, 0 touching `attached_assets`, `.git` 16 MB → 1.8 MB, working tree
+byte-identical. A fresh clone contains no trace of the directory.
 
-Finishing it is `git filter-repo`, which rewrites every SHA. That needs coordinating
-with the open branch and any clone anyone holds, so it wants to be its own action on a
-quiet day rather than folded into a feature branch. **Needs the author to pick the
-day.** Pair it with a one-time full-history `gitleaks detect` while the history is
-being rewritten anyway — per-push CI deliberately scans only the working tree, so
-history has never been swept.
+But rewriting history does not delete anything from GitHub. The old commits are
+unreferenced and still served at their direct SHA URL, and those SHAs are not
+secret — they are in the pull-request pages and the public events feed. **Until
+GitHub garbage-collects, the third-party manual is still retrievable.** Only
+Support can force that.
 
-Still first because it is the only open item that gets *worse* with time: every commit
-added makes the rewrite more disruptive.
+The ticket is drafted, with the pre-rewrite SHAs and a rollback procedure, in
+[GITHUB-SUPPORT-REQUEST.md](./GITHUB-SUPPORT-REQUEST.md). **Sending it is the only
+step left, and only the author can take it.**
+
+The fork check it depended on is done: the API reports `forks_count: 0` as of
+2026-09-04, so the ticket's "there are no forks of this repository" is true as
+written and it can go as-is. Worth a re-check if time passes before it is sent —
+the repository is public and forkable, and a fork would keep its own copy of the
+objects that GitHub will not delete for you.
+
+The one-time full-history secret sweep is also done, and clean: gitleaks 8.30.1
+over every commit that carries content, **no leaks**, 4.15 MB scanned. The result
+and the reason the tool's commit count (69) is lower than the repository's (80)
+are recorded in the same file.
 
 ### 2. Trigger warnings on the heaviest chapters
 
@@ -375,7 +387,23 @@ here that needs a budget. **Needs the author.**
   guessed at.
 - **Three orphan charts** — `IPVPTSDChart`, `MeadowsTreatmentModelChart`,
   `MeadowsOutcomeChart`. Complete, labelled, referenced by no chapter.
-  `validate:content` warns about them every build. Place them or delete them.
+  `validate:content` warns about them every build. The answer differs per chart,
+  and for two of them it is *delete*, not *place* — see below.
+  - `IPVPTSDChart` cites a real meta-analysis (Golding 1999) and hedges its
+    magnitudes. Placeable, if the published figures replace the illustrative ones.
+  - `MeadowsTreatmentModelChart` and `MeadowsOutcomeChart` **should not be placed
+    as written.** Each attributes percentages to a named commercial treatment
+    provider — an axis reading "Patient-Reported Benefit (%)" with Trauma Therapy
+    at 87%, and one reading "Sobriety Maintenance (%)" reaching 85% at two years.
+    The figcaption underneath says the numbers are illustrative, which contradicts
+    the axis label rather than qualifying it; a reader takes the axis. The cited
+    sources (Mellody 1989 *Facing Codependence*, Carnes 2005 *Facing the Shadow*)
+    describe the *model* and contain no outcome data, so they cannot support those
+    numbers even in principle. Publishing invented efficacy figures for a real,
+    named treatment centre in a book readers may use to choose care is a liability
+    to both the reader and the author. They reach no reader today, being orphans.
+    Recommend deleting both; keep the underlying model in prose, where it is
+    already taught with attribution.
 - **Chapters 6 and 11 are thin** — three subchapters each against a book average of
   five, on two subjects that carry a lot of weight.
 
