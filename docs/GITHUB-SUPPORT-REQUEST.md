@@ -65,20 +65,36 @@ subject "Remove cached views and unreachable objects after history rewrite".
 >
 > There are no forks of this repository. Thank you.
 
-Check the fork claim before sending; if a fork exists, the objects live there too
-and the fork owner has to delete it — GitHub will not do that for you.
+**Fork claim verified 2026-09-04**: the GitHub API reports `forks_count: 0`, so
+the sentence above is true as written and the ticket can go as-is. Re-check if
+any time passes before you send it — the repository is public and forkable
+(`allow_forking: true`). If a fork appears, the objects live there too, and the
+fork owner has to delete it; GitHub will not do that for you, and the ticket
+should say so rather than claiming there are none.
 
-## Also worth doing while the history is open
+## Full-history secret sweep — done, clean
 
-A one-time full-history secret sweep. Per-push CI deliberately scans only the
-working tree (see the `secrets` job in `.github/workflows/ci.yml` for why), so
-history has never been swept:
+Per-push CI deliberately scans only the working tree (see the `secrets` job in
+`.github/workflows/ci.yml` for why), so history had never been swept. It has now,
+once, against the rewritten history, with the same gitleaks build CI pins
+(8.30.1, checksum verified):
 
 ```bash
-gitleaks detect --redact --verbose --config .gitleaks.toml
+gitleaks git --redact --config .gitleaks.toml --log-opts="--all" .
 ```
 
-Without `--no-git` it walks every commit. Run it once now that history is short.
+**Result: no leaks, across 4.15 MB and every commit that carries content.**
+
+The tool reports "69 commits scanned" against 80 in the repository. That gap is
+fully accounted for and is not a coverage hole: 3 are merge commits, which carry
+no diff of their own, and 8 are commits `filter-repo` emptied — `attached_assets`
+was their only content, so nothing remains in them to scan. 69 + 3 + 8 = 80.
+Their commit messages were read separately; all eight are generic scaffolding
+messages ("Saved progress at the end of the loop", "Published your App") and name
+nothing.
+
+Worth re-running after any future history rewrite, and cheap while history is
+this short.
 
 ## If the rewrite needs undoing
 
