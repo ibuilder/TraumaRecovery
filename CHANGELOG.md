@@ -52,6 +52,112 @@ also gives it a `<desc>` and arrows running both ways, which is the point of the
 model. `validate:content` rejects any new non-chart fence, and the exporter warns
 rather than skipping in silence.
 
+### A secret scan on every push, and the scratch directory is gone from the tree
+
+This book was written from photographed clinical notes. During transcription a
+clinician's personal email address and a private file link were found in two of
+the photographs and redacted by hand. Hand-redaction is not a control: it worked
+once, and nothing stops the next paste. `gitleaks` now runs as its own CI job.
+
+It scans the **working tree**, not history, deliberately. Per-push CI should
+answer "did this change add a secret", which is a property of the tree. Scanning
+all history on every push re-asks a question whose answer cannot change without a
+rewrite, so it would fail every build from now until that rewrite rather than at
+the commit that caused it. The binary is pinned to 8.30.1 and its SHA-256 checked
+before it runs, and `--redact` keeps a finding out of a public log.
+
+`.gitleaks.toml` extends the maintained default ruleset and adds two path
+exemptions, both generated high-entropy files that a generic-secret rule matches
+on entropy alone: `package-lock.json` (a `sha512-…` integrity hash per package)
+and `book-fonts-data.ts` (191 kB of base64 font outlines). Exempting them keeps
+the scan useful rather than permanently red; everything else is scanned,
+including all chapter prose.
+
+A local proxy scan first, because the CI run is the tool's first execution here:
+nothing in the tree matches a credential format. Worth knowing for later — a
+keyword scanner would be useless on this repository. The prose says "secret",
+"password" and "token" constantly, because it is a recovery book: *"We are as sick
+as our secrets"*, *"I don't share passwords."* Gitleaks matches formats and
+entropy rather than words, which is why it is the right tool here.
+
+`attached_assets/` is also **removed from the working tree and gitignored** — two
+identical copies of a third-party treatment centre's outpatient manual, 22 MB, and
+eight superseded chapter drafts, none of it imported by anything. A clone, a
+`git archive` or a GitHub zip download no longer contains the manual.
+
+**The blobs are still in history.** That is a `git filter-repo` which rewrites
+every SHA, so it stays the top roadmap item and belongs on its own day, paired
+with the one-time full-history sweep that per-push CI deliberately does not do.
+
+### The vendored UI kit is down to what the site uses
+
+47 shadcn/ui components were checked in; **12 were reachable from the app** and
+35 were not. Reachability rather than "is it imported anywhere": four of them —
+`input`, `label`, `separator`, `toggle` — looked used until you notice their
+only importers were themselves unused, so a first pass that counted any import
+would have kept them.
+
+`<Toaster />` was mounted in `App.tsx` and `toast()` is called nowhere in the
+codebase, so every page rendered an empty toast region and shipped the code for
+it. That went too, along with the `use-mobile` hook nothing imported.
+
+**4,806 lines of unused component code, and 30 unreferenced npm dependencies.**
+The dependency list is 56 → 26. A first pass at that would have removed
+`drizzle-orm`, `zod`, `pg` and `date-fns`, which are used by `shared/schema.ts`
+and `drizzle.config.ts` — files the first scan did not look at. `npm ci` from
+the pruned lockfile installs 459 packages and the whole suite still passes.
+
+This changes nothing a reader downloads — unused components were already
+tree-shaken out. It is repository hygiene: less code to audit and a smaller
+supply-chain surface for a repository about to be public.
+
+### The home page stopped downloading the whole book's figures
+
+Measured, not guessed: the home page fetched **349 kB** gzipped and 44 per cent
+of it was `trauma-charts` — all ninety-one figures, on a page that shows none.
+
+The download button is lazily loaded, and its comment said the exporter is not
+fetched "until someone actually asks for the PDF". That was half true. React
+resolves a `lazy()` import when the component renders, and the button renders
+on load, so the module arrived immediately — and it imported every chart
+statically, because it needs them when someone clicks Download. The charts now
+load inside the same dynamic import as jsPDF, where they were always meant to
+be. **Home is 194 kB.**
+
+The two registries — ninety-one entries in the markdown renderer, ninety-one
+more in the exporter — are gone, replaced by one derived from the module's own
+exports in `chart-registry.ts`. 282 lines removed. Adding a figure used to mean
+editing three files, and a figure registered in one map but not the other would
+render on the website and be silently missing from the printed book. They were
+in sync; nothing was keeping them there.
+
+`validate:content` now fails if a component renders a `<ChartFrame>` but the
+registry cannot see it. The first version of that check was vacuous — it
+compared the naming convention against itself and could never fail — so it
+looks for what a figure *is* rather than what it is called.
+
+Chapter pages are unchanged at 485 kB: a chapter with figures needs them. The
+31 routes that carry none still pay for them, which is the next thing worth
+doing and wants a Suspense boundary per figure.
+
+### The fonts are served from this origin
+
+Open Sans came from Google on every page load. Three reasons that is the wrong
+trade for this book, in the order they matter: a reader was disclosing to a
+third party which chapter of a trauma-recovery text they had opened, and the
+book should not make that trade on their behalf; it cost two extra DNS-plus-TLS
+handshakes and a render-blocking stylesheet round-trip before first paint; and
+it failed closed on any network that blocks Google — the browser tests have to
+abort those requests to run at all, which was the tell.
+
+Four variable WOFF2 faces, 176 kB in total, split by `unicode-range` so a reader
+who never meets an accented Central European character never downloads that
+file. In practice most fetch the two `latin` ones. Verified in a browser: zero
+requests to Google, Open Sans loading from our own origin, `latin-ext` staying
+unloaded. `check:pages` now fails if anything reaches off-origin again — privacy
+properties rot quietly, and one `<link>` added back for convenience would undo
+it in silence.
+
 ### A deploy cannot ship a blank page
 
 `npm run check:pages` reads the built `index.html`, resolves every asset URL

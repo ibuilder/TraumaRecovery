@@ -1,17 +1,31 @@
-# Healing Together — Improvement Plan
+# Healing Together — Roadmap
 
-A staged plan for taking this from "a book that renders" to "a book people finish."
-Written after a full audit of the repository on 2026-08-28.
+Started as a staged plan for taking this from "a book that renders" to "a book people
+finish", written after a full audit on 2026-08-28. Most of it is now history.
 
-Phase 0 is done and merged. A second pass integrated the author's treatment
-journal — eight new subchapters and 22 new figures, covering chapters 1, 3, 4,
-7, 8, 9, 10 and 13.
+**→ [Where to start](#where-to-start) is the live queue, ordered top-first.**
+Everything before it is the record of what was done and why, kept because the reasoning
+is worth more than the checkmarks. [Reviewed and not taken](#reviewed-and-not-taken)
+lists what was considered and rejected, so the same ground is not walked twice.
 
-**Phases 1–4 have since been worked through**, along with a fifth piece of work
-that was not in the original plan: the printed book itself. Each phase below now
-carries a status; items that are done say so and say what was built, and the ones
-that are not carry the reason. The short version of what is left is at the end,
-under [Still open](#still-open).
+## Done
+
+| Phase | Status |
+|---|---|
+| [0 — Correctness and deployment](#phase-0--correctness-and-deployment-done) | Done |
+| [1 — Make the first load fast](#phase-1--make-the-first-load-fast-done) | Done |
+| [2 — A better reading experience](#phase-2--make-it-a-better-reading-experience-mostly-done) | Mostly done |
+| [3 — Accessibility and content safety](#phase-3--accessibility-and-content-safety-done-bar-the-editorial-part) | Done, bar the editorial part |
+| [4 — Project hygiene](#phase-4--project-hygiene-partly-done) | Partly done |
+| [5 — The printed book](#phase-5--the-printed-book-done) | Done |
+| [6 — Tests](#phase-6--tests-done) | Done |
+
+Not in the original plan and also done: the **printed book** as an object (embedded
+fonts, 300 DPI figures, a greyscale-safe palette, KDP preflight), the **Kindle EPUB**
+with its own preflight, **axe-core over all 89 routes** plus figure data tables, the
+**fonts served from this origin**, and a **Pages preflight** that makes a blank-page
+deploy impossible to ship, a **secret scan** on every push, and the vendored UI kit
+cut to the twelve components the site reaches. `CHANGELOG.md` has the detail.
 
 ---
 
@@ -61,10 +75,11 @@ better — it is now the clearest single win available.
 **Done.** `manifest.ts` holds the metadata, `load.ts` resolves one chapter module
 per `import.meta.glob` loader behind a cached promise, and every navigation surface
 reads the manifest. `validate:content` fails if the manifest or the search index has
-drifted from the chapter modules. `trauma-charts.tsx` is a separate lazily-loaded
-chunk rather than split per figure, and the Open Sans face is still fetched from
-Google rather than self-hosted — both remain worth doing, neither is on the critical
-path any more.
+drifted from the chapter modules. Open Sans is **self-hosted** — four variable
+WOFF2 faces split by `unicode-range`, no third-party request, and `check:pages`
+fails the build if anything reaches off-origin again. `trauma-charts.tsx` is a
+separate lazily-loaded chunk rather than split per figure, which remains worth
+doing and is not on the critical path.
 
 The original plan follows, for the reasoning.
 
@@ -181,8 +196,10 @@ The original proposals follow.
 ## Phase 4 — Project hygiene (partly done)
 
 **Done:** the package metadata, licence and `tsconfig` target (in Phase 0), and 18
-unused packages removed during the dependency upgrade. Everything else here is still
-open and is listed under [Still open](#still-open) with the reason.
+unused packages removed during the dependency upgrade. Since then the vendored UI kit
+went from 47 components to the 12 the site actually reaches — 4,806 lines — and another
+30 unreferenced dependencies went with them, taking the list from 56 to 26. Everything
+else here is still open and is listed under [Where to start](#where-to-start) with the reason.
 
 The original list follows.
 
@@ -274,52 +291,127 @@ skip link had no single target.
 
 ---
 
-## Still open
+## Where to start
 
-Ordered by how much they matter, not by effort.
+Everything above is history. This is the queue, top first. Each item says why it is
+where it is, so the order can be argued with.
 
-**Needs the author, not a developer**
+### 1. Purge `attached_assets/` from git history
 
-- **Six references cite a 2024 edition beside an earlier one, and none of the 2024
-  editions could be confirmed** — Harris *ACT Made Simple*, Hayes/Strosahl/Wilson,
-  *A Liberated Mind*, Gottman *Seven Principles*, Walker *Battered Woman Syndrome*,
-  WHO ICD-11. Outbound access to publisher and journal sites is blocked from CI, so
-  they are left as they stand rather than guessed at.
+**Half done, and the remaining half is the half that matters.** The directory is gone
+from the working tree and `.gitignore`d, so a clone, a `git archive` or a GitHub zip
+download no longer contains it. **The blobs are still in every commit that carried
+them** — two copies of a third-party treatment centre's outpatient manual, 22 MB —
+and anyone who thinks to look in the history will find them.
+
+Finishing it is `git filter-repo`, which rewrites every SHA. That needs coordinating
+with the open branch and any clone anyone holds, so it wants to be its own action on a
+quiet day rather than folded into a feature branch. **Needs the author to pick the
+day.** Pair it with a one-time full-history `gitleaks detect` while the history is
+being rewritten anyway — per-push CI deliberately scans only the working tree, so
+history has never been swept.
+
+Still first because it is the only open item that gets *worse* with time: every commit
+added makes the rewrite more disruptive.
+
+### 2. Trigger warnings on the heaviest chapters
+
+Childhood trauma, sexual compulsivity, self-harm. The crisis dialog is one click away
+on every page and the figures are all sourced, but a reader can still arrive at the
+middle of chapter 4 from a search result with no warning. **Needs the author** — a
+content note is a voice, not a component. Second because it affects readers in distress
+and nothing else on this list does.
+
+### 3. The paperback trim
+
+The export passes eight of KDP's ten interior checks. The two failures are one fact
+stated twice: 734 pages fits no trim it could be printed at. See
+[PRINT-AND-PUBLISHING.md](./PRINT-AND-PUBLISHING.md) for three ways out and a
+recommendation (two volumes at 6×9). A cover and an ISBN both wait on it. **Needs the
+author.** The Kindle EPUB depends on none of this and can go up today.
+
+### 4. A linter and a formatter
+
+ESLint with `react-hooks` and `jsx-a11y`, plus Prettier. Worth more now than it was:
+the accessibility work put real invariants into the code — `inert` on decorative
+drawings, labelled landmarks, no heading-order skips — and `jsx-a11y` catches a
+regression at the keystroke rather than at the axe sweep six minutes into CI.
+
+### 5. Split `trauma-charts.tsx`
+
+Over 5,000 lines and 91 figures in one chunk, where a typical chapter shows one to
+four. The home page no longer pays for it (349 kB → 194 kB gzipped, measured), but the
+31 chapter routes carrying no figures still do — 155 kB each. Fixing it wants a
+Suspense boundary per figure placement, and the risk to watch is visible flicker on a
+page someone is reading, so it needs measuring rather than assuming.
+
+### 6. Decide what the Express server is for
+
+One `/api/health` endpoint and a static directory, plus a `drizzle.config.ts` and an
+unused `users` table implying a database that does not exist. Either give it a purpose
+or delete it and the four dependencies (`drizzle-orm`, `drizzle-zod`, `pg`, `zod`) that
+exist only to serve it.
+
+### 7. Per-chapter PDF export
+
+The full book takes about 90 seconds; most readers want one chapter, and the generator
+already works chapter by chapter internally.
+
+### 8. An audio edition
+
+A trauma-recovery book has readers who cannot comfortably read: people mid-crisis,
+people with dyslexia, people who would listen on a commute and never open a browser.
+The chapter markdown is already clean, sectioned and figure-tagged, so the text side is
+done — what is open is which voice, and whether a synthetic one is acceptable for this
+material. Lowest on the list because it is the largest new surface and the only item
+here that needs a budget. **Needs the author.**
+
+### Waiting on the author, no developer work
+
+- **Six references cite an unconfirmable 2024 edition** beside an earlier one — Harris
+  *ACT Made Simple*, Hayes/Strosahl/Wilson *A Liberated Mind*, Gottman *Seven
+  Principles*, Walker *Battered Woman Syndrome*, WHO ICD-11. Outbound access to
+  publisher and journal sites is blocked from CI, so they stand rather than being
+  guessed at.
 - **Three orphan charts** — `IPVPTSDChart`, `MeadowsTreatmentModelChart`,
-  `MeadowsOutcomeChart`. Complete, labelled, referenced by no chapter. Place them or
-  delete them; `validate:content` warns about them every build.
-- **Trigger warnings** on the childhood-trauma, sexual-compulsivity and self-harm
-  chapters. A content note is the author's voice, which is why it has not been written.
-- **Chapters 6 and 11 are thin** — three subchapters each, against a book average of
+  `MeadowsOutcomeChart`. Complete, labelled, referenced by no chapter.
+  `validate:content` warns about them every build. Place them or delete them.
+- **Chapters 6 and 11 are thin** — three subchapters each against a book average of
   five, on two subjects that carry a lot of weight.
 
-**Needs a decision, then a deliberate action**
+---
 
-- **The paperback edition.** The export now passes eight of KDP's ten interior
-  checks; the two it fails are the same fact twice, which is that 734 pages does
-  not fit on US Letter (max 590) and a colour interior caps at 600 pages at every
-  trim. See [PRINT-AND-PUBLISHING.md](./PRINT-AND-PUBLISHING.md) for the three
-  ways out and a recommendation. The Kindle EPUB is **done** and depends on none of
-  this — an ebook has no pages, so it has no page count, trim or margins. A cover and
-  an ISBN are still outstanding, and both need the trim settled first.
+## Reviewed and not taken
 
-- **`attached_assets/` (22 MB)** of unimported files, including two copies of a
-  third-party treatment centre's manual. Publishing this repository publicly publishes
-  that manual. Deleting the directory is easy; purging it from git history is a
-  `git filter-repo` that rewrites every commit SHA, so it should be its own action on a
-  quiet day, not folded into a feature branch.
-- **What the Express server is for.** It serves one `/api/health` endpoint and a static
-  directory, and `drizzle.config.ts` plus an unused `users` table imply a database that
-  does not exist. Either give it a purpose or delete it and its dependencies.
+A batch of twenty-five tools and products was put forward for the roadmap. Twenty-two
+of them are for the built environment — BIM, IFC, construction takeoff, site capture —
+or are tooling for languages this repository does not contain. They are recorded here
+so the same links are not re-reviewed later.
 
-**Straightforward work nobody has done**
+**Built-environment and BIM** — `aussieBIMguru/Pickles` (a C# Dynamo package of Revit
+utility nodes), `LTplus-AG/ifc-lite` (TypeScript and Rust IFC parsing over WASM),
+`ifc-ids.com` (IFC Information Delivery Specification), `bimviewer.space`,
+`hefestolab`, `open-reality.io`, `clearhandoff.com`, `caliperd.com`, `usevawn.com`
+(agent-native construction takeoff, per its own description), `buildwithpunch.com`,
+`dev-xcel.com`, `construction-mu-seven.vercel.app`, `kunifujiwara/VoxCity` (urban
+voxel modelling), and a LinkedIn article on multimodal AI for construction drawings.
 
-- **No linter or formatter.** ESLint (`react-hooks`, `jsx-a11y`) and Prettier.
-- **Self-host the Open Sans face** and drop the render-blocking Google Fonts request.
-  Worth more here than on most sites: a third party currently learns that a given
-  reader opened a chapter of a trauma-recovery book.
-- **Split `trauma-charts.tsx`** — over 5,000 lines and 91 figures in one lazily-loaded
-  chunk, where a typical chapter shows one to four.
-- **Per-chapter PDF export.** The full book takes about 90 seconds; most readers want
-  one chapter, and the generator already works chapter by chapter internally.
-- **Prune the ~45 vendored shadcn/ui components** down to the handful in use.
+`ifc-lite` was the closest call: its IDS validation engine and columnar store are not
+in themselves construction-specific. But this repository validates prose and figures,
+not property-rich 3D models, and `validate:content` already does that in 130 lines.
+
+**Tooling for languages this repository does not use** — `astral.sh/ruff` and
+`pypa/hatch` (Python: there are no `.py` files), `sqlfluff` (SQL: there are no `.sql`
+files — Drizzle generates them), `vinta/awesome-python`.
+
+**Not applicable** — `parapet.app` is enterprise governance-risk-and-compliance
+software. `RyanCodrai/turbovec` is a Rust vector index for corpora around ten million
+documents; the search index here is 1,528 sections and 147 kB, and the compile-time
+index it already uses is the right tool at that size. `iShape-Rust/xOverlay` is Rust
+polygon boolean geometry. `DenverCoder1/github-readme-streak-stats` decorates a
+personal GitHub profile, not a book. `charlax/professional-programming` is a reading
+list rather than a tool.
+
+**Taken** — `gitleaks/gitleaks` is now the `secrets` job in CI. `assemblyai.com` is
+speech-to-text rather than text-to-speech, so it is not the vendor for item 9, but
+raising it is what put the audio edition on the list at all.

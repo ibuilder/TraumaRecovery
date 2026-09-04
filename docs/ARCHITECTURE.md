@@ -34,7 +34,7 @@ client/
 │   │   ├── theme-provider.tsx    # Dark/light theme context
 │   │   ├── theme-toggle.tsx      # Theme toggle button
 │   │   ├── trauma-charts.tsx     # Data visualization components
-│   │   └── ui/                   # shadcn/ui components
+│   │   └── ui/                   # the 12 shadcn/ui primitives the site uses
 │   ├── lib/
 │   │   ├── chapters/             # Book content, one module per chapter
 │   │   │   ├── index.ts          # Chapter exports
@@ -98,7 +98,8 @@ tests/
 - **91 figures** — Recharts plots for data, inline SVG and markup for diagrams; every
   plot carries its numbers as a table and every diagram describes itself, so the whole
   set is readable without seeing it
-- **Full-book PDF export** generated client-side (jsPDF + html2canvas, lazy-loaded)
+- **Full-book PDF export** generated client-side (jsPDF + html2canvas and the 91 figures,
+  none of it fetched until someone asks for the PDF)
 - **Markdown rendering** with react-markdown and remark-gfm
 - **Dark/light theme** with system preference detection
 - **Reading progress bar** for tracking position
@@ -110,6 +111,8 @@ tests/
 - **Crisis resources** in the footer and one click away in the header
 - **Accessibility** checked mechanically — axe-core over all 89 routes in CI, plus
   assertions axe cannot make about figures and tab order
+- **No third-party requests** — Open Sans is self-hosted, so no outside party learns
+  which chapter a reader opened; the Pages preflight fails the build if that changes
 
 ## Book Chapters
 1. Understanding Trauma & Basic Recovery (10 subchapters: Four Pillars Framework, Addiction & Self-Harm, Types of Trauma, Window of Tolerance, and more)

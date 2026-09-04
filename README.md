@@ -32,6 +32,9 @@ a reflowable EPUB for Kindle.
 - **Dark / light theme** with system-preference detection
 - **Reading progress bar**, per-chapter sidebar, and prev/next chapter navigation
 - **Responsive** layout with a mobile navigation drawer
+- **No third-party requests.** Open Sans is served from this origin, so nobody
+  outside learns which chapter a reader opened; `check:pages` fails the build if
+  that ever changes
 - **Kindle edition** — a reflowable EPUB 3 built from the same chapters, with the figures
   as images *and* as reflowable data tables (see [The Kindle edition](#the-kindle-edition))
 
@@ -96,7 +99,7 @@ npm run dev          # http://localhost:5000
 | `npm run test:site` | Just the route sweep and search (~35 s) |
 | `npm run test:book` | Just the printed-book checks (~90 s) |
 | `npm run serve:static` | Serve `dist/public` the way GitHub Pages does |
-| `npm run build` | Full build: static client + bundled Express server → `dist/` |
+| `npm run build` | Full build: static client + bundled Express server → `dist/`. **Wipes `dist/` and rebuilds with no base path** — run it *before* `build:pages`, never after |
 | `npm run build:pages` | Static-only build for GitHub Pages → `dist/public/` |
 | `npm start` | Run the production Express build |
 
@@ -110,6 +113,12 @@ npm test
 Playwright, against a real production build served the way GitHub Pages serves it —
 base path and `404.html` fallback included. Every defect these catch only appears in the
 built, base-pathed site.
+
+The build has to be the base-pathed one. `npm run build` starts with `rm -rf dist`, so
+running it after `build:pages` leaves `dist/public` with `/assets/…` URLs, the static
+server answers every route with its 404 body, and all 107 tests fail for one reason that
+looks like 107 reasons. `npm run check:pages` catches exactly this — run it between the
+build and the tests.
 
 - **`tests/site.spec.ts`** walks all 89 routes, derived from the manifest rather than
   listed, and fails on a console error, a React key warning, a blank `<main>`, an
@@ -136,8 +145,9 @@ A base-path mistake is the one deployment failure that is silent and total: the
 build succeeds, the HTML is valid, every file is present, and the site is a blank
 white page because the browser asks the origin for a path Pages does not serve.
 `check:pages` reads the built `index.html`, resolves every asset URL against the
-base and against the disk, and checks the `404.html` fallback and the chunking. It
-runs in CI and again in the deploy, before anything is uploaded.
+base and against the disk, and checks the `404.html` fallback, the chunking, that
+the fonts were emitted, and that nothing on the page reaches off-origin. It runs
+in CI and again in the deploy, before anything is uploaded.
 
 Generating the book takes about two minutes; `npm run test:site` skips it.
 
@@ -266,7 +276,7 @@ client/
     │   ├── search-dialog.tsx       # ⌘K search over the compile-time index
     │   ├── crisis-dialog.tsx       # crisis resources, reachable from the header
     │   ├── continue-reading.tsx    # offers the reader's last position
-    │   └── ui/                     # shadcn/ui primitives
+    │   └── ui/                     # the 12 shadcn/ui primitives the site uses
     ├── lib/
     │   ├── chapters/               # the book: one module per chapter, lazily loaded
     │   │   ├── manifest.ts         # generated: slugs, titles, module names
@@ -306,9 +316,15 @@ Some prose.
 ```chart:TherapyEffectivenessChart```
 ```
 
-The name must match an exported component in `client/src/components/trauma-charts.tsx`.
-The same placeholder is understood by the PDF exporter, which renders the chart offscreen and
-embeds it as an image.
+The name must match an exported component in `client/src/components/trauma-charts.tsx`, and
+it has to end in `Chart` — `chart-registry.ts` finds the figures by that convention rather
+than by a hand-written map, so a component named otherwise is invisible to it. The same
+placeholder is understood by the PDF exporter, which renders the chart offscreen and embeds
+it as an image, and by the EPUB builder.
+
+Nothing else needs editing. There used to be two registries of ninety-one entries — one in
+the renderer, one in the exporter — so a new figure had to be added in three places, and one
+added to only one of them would appear on the website and be silently absent from the book.
 
 ### Content rules
 
@@ -318,7 +334,8 @@ previously shipped:
 - chapter and subchapter `id`s are unique (duplicates cause React key collisions in the sidebar)
 - `order` matches the position in the array (navigation follows the array, badges show `order`)
 - every chapter and subchapter body starts with an `# H1`
-- every `chart:Name` placeholder resolves to a real component
+- every `chart:Name` placeholder resolves to a real component, and every component that
+  renders a `<ChartFrame>` is one the registry can actually see
 - `manifest.ts` and `search-index.json` are in step with the chapter modules — both are
   generated, and a stale one means chapters go missing from navigation or from search
 
@@ -345,4 +362,5 @@ that directory is published to the site.
 ## License
 
 The application code is MIT-licensed. The book text is © Matthew M. Emma; see the copyright
-page in the generated PDF.
+page in the generated PDF. Two bundled typefaces — Open Sans on the website, Liberation Serif
+embedded in the PDF — are SIL OFL 1.1, which permits both. See [LICENSE](LICENSE).
