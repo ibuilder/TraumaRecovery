@@ -7,6 +7,45 @@ decision for Matthew rather than a change anyone can make in code.
 
 ## Unreleased
 
+### Figures load only on the pages that show one
+
+The chart registry is `import * as charts` over `trauma-charts`, so importing it
+pulls all ninety-one figures and Recharts with them. The markdown renderer
+imported it statically and every chapter page loads the markdown renderer, so **a
+route with four figures and a route with none downloaded byte-identical
+JavaScript**: 155.1 kB of chart registry out of 367.9 kB total on
+`/chapter/basic-recovery/subchapter/what-is-trauma`, which has no figure on it.
+42 per cent of the page, for nothing.
+
+Now `lazy` per figure name -- memoised, because `lazy()` returns a new component
+type each call and a new type at the same position remounts the figure and
+replays its entry animation on every render of the prose around it -- behind a
+placeholder that reserves the figure box so the prose below does not jump.
+
+Measured across all 89 routes before and after, by driving a browser at the
+built site and summing the gzipped bytes of every script it requests:
+
+| | before | after |
+|---|---|---|
+| 33 routes with no figure | 326 kB avg | **181 kB avg** |
+| 56 routes with figures | 343 kB avg | 343 kB avg |
+| whole site | 29.3 MB | **24.6 MB** |
+
+No route got heavier. The browser suite runs a minute faster for the same reason.
+
+**`trauma-charts.tsx` was not split, and the measurement is why.** A probe build
+carrying one chart instead of ninety-one came to 106.7 kB gzipped against 155.1
+kB: Recharts is a 107 kB floor no chunking touches, and all ninety-one chart
+definitions together are the other 48 kB -- about half a kilobyte each. Per-chart
+chunks would save a figure-bearing route ~46 kB at best, in exchange for
+ninety-one modules and a mechanical rewrite of 5,379 lines containing
+sixty-eight working figures. The lever for those routes is Recharts itself,
+which is a different and much larger job.
+
+Verified: 107 browser tests against a real production build, the Pages preflight,
+and the Kindle edition rebuilt -- 88 figures captured, 102 placements, 18/18
+preflight checks.
+
 ### The Express server is gone, and with it two footguns
 
 "Give it a purpose or delete it" resolved to delete. It served one `/api/health`

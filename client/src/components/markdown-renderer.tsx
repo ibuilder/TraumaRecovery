@@ -1,7 +1,6 @@
-import type { ReactNode } from "react";
+import { Suspense, lazy, type ComponentType, type ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { ALL_CHART_COMPONENTS } from "@/components/chart-registry";
 
 interface MarkdownRendererProps {
   content: string;
@@ -14,6 +13,59 @@ interface MarkdownRendererProps {
  * supported; those arrive wrapped in a <pre>, so `pre` is unwrapped below to keep
  * the chart out of the prose code-block styling.
  */
+/**
+ * Figures are fetched only by the pages that show one.
+ *
+ * The registry is a `import * as charts` over `trauma-charts`, so importing it
+ * pulls all ninety-one figures and Recharts with them -- 155 kB gzipped, which
+ * is 42 per cent of a chapter page's JavaScript. This module is what every
+ * chapter page loads to render its prose, so until now it dragged that in
+ * whether the page had a figure on it or not: a route with four figures and a
+ * route with none downloaded byte-identical JavaScript. Thirty-three of the
+ * eighty-nine routes have no figure at all.
+ *
+ * `lazy` per figure name defers it to the pages that ask. They resolve to the
+ * same chunk, so a page with nine figures still fetches it once.
+ *
+ * Memoised because `lazy()` returns a new component type on every call, and a
+ * new type at the same position is a remount -- the figure would be torn down
+ * and rebuilt, replaying its entry animation, on every render of the prose
+ * around it.
+ */
+const lazyCharts = new Map<string, ComponentType>();
+
+function chartComponent(name: string): ComponentType {
+  const cached = lazyCharts.get(name);
+  if (cached) return cached;
+  const Chart = lazy(async (): Promise<{ default: ComponentType }> => {
+    const { ALL_CHART_COMPONENTS } = await import("@/components/chart-registry");
+    const Found = ALL_CHART_COMPONENTS[name];
+    if (!Found) {
+      if (import.meta.env.DEV) {
+        console.warn(`Unknown chart referenced in content: "${name}"`);
+      }
+      return { default: () => null };
+    }
+    return { default: Found };
+  });
+  lazyCharts.set(name, Chart);
+  return Chart;
+}
+
+/**
+ * Holds the figure's place while its chunk arrives, so the prose below does not
+ * jump when it lands. 300px is the height fifty of the sixty-eight plotted
+ * figures use; the rest are within 50px of it bar one.
+ */
+function ChartPlaceholder() {
+  return (
+    <div className="my-8 rounded-md border bg-card p-6" aria-hidden="true">
+      <div className="mb-4 h-5 w-2/5 animate-pulse rounded bg-muted" />
+      <div className="h-[300px] w-full animate-pulse rounded bg-muted" />
+    </div>
+  );
+}
+
 const CHART_INLINE_RE = /^chart:(\w+)$/;
 const CHART_FENCE_RE = /language-chart:(\w+)/;
 
@@ -82,22 +134,18 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
             const chartName = fencedMatch?.[1] ?? inlineMatch?.[1];
 
             if (chartName && showCharts) {
-              const ChartComponent = ALL_CHART_COMPONENTS[chartName];
-              if (ChartComponent) {
-                // Tagged with the component name so tooling can map a rendered
-                // figure back to the placeholder that asked for it. Guessing
-                // the mapping from the figure's visible title silently lost
-                // sixty of the hundred placements in the EPUB build.
-                return (
-                  <div data-chart={chartName} className="contents">
+              const ChartComponent = chartComponent(chartName);
+              // Tagged with the component name so tooling can map a rendered
+              // figure back to the placeholder that asked for it. Guessing
+              // the mapping from the figure's visible title silently lost
+              // sixty of the hundred placements in the EPUB build.
+              return (
+                <div data-chart={chartName} className="contents">
+                  <Suspense fallback={<ChartPlaceholder />}>
                     <ChartComponent />
-                  </div>
-                );
-              }
-              if (import.meta.env.DEV) {
-                console.warn(`Unknown chart referenced in content: "${chartName}"`);
-              }
-              return null;
+                  </Suspense>
+                </div>
+              );
             }
 
             return <code className={className}>{children}</code>;

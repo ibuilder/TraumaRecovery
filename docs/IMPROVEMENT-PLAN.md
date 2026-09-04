@@ -288,6 +288,47 @@ rewrite.
 Verified: lint, typecheck, format, the Pages preflight, `npm run dev` fetched
 and serving, and 107 browser tests against a real production build.
 
+### Figures load only on the pages that show one (done, 2026-09-04)
+
+The chart registry is `import * as charts` over `trauma-charts`, so anything
+importing it pulls all ninety-one figures and Recharts with them. The markdown
+renderer imported it statically, and every chapter page loads the markdown
+renderer — so **a route with four figures and a route with none downloaded
+byte-identical JavaScript**. Measured against the real built site rather than
+inferred: 155.1 kB of chart registry on
+`/chapter/basic-recovery/subchapter/what-is-trauma`, which has no figure on it,
+out of 367.9 kB total. 42 per cent of the page, for nothing.
+
+Now `lazy` per figure name, memoised so a re-render of the surrounding prose
+does not remount the figure and replay its entry animation, behind a
+placeholder that reserves the figure box so the prose below does not jump.
+
+Measured across all 89 routes, before and after, by driving a browser at the
+built site and summing the gzipped bytes of every script it requests:
+
+| | before | after |
+|---|---|---|
+| 33 routes with no figure | 326 kB avg | **181 kB avg** |
+| 56 routes with figures | 343 kB avg | 343 kB avg |
+| whole site | 29.3 MB | **24.6 MB** |
+
+No route got heavier. The test suite also runs a minute faster, for the same
+reason.
+
+**The file was not split, and the measurement is why.** Splitting it would only
+help the figure-bearing routes, and a probe build carrying one chart instead of
+ninety-one came to 106.7 kB gzipped against 155.1 kB. Recharts is a 107 kB floor
+that no amount of chunking touches; all ninety-one chart definitions together
+are the other 48 kB, about half a kilobyte each. So per-chart chunks would save
+a figure route ~46 kB at best — 13 per cent — in exchange for ninety-one modules
+and a mechanical rewrite of 5,379 lines with sixty-eight working figures in it.
+Not worth it at that price. The lever for figure routes is Recharts itself, and
+that is a different and much larger job.
+
+What remains is a maintainability argument rather than a reader-facing one:
+`trauma-charts.tsx` is still 5,379 lines. Worth splitting when something else
+needs to touch it, not on its own account.
+
 ## Phase 5 — The printed book (done)
 
 Not in the original plan, because the PDF was assumed to be a byproduct. It is the
@@ -390,20 +431,12 @@ stated twice: 734 pages fits no trim it could be printed at. See
 recommendation (two volumes at 6×9). A cover and an ISBN both wait on it. **Needs the
 author.** The Kindle EPUB depends on none of this and can go up today.
 
-### 4. Split `trauma-charts.tsx`
-
-Over 5,000 lines and 91 figures in one chunk, where a typical chapter shows one to
-four. The home page no longer pays for it (349 kB → 194 kB gzipped, measured), but the
-31 chapter routes carrying no figures still do — 155 kB each. Fixing it wants a
-Suspense boundary per figure placement, and the risk to watch is visible flicker on a
-page someone is reading, so it needs measuring rather than assuming.
-
-### 5. Per-chapter PDF export
+### 4. Per-chapter PDF export
 
 The full book takes about 90 seconds; most readers want one chapter, and the generator
 already works chapter by chapter internally.
 
-### 6. An audio edition
+### 5. An audio edition
 
 A trauma-recovery book has readers who cannot comfortably read: people mid-crisis,
 people with dyslexia, people who would listen on a commute and never open a browser.
