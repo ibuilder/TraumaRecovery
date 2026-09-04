@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   check:
-    name: Typecheck, validate content, build
+    name: Lint, typecheck, validate content, build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,6 +22,16 @@ jobs:
           cache: npm
 
       - run: npm ci
+
+      # Lint and format first: they are the cheapest signal in this job by two
+      # orders of magnitude, so a bad push fails in seconds rather than after
+      # a full build. The lint config exists to keep the accessibility
+      # invariants from regressing -- see eslint.config.js for which and why.
+      - name: Lint
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
 
       - name: Typecheck
         run: npm run check

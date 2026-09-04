@@ -124,7 +124,13 @@ chapters.forEach((chapter, index) => {
 const { ALL_CHART_COMPONENTS } = await import("../client/src/components/chart-registry");
 const registered = new Set(Object.keys(ALL_CHART_COMPONENTS));
 const exportedComponents = [
-  ...chartSource.matchAll(/^export function (\w+)\(\)[\s\S]*?(?=^export |\Z)/gm),
+  // `$(?![\s\S])` is end of input. Plain `$` is end of *line* under /m, and
+  // `\Z` is not a JavaScript anchor at all -- it matches a literal "Z", which
+  // is what this said until 2026-09-04 and why the last figure in the file
+  // was silently never checked.
+  ...chartSource.matchAll(
+    /^export function (\w+)\(\)[\s\S]*?(?=^export |$(?![\s\S]))/gm
+  ),
 ];
 for (const [body, name] of exportedComponents) {
   if (!body.includes("<ChartFrame")) continue;

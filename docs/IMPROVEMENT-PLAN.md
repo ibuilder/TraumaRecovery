@@ -240,6 +240,29 @@ The original list follows.
 
 ---
 
+### A linter and a formatter (done, 2026-09-04)
+
+ESLint 10 with `jsx-a11y` and `react-hooks`, plus Prettier and
+`eslint-config-prettier`; both run first in the CI `check` job, being the
+cheapest signal there by two orders of magnitude. The config is a guard rather
+than a style council: what it protects is the accessibility work, none of which
+a typecheck can see. `role="application"` needed a hand-written
+`no-restricted-syntax` selector, since no `jsx-a11y` rule flags it on a `div`.
+
+The whole config was negative-tested before being trusted — a probe file with
+one deliberate violation per rule, checked to fail, then deleted.
+
+Its first run over the codebase found nine things, of which one was a real hole
+in another guard: `validate:content` ended its figure-matching regex with `\Z`,
+which is not a JavaScript anchor and matched a literal "Z", so the last exported
+figure in the file was never checked. Also a cascading render on every chapter
+navigation, a dead variable in the PDF chapter opener, eleven `any`s, and
+`require()` in an ESM package. All fixed and verified; 107 tests pass.
+
+`eslint-plugin-react-refresh` was tried and dropped — its only findings were the
+vendored UI kit's own convention, and seven permanent warnings teach people to
+ignore lint output.
+
 ## Phase 5 — The printed book (done)
 
 Not in the original plan, because the PDF was assumed to be a byproduct. It is the
@@ -342,14 +365,7 @@ stated twice: 734 pages fits no trim it could be printed at. See
 recommendation (two volumes at 6×9). A cover and an ISBN both wait on it. **Needs the
 author.** The Kindle EPUB depends on none of this and can go up today.
 
-### 4. A linter and a formatter
-
-ESLint with `react-hooks` and `jsx-a11y`, plus Prettier. Worth more now than it was:
-the accessibility work put real invariants into the code — `inert` on decorative
-drawings, labelled landmarks, no heading-order skips — and `jsx-a11y` catches a
-regression at the keystroke rather than at the axe sweep six minutes into CI.
-
-### 5. Split `trauma-charts.tsx`
+### 4. Split `trauma-charts.tsx`
 
 Over 5,000 lines and 91 figures in one chunk, where a typical chapter shows one to
 four. The home page no longer pays for it (349 kB → 194 kB gzipped, measured), but the
@@ -357,19 +373,19 @@ four. The home page no longer pays for it (349 kB → 194 kB gzipped, measured),
 Suspense boundary per figure placement, and the risk to watch is visible flicker on a
 page someone is reading, so it needs measuring rather than assuming.
 
-### 6. Decide what the Express server is for
+### 5. Decide what the Express server is for
 
 One `/api/health` endpoint and a static directory, plus a `drizzle.config.ts` and an
 unused `users` table implying a database that does not exist. Either give it a purpose
 or delete it and the four dependencies (`drizzle-orm`, `drizzle-zod`, `pg`, `zod`) that
 exist only to serve it.
 
-### 7. Per-chapter PDF export
+### 6. Per-chapter PDF export
 
 The full book takes about 90 seconds; most readers want one chapter, and the generator
 already works chapter by chapter internally.
 
-### 8. An audio edition
+### 7. An audio edition
 
 A trauma-recovery book has readers who cannot comfortably read: people mid-crisis,
 people with dyslexia, people who would listen on a commute and never open a browser.
@@ -441,5 +457,7 @@ personal GitHub profile, not a book. `charlax/professional-programming` is a rea
 list rather than a tool.
 
 **Taken** — `gitleaks/gitleaks` is now the `secrets` job in CI. `assemblyai.com` is
-speech-to-text rather than text-to-speech, so it is not the vendor for item 9, but
-raising it is what put the audio edition on the list at all.
+speech-to-text rather than text-to-speech, so it is not the vendor for the audio
+edition, but raising it is what put that on the list at all. `ruff` and `sqlfluff`
+have no Python or SQL to lint here; the equivalent for this codebase is the ESLint
+and Prettier setup, which is done.

@@ -18,12 +18,24 @@ interface MarkdownRendererProps {
 const CHART_INLINE_RE = /^chart:(\w+)$/;
 const CHART_FENCE_RE = /language-chart:(\w+)/;
 
+/**
+ * react-markdown hands children through as `ReactNode`, which is a union wide
+ * enough that nothing can be read off it directly. This narrows to the one
+ * shape the callers below care about -- an element with props -- so they can
+ * stop casting to `any` to reach `.props`.
+ */
+type NodeWithProps = {
+  type?: unknown;
+  props?: { className?: unknown; children?: ReactNode };
+};
+
+function hasProps(node: unknown): node is NodeWithProps {
+  return !!node && typeof node === "object" && "props" in node;
+}
+
 function isChartElement(node: unknown): boolean {
   return (
-    !!node &&
-    typeof node === "object" &&
-    "props" in (node as any) &&
-    CHART_FENCE_RE.test(String((node as any).props?.className ?? ""))
+    hasProps(node) && CHART_FENCE_RE.test(String(node.props?.className ?? ""))
   );
 }
 
@@ -45,9 +57,7 @@ function headingText(node: ReactNode): string {
   if (node === null || node === undefined || typeof node === "boolean") return "";
   if (typeof node === "string" || typeof node === "number") return String(node);
   if (Array.isArray(node)) return node.map(headingText).join("");
-  if (typeof node === "object" && "props" in (node as any)) {
-    return headingText((node as any).props?.children);
-  }
+  if (hasProps(node)) return headingText(node.props?.children);
   return "";
 }
 
@@ -147,12 +157,15 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
           ),
           p: ({ children }) => {
             const childArr = Array.isArray(children) ? children : [children];
+            // A block-level child inside a paragraph: react-markdown will
+            // have produced <p><div>…</div></p>, which is invalid HTML and
+            // which browsers silently reshuffle. Render a <div> instead.
             const hasBlock = childArr.some(
               (child) =>
-                child &&
+                !!child &&
                 typeof child === "object" &&
-                "type" in (child as any) &&
-                typeof (child as any).type !== "string"
+                "type" in child &&
+                typeof (child as NodeWithProps).type !== "string"
             );
             if (hasBlock) {
               return <div className="mb-6">{children}</div>;

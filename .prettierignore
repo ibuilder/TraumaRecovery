@@ -1,0 +1,14 @@
+dist
+build
+node_modules
+test-results
+playwright-report
+package-lock.json
+
+# A single line of base64 several megabytes long. Prettier has nothing to say
+# about it and would spend a while saying it.
+client/src/lib/book-fonts-data.ts
+
+# Prose. Reflowing the book's markdown would churn the diff of every chapter
+# and change nothing a reader sees.
+*.md

@@ -87,6 +87,10 @@ npm run dev          # http://localhost:5000
 |--------|--------------|
 | `npm run dev` | Express + Vite middleware dev server on `PORT` (default 5000) |
 | `npm run check` | TypeScript typecheck |
+| `npm run lint` | ESLint — see [Lint](#lint) for what it is guarding |
+| `npm run lint:fix` | The same, applying what can be fixed automatically |
+| `npm run format` | Format with Prettier |
+| `npm run format:check` | Fail if anything is unformatted (this is what CI runs) |
 | `npm run validate:content` | Structural checks on the book content (see below) |
 | `npm run manifest` | Regenerate `lib/chapters/manifest.ts` from the chapter modules |
 | `npm run book-fonts` | Re-subset the embedded Liberation Serif from the system fonts |
@@ -136,6 +140,25 @@ build and the tests.
   cannot: that every figure has an accessible name, that every drawing hands over
   its content — as a data table or as its own `<desc>` — and that no drawing takes
   a Tab stop.
+
+### Lint
+
+`eslint.config.js` is a guard, not a style council — formatting is Prettier's job
+and `eslint-config-prettier` turns off everything that would argue with it.
+
+What it is actually protecting is the accessibility work, because none of it is
+visible to a typecheck. A chart drawing has to stay `inert`, every landmark has to
+keep its label, a figure has to carry its numbers somewhere a screen reader can
+reach, and `role="application"` — the attribute that made 68 figures unreadable —
+must never be written by hand. `jsx-a11y` catches most of that at the keystroke
+instead of six minutes into CI, where the axe sweep runs.
+
+One rule is spelled out by hand: no `jsx-a11y` rule flags `role="application"` on
+a `div`, because a `div` is generic and no rule treats the role as a downgrade. It
+is a `no-restricted-syntax` selector instead.
+
+Lint and format run first in the `check` job. They are the cheapest signal there by
+two orders of magnitude, so a bad push fails in seconds rather than after a build.
 
 ```bash
 npm run check:pages     # is the built site actually servable from Pages?

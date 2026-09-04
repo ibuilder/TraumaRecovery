@@ -18,7 +18,14 @@ import {
 export function ContinueReading() {
   const [position, setPosition] = useState<ReadingPosition | null>(null);
 
+  // The one-shot read below is deliberate. localStorage does not exist during
+  // the static prerender, so reading it during render would make the first
+  // paint disagree with the prerendered HTML; reading it after mount is the
+  // whole point. There is no external store to subscribe to either, so
+  // useSyncExternalStore would add a snapshot-identity problem without
+  // removing the extra render.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- see above
     setPosition(lastPosition());
   }, []);
 

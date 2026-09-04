@@ -772,7 +772,11 @@ async function renderMarkdownContent(
       // that pair of braces, and it is loud.
       flushPara();
       const start = i;
-      while (i < lines.length - 1 && !lines[++i].trim().startsWith("```")) {}
+      // Scan to the closing fence. The body is empty on purpose: the work is
+      // the increment in the condition.
+      while (i < lines.length - 1 && !lines[++i].trim().startsWith("```")) {
+        /* advance */
+      }
       console.warn(
         `pdf-generator: skipped a fenced block at line ${start + 1} — the ` +
           `exporter cannot typeset one. Make it a chart component instead.`
@@ -1285,7 +1289,6 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     // and a strap repeating it above the title is the mark of a page produced
     // by a loop rather than laid out.
     const leftH = bookInfo.title;
-    const rightH = `Chapter ${chapter.order}`;
 
     // Lay the opener out before painting the tint, so the band always fits its
     // contents and the eyebrow never collides with the title baseline.

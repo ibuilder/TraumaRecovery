@@ -16,6 +16,32 @@ import { tmpdir } from "os";
 import path from "path";
 import { XMLParser, XMLValidator } from "fast-xml-parser";
 
+/**
+ * The bits of an EPUB package document this preflight reads. Attributes carry
+ * the parser's `@` prefix. Everything is optional on purpose -- a missing
+ * field is the failure being reported, not a reason to crash.
+ */
+type OpfNode = Record<string, unknown>;
+
+/** The parser yields a bare object for one child and an array for several. */
+function asNodes(value: OpfNode | OpfNode[] | undefined): OpfNode[] {
+  if (value === undefined) return [];
+  return Array.isArray(value) ? value : [value];
+}
+
+/** Read an attribute as a string; a missing one reads as empty, not "undefined". */
+function attr(node: OpfNode, name: string): string {
+  const v = node[name];
+  return v === undefined || v === null ? "" : String(v);
+}
+type OpfDocument = {
+  package?: {
+    metadata?: Record<string, unknown>;
+    manifest?: { item?: OpfNode | OpfNode[] };
+    spine?: { itemref?: OpfNode | OpfNode[] };
+  };
+};
+
 const DEFAULT = path.resolve(import.meta.dirname, "..", "dist", "healing-together.epub");
 
 interface Finding {
@@ -92,7 +118,9 @@ function main() {
     // ---- the package document ----
     const opf = read("OEBPS/content.opf");
     const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@" });
-    const pkg = parser.parse(opf) as Record<string, any>;
+    // fast-xml-parser returns whatever the document contained; the shape is
+    // exactly what this script is checking, so it cannot be asserted up front.
+    const pkg = parser.parse(opf) as Record<string, unknown> as OpfDocument;
     const meta = pkg?.package?.metadata ?? {};
 
     for (const [label, present] of [
@@ -106,20 +134,24 @@ function main() {
       else fail("Metadata", `${label} is required by EPUB 3 and is missing`);
     }
 
-    const items: any[] = [].concat(pkg?.package?.manifest?.item ?? []);
-    const refs: any[] = [].concat(pkg?.package?.spine?.itemref ?? []);
+    const items = asNodes(pkg?.package?.manifest?.item);
+    const refs = asNodes(pkg?.package?.spine?.itemref);
 
-    if (items.some((i) => String(i["@properties"] ?? "").split(/\s+/).includes("nav"))) {
+    if (items.some((i) => attr(i, "@properties").split(/\s+/).includes("nav"))) {
       pass("Navigation", 'a manifest item is declared properties="nav"');
     } else {
       fail("Navigation", 'no manifest item carries properties="nav"');
     }
 
-    const broken = items.filter((i) => !has(path.posix.join("OEBPS", i["@href"])));
+    const broken = items.filter((i) => !has(path.posix.join("OEBPS", attr(i, "@href"))));
     if (broken.length === 0) pass("Manifest", `all ${items.length} hrefs resolve`);
-    else fail("Manifest", `${broken.length} point at missing files, first ${broken[0]["@href"]}`);
+    else
+      fail(
+        "Manifest",
+        `${broken.length} point at missing files, first ${attr(broken[0], "@href")}`
+      );
 
-    const hrefs = new Set(items.map((i) => i["@href"]));
+    const hrefs = new Set(items.map((i) => attr(i, "@href")));
     const payload = names.filter(
       (n) => n.startsWith("OEBPS/") && !n.endsWith("/") && n !== "OEBPS/content.opf"
     );

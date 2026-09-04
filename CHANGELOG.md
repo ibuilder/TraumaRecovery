@@ -7,6 +7,61 @@ decision for Matthew rather than a change anyone can make in code.
 
 ## Unreleased
 
+### A linter that guards the accessibility work, and a formatter
+
+There was no lint config in the repository at all. That mattered more than it
+sounds, because the accessibility work put invariants into the code that no type
+can see: a chart drawing has to stay `inert`, landmarks have to keep their
+labels, a figure has to carry its numbers somewhere a screen reader can reach,
+and `role="application"` -- the attribute that made 68 figures unreadable --
+must never be written by hand. Until now nothing caught a regression in any of
+those until the axe sweep, six minutes into CI.
+
+ESLint 10 with `jsx-a11y` and `react-hooks`, plus Prettier, with
+`eslint-config-prettier` so the two never argue. Both run first in the `check`
+job: they are the cheapest signal there by two orders of magnitude.
+
+`role="application"` needed a rule of its own. No `jsx-a11y` rule flags it on a
+`div` -- the element is generic, so none of them read the role as a downgrade --
+so it is a `no-restricted-syntax` selector, negative-tested along with the rest
+of the config before being trusted.
+
+**Its first run found a hole in another guard.** `validate:content` matches
+exported figure components with a regex ending `(?=^export |\Z)`. JavaScript has
+no `\Z` anchor; it matched a literal "Z". So the last exported figure in the
+file was never checked -- `AmendsKindsChart` could have been renamed out of the
+registry and silently vanished from both the site and the book, which is the
+exact failure that guard exists to prevent. Now `$(?![\s\S])`, and
+negative-tested on that same figure.
+
+Also from the first run, all verified before being changed:
+
+- `chapter.tsx` cleared its loaded chapter to `null` inside an effect on every
+  navigation -- a cascading render each time. The chapter is now stored beside
+  the slug that fetched it and staleness is derived during render, which removes
+  the extra render and keeps the guarantee it was there for: the previous
+  chapter's prose never shows for a frame under the new chapter's heading.
+- A dead `rightH` in the PDF chapter opener, left from before openers stopped
+  carrying a running header.
+- Eleven `any`s replaced by real types -- one shared type guard in
+  `markdown-renderer` in place of six `as any` casts to reach `.props`, a typed
+  OPF shape in `check-epub`, and `unknown` with an explicit read in the Express
+  error handler.
+- `tailwind.config.ts` used `require()` in an ESM package.
+
+One suppression, with its reason in the code: `continue-reading` reads
+localStorage in an effect on purpose, because it does not exist during the
+static prerender and reading it during render would make the first paint
+disagree with the prerendered HTML.
+
+`eslint-plugin-react-refresh` was tried and dropped. Its only findings were the
+seven places a component is exported beside its `cva` variants -- the convention
+the vendored UI kit is written in -- and seven permanent warnings teach people to
+ignore lint output.
+
+Verified: 107 browser tests pass against a real production build, including the
+axe sweep over all 89 routes and a full book generation.
+
 ### The figures are readable without seeing them
 
 Recharts draws into an SVG it marks `role="application"`, the most hostile role

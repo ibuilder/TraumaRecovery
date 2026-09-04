@@ -36,7 +36,22 @@ export default function Chapter() {
 
   // Navigation renders from the manifest immediately; the prose for this one
   // chapter is fetched as its own chunk.
-  const [loaded, setLoaded] = useState<ChapterContent | null>(null);
+  //
+  // The slug is stored beside the content rather than the content alone. The
+  // alternative -- clearing to null in the effect when the slug changes -- is
+  // a setState inside an effect body, which costs a cascading render on every
+  // navigation; and if it were omitted, the previous chapter's prose would
+  // show for a frame under the new chapter's heading. Deriving staleness
+  // during render avoids both.
+  //
+  // `chapter` is nullable because loadChapter resolves to null for a slug
+  // whose module will not load. That reads as "still loading" here, and shows
+  // the skeleton, which is what it did before this was keyed by slug.
+  const [fetched, setFetched] = useState<{
+    slug: string;
+    chapter: ChapterContent | null;
+  } | null>(null);
+  const loaded = fetched?.slug === slug ? fetched.chapter : null;
 
   useEffect(() => {
     // A search result or a shared link can point at a heading inside the page,
@@ -51,9 +66,8 @@ export default function Chapter() {
 
   useEffect(() => {
     let cancelled = false;
-    setLoaded(null);
     loadChapter(slug).then((c) => {
-      if (!cancelled) setLoaded(c);
+      if (!cancelled) setFetched({ slug, chapter: c });
     });
     return () => {
       cancelled = true;
