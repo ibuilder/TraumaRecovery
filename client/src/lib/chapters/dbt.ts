@@ -4,7 +4,8 @@ export const dbtChapter: Chapter = {
   id: "9",
   title: "Dialectical Behavior Therapy (DBT)",
   slug: "dbt",
-  description: "Master emotional regulation and distress tolerance with comprehensive DBT skills.",
+  description:
+    "Master emotional regulation and distress tolerance with comprehensive DBT skills.",
   icon: "Waves",
   order: 9,
   readingTime: "90 min read",

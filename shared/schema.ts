@@ -9,13 +9,15 @@ export const chapterSchema = z.object({
   order: z.number(),
   readingTime: z.string(),
   content: z.string(),
-  subchapters: z.array(z.object({
-    id: z.string(),
-    title: z.string(),
-    slug: z.string(),
-    content: z.string(),
-    order: z.number(),
-  })),
+  subchapters: z.array(
+    z.object({
+      id: z.string(),
+      title: z.string(),
+      slug: z.string(),
+      content: z.string(),
+      order: z.number(),
+    })
+  ),
 });
 
 export type Chapter = z.infer<typeof chapterSchema>;
@@ -36,7 +38,9 @@ import { pgTable, text, varchar } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 
 export const users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: varchar("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
 });

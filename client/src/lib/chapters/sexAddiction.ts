@@ -4,7 +4,8 @@ export const sexAddictionChapter: Chapter = {
   id: "13",
   title: "Sex & Love Addiction",
   slug: "sex-love-addiction",
-  description: "Understand compulsive sexual behavior and love addiction through the pioneering work of Dr. Patrick Carnes, with pathways to lasting sexual sobriety and healthy intimacy.",
+  description:
+    "Understand compulsive sexual behavior and love addiction through the pioneering work of Dr. Patrick Carnes, with pathways to lasting sexual sobriety and healthy intimacy.",
   icon: "Heart",
   order: 13,
   readingTime: "90 min read",

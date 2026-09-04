@@ -15,8 +15,8 @@ export default function NotFound() {
             We couldn't find that page
           </h1>
           <p className="text-sm text-muted-foreground">
-            The link may be out of date, or the chapter may have moved. Everything is still here —
-            start from the table of contents.
+            The link may be out of date, or the chapter may have moved. Everything is
+            still here — start from the table of contents.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
             <Link href="/chapters">

@@ -4,7 +4,8 @@ export const basicRecoveryChapter: Chapter = {
   id: "1",
   title: "Understanding Trauma & Basic Recovery",
   slug: "basic-recovery",
-  description: "Learn the fundamentals of trauma and begin your healing journey with essential recovery principles.",
+  description:
+    "Learn the fundamentals of trauma and begin your healing journey with essential recovery principles.",
   icon: "Heart",
   order: 1,
   readingTime: "60 min read",

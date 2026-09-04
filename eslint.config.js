@@ -72,8 +72,7 @@ export default tseslint.config(
       "no-restricted-syntax": [
         "error",
         {
-          selector:
-            "JSXAttribute[name.name='role'][value.value='application']",
+          selector: "JSXAttribute[name.name='role'][value.value='application']",
           message:
             'role="application" stops a screen reader interpreting the subtree. Mark the drawing `inert` and give the figure a data table or a description instead.',
         },
@@ -117,5 +116,5 @@ export default tseslint.config(
   },
 
   // Last, so it wins: turn off every rule that would fight the formatter.
-  prettier,
+  prettier
 );

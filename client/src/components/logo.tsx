@@ -29,9 +29,31 @@ export function Logo({ className = "h-6 w-6" }: { className?: string }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M30.2 19 L38.4 16.2" fill="none" stroke="#f0bd57" strokeWidth="1.7" strokeLinecap="round" opacity="0.9" />
-      <path d="M34.4 39.4 L42.6 37.4" fill="none" stroke="#f0bd57" strokeWidth="1.7" strokeLinecap="round" opacity="0.9" />
-      <circle cx="32" cy="32" r="30" fill="none" stroke="#ffffff" strokeWidth="1.4" opacity="0.16" />
+      <path
+        d="M30.2 19 L38.4 16.2"
+        fill="none"
+        stroke="#f0bd57"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        opacity="0.9"
+      />
+      <path
+        d="M34.4 39.4 L42.6 37.4"
+        fill="none"
+        stroke="#f0bd57"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        opacity="0.9"
+      />
+      <circle
+        cx="32"
+        cy="32"
+        r="30"
+        fill="none"
+        stroke="#ffffff"
+        strokeWidth="1.4"
+        opacity="0.16"
+      />
     </svg>
   );
 }

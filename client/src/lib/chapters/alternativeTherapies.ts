@@ -4,7 +4,8 @@ export const alternativeTherapiesChapter: Chapter = {
   id: "11",
   title: "Alternative Therapies",
   slug: "alternative-therapies",
-  description: "Explore evidence-based alternative treatments including Somatic Therapy, EMDR, and TMS.",
+  description:
+    "Explore evidence-based alternative treatments including Somatic Therapy, EMDR, and TMS.",
   icon: "Sparkles",
   order: 11,
   readingTime: "50 min read",

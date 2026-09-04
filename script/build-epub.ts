@@ -35,7 +35,11 @@ const BASE = "/traumarecovery";
 const BOOK_ID = "urn:uuid:6f1b9e2c-3d47-4a58-9c1e-2b7f0a5d8e34";
 
 const xml = (s: string) =>
-  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 
 interface Section {
   /** File name inside OEBPS/text. */
@@ -87,7 +91,10 @@ interface Figure {
  * has scaled the text up cannot scale up a bitmap of a bar chart; a screen
  * reader cannot read one at all.
  */
-async function captureFigures(names: string[], imageDir: string): Promise<Map<string, Figure>> {
+async function captureFigures(
+  names: string[],
+  imageDir: string
+): Promise<Map<string, Figure>> {
   const found = new Map<string, Figure>();
   const server = execFileSync;
   void server;
@@ -128,7 +135,11 @@ async function captureFigures(names: string[], imageDir: string): Promise<Map<st
     if (!charts.some((c) => wanted.has(c) && !found.has(c))) continue;
 
     await page.goto(`http://localhost:${PORT}${BASE}${route}`, { waitUntil: "load" });
-    await page.locator("main figure").first().waitFor({ timeout: 8000 }).catch(() => null);
+    await page
+      .locator("main figure")
+      .first()
+      .waitFor({ timeout: 8000 })
+      .catch(() => null);
     // Long enough for the entry animations to land; a chart caught mid-sweep is
     // a chart with the wrong numbers drawn on it.
     await page.waitForTimeout(1800);
@@ -140,7 +151,13 @@ async function captureFigures(names: string[], imageDir: string): Promise<Map<st
       const fig = holder.locator("figure").first();
       if (!(await fig.count())) continue;
       const text = async (sel: string) =>
-        (await fig.locator(sel).first().textContent().catch(() => ""))?.trim() ?? "";
+        (
+          await fig
+            .locator(sel)
+            .first()
+            .textContent()
+            .catch(() => "")
+        )?.trim() ?? "";
       const title = await text("[data-chart-title]");
       const subtitle = await text("[data-chart-subtitle]");
 
@@ -205,7 +222,9 @@ function renderFigureTable(fig: Figure): string {
       (row) =>
         "<tr>" +
         row
-          .map((value, i) => (i === 0 ? cell("th", "row", value) : `<td>${xml(value)}</td>`))
+          .map((value, i) =>
+            i === 0 ? cell("th", "row", value) : `<td>${xml(value)}</td>`
+          )
           .join("") +
         "</tr>"
     )
@@ -304,7 +323,14 @@ async function main() {
   const { spawn } = await import("child_process");
   const server = spawn(
     "npx",
-    ["tsx", path.join(ROOT, "script", "serve-static.ts"), "--port", String(PORT), "--base", BASE],
+    [
+      "tsx",
+      path.join(ROOT, "script", "serve-static.ts"),
+      "--port",
+      String(PORT),
+      "--base",
+      BASE,
+    ],
     { cwd: ROOT, stdio: "ignore", detached: false }
   );
   await new Promise((r) => setTimeout(r, 4000));
@@ -331,7 +357,9 @@ async function main() {
     writeFileSync(path.join(textDir, section.file), html, "utf8");
   }
   if (missing.size) {
-    console.error(`\nnot captured, so dropped from the ebook: ${[...missing].join(", ")}`);
+    console.error(
+      `\nnot captured, so dropped from the ebook: ${[...missing].join(", ")}`
+    );
     process.exitCode = 1;
   }
 

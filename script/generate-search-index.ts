@@ -97,12 +97,7 @@ function sectionsOf(markdown: string): { heading: string | null; body: string }[
 export function buildSearchIndex(): SearchEntry[] {
   const entries: SearchEntry[] = [];
 
-  const addPage = (
-    title: string,
-    context: string,
-    url: string,
-    markdown: string
-  ) => {
+  const addPage = (title: string, context: string, url: string, markdown: string) => {
     // Repeated headings on one page get -2, -3, matching how the renderer
     // disambiguates the ids it emits.
     const seen = new Map<string, number>();

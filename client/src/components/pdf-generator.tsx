@@ -201,7 +201,12 @@ function linesLeft(y: number, lineH: number): number {
 const MIN_ORPHAN = 2;
 const MIN_WIDOW = 2;
 
-function checkPageBreak(state: DocState, neededHeight: number, leftHeader: string, rightHeader: string): DocState {
+function checkPageBreak(
+  state: DocState,
+  neededHeight: number,
+  leftHeader: string,
+  rightHeader: string
+): DocState {
   if (state.y + neededHeight > PAGE_FLOOR) {
     return newPage(state, leftHeader, rightHeader);
   }
@@ -370,7 +375,10 @@ function collectBibliography(chaps: Chapter[]): string[] {
         // the surname, the year and the opening of the title so those merge,
         // but two different works by one author in one year do not.
         const year = /\((\d{4}[a-z]?)\)/.exec(line)?.[1] ?? "";
-        const surname = line.split(",")[0]!.toLowerCase().replace(/[^a-z ]/g, "");
+        const surname = line
+          .split(",")[0]!
+          .toLowerCase()
+          .replace(/[^a-z ]/g, "");
         // Key on the main title — everything before the subtitle colon or the
         // sentence stop. The same book is cited both in full and short form
         // ("No bad parts: Healing trauma…" and "No bad parts."), which a
@@ -436,13 +444,21 @@ function addHangingEntry(
 }
 
 /** Height of one laid-out table row. */
-function tableRowHeight(state: DocState, row: string[], columns: number, bold: boolean): number {
+function tableRowHeight(
+  state: DocState,
+  row: string[],
+  columns: number,
+  bold: boolean
+): number {
   const { doc } = state;
   doc.setFont(BOOK_FONT, bold ? "bold" : "normal");
   doc.setFontSize(FONT_SIZE_SMALL);
   const colWidth = TABLE_WIDTH / columns;
-  const lines = Array.from({ length: columns }, (_, i) =>
-    (doc.splitTextToSize(row[i] ?? "", colWidth - 2 * TABLE_ROW_PADDING) as string[]).length
+  const lines = Array.from(
+    { length: columns },
+    (_, i) =>
+      (doc.splitTextToSize(row[i] ?? "", colWidth - 2 * TABLE_ROW_PADDING) as string[])
+        .length
   );
   return Math.max(1, ...lines) * TABLE_CELL_LINE_HEIGHT + 2 * TABLE_ROW_PADDING;
 }
@@ -457,7 +473,9 @@ function tableRowHeight(state: DocState, row: string[], columns: number, bold: b
 function tableReserve(state: DocState, rows: string[][], hasHeader: boolean): number {
   const columns = Math.max(...rows.map((r) => r.length));
   if (columns === 0) return 0;
-  const heights = rows.map((r, i) => tableRowHeight(state, r, columns, hasHeader && i === 0));
+  const heights = rows.map((r, i) =>
+    tableRowHeight(state, r, columns, hasHeader && i === 0)
+  );
   const lead = heights.slice(0, hasHeader ? 2 : 1).reduce((a, b) => a + b, 0);
   const total = heights.reduce((a, b) => a + b, 0);
   return 3 + (rows.length <= SMALL_TABLE_ROWS ? total : lead);
@@ -491,10 +509,7 @@ function addTable(
     return { wrapped, height };
   };
 
-  const draw = (
-    laid: { wrapped: string[][]; height: number },
-    isHeaderRow: boolean
-  ) => {
+  const draw = (laid: { wrapped: string[][]; height: number }, isHeaderRow: boolean) => {
     doc.setFont(BOOK_FONT, isHeaderRow ? "bold" : "normal");
     doc.setFontSize(FONT_SIZE_SMALL);
     if (isHeaderRow) {
@@ -529,7 +544,7 @@ function addTable(
   // page when it would fit there.
   if (
     state.y + total > PAGE_FLOOR &&
-    total <= PAGE_FLOOR - (TEXT_TOP) &&
+    total <= PAGE_FLOOR - TEXT_TOP &&
     rows.length <= SMALL_TABLE_ROWS
   ) {
     state = newPage(state, leftHeader, rightHeader);
@@ -596,7 +611,17 @@ async function renderMarkdownContent(
     group.forEach((head, i) => {
       // The gap above the first heading is swallowed by the page break.
       if (!(breaking && i === 0)) state.y += head.before;
-      state = addText(state, head.text, head.size, "bold", leftHeader, rightHeader, 0, [26, 26, 26], true);
+      state = addText(
+        state,
+        head.text,
+        head.size,
+        "bold",
+        leftHeader,
+        rightHeader,
+        0,
+        [26, 26, 26],
+        true
+      );
       state.y += head.after;
     });
   };
@@ -625,9 +650,8 @@ async function renderMarkdownContent(
   const quoteOpeningHeight = (text: string) => {
     state.doc.setFontSize(FONT_SIZE_NORMAL);
     state.doc.setFont(BOOK_FONT, "italic");
-    const n = (
-      state.doc.splitTextToSize(text, TEXT_WIDTH - 2 * QUOTE_INSET) as string[]
-    ).length;
+    const n = (state.doc.splitTextToSize(text, TEXT_WIDTH - 2 * QUOTE_INSET) as string[])
+      .length;
     const carried =
       n <= linesLeft(TEXT_TOP, LINE_HEIGHT_NORMAL) || n < MIN_ORPHAN + MIN_WIDOW
         ? n
@@ -680,7 +704,10 @@ async function renderMarkdownContent(
   const flushPara = () => {
     if (paraBuffer.length === 0) return;
     const combined = paraBuffer.join(" ").trim();
-    if (!combined) { paraBuffer = []; return; }
+    if (!combined) {
+      paraBuffer = [];
+      return;
+    }
     paraBuffer = [];
 
     // A paragraph that opens with a bold run — "**The Functional Adult is the
@@ -697,7 +724,14 @@ async function renderMarkdownContent(
         pending.push({ text: label, size: FONT_SIZE_NORMAL, before: 4, after: 0 });
         if (rest) {
           placeHeading(openingHeight(rest));
-          state = addText(state, rest, FONT_SIZE_NORMAL, "normal", leftHeader, rightHeader);
+          state = addText(
+            state,
+            rest,
+            FONT_SIZE_NORMAL,
+            "normal",
+            leftHeader,
+            rightHeader
+          );
           state.y += 2;
         }
         return;
@@ -708,7 +742,14 @@ async function renderMarkdownContent(
     if (cleaned) {
       placeHeading(openingHeight(cleaned));
       state.y += 2;
-      state = addText(state, cleaned, FONT_SIZE_NORMAL, "normal", leftHeader, rightHeader);
+      state = addText(
+        state,
+        cleaned,
+        FONT_SIZE_NORMAL,
+        "normal",
+        leftHeader,
+        rightHeader
+      );
       state.y += 2;
     }
   };
@@ -758,7 +799,16 @@ async function renderMarkdownContent(
       } else {
         placeHeading(LINE_HEIGHT_NORMAL);
         state.y += 2;
-        state = addText(state, `[Chart: ${chartName}]`, FONT_SIZE_SMALL, "italic", leftHeader, rightHeader, 4, [120, 120, 120]);
+        state = addText(
+          state,
+          `[Chart: ${chartName}]`,
+          FONT_SIZE_SMALL,
+          "italic",
+          leftHeader,
+          rightHeader,
+          4,
+          [120, 120, 120]
+        );
         state.y += 2;
       }
       continue;
@@ -963,30 +1013,35 @@ function buildCopyrightPage(doc: jsPDF): void {
   let y = 60;
   const addLine = (text: string, gap = 6) => {
     const lines = doc.splitTextToSize(text, TEXT_WIDTH);
-    lines.forEach((l: string) => { doc.text(l, MARGIN_LEFT, y); y += gap; });
+    lines.forEach((l: string) => {
+      doc.text(l, MARGIN_LEFT, y);
+      y += gap;
+    });
     y += 2;
   };
 
   doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(12);
-  doc.text(bookInfo.title, MARGIN_LEFT, y); y += 8;
+  doc.text(bookInfo.title, MARGIN_LEFT, y);
+  y += 8;
   doc.setFont(BOOK_FONT, "italic");
   doc.setFontSize(10);
-  doc.text(bookInfo.subtitle, MARGIN_LEFT, y); y += 10;
+  doc.text(bookInfo.subtitle, MARGIN_LEFT, y);
+  y += 10;
   doc.setFont(BOOK_FONT, "normal");
 
   addLine(`By ${bookInfo.author}`, 8);
   addLine(`Copyright © 2025 ${bookInfo.author}. All rights reserved.`);
   addLine(
     "No part of this publication may be reproduced, distributed, or transmitted in any form or by any means, " +
-    "including photocopying, recording, or other electronic or mechanical methods, without the prior written " +
-    "permission of the publisher, except in the case of brief quotations embodied in critical reviews and " +
-    "certain other noncommercial uses permitted by copyright law."
+      "including photocopying, recording, or other electronic or mechanical methods, without the prior written " +
+      "permission of the publisher, except in the case of brief quotations embodied in critical reviews and " +
+      "certain other noncommercial uses permitted by copyright law."
   );
   addLine(
     "This book is intended for educational and informational purposes only. It is not a substitute for " +
-    "professional medical or mental health advice, diagnosis, or treatment. Always seek the guidance of " +
-    "your physician or other qualified health provider with any questions regarding a medical or mental health condition."
+      "professional medical or mental health advice, diagnosis, or treatment. Always seek the guidance of " +
+      "your physician or other qualified health provider with any questions regarding a medical or mental health condition."
   );
   y += 6;
   doc.setFont(BOOK_FONT, "bold");
@@ -1004,10 +1059,15 @@ function buildCopyrightPage(doc: jsPDF): void {
     "Crisis Text Line — text HOME to 741741",
     "SAMHSA National Helpline — 1-800-662-4357",
     "National Domestic Violence Hotline — 1-800-799-7233",
-  ].forEach((line) => { doc.text(line, MARGIN_LEFT, y); y += 5.5; });
+  ].forEach((line) => {
+    doc.text(line, MARGIN_LEFT, y);
+    y += 5.5;
+  });
   y += 2;
   doc.setFontSize(9);
-  addLine("These numbers are for the United States. Elsewhere, findahelpline.com lists services by country.");
+  addLine(
+    "These numbers are for the United States. Elsewhere, findahelpline.com lists services by country."
+  );
 
   doc.setFontSize(10);
   y += 8;
@@ -1088,7 +1148,11 @@ function drawList(
     const lineH = entry.isChapter ? TOC_CHAPTER_LINE : TOC_SUB_LINE;
     doc.setFont(BOOK_FONT, entry.isChapter ? "bold" : "normal");
     doc.setFontSize(entry.isChapter ? 12 : 10);
-    doc.setTextColor(entry.isChapter ? 15 : 70, entry.isChapter ? 23 : 80, entry.isChapter ? 42 : 90);
+    doc.setTextColor(
+      entry.isChapter ? 15 : 70,
+      entry.isChapter ? 23 : 80,
+      entry.isChapter ? 42 : 90
+    );
     const indent = entry.isChapter ? 0 : 10;
     const lines = doc.splitTextToSize(entry.label, TEXT_WIDTH - indent - 20) as string[];
     lines.forEach((l, i) => doc.text(l, MARGIN_LEFT + indent, y + i * lineH));
@@ -1219,16 +1283,22 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
   // jsPDF + html2canvas are ~600 kB, and the full book text is over a megabyte.
   // None of it is fetched until someone actually asks for the PDF.
   onProgress("Loading the book...");
-  const [{ jsPDF: JsPDF }, { default: html2canvas }, charts, chapters] = await Promise.all([
-    import("jspdf"),
-    import("html2canvas"),
-    import("@/components/chart-registry"),
-    loadAllChapters(),
-  ]);
+  const [{ jsPDF: JsPDF }, { default: html2canvas }, charts, chapters] =
+    await Promise.all([
+      import("jspdf"),
+      import("html2canvas"),
+      import("@/components/chart-registry"),
+      loadAllChapters(),
+    ]);
 
   const referencedCharts = collectReferencedCharts(chapters, charts.ALL_CHART_COMPONENTS);
   onProgress(`Capturing ${referencedCharts.length} charts (this takes a minute)...`);
-  const chartImages = await captureCharts(referencedCharts, html2canvas, charts, onProgress);
+  const chartImages = await captureCharts(
+    referencedCharts,
+    html2canvas,
+    charts,
+    onProgress
+  );
 
   onProgress("Building PDF...");
   const doc = new JsPDF({ unit: "mm", format: "letter", orientation: "portrait" });
@@ -1283,7 +1353,11 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     doc.addPage("letter");
     state.pageNum++;
     state.y = TEXT_TOP + CHAPTER_SINK;
-    toc.push({ label: `${chapter.order}. ${chapter.title}`, page: state.pageNum, isChapter: true });
+    toc.push({
+      label: `${chapter.order}. ${chapter.title}`,
+      page: state.pageNum,
+      isChapter: true,
+    });
 
     // No running header on an opener: the page announces the chapter itself,
     // and a strap repeating it above the title is the mark of a page produced
@@ -1333,7 +1407,14 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     doc.line(MARGIN_LEFT, state.y, PAGE_WIDTH - MARGIN_RIGHT, state.y);
     state.y += 8;
 
-    state = await renderMarkdownContent(state, chapter.content, leftH, chapter.title, chartImages, figures);
+    state = await renderMarkdownContent(
+      state,
+      chapter.content,
+      leftH,
+      chapter.title,
+      chartImages,
+      figures
+    );
 
     for (const sub of chapter.subchapters) {
       addPageNumber(state);
@@ -1371,7 +1452,14 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
       state.y += 8;
 
       doc.setTextColor(26, 26, 26);
-      state = await renderMarkdownContent(state, sub.content, subLeftH, subRightH, chartImages, figures);
+      state = await renderMarkdownContent(
+        state,
+        sub.content,
+        subLeftH,
+        subRightH,
+        chartImages,
+        figures
+      );
     }
   }
 
@@ -1401,7 +1489,10 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
       "Works cited across the book, in one list. Where the text names an author and a year, the full reference is here.",
       TEXT_WIDTH
     ) as string[];
-    bibNote.forEach((l) => { doc.text(l, MARGIN_LEFT, state.y); state.y += 5; });
+    bibNote.forEach((l) => {
+      doc.text(l, MARGIN_LEFT, state.y);
+      state.y += 5;
+    });
     state.y += 5;
 
     for (const entry of bibliography) {
@@ -1429,7 +1520,10 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
   doc.setFontSize(FONT_SIZE_NORMAL);
   doc.setTextColor(60, 60, 60);
   const noteLines = doc.splitTextToSize(noteText, TEXT_WIDTH);
-  noteLines.forEach((l: string) => { doc.text(l, MARGIN_LEFT, state.y); state.y += 6.5; });
+  noteLines.forEach((l: string) => {
+    doc.text(l, MARGIN_LEFT, state.y);
+    state.y += 6.5;
+  });
 
   state.y += 8;
   doc.setFont(BOOK_FONT, "bold");
@@ -1452,7 +1546,10 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     "SAMHSA National Helpline: 1-800-662-4357",
     "Sex Addicts Anonymous: www.saa-recovery.org",
   ];
-  resources.forEach((r) => { doc.text(r, MARGIN_LEFT, state.y); state.y += 6; });
+  resources.forEach((r) => {
+    doc.text(r, MARGIN_LEFT, state.y);
+    state.y += 6;
+  });
 
   state.y += 15;
   doc.setDrawColor(180, 180, 180);
@@ -1462,11 +1559,13 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
   doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(12);
   doc.setTextColor(15, 23, 42);
-  doc.text(bookInfo.title, MARGIN_LEFT, state.y); state.y += 7;
+  doc.text(bookInfo.title, MARGIN_LEFT, state.y);
+  state.y += 7;
   doc.setFont(BOOK_FONT, "normal");
   doc.setFontSize(10);
   doc.setTextColor(80, 80, 80);
-  doc.text(`By ${bookInfo.author}`, MARGIN_LEFT, state.y); state.y += 6;
+  doc.text(`By ${bookInfo.author}`, MARGIN_LEFT, state.y);
+  state.y += 6;
   doc.text("Recovery Works Publishing • 2025", MARGIN_LEFT, state.y);
 
   addPageNumber(state);

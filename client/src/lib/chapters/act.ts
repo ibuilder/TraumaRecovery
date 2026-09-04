@@ -4,7 +4,8 @@ export const actChapter: Chapter = {
   id: "10",
   title: "Acceptance & Commitment Therapy (ACT)",
   slug: "act",
-  description: "Find psychological flexibility through acceptance and values-based living.",
+  description:
+    "Find psychological flexibility through acceptance and values-based living.",
   icon: "Compass",
   order: 10,
   readingTime: "45 min read",

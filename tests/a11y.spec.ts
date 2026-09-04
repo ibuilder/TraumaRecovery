@@ -21,7 +21,9 @@ import { sitePath, allRoutes } from "./helpers/routes";
 
 /** Charts mount after Recharts has measured the container, so wait them out. */
 async function settle(page: import("@playwright/test").Page) {
-  await page.waitForFunction(() => !!document.querySelector("h1"), null, { timeout: 20_000 });
+  await page.waitForFunction(() => !!document.querySelector("h1"), null, {
+    timeout: 20_000,
+  });
   const figures = await page.locator("figure").count();
   if (figures > 0) {
     await page
@@ -69,7 +71,9 @@ test.describe("accessibility", () => {
       const found = await page.evaluate(() =>
         Array.from(document.querySelectorAll("figure")).map((f) => {
           const labelledBy = f.getAttribute("aria-labelledby");
-          const name = labelledBy ? document.getElementById(labelledBy)?.textContent?.trim() : "";
+          const name = labelledBy
+            ? document.getElementById(labelledBy)?.textContent?.trim()
+            : "";
           const describedBy = f.getAttribute("aria-describedby");
           const drawing = f.querySelector("svg");
           return {
@@ -78,13 +82,17 @@ test.describe("accessibility", () => {
             // A figure whose proportions are illustrative rather than measured
             // says so in prose instead; a table of those numbers would read as
             // data it is not.
-            described: !!(describedBy && document.getElementById(describedBy)?.textContent?.trim()),
+            described: !!(
+              describedBy && document.getElementById(describedBy)?.textContent?.trim()
+            ),
             // Some figures are laid out in HTML rather than drawn. Their text
             // is already in the document and needs nothing added to it.
             hasDrawing: !!drawing,
             // A hand-drawn diagram describes itself; a Recharts surface cannot.
             selfDescribing: !!drawing?.querySelector(":scope > title, :scope > desc"),
-            drawingReachable: !!f.querySelector(':scope > div:not([inert]) svg[role="application"]'),
+            drawingReachable: !!f.querySelector(
+              ':scope > div:not([inert]) svg[role="application"]'
+            ),
           };
         })
       );
@@ -98,10 +106,14 @@ test.describe("accessibility", () => {
         // `<desc>`. A Recharts surface reachable in the a11y tree is neither —
         // it reads out as loose axis labels with no values attached.
         if (f.hasDrawing && !f.hasTable && !f.selfDescribing && !f.described) {
-          undescribed.push(`${route.path}: "${f.name}" has neither a data table nor a description`);
+          undescribed.push(
+            `${route.path}: "${f.name}" has neither a data table nor a description`
+          );
         }
         if (f.drawingReachable) {
-          undescribed.push(`${route.path}: "${f.name}" leaves role="application" in the a11y tree`);
+          undescribed.push(
+            `${route.path}: "${f.name}" leaves role="application" in the a11y tree`
+          );
         }
       }
     }
@@ -120,7 +132,9 @@ test.describe("accessibility", () => {
     // themselves in plain HTML — so find one that does rather than assume.
     const drawings = page.locator('[inert] [tabindex="0"], [inert] a, [inert] button');
     let focusableInDrawings = 0;
-    for (const route of allRoutes().filter((r) => r.path.includes("/chapter/")).slice(0, 12)) {
+    for (const route of allRoutes()
+      .filter((r) => r.path.includes("/chapter/"))
+      .slice(0, 12)) {
       await page.goto(sitePath(route.path), { waitUntil: "load" });
       await settle(page);
       focusableInDrawings = await drawings.count();
@@ -139,7 +153,9 @@ test.describe("accessibility", () => {
 
     await page.locator("figure").first().locator("summary").focus();
     for (let i = 0; i < 8; i++) {
-      const inside = await page.evaluate(() => !!document.activeElement?.closest("[inert]"));
+      const inside = await page.evaluate(
+        () => !!document.activeElement?.closest("[inert]")
+      );
       expect(inside, "Tab landed inside a drawing that announces nothing").toBe(false);
       await page.keyboard.press("Tab");
     }

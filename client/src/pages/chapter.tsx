@@ -80,9 +80,7 @@ export default function Chapter() {
   // up. Above the not-found branch below: hooks cannot sit after a return.
   useEffect(() => {
     if (!chapter) return;
-    const sub = subSlug
-      ? chapter.subchapters.find((s) => s.slug === subSlug)
-      : undefined;
+    const sub = subSlug ? chapter.subchapters.find((s) => s.slug === subSlug) : undefined;
     rememberPosition({
       url: sub
         ? `/chapter/${chapter.slug}/subchapter/${sub.slug}`
@@ -99,7 +97,9 @@ export default function Chapter() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center space-y-4">
           <h1 className="text-2xl font-bold">Chapter Not Found</h1>
-          <p className="text-muted-foreground">The chapter you're looking for doesn't exist.</p>
+          <p className="text-muted-foreground">
+            The chapter you're looking for doesn't exist.
+          </p>
           <Link href="/">
             <Button>Return Home</Button>
           </Link>
@@ -108,28 +108,26 @@ export default function Chapter() {
     );
   }
 
-  const subchapter = subSlug
-    ? chapter.subchapters.find((s) => s.slug === subSlug)
-    : null;
+  const subchapter = subSlug ? chapter.subchapters.find((s) => s.slug === subSlug) : null;
 
   // The markdown body of every chapter and subchapter opens with its own H1,
   // so the page heading comes from MarkdownRenderer rather than being repeated here.
-  const loadedSub = subSlug
-    ? loaded?.subchapters.find((s) => s.slug === subSlug)
-    : null;
+  const loadedSub = subSlug ? loaded?.subchapters.find((s) => s.slug === subSlug) : null;
   const content = subSlug ? loadedSub?.content : loaded?.content;
 
   const currentIndex = chapters.findIndex((c) => c.slug === slug);
   const prevChapter = currentIndex > 0 ? chapters[currentIndex - 1] : null;
-  const nextChapter = currentIndex < chapters.length - 1 ? chapters[currentIndex + 1] : null;
+  const nextChapter =
+    currentIndex < chapters.length - 1 ? chapters[currentIndex + 1] : null;
 
-  const currentSubIndex = subchapter 
+  const currentSubIndex = subchapter
     ? chapter.subchapters.findIndex((s) => s.slug === subSlug)
     : -1;
   const prevSub = currentSubIndex > 0 ? chapter.subchapters[currentSubIndex - 1] : null;
-  const nextSub = currentSubIndex >= 0 && currentSubIndex < chapter.subchapters.length - 1 
-    ? chapter.subchapters[currentSubIndex + 1] 
-    : null;
+  const nextSub =
+    currentSubIndex >= 0 && currentSubIndex < chapter.subchapters.length - 1
+      ? chapter.subchapters[currentSubIndex + 1]
+      : null;
 
   return (
     <>
@@ -139,20 +137,28 @@ export default function Chapter() {
           <nav className="mb-8 mx-auto max-w-6xl" aria-label="Breadcrumb">
             <ol className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
               <li>
-                <Link href="/" className="hover:text-foreground transition-colors" data-testid="breadcrumb-home">
+                <Link
+                  href="/"
+                  className="hover:text-foreground transition-colors"
+                  data-testid="breadcrumb-home"
+                >
                   Home
                 </Link>
               </li>
               <li>/</li>
               <li>
-                <Link href="/chapters" className="hover:text-foreground transition-colors" data-testid="breadcrumb-chapters">
+                <Link
+                  href="/chapters"
+                  className="hover:text-foreground transition-colors"
+                  data-testid="breadcrumb-chapters"
+                >
                   Chapters
                 </Link>
               </li>
               <li>/</li>
               <li>
                 {subchapter ? (
-                  <Link 
+                  <Link
                     href={`/chapter/${chapter.slug}`}
                     className="hover:text-foreground transition-colors"
                     data-testid="breadcrumb-chapter"
@@ -160,13 +166,17 @@ export default function Chapter() {
                     {chapter.title}
                   </Link>
                 ) : (
-                  <span className="text-foreground" data-testid="breadcrumb-current">{chapter.title}</span>
+                  <span className="text-foreground" data-testid="breadcrumb-current">
+                    {chapter.title}
+                  </span>
                 )}
               </li>
               {subchapter && (
                 <>
                   <li>/</li>
-                  <li className="text-foreground" data-testid="breadcrumb-subchapter">{subchapter.title}</li>
+                  <li className="text-foreground" data-testid="breadcrumb-subchapter">
+                    {subchapter.title}
+                  </li>
                 </>
               )}
             </ol>
@@ -185,9 +195,7 @@ export default function Chapter() {
                 <header className="mb-8 pb-8 border-b">
                   <div className="flex items-center gap-2 mb-4 flex-wrap">
                     <Badge variant="secondary">Chapter {chapter.order}</Badge>
-                    {subchapter && (
-                      <Badge variant="outline">{subchapter.title}</Badge>
-                    )}
+                    {subchapter && <Badge variant="outline">{subchapter.title}</Badge>}
                   </div>
                   {!subchapter && (
                     <p className="text-lg text-muted-foreground">{chapter.description}</p>
@@ -230,8 +238,14 @@ export default function Chapter() {
                     {subchapter ? (
                       <>
                         {prevSub ? (
-                          <Link href={`/chapter/${chapter.slug}/subchapter/${prevSub.slug}`}>
-                            <Button variant="outline" className="gap-2" data-testid="button-prev-sub">
+                          <Link
+                            href={`/chapter/${chapter.slug}/subchapter/${prevSub.slug}`}
+                          >
+                            <Button
+                              variant="outline"
+                              className="gap-2"
+                              data-testid="button-prev-sub"
+                            >
                               <ChevronLeft className="h-4 w-4" />
                               <span className="hidden sm:inline">{prevSub.title}</span>
                               <span className="sm:hidden">Previous</span>
@@ -239,7 +253,11 @@ export default function Chapter() {
                           </Link>
                         ) : (
                           <Link href={`/chapter/${chapter.slug}`}>
-                            <Button variant="outline" className="gap-2" data-testid="button-back-overview">
+                            <Button
+                              variant="outline"
+                              className="gap-2"
+                              data-testid="button-back-overview"
+                            >
                               <ChevronLeft className="h-4 w-4" />
                               <span className="hidden sm:inline">Overview</span>
                               <span className="sm:hidden">Back</span>
@@ -247,8 +265,14 @@ export default function Chapter() {
                           </Link>
                         )}
                         {nextSub ? (
-                          <Link href={`/chapter/${chapter.slug}/subchapter/${nextSub.slug}`}>
-                            <Button variant="outline" className="gap-2" data-testid="button-next-sub">
+                          <Link
+                            href={`/chapter/${chapter.slug}/subchapter/${nextSub.slug}`}
+                          >
+                            <Button
+                              variant="outline"
+                              className="gap-2"
+                              data-testid="button-next-sub"
+                            >
                               <span className="hidden sm:inline">{nextSub.title}</span>
                               <span className="sm:hidden">Next</span>
                               <ChevronRight className="h-4 w-4" />
@@ -256,8 +280,13 @@ export default function Chapter() {
                           </Link>
                         ) : nextChapter ? (
                           <Link href={`/chapter/${nextChapter.slug}`}>
-                            <Button className="gap-2" data-testid="button-next-chapter-from-sub">
-                              <span className="hidden sm:inline">Next Chapter: {nextChapter.title}</span>
+                            <Button
+                              className="gap-2"
+                              data-testid="button-next-chapter-from-sub"
+                            >
+                              <span className="hidden sm:inline">
+                                Next Chapter: {nextChapter.title}
+                              </span>
                               <span className="sm:hidden">Next Chapter</span>
                               <ChevronRight className="h-4 w-4" />
                             </Button>
@@ -270,9 +299,15 @@ export default function Chapter() {
                       <>
                         {prevChapter ? (
                           <Link href={`/chapter/${prevChapter.slug}`}>
-                            <Button variant="outline" className="gap-2" data-testid="button-prev-chapter">
+                            <Button
+                              variant="outline"
+                              className="gap-2"
+                              data-testid="button-prev-chapter"
+                            >
                               <ChevronLeft className="h-4 w-4" />
-                              <span className="hidden sm:inline">{prevChapter.title}</span>
+                              <span className="hidden sm:inline">
+                                {prevChapter.title}
+                              </span>
                               <span className="sm:hidden">Previous</span>
                             </Button>
                           </Link>
@@ -280,9 +315,16 @@ export default function Chapter() {
                           <div />
                         )}
                         {chapter.subchapters.length > 0 ? (
-                          <Link href={`/chapter/${chapter.slug}/subchapter/${chapter.subchapters[0].slug}`}>
-                            <Button className="gap-2" data-testid="button-continue-first-sub">
-                              <span className="hidden sm:inline">Continue: {chapter.subchapters[0].title}</span>
+                          <Link
+                            href={`/chapter/${chapter.slug}/subchapter/${chapter.subchapters[0].slug}`}
+                          >
+                            <Button
+                              className="gap-2"
+                              data-testid="button-continue-first-sub"
+                            >
+                              <span className="hidden sm:inline">
+                                Continue: {chapter.subchapters[0].title}
+                              </span>
                               <span className="sm:hidden">Continue</span>
                               <ChevronRight className="h-4 w-4" />
                             </Button>
@@ -290,7 +332,9 @@ export default function Chapter() {
                         ) : nextChapter ? (
                           <Link href={`/chapter/${nextChapter.slug}`}>
                             <Button className="gap-2" data-testid="button-next-chapter">
-                              <span className="hidden sm:inline">Next: {nextChapter.title}</span>
+                              <span className="hidden sm:inline">
+                                Next: {nextChapter.title}
+                              </span>
                               <span className="sm:hidden">Next</span>
                               <ChevronRight className="h-4 w-4" />
                             </Button>

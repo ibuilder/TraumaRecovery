@@ -50,11 +50,17 @@ interface Finding {
   detail: string;
 }
 const findings: Finding[] = [];
-const pass = (label: string, detail: string) => findings.push({ ok: true, label, detail });
-const fail = (label: string, detail: string) => findings.push({ ok: false, label, detail });
+const pass = (label: string, detail: string) =>
+  findings.push({ ok: true, label, detail });
+const fail = (label: string, detail: string) =>
+  findings.push({ ok: false, label, detail });
 
 /** Entry names in zip order, with the compression method of the first one. */
-function zipEntries(file: string): { names: string[]; mimetypeStored: boolean; first: string } {
+function zipEntries(file: string): {
+  names: string[];
+  mimetypeStored: boolean;
+  first: string;
+} {
   const listing = execFileSync("unzip", ["-lv", file], { encoding: "utf8" });
   const rows = listing
     .split("\n")
@@ -88,7 +94,11 @@ function main() {
 
     // ---- the container ----
     if (first === "mimetype") pass("mimetype first", "it is the first zip entry");
-    else fail("mimetype first", `first entry is "${first}" — readers will not recognise the file`);
+    else
+      fail(
+        "mimetype first",
+        `first entry is "${first}" — readers will not recognise the file`
+      );
 
     if (mimetypeStored) pass("mimetype stored", "uncompressed, as the spec requires");
     else fail("mimetype stored", "it is deflated; the spec requires it stored");
@@ -97,7 +107,11 @@ function main() {
     if (mimetype === "application/epub+zip") pass("mimetype content", mimetype);
     else fail("mimetype content", `got ${JSON.stringify(mimetype)}`);
 
-    for (const required of ["META-INF/container.xml", "OEBPS/content.opf", "OEBPS/nav.xhtml"]) {
+    for (const required of [
+      "META-INF/container.xml",
+      "OEBPS/content.opf",
+      "OEBPS/nav.xhtml",
+    ]) {
       if (has(required)) pass("Required file", required);
       else fail("Required file", `${required} is missing`);
     }
@@ -107,7 +121,8 @@ function main() {
     const malformed: string[] = [];
     for (const n of xmlFiles) {
       const result = XMLValidator.validate(read(n), { allowBooleanAttributes: false });
-      if (result !== true) malformed.push(`${n} (${result.err.msg} at line ${result.err.line})`);
+      if (result !== true)
+        malformed.push(`${n} (${result.err.msg} at line ${result.err.line})`);
     }
     if (malformed.length === 0) {
       pass("XML well-formed", `all ${xmlFiles.length} documents parse`);
@@ -162,7 +177,8 @@ function main() {
     const ids = new Set(items.map((i) => i["@id"]));
     const dangling = refs.filter((r) => !ids.has(r["@idref"]));
     if (refs.length === 0) fail("Spine", "the spine is empty");
-    else if (dangling.length === 0) pass("Spine", `${refs.length} items, every idref resolves`);
+    else if (dangling.length === 0)
+      pass("Spine", `${refs.length} items, every idref resolves`);
     else fail("Spine", `${dangling.length} idrefs match no manifest id`);
 
     // ---- images ----
@@ -176,7 +192,9 @@ function main() {
         if (!/\salt="[^"]+"/.test(tag)) missingAlt++;
         const src = /\ssrc="([^"]+)"/.exec(tag)?.[1];
         if (src && !src.startsWith("http")) {
-          const resolved = path.posix.normalize(path.posix.join(path.posix.dirname(n), src));
+          const resolved = path.posix.normalize(
+            path.posix.join(path.posix.dirname(n), src)
+          );
           if (!has(resolved)) brokenSrc.push(src);
         }
       }
@@ -190,9 +208,13 @@ function main() {
     }
 
     const width = Math.max(...findings.map((f) => f.label.length));
-    console.log(`\nEPUB preflight — ${path.basename(file)} (${(statSync(file).size / 1e6).toFixed(1)} MB)\n`);
+    console.log(
+      `\nEPUB preflight — ${path.basename(file)} (${(statSync(file).size / 1e6).toFixed(1)} MB)\n`
+    );
     for (const f of findings) {
-      console.log(`[${f.ok ? "  ok  " : " FAIL "}] ${f.label.padEnd(width)}  ${f.detail}`);
+      console.log(
+        `[${f.ok ? "  ok  " : " FAIL "}] ${f.label.padEnd(width)}  ${f.detail}`
+      );
     }
     const failed = findings.filter((f) => !f.ok);
     console.log(`\n${findings.length - failed.length} passed, ${failed.length} failed\n`);

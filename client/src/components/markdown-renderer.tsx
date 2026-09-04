@@ -8,7 +8,6 @@ interface MarkdownRendererProps {
   showCharts?: boolean;
 }
 
-
 /**
  * Chart placeholders are authored as a single-line ```chart:Name``` span, which
  * CommonMark parses as an inline code span. Fenced `\`\`\`chart:Name` blocks are also
@@ -34,9 +33,7 @@ function hasProps(node: unknown): node is NodeWithProps {
 }
 
 function isChartElement(node: unknown): boolean {
-  return (
-    hasProps(node) && CHART_FENCE_RE.test(String(node.props?.className ?? ""))
-  );
+  return hasProps(node) && CHART_FENCE_RE.test(String(node.props?.className ?? ""));
 }
 
 /**
@@ -109,7 +106,8 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
             // A comparison table's corner cell heads nothing, and an empty
             // `<th>` claims to. HTML's answer is a `<td>`; markdown has no way
             // to say it, so it is said here. Five tables in the book have one.
-            const empty = children == null || (Array.isArray(children) && children.length === 0);
+            const empty =
+              children == null || (Array.isArray(children) && children.length === 0);
             return empty ? <td /> : <th {...props}>{children}</th>;
           },
           pre: ({ children }) => {
@@ -130,7 +128,10 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
             );
           },
           h1: ({ children }) => (
-            <h1 className="text-3xl md:text-4xl font-bold mt-0 mb-6 text-foreground" data-testid="text-chapter-title">
+            <h1
+              className="text-3xl md:text-4xl font-bold mt-0 mb-6 text-foreground"
+              data-testid="text-chapter-title"
+            >
               {children}
             </h1>
           ),
@@ -183,9 +184,7 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
             </ol>
           ),
           li: ({ children }) => (
-            <li className="leading-relaxed text-foreground/90">
-              {children}
-            </li>
+            <li className="leading-relaxed text-foreground/90">{children}</li>
           ),
           blockquote: ({ children }) => (
             <blockquote className="border-l-4 border-primary/40 pl-6 my-8 italic text-muted-foreground bg-muted/30 py-4 pr-4 rounded-r-md">
@@ -193,18 +192,10 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
             </blockquote>
           ),
           strong: ({ children }) => (
-            <strong className="font-semibold text-foreground">
-              {children}
-            </strong>
+            <strong className="font-semibold text-foreground">{children}</strong>
           ),
-          em: ({ children }) => (
-            <em className="italic text-foreground/90">
-              {children}
-            </em>
-          ),
-          hr: () => (
-            <hr className="my-8 border-border" />
-          ),
+          em: ({ children }) => <em className="italic text-foreground/90">{children}</em>,
+          hr: () => <hr className="my-8 border-border" />,
           a: ({ href, children }) => (
             <a
               href={href}
