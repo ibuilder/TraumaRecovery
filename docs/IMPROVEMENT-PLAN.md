@@ -208,14 +208,8 @@ The original list follows.
     handling) and the PDF markdown walker (headings, ordered lists, tables, chart blocks).
   - A Playwright smoke suite that walks every route asserting no console errors and the
     expected chart count — the same sweep used to verify Phase 0, promoted into CI.
-- **No linter or formatter.** Add ESLint (`react-hooks`, `jsx-a11y`) and Prettier, and run
-  both in CI. `jsx-a11y` would likely have caught several Phase 3 items already.
-- **Decide what the Express server is for.** It currently serves one `/api/health` endpoint
-  and a static directory. If Pages is the deployment target, either delete `server/`,
-  `drizzle.config.ts`, the unused `MemStorage`/`users` table, and the ~15 unused backend
-  dependencies (`passport`, `express-session`, `connect-pg-simple`, `pg`, `drizzle-orm`,
-  `memorystore`, `ws`) — or keep it and give it a stated purpose. Right now it is scaffolding
-  that implies a database that does not exist.
+- ~~**No linter or formatter**~~ and ~~**decide what the Express server is for**~~ — both
+  done on 2026-09-04; see the two entries at the end of this phase.
 - **Prune unused UI.** ~45 shadcn/ui components are vendored; a handful are used. They are
   tree-shaken out of the bundle but they are still code to maintain and to audit.
 - **`attached_assets/` (22 MB).** It holds two identical copies of a third-party treatment
@@ -262,6 +256,37 @@ navigation, a dead variable in the PDF chapter opener, eleven `any`s, and
 `eslint-plugin-react-refresh` was tried and dropped — its only findings were the
 vendored UI kit's own convention, and seven permanent warnings teach people to
 ignore lint output.
+
+### The Express server is gone (done, 2026-09-04)
+
+The answer to "give it a purpose or delete it" was delete. It served one
+`/api/health` endpoint that nothing called, a static directory that GitHub Pages
+serves instead, a `MemStorage` for a `users` table nothing imported, and a
+`drizzle.config.ts` that threw unless `DATABASE_URL` was set — for a database
+that never existed. The only live function was `npm run dev`, which is plain
+`vite` now (port 5173 rather than 5000; the 5000 was the original host's
+firewall constraint, not a choice).
+
+`shared/schema.ts` kept its content types but lost zod. Nothing ever called
+`.parse()` on those schemas — the chapter modules are TypeScript source checked
+at compile time, not untrusted input off a wire — so the runtime validator was
+buying a guarantee the compiler already gave. They are plain types.
+
+Nine dependencies went with it: `express`, `@types/express`, `nanoid`,
+`drizzle-orm`, `drizzle-zod`, `drizzle-kit`, `zod`, `pg` and `date-fns`. The last
+two were reachable from nothing at all — the earlier prune missed them because
+its glob did not cover `shared/schema.ts` and `drizzle.config.ts`.
+
+Two footguns went too. `script/build.ts` opened with `rm -rf dist` and rebuilt
+without a base path, so running it after `build:pages` made every route serve
+the 404 body and all 107 tests fail for one reason that looked like 107 — the
+trap the README had to warn about. It only existed to bundle the server, so it
+is deleted and `build:pages` is the only build. And `vite.config.ts` still
+aliased `@assets` to `attached_assets`, a directory removed in the history
+rewrite.
+
+Verified: lint, typecheck, format, the Pages preflight, `npm run dev` fetched
+and serving, and 107 browser tests against a real production build.
 
 ## Phase 5 — The printed book (done)
 
@@ -373,19 +398,12 @@ four. The home page no longer pays for it (349 kB → 194 kB gzipped, measured),
 Suspense boundary per figure placement, and the risk to watch is visible flicker on a
 page someone is reading, so it needs measuring rather than assuming.
 
-### 5. Decide what the Express server is for
-
-One `/api/health` endpoint and a static directory, plus a `drizzle.config.ts` and an
-unused `users` table implying a database that does not exist. Either give it a purpose
-or delete it and the four dependencies (`drizzle-orm`, `drizzle-zod`, `pg`, `zod`) that
-exist only to serve it.
-
-### 6. Per-chapter PDF export
+### 5. Per-chapter PDF export
 
 The full book takes about 90 seconds; most readers want one chapter, and the generator
 already works chapter by chapter internally.
 
-### 7. An audio edition
+### 6. An audio edition
 
 A trauma-recovery book has readers who cannot comfortably read: people mid-crisis,
 people with dyslexia, people who would listen on a commute and never open a browser.

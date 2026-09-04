@@ -70,7 +70,7 @@ a reflowable EPUB for Kindle.
 | Search | Compile-time index + `cmdk`, both lazy-loaded on first `⌘K` |
 | PDF | jsPDF + html2canvas, both lazy-loaded on demand |
 | Build | Vite 8 (Rolldown) |
-| Server (optional) | Express — only needed for the `/api/health` endpoint |
+| Server | None. The site is static files; `npm run dev` is plain Vite |
 
 ## Getting started
 
@@ -78,14 +78,14 @@ Requires Node.js 20.19+ (CI and the deploy workflow run 22).
 
 ```bash
 npm install
-npm run dev          # http://localhost:5000
+npm run dev          # http://localhost:5173
 ```
 
 ### Scripts
 
 | Script | What it does |
 |--------|--------------|
-| `npm run dev` | Express + Vite middleware dev server on `PORT` (default 5000) |
+| `npm run dev` | Vite dev server on 5173 (`npm run dev -- --port 3000` to change it) |
 | `npm run check` | TypeScript typecheck |
 | `npm run lint` | ESLint — see [Lint](#lint) for what it is guarding |
 | `npm run lint:fix` | The same, applying what can be fixed automatically |
@@ -103,9 +103,7 @@ npm run dev          # http://localhost:5000
 | `npm run test:site` | Just the route sweep and search (~35 s) |
 | `npm run test:book` | Just the printed-book checks (~90 s) |
 | `npm run serve:static` | Serve `dist/public` the way GitHub Pages does |
-| `npm run build` | Full build: static client + bundled Express server → `dist/`. **Wipes `dist/` and rebuilds with no base path** — run it *before* `build:pages`, never after |
-| `npm run build:pages` | Static-only build for GitHub Pages → `dist/public/` |
-| `npm start` | Run the production Express build |
+| `npm run build:pages` | The build. Static site → `dist/public/`; set `VITE_BASE_PATH` for a project site |
 
 ## Tests
 
@@ -118,11 +116,15 @@ Playwright, against a real production build served the way GitHub Pages serves i
 base path and `404.html` fallback included. Every defect these catch only appears in the
 built, base-pathed site.
 
-The build has to be the base-pathed one. `npm run build` starts with `rm -rf dist`, so
-running it after `build:pages` leaves `dist/public` with `/assets/…` URLs, the static
-server answers every route with its 404 body, and all 107 tests fail for one reason that
-looks like 107 reasons. `npm run check:pages` catches exactly this — run it between the
-build and the tests.
+The build has to be the base-pathed one, so build with `VITE_BASE_PATH` set and run
+`npm run check:pages` between the build and the tests. A base-path mistake makes the
+static server answer every route with its 404 body, and all 107 tests fail for one
+reason that looks like 107 reasons.
+
+There used to be a second way into that state: a `npm run build` that opened with
+`rm -rf dist` and rebuilt without a base path, silently undoing `build:pages`. It
+built the Express server, which no longer exists, so it is gone and `build:pages` is
+the only build.
 
 - **`tests/site.spec.ts`** walks all 89 routes, derived from the manifest rather than
   listed, and fails on a console error, a React key warning, a blank `<main>`, an
@@ -259,8 +261,8 @@ have rather than downloading: `PLAYWRIGHT_CHROMIUM_PATH=/path/to/chrome npm test
 
 ## Deploying to GitHub Pages
 
-The site is a pure SPA — nothing on the page needs the Express server — so it deploys to
-GitHub Pages as static files.
+The site is a pure SPA with no backend at all, so it deploys to GitHub Pages as
+static files.
 
 1. In the repository, go to **Settings → Pages** and set **Source** to **GitHub Actions**.
 2. Push to `main`. [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml)
@@ -281,9 +283,8 @@ To build the static site locally:
 VITE_BASE_PATH=/traumarecovery/ npm run build:pages
 ```
 
-Deploying anywhere that serves from the domain root (Netlify, Vercel, S3, the bundled Express
-server) needs no base path — leave `VITE_BASE_PATH` unset and add a rewrite of all paths to
-`index.html`.
+Deploying anywhere that serves from the domain root (Netlify, Vercel, S3) needs no base
+path — leave `VITE_BASE_PATH` unset and add a rewrite of all paths to `index.html`.
 
 ## Project structure
 
@@ -308,10 +309,8 @@ client/
     │   ├── reading-position.ts     # the "continue reading" bookmark
     │   └── scroll-to-anchor.ts     # deep links into lazily-loaded chapters
     └── pages/                      # home, chapters index, chapter, 404
-server/                             # Express host for the non-static deployment
 shared/schema.ts                    # Chapter / Subchapter / BookInfo types
 script/
-├── build.ts                        # client + server build
 ├── build-pages.ts                  # static build for GitHub Pages
 ├── serve-static.ts                 # serves dist/public the way Pages does
 ├── generate-manifest.ts            # writes lib/chapters/manifest.ts

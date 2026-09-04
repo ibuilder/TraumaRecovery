@@ -7,6 +7,40 @@ decision for Matthew rather than a change anyone can make in code.
 
 ## Unreleased
 
+### The Express server is gone, and with it two footguns
+
+"Give it a purpose or delete it" resolved to delete. It served one `/api/health`
+endpoint nothing called, a static directory GitHub Pages serves instead, a
+`MemStorage` for a `users` table nothing imported, and a `drizzle.config.ts`
+that threw unless `DATABASE_URL` was set -- for a database that never existed.
+Its only live function was `npm run dev`, which is plain `vite` now, verified by
+starting it and fetching the page. Port 5173 rather than 5000; the 5000 was the
+original host's firewall constraint, not a choice.
+
+`shared/schema.ts` keeps its content types and loses zod. Nothing ever called
+`.parse()` on those schemas -- the chapter modules are TypeScript source checked
+at compile time, not untrusted input off a wire -- so the validator was buying a
+guarantee the compiler already gave.
+
+**Nine dependencies** went with it: `express`, `@types/express`, `nanoid`,
+`drizzle-orm`, `drizzle-zod`, `drizzle-kit`, `zod`, `pg`, `date-fns`. The last
+two were reachable from nothing at all; the earlier prune missed them because
+its glob did not cover `shared/schema.ts` or `drizzle.config.ts`.
+
+Two footguns went with it as well:
+
+- `script/build.ts` opened with `rm -rf dist` and rebuilt with no base path, so
+  running it after `build:pages` left every route serving the 404 body and all
+  107 tests failing for one reason that looked like 107. The README had to carry
+  a warning about it. It existed only to bundle the server, so it is deleted and
+  `build:pages` is the only build -- the warning is now a note that the trap is
+  gone.
+- `vite.config.ts` still aliased `@assets` to `attached_assets`, a directory
+  removed in the history rewrite.
+
+Verified: lint, typecheck, format, the Pages preflight, `npm run dev` fetched
+and serving, and 107 browser tests against a real production build.
+
 ### A linter that guards the accessibility work, and a formatter
 
 There was no lint config in the repository at all. That mattered more than it
