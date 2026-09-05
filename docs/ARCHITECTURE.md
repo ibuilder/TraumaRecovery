@@ -89,11 +89,12 @@ tests/
 
 ## Key Features
 - **14 comprehensive chapters** (73 subchapters) covering trauma recovery topics
-- **91 figures** — Recharts plots for data, inline SVG and markup for diagrams; every
-  plot carries its numbers as a table and every diagram describes itself, so the whole
-  set is readable without seeing it
-- **Full-book PDF export** generated client-side (jsPDF + html2canvas and the 91 figures,
-  none of it fetched until someone asks for the PDF)
+- **88 figures** across 102 placements — Recharts plots for data, inline SVG and markup
+  for diagrams; every plot carries its numbers as a table and every diagram describes
+  itself, so the whole set is readable without seeing it. (91 figure components exist;
+  `validate:content` warns about the three no chapter places.)
+- **PDF export** generated client-side — the whole book, or any single chapter from its
+  own page. jsPDF, html2canvas and the figures are not fetched until someone asks
 - **Markdown rendering** with react-markdown and remark-gfm
 - **Dark/light theme** with system preference detection
 - **Reading progress bar** for tracking position
@@ -159,7 +160,7 @@ never had a database.
 ## The printed book
 
 `client/src/components/pdf-generator.tsx` is not a dump of the site into a PDF. It
-typesets a 718-page book in the browser, and most of what is in it is there because
+typesets a 734-page book in the browser, and most of what is in it is there because
 the alternative produced a page a reader would notice. The constants at the top of
 that file are the whole design; changing one of them changes the book, so a note on
 what each is for:

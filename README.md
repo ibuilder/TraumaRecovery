@@ -3,8 +3,8 @@
 *A Practical Guide to Trauma Recovery for Ordinary People* by Matthew M. Emma.
 
 A static-first React reading app that presents the full book: 14 chapters, 73 subchapters,
-91 figures and data visualisations, a downloadable print-ready PDF of the whole thing, and
-a reflowable EPUB for Kindle.
+88 figures placed across 102 positions, a downloadable print-ready PDF of the whole thing or
+of any single chapter, and a reflowable EPUB for Kindle.
 
 > **This content is educational and is not a substitute for professional mental health care.**
 > If you are in crisis, call or text **988** (US Suicide & Crisis Lifeline).
@@ -17,7 +17,7 @@ a reflowable EPUB for Kindle.
 ## Features
 
 - **14 chapters / 73 subchapters** of markdown content (~119,000 words) rendered with `react-markdown` + GFM
-- **91 figures** embedded in the prose via a ` ```chart:ChartName``` ` placeholder — Recharts plots for data, and hand-built SVG/markup for diagrams. Every one is readable without seeing it: the plots carry their numbers as a table, the diagrams describe themselves (see [Reading the figures](#reading-the-figures-without-seeing-them))
+- **88 figures** embedded in the prose via a ` ```chart:ChartName``` ` placeholder (91 are defined; `validate:content` warns about the three no chapter places) — Recharts plots for data, and hand-built SVG/markup for diagrams. Every one is readable without seeing it: the plots carry their numbers as a table, the diagrams describe themselves (see [Reading the figures](#reading-the-figures-without-seeing-them))
 - **PDF export** generated in the browser — a typeset 734-page book with a cover,
   copyright page, contents and list of figures with page numbers, PDF bookmarks, running heads,
   folios, floated figures, widow and orphan control, and one bibliography at the back
@@ -122,8 +122,8 @@ built, base-pathed site.
 
 The build has to be the base-pathed one, so build with `VITE_BASE_PATH` set and run
 `npm run check:pages` between the build and the tests. A base-path mistake makes the
-static server answer every route with its 404 body, and all 107 tests fail for one
-reason that looks like 107 reasons.
+static server answer every route with its 404 body, and all 108 tests fail for one
+reason that looks like 108 reasons.
 
 There used to be a second way into that state: a `npm run build` that opened with
 `rm -rf dist` and rebuilt without a base path, silently undoing `build:pages`. It

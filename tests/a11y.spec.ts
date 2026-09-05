@@ -5,7 +5,7 @@ import { sitePath, allRoutes } from "./helpers/routes";
 /**
  * The site read aloud.
  *
- * This book is largely made of statistics — 101 figures across fourteen
+ * This book is largely made of statistics — 88 figures across fourteen
  * chapters — and until these tests existed a screen reader got almost none of
  * them. Recharts draws into an SVG it marks `role="application"`, the most
  * hostile role in ARIA: it tells the reader to stop interpreting the content
@@ -60,7 +60,7 @@ async function settle(page: import("@playwright/test").Page) {
 }
 
 test.describe("accessibility", () => {
-  // Ninety routes at roughly a second each.
+  // Eighty-nine routes at roughly a second each.
   test.setTimeout(10 * 60_000);
 
   test("no axe violations on any route", async ({ page }) => {

@@ -395,9 +395,9 @@ the repository.
 **Verification:** the book is generated end to end, every page's text geometry is read
 back with pdfjs, and pages are rendered to PNG and looked at. A clean text layer is not
 a clean book — mid-animation charts, stranded headings and the folio offset all extracted
-perfectly and were visibly wrong on the page. Current state: 718 pages, 92 figure
-placements, 0 stranded headings, every folio matching its physical page, all 14 contents
-entries and all 78 figure-list entries resolving correctly.
+perfectly and were visibly wrong on the page. Current state, measured 2026-09-05:
+734 pages, 102 figure placements, 15 PDF bookmarks, 0 stranded headings, and every folio
+matching its physical page.
 
 ---
 
@@ -409,7 +409,7 @@ served the way Pages serves it, in its own CI job.
 
 | Spec | What it holds |
 |------|---------------|
-| `site.spec.ts` | All 90 routes, derived from the manifest rather than listed: no console error, no React key warning, no blank `<main>`, no unresolved chart placeholder, and a figure count matching the route's own markdown. Then search, the skip link, and `prefers-reduced-motion` |
+| `site.spec.ts` | All 89 routes, derived from the manifest rather than listed: no console error, no React key warning, no blank `<main>`, no unresolved chart placeholder, and a figure count matching the route's own markdown. Then search, the skip link, and `prefers-reduced-motion` |
 | `book.spec.ts` | The book generated through the site's own download button, then every page's geometry read back with pdf.js: folios against physical pages, stranded headings, characters per line, contents and figure-list entries resolving, references gathered at the back, no placeholder identifiers |
 
 103 tests, about ninety seconds of which is generating the book.
@@ -430,6 +430,11 @@ skip link had no single target.
 
 Everything above is history. This is the queue, top first. Each item says why it is
 where it is, so the order can be argued with.
+
+**Every item left needs the author.** The developer queue emptied on 2026-09-05: the
+linter, the Express server, the figure payload and per-chapter PDF export all landed,
+and nothing remaining can be done by reading the code. Item 1 is one email. Items 2 and
+3 are decisions only Matthew can make, and item 4 needs a budget.
 
 ### 1. Ask GitHub to garbage-collect the old objects
 
