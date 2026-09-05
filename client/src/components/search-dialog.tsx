@@ -11,7 +11,6 @@ import {
 import { loadSearchIndex, type SearchEntry } from "@/lib/search-index-loader";
 import { scrollToAnchor } from "@/lib/scroll-to-anchor";
 
-
 const MAX_RESULTS = 24;
 
 function normalise(s: string) {
@@ -88,7 +87,10 @@ export function SearchDialog({
   }, [open, entries]);
 
   const terms = useMemo(
-    () => normalise(query).split(/\s+/).filter((t) => t.length > 1),
+    () =>
+      normalise(query)
+        .split(/\s+/)
+        .filter((t) => t.length > 1),
     [query]
   );
 
@@ -139,7 +141,9 @@ export function SearchDialog({
         ) : results.length === 0 ? (
           <CommandEmpty>Nothing matched “{query}”.</CommandEmpty>
         ) : (
-          <CommandGroup heading={`${results.length} result${results.length === 1 ? "" : "s"}`}>
+          <CommandGroup
+            heading={`${results.length} result${results.length === 1 ? "" : "s"}`}
+          >
             {results.map((entry) => (
               <CommandItem
                 key={entry.url}

@@ -56,8 +56,8 @@ export function CrisisDialog({
             If you need help right now
           </DialogTitle>
           <DialogDescription>
-            You do not have to be in danger to call. Not knowing what else to do
-            is reason enough.
+            You do not have to be in danger to call. Not knowing what else to do is reason
+            enough.
           </DialogDescription>
         </DialogHeader>
 
@@ -87,8 +87,8 @@ export function CrisisDialog({
           >
             findahelpline.com
           </a>{" "}
-          lists services by country. If someone is in immediate physical danger,
-          call your local emergency number.
+          lists services by country. If someone is in immediate physical danger, call your
+          local emergency number.
         </p>
       </DialogContent>
     </Dialog>

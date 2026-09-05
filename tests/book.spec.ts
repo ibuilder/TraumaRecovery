@@ -114,7 +114,9 @@ test("nothing is set outside the text block", () => {
       const inFolio = Math.abs(item.y - LAYOUT.folioBaseline) < 1;
       if (inHeader || inFolio) continue;
       if (item.y < LAYOUT.textTop - 1 || item.y > LAYOUT.pageFloor + 2) {
-        strays.push(`page ${page.number} at ${item.y.toFixed(1)}mm: "${item.text.slice(0, 30)}"`);
+        strays.push(
+          `page ${page.number} at ${item.y.toFixed(1)}mm: "${item.text.slice(0, 30)}"`
+        );
       }
     }
   }
@@ -128,7 +130,9 @@ test("chapter openers announce themselves", () => {
   for (const opener of openers) {
     // A strap repeating the chapter title above the title is the mark of a
     // page produced by a loop rather than laid out.
-    expect(hasRunningHead(opener), `page ${opener.number} carries a running head`).toBe(false);
+    expect(hasRunningHead(opener), `page ${opener.number} carries a running head`).toBe(
+      false
+    );
   }
 });
 
@@ -157,7 +161,10 @@ test("the contents and the list of figures point at the right pages", () => {
   for (const entry of contents) {
     const title = entry.label.replace(/^\d+\.\s+/, "");
     const target = pages.find((p) => p.number === entry.page);
-    expect(target, `contents points at page ${entry.page}, which does not exist`).toBeTruthy();
+    expect(
+      target,
+      `contents points at page ${entry.page}, which does not exist`
+    ).toBeTruthy();
     const opener = target!.items.filter((i) => i.size > 18).map((i) => i.text.trim());
     expect(
       opener.some((line) => line && title.startsWith(line.slice(0, 12))),
@@ -204,9 +211,10 @@ test("the file is fit to hand to a printer", () => {
   // These three are true of any print-ready interior.
   expect(pages.length % 2, "a printed book has an even number of sides").toBe(0);
   expect(embeddedFontPrograms, "font programs embedded in the file").toBeGreaterThan(0);
-  expect(Math.round(lowestImageDpi), "lowest image DPI at its placed size").toBeGreaterThanOrEqual(
-    300
-  );
+  expect(
+    Math.round(lowestImageDpi),
+    "lowest image DPI at its placed size"
+  ).toBeGreaterThanOrEqual(300);
 });
 
 test("no fabricated identifiers survive into print", () => {

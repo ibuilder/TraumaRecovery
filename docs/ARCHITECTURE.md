@@ -70,16 +70,10 @@ client/
 ├── index.html                    # HTML entry point
 └── index.css                     # Global styles
 
-server/
-├── routes.ts                     # API routes
-├── storage.ts                    # Storage interface
-└── index.ts                      # Server entry
-
 shared/
-└── schema.ts                     # Shared types/schemas
+└── schema.ts                     # Shared content types
 
 script/
-├── build.ts                      # Client + server production build
 ├── build-pages.ts                # Static build for GitHub Pages
 ├── serve-static.ts               # Serves dist/public the way Pages does
 ├── generate-manifest.ts          # Writes lib/chapters/manifest.ts
@@ -95,11 +89,12 @@ tests/
 
 ## Key Features
 - **14 comprehensive chapters** (73 subchapters) covering trauma recovery topics
-- **91 figures** — Recharts plots for data, inline SVG and markup for diagrams; every
-  plot carries its numbers as a table and every diagram describes itself, so the whole
-  set is readable without seeing it
-- **Full-book PDF export** generated client-side (jsPDF + html2canvas and the 91 figures,
-  none of it fetched until someone asks for the PDF)
+- **88 figures** across 102 placements — Recharts plots for data, inline SVG and markup
+  for diagrams; every plot carries its numbers as a table and every diagram describes
+  itself, so the whole set is readable without seeing it. (91 figure components exist;
+  `validate:content` warns about the three no chapter places.)
+- **PDF export** generated client-side — the whole book, or any single chapter from its
+  own page. jsPDF, html2canvas and the figures are not fetched until someone asks
 - **Markdown rendering** with react-markdown and remark-gfm
 - **Dark/light theme** with system preference detection
 - **Reading progress bar** for tracking position
@@ -143,7 +138,7 @@ Chapter order, ids and chart references are enforced by `npm run validate:conten
 - Crisis resources
 
 ## Running the Project
-The application runs on port 5000 with `npm run dev`.
+`npm run dev` is the Vite dev server, on port 5173.
 
 Other entry points:
 - `npm run check` — TypeScript typecheck
@@ -151,19 +146,21 @@ Other entry points:
 - `npm run manifest` / `npm run search-index` — regenerate the two generated files
 - `npm test` — the browser suite (see the [README](../README.md#tests))
 - `npm run check:print` — preflight an exported PDF against Amazon KDP's rules
-- `npm run build` — client + bundled Express server
-- `npm run build:pages` — static build for GitHub Pages (see README)
+- `npm run lint` / `npm run format` — see the [README](../README.md#lint)
+- `npm run build:pages` — the build; static site for GitHub Pages (see README)
 
 The tech stack is listed in the [README](../README.md#tech-stack); it is kept in one
 place because it went stale here first.
 
-The site is also published to GitHub Pages from `main`; nothing on the page needs
-the Express server.
+The site is published to GitHub Pages from `main`. There is no backend: the Express
+host this project started with served one unused `/api/health` endpoint and a static
+directory, and was deleted on 2026-09-04 along with the database scaffolding that
+never had a database.
 
 ## The printed book
 
 `client/src/components/pdf-generator.tsx` is not a dump of the site into a PDF. It
-typesets a 718-page book in the browser, and most of what is in it is there because
+typesets a 734-page book in the browser, and most of what is in it is there because
 the alternative produced a page a reader would notice. The constants at the top of
 that file are the whole design; changing one of them changes the book, so a note on
 what each is for:

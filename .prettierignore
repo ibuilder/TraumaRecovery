@@ -1,0 +1,20 @@
+dist
+build
+node_modules
+test-results
+playwright-report
+package-lock.json
+
+# A single line of base64 several megabytes long. Prettier has nothing to say
+# about it and would spend a while saying it.
+client/src/lib/book-fonts-data.ts
+
+# Prose. Reflowing the book's markdown would churn the diff of every chapter
+# and change nothing a reader sees.
+*.md
+
+# Generated. Their generators own their formatting -- `npm run search-index`
+# emits minified JSON and `npm run manifest` emits JSON.stringify output, so
+# formatting them here would make `format:check` fail after every regeneration.
+client/src/lib/search-index.json
+client/src/lib/chapters/manifest.ts

@@ -13,7 +13,14 @@ import { writeFile, readdir } from "fs/promises";
 import path from "path";
 import { chapters } from "../client/src/lib/chapters/index";
 
-const CHAPTERS_DIR = path.resolve(import.meta.dirname, "..", "client", "src", "lib", "chapters");
+const CHAPTERS_DIR = path.resolve(
+  import.meta.dirname,
+  "..",
+  "client",
+  "src",
+  "lib",
+  "chapters"
+);
 const OUT = path.join(CHAPTERS_DIR, "manifest.ts");
 
 /** Maps each chapter to the module file it lives in, by matching on slug. */

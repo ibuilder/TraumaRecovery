@@ -1,50 +1,42 @@
-import { z } from "zod";
+/**
+ * The shape of the book's content, shared between the chapter modules and the
+ * things that consume them.
+ *
+ * These were zod schemas with the types inferred off them. Nothing ever called
+ * `.parse()` — the chapter modules are TypeScript source, checked at compile
+ * time, not untrusted input arriving over a wire — so the runtime validator was
+ * paying for a guarantee the compiler already gives. They are plain types now,
+ * and `zod` is no longer a dependency.
+ *
+ * The file also carried a `users` table in drizzle and its insert schema, left
+ * from the scaffolding this project started as. There was no database, nothing
+ * imported them, and `drizzle.config.ts` threw unless `DATABASE_URL` was set.
+ * Both are gone, along with `drizzle-orm`, `drizzle-zod` and `pg`.
+ */
 
-export const chapterSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  slug: z.string(),
-  description: z.string(),
-  icon: z.string(),
-  order: z.number(),
-  readingTime: z.string(),
-  content: z.string(),
-  subchapters: z.array(z.object({
-    id: z.string(),
-    title: z.string(),
-    slug: z.string(),
-    content: z.string(),
-    order: z.number(),
-  })),
-});
+export type Subchapter = {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  order: number;
+};
 
-export type Chapter = z.infer<typeof chapterSchema>;
-export type Subchapter = Chapter["subchapters"][number];
+export type Chapter = {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  icon: string;
+  order: number;
+  readingTime: string;
+  content: string;
+  subchapters: Subchapter[];
+};
 
-export const bookInfoSchema = z.object({
-  title: z.string(),
-  subtitle: z.string(),
-  author: z.string(),
-  description: z.string(),
-});
-
-export type BookInfo = z.infer<typeof bookInfoSchema>;
-
-// Re-export user types for compatibility
-import { sql } from "drizzle-orm";
-import { pgTable, text, varchar } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
-
-export const users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  username: text("username").notNull().unique(),
-  password: text("password").notNull(),
-});
-
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
-});
-
-export type InsertUser = z.infer<typeof insertUserSchema>;
-export type User = typeof users.$inferSelect;
+export type BookInfo = {
+  title: string;
+  subtitle: string;
+  author: string;
+  description: string;
+};

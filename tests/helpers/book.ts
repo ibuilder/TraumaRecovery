@@ -60,8 +60,38 @@ export async function downloadBook(page: Page): Promise<Uint8Array> {
  * text relies on the PDF base-14 — fonts the reader's viewer is expected to
  * supply — which every print service rejects.
  */
+/**
+ * Downloads one chapter's offprint and returns it with the filename the
+ * browser was offered, which is part of what the feature promises.
+ */
+export async function downloadChapter(
+  page: Page,
+  slug: string
+): Promise<{ bytes: Uint8Array; filename: string }> {
+  await page.route("**://fonts.g*/**", (r) => r.abort());
+  await page.goto(sitePath(`/chapter/${slug}`), { waitUntil: "load" });
+
+  const button = page.getByTestId("button-download-chapter-pdf");
+  await button.waitFor();
+  const download = page.waitForEvent("download", { timeout: 4 * 60_000 });
+  await button.click();
+  const resolved = await download;
+
+  const file = await resolved.createReadStream();
+  const chunks: Buffer[] = [];
+  for await (const chunk of file) chunks.push(chunk as Buffer);
+  return {
+    bytes: new Uint8Array(Buffer.concat(chunks)),
+    filename: resolved.suggestedFilename(),
+  };
+}
+
 export function countEmbeddedFontPrograms(data: Uint8Array): number {
-  return (Buffer.from(data).toString("latin1").match(/\/FontFile\d?\b/g) ?? []).length;
+  return (
+    Buffer.from(data)
+      .toString("latin1")
+      .match(/\/FontFile\d?\b/g) ?? []
+  ).length;
 }
 
 /** Reads back every page's text geometry, and whether it carries a figure. */
@@ -89,7 +119,10 @@ export async function readBook(data: Uint8Array): Promise<{
 
   for (let n = 1; n <= doc.numPages; n++) {
     const page = await doc.getPage(n);
-    const [content, ops] = await Promise.all([page.getTextContent(), page.getOperatorList()]);
+    const [content, ops] = await Promise.all([
+      page.getTextContent(),
+      page.getOperatorList(),
+    ]);
 
     // Resolution has to be measured against the size an image is placed at, not
     // its pixel count: the same bitmap is 300 DPI in a column and 150 across a
@@ -111,10 +144,13 @@ export async function readBook(data: Uint8Array): Promise<{
       else if (fn === OPS.transform) ctm = mul(ctm, ops.argsArray[i] as number[]);
       else if (fn === OPS.paintImageXObject) {
         const [name, w] = ops.argsArray[i] as [string, number, number];
-        const obj = page.objs.has(name) ? (page.objs.get(name) as { width?: number }) : null;
+        const obj = page.objs.has(name)
+          ? (page.objs.get(name) as { width?: number })
+          : null;
         const px = obj?.width ?? w;
         const placedIn = Math.abs(ctm[0]!) / 72;
-        if (px && placedIn > 0.1) lowestImageDpi = Math.min(lowestImageDpi, px / placedIn);
+        if (px && placedIn > 0.1)
+          lowestImageDpi = Math.min(lowestImageDpi, px / placedIn);
       }
     }
 
@@ -173,6 +209,10 @@ export function layoutConstants(): {
 }
 
 /** Body text lines on a page — the running head and the folio excluded. */
-export function bodyItems(page: BookPage, textTop: number, pageFloor: number): TextItem[] {
+export function bodyItems(
+  page: BookPage,
+  textTop: number,
+  pageFloor: number
+): TextItem[] {
   return page.items.filter((i) => i.y > textTop - 5 && i.y <= pageFloor + 5);
 }

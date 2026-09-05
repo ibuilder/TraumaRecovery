@@ -22,7 +22,8 @@ export function ChapterSidebar({ currentChapter }: ChapterSidebarProps) {
               <Link
                 href={`/chapter/${currentChapter.slug}`}
                 className={`block px-3 py-2 rounded-md text-sm transition-colors hover-elevate ${
-                  location === `/chapter/${currentChapter.slug}` && !location.includes("/subchapter/")
+                  location === `/chapter/${currentChapter.slug}` &&
+                  !location.includes("/subchapter/")
                     ? "bg-accent font-medium"
                     : "text-muted-foreground"
                 }`}

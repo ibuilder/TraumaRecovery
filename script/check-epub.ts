@@ -16,6 +16,32 @@ import { tmpdir } from "os";
 import path from "path";
 import { XMLParser, XMLValidator } from "fast-xml-parser";
 
+/**
+ * The bits of an EPUB package document this preflight reads. Attributes carry
+ * the parser's `@` prefix. Everything is optional on purpose -- a missing
+ * field is the failure being reported, not a reason to crash.
+ */
+type OpfNode = Record<string, unknown>;
+
+/** The parser yields a bare object for one child and an array for several. */
+function asNodes(value: OpfNode | OpfNode[] | undefined): OpfNode[] {
+  if (value === undefined) return [];
+  return Array.isArray(value) ? value : [value];
+}
+
+/** Read an attribute as a string; a missing one reads as empty, not "undefined". */
+function attr(node: OpfNode, name: string): string {
+  const v = node[name];
+  return v === undefined || v === null ? "" : String(v);
+}
+type OpfDocument = {
+  package?: {
+    metadata?: Record<string, unknown>;
+    manifest?: { item?: OpfNode | OpfNode[] };
+    spine?: { itemref?: OpfNode | OpfNode[] };
+  };
+};
+
 const DEFAULT = path.resolve(import.meta.dirname, "..", "dist", "healing-together.epub");
 
 interface Finding {
@@ -24,11 +50,17 @@ interface Finding {
   detail: string;
 }
 const findings: Finding[] = [];
-const pass = (label: string, detail: string) => findings.push({ ok: true, label, detail });
-const fail = (label: string, detail: string) => findings.push({ ok: false, label, detail });
+const pass = (label: string, detail: string) =>
+  findings.push({ ok: true, label, detail });
+const fail = (label: string, detail: string) =>
+  findings.push({ ok: false, label, detail });
 
 /** Entry names in zip order, with the compression method of the first one. */
-function zipEntries(file: string): { names: string[]; mimetypeStored: boolean; first: string } {
+function zipEntries(file: string): {
+  names: string[];
+  mimetypeStored: boolean;
+  first: string;
+} {
   const listing = execFileSync("unzip", ["-lv", file], { encoding: "utf8" });
   const rows = listing
     .split("\n")
@@ -62,7 +94,11 @@ function main() {
 
     // ---- the container ----
     if (first === "mimetype") pass("mimetype first", "it is the first zip entry");
-    else fail("mimetype first", `first entry is "${first}" — readers will not recognise the file`);
+    else
+      fail(
+        "mimetype first",
+        `first entry is "${first}" — readers will not recognise the file`
+      );
 
     if (mimetypeStored) pass("mimetype stored", "uncompressed, as the spec requires");
     else fail("mimetype stored", "it is deflated; the spec requires it stored");
@@ -71,7 +107,11 @@ function main() {
     if (mimetype === "application/epub+zip") pass("mimetype content", mimetype);
     else fail("mimetype content", `got ${JSON.stringify(mimetype)}`);
 
-    for (const required of ["META-INF/container.xml", "OEBPS/content.opf", "OEBPS/nav.xhtml"]) {
+    for (const required of [
+      "META-INF/container.xml",
+      "OEBPS/content.opf",
+      "OEBPS/nav.xhtml",
+    ]) {
       if (has(required)) pass("Required file", required);
       else fail("Required file", `${required} is missing`);
     }
@@ -81,7 +121,8 @@ function main() {
     const malformed: string[] = [];
     for (const n of xmlFiles) {
       const result = XMLValidator.validate(read(n), { allowBooleanAttributes: false });
-      if (result !== true) malformed.push(`${n} (${result.err.msg} at line ${result.err.line})`);
+      if (result !== true)
+        malformed.push(`${n} (${result.err.msg} at line ${result.err.line})`);
     }
     if (malformed.length === 0) {
       pass("XML well-formed", `all ${xmlFiles.length} documents parse`);
@@ -92,7 +133,9 @@ function main() {
     // ---- the package document ----
     const opf = read("OEBPS/content.opf");
     const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@" });
-    const pkg = parser.parse(opf) as Record<string, any>;
+    // fast-xml-parser returns whatever the document contained; the shape is
+    // exactly what this script is checking, so it cannot be asserted up front.
+    const pkg = parser.parse(opf) as Record<string, unknown> as OpfDocument;
     const meta = pkg?.package?.metadata ?? {};
 
     for (const [label, present] of [
@@ -106,20 +149,24 @@ function main() {
       else fail("Metadata", `${label} is required by EPUB 3 and is missing`);
     }
 
-    const items: any[] = [].concat(pkg?.package?.manifest?.item ?? []);
-    const refs: any[] = [].concat(pkg?.package?.spine?.itemref ?? []);
+    const items = asNodes(pkg?.package?.manifest?.item);
+    const refs = asNodes(pkg?.package?.spine?.itemref);
 
-    if (items.some((i) => String(i["@properties"] ?? "").split(/\s+/).includes("nav"))) {
+    if (items.some((i) => attr(i, "@properties").split(/\s+/).includes("nav"))) {
       pass("Navigation", 'a manifest item is declared properties="nav"');
     } else {
       fail("Navigation", 'no manifest item carries properties="nav"');
     }
 
-    const broken = items.filter((i) => !has(path.posix.join("OEBPS", i["@href"])));
+    const broken = items.filter((i) => !has(path.posix.join("OEBPS", attr(i, "@href"))));
     if (broken.length === 0) pass("Manifest", `all ${items.length} hrefs resolve`);
-    else fail("Manifest", `${broken.length} point at missing files, first ${broken[0]["@href"]}`);
+    else
+      fail(
+        "Manifest",
+        `${broken.length} point at missing files, first ${attr(broken[0], "@href")}`
+      );
 
-    const hrefs = new Set(items.map((i) => i["@href"]));
+    const hrefs = new Set(items.map((i) => attr(i, "@href")));
     const payload = names.filter(
       (n) => n.startsWith("OEBPS/") && !n.endsWith("/") && n !== "OEBPS/content.opf"
     );
@@ -130,7 +177,8 @@ function main() {
     const ids = new Set(items.map((i) => i["@id"]));
     const dangling = refs.filter((r) => !ids.has(r["@idref"]));
     if (refs.length === 0) fail("Spine", "the spine is empty");
-    else if (dangling.length === 0) pass("Spine", `${refs.length} items, every idref resolves`);
+    else if (dangling.length === 0)
+      pass("Spine", `${refs.length} items, every idref resolves`);
     else fail("Spine", `${dangling.length} idrefs match no manifest id`);
 
     // ---- images ----
@@ -144,7 +192,9 @@ function main() {
         if (!/\salt="[^"]+"/.test(tag)) missingAlt++;
         const src = /\ssrc="([^"]+)"/.exec(tag)?.[1];
         if (src && !src.startsWith("http")) {
-          const resolved = path.posix.normalize(path.posix.join(path.posix.dirname(n), src));
+          const resolved = path.posix.normalize(
+            path.posix.join(path.posix.dirname(n), src)
+          );
           if (!has(resolved)) brokenSrc.push(src);
         }
       }
@@ -158,9 +208,13 @@ function main() {
     }
 
     const width = Math.max(...findings.map((f) => f.label.length));
-    console.log(`\nEPUB preflight — ${path.basename(file)} (${(statSync(file).size / 1e6).toFixed(1)} MB)\n`);
+    console.log(
+      `\nEPUB preflight — ${path.basename(file)} (${(statSync(file).size / 1e6).toFixed(1)} MB)\n`
+    );
     for (const f of findings) {
-      console.log(`[${f.ok ? "  ok  " : " FAIL "}] ${f.label.padEnd(width)}  ${f.detail}`);
+      console.log(
+        `[${f.ok ? "  ok  " : " FAIL "}] ${f.label.padEnd(width)}  ${f.detail}`
+      );
     }
     const failed = findings.filter((f) => !f.ok);
     console.log(`\n${findings.length - failed.length} passed, ${failed.length} failed\n`);

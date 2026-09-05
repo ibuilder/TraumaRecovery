@@ -103,7 +103,7 @@ export const PRINT_CHART_PALETTE: Record<string, string> = {
   "--chart-1": "212 68% 66%",
   "--chart-5": "265 52% 78%",
   "--chart-2": "27 82% 79%",
-};/**
+}; /**
  * The shared frame every figure in the book sits in.
  *
  * Charts are `<figure>` rather than `<div>` so a screen reader announces them
@@ -153,7 +153,15 @@ function humanizeKey(key: string): string {
  * statistics, and a sighted reader who wants the exact figure behind a bar
  * currently has to hover it.
  */
-function ChartDataTable({ title, data, config }: { title?: string; data: ChartRow[]; config?: ChartConfig }) {
+function ChartDataTable({
+  title,
+  data,
+  config,
+}: {
+  title?: string;
+  data: ChartRow[];
+  config?: ChartConfig;
+}) {
   const keys = Array.from(new Set(data.flatMap((row) => Object.keys(row)))).filter(
     (key) => !NON_DATA_KEYS.has(key)
   );
@@ -183,7 +191,11 @@ function ChartDataTable({ title, data, config }: { title?: string; data: ChartRo
                   // A null is a deliberate gap in the series, not a zero.
                   const value = row[key] ?? "\u2014";
                   return j === 0 ? (
-                    <th key={key} scope="row" className="border-b py-1.5 pr-4 font-normal">
+                    <th
+                      key={key}
+                      scope="row"
+                      className="border-b py-1.5 pr-4 font-normal"
+                    >
                       {value}
                     </th>
                   ) : (
@@ -275,9 +287,7 @@ function ChartFrame({
         />
       ) : null}
       {source ? (
-        <figcaption className="text-xs text-muted-foreground mt-3">
-          {source}
-        </figcaption>
+        <figcaption className="text-xs text-muted-foreground mt-3">{source}</figcaption>
       ) : null}
     </figure>
   );
@@ -308,21 +318,30 @@ export function PTSDPrevalenceChart() {
       subtitle="Lifetime PTSD prevalence rates across different populations"
       source={
         <>
-          Cross-national lifetime estimate from Koenen, K. C., et al. (2017). Posttraumatic
-          stress disorder in the World Mental Health Surveys. <em>Psychological Medicine,
-          47</em>(13), 2260–2274. Veteran and assault-survivor figures from the U.S.
-          Department of Veterans Affairs National Center for PTSD. Rates vary widely by how
-          PTSD is assessed.
+          Cross-national lifetime estimate from Koenen, K. C., et al. (2017).
+          Posttraumatic stress disorder in the World Mental Health Surveys.{" "}
+          <em>Psychological Medicine, 47</em>(13), 2260–2274. Veteran and assault-survivor
+          figures from the U.S. Department of Veterans Affairs National Center for PTSD.
+          Rates vary widely by how PTSD is assessed.
         </>
       }
     >
       <ChartContainer config={ptsdConfig} className="h-[300px] w-full">
-        <BarChart margin={{ top: 5, right: 46, bottom: 5, left: 5 }} data={ptsdPrevalenceData} layout="vertical">
+        <BarChart
+          margin={{ top: 5, right: 46, bottom: 5, left: 5 }}
+          data={ptsdPrevalenceData}
+          layout="vertical"
+        >
           <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
           <XAxis type="number" domain={[0, 60]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="group" width={120} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="prevalence" fill="var(--color-prevalence)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="prevalence"
+            fill="var(--color-prevalence)"
+            radius={4}
+          >
             <LabelList
               dataKey="prevalence"
               position="right"
@@ -361,19 +380,28 @@ export function ACEsPrevalenceChart() {
       subtitle="Percentage of U.S. adults by number of ACEs experienced"
       source={
         <>
-          Swedo, E. A., et al. (2023). Prevalence of adverse childhood experiences among U.S.
-          adults — Behavioral Risk Factor Surveillance System, 2011–2020. <em>MMWR,
-          72</em>(26), 707–715. Roughly two in three adults report at least one ACE.
+          Swedo, E. A., et al. (2023). Prevalence of adverse childhood experiences among
+          U.S. adults — Behavioral Risk Factor Surveillance System, 2011–2020.{" "}
+          <em>MMWR, 72</em>(26), 707–715. Roughly two in three adults report at least one
+          ACE.
         </>
       }
     >
       <ChartContainer config={acesConfig} className="h-[300px] w-full">
-        <BarChart margin={{ top: 24, right: 8, bottom: 5, left: 5 }} data={acesPrevalenceData}>
+        <BarChart
+          margin={{ top: 24, right: 8, bottom: 5, left: 5 }}
+          data={acesPrevalenceData}
+        >
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="aces" />
           <YAxis tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="percentage" fill="var(--color-percentage)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="percentage"
+            fill="var(--color-percentage)"
+            radius={4}
+          >
             <LabelList
               dataKey="percentage"
               position="top"
@@ -414,9 +442,10 @@ export function RecoveryTimelineChart() {
       source={
         <>
           Course of remission after Kessler, R. C., et al. (1995). Posttraumatic stress
-          disorder in the National Comorbidity Survey. <em>Archives of General Psychiatry,
-          52</em>(12), 1048–1060. Roughly a third of cases persist for years, which is why "it
-          should have passed by now" is bad advice.
+          disorder in the National Comorbidity Survey.{" "}
+          <em>Archives of General Psychiatry, 52</em>(12), 1048–1060. Roughly a third of
+          cases persist for years, which is why "it should have passed by now" is bad
+          advice.
         </>
       }
     >
@@ -426,7 +455,14 @@ export function RecoveryTimelineChart() {
           <XAxis dataKey="months" />
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="recovered" stroke="var(--color-recovered)" strokeWidth={3} dot={{ r: 6 }} />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="recovered"
+            stroke="var(--color-recovered)"
+            strokeWidth={3}
+            dot={{ r: 6 }}
+          />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -456,20 +492,29 @@ export function TraumaAddictionChart() {
       subtitle="Relationship between trauma exposure and substance use disorders"
       source={
         <>
-          Khoury, L., et al. (2010). Substance use, childhood traumatic experience, and PTSD
-          in an urban civilian population. <em>Depression and Anxiety, 27</em>(12), 1077–1086.
-          Magnitudes are illustrative — they show the pattern clinicians describe, not
-          measured values.
+          Khoury, L., et al. (2010). Substance use, childhood traumatic experience, and
+          PTSD in an urban civilian population. <em>Depression and Anxiety, 27</em>(12),
+          1077–1086. Magnitudes are illustrative — they show the pattern clinicians
+          describe, not measured values.
         </>
       }
     >
       <ChartContainer config={addictionConfig} className="h-[300px] w-full">
-        <BarChart margin={{ top: 5, right: 46, bottom: 5, left: 5 }} data={traumaAddictionData} layout="vertical">
+        <BarChart
+          margin={{ top: 5, right: 46, bottom: 5, left: 5 }}
+          data={traumaAddictionData}
+          layout="vertical"
+        >
           <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
           <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="category" width={180} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="percentage" fill="var(--color-percentage)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="percentage"
+            fill="var(--color-percentage)"
+            radius={4}
+          >
             <LabelList
               dataKey="percentage"
               position="right"
@@ -510,20 +555,28 @@ export function TherapyEffectivenessChart() {
       source={
         <>
           Pooled effects after Bisson, J. I., et al. (2013). Psychological therapies for
-          chronic PTSD in adults. <em>Cochrane Database of Systematic Reviews</em>, CD003388,
-          and Cusack, K., et al. (2016). <em>Clinical Psychology Review, 43</em>, 128–141.
-          Effect size: 0.2 small, 0.5 medium, 0.8+ large. Figures shift with the comparator,
-          so read the ranking rather than the decimal.
+          chronic PTSD in adults. <em>Cochrane Database of Systematic Reviews</em>,
+          CD003388, and Cusack, K., et al. (2016). <em>Clinical Psychology Review, 43</em>
+          , 128–141. Effect size: 0.2 small, 0.5 medium, 0.8+ large. Figures shift with
+          the comparator, so read the ranking rather than the decimal.
         </>
       }
     >
       <ChartContainer config={therapyConfig} className="h-[300px] w-full">
-        <BarChart margin={{ top: 24, right: 8, bottom: 5, left: 5 }} data={therapyEffectivenessData}>
+        <BarChart
+          margin={{ top: 24, right: 8, bottom: 5, left: 5 }}
+          data={therapyEffectivenessData}
+        >
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="therapy" />
           <YAxis domain={[0, 2]} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="effectSize" fill="var(--color-effectSize)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="effectSize"
+            fill="var(--color-effectSize)"
+            radius={4}
+          >
             <LabelList
               dataKey="effectSize"
               position="top"
@@ -575,16 +628,17 @@ export function AttachmentStylesChart() {
       subtitle="Population distribution of attachment patterns in general population"
       source={
         <>
-          Distribution after Bakermans-Kranenburg, M. J., &amp; van IJzendoorn, M. H. (2009).
-          The first 10,000 Adult Attachment Interviews. <em>Attachment &amp; Human
-          Development, 11</em>(3), 223–263. Proportions differ between community and clinical
-          samples.
+          Distribution after Bakermans-Kranenburg, M. J., &amp; van IJzendoorn, M. H.
+          (2009). The first 10,000 Adult Attachment Interviews.{" "}
+          <em>Attachment &amp; Human Development, 11</em>(3), 223–263. Proportions differ
+          between community and clinical samples.
         </>
       }
     >
       <ChartContainer config={attachmentConfig} className="h-[300px] w-full">
         <PieChart>
-          <Pie isAnimationActive={!staticCharts}
+          <Pie
+            isAnimationActive={!staticCharts}
             data={attachmentStylesData}
             cx="50%"
             cy="50%"
@@ -637,8 +691,9 @@ export function ACEsHealthRiskChart() {
       subtitle="Relative risk increase for adults with 4+ ACEs vs 0 ACEs"
       source={
         <>
-          Adjusted odds ratios from Felitti, V. J., et al. (1998). Relationship of childhood
-          abuse and household dysfunction to many of the leading causes of death in adults.
+          Adjusted odds ratios from Felitti, V. J., et al. (1998). Relationship of
+          childhood abuse and household dysfunction to many of the leading causes of death
+          in adults.
           <em>American Journal of Preventive Medicine, 14</em>(4), 245–258. These are
           population associations, not a forecast for any one person.
         </>
@@ -651,8 +706,18 @@ export function ACEsHealthRiskChart() {
           <YAxis tickFormatter={(v) => `${v}x`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="risk0ACEs" fill="var(--color-risk0ACEs)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="risk4ACEs" fill="var(--color-risk4ACEs)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="risk0ACEs"
+            fill="var(--color-risk0ACEs)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="risk4ACEs"
+            fill="var(--color-risk4ACEs)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -683,11 +748,11 @@ export function PostTraumaticGrowthChart() {
       subtitle="Areas where trauma survivors commonly report positive growth"
       source={
         <>
-          Domains from Tedeschi, R. G., &amp; Calhoun, L. G. (1996). The Posttraumatic Growth
-          Inventory. <em>Journal of Traumatic Stress, 9</em>(3), 455–471. Growth is something
-          some people report afterwards; it is not a reason the trauma happened, and not a
-          target to be held to. Magnitudes are illustrative — they show the pattern clinicians
-          describe, not measured values.
+          Domains from Tedeschi, R. G., &amp; Calhoun, L. G. (1996). The Posttraumatic
+          Growth Inventory. <em>Journal of Traumatic Stress, 9</em>(3), 455–471. Growth is
+          something some people report afterwards; it is not a reason the trauma happened,
+          and not a target to be held to. Magnitudes are illustrative — they show the
+          pattern clinicians describe, not measured values.
         </>
       }
     >
@@ -696,7 +761,14 @@ export function PostTraumaticGrowthChart() {
           <PolarGrid />
           <PolarAngleAxis dataKey="domain" className="text-xs" />
           <PolarRadiusAxis angle={30} domain={[0, 100]} />
-          <Radar isAnimationActive={!staticCharts} name="Growth" dataKey="value" stroke="var(--color-value)" fill="var(--color-value)" fillOpacity={0.5} />
+          <Radar
+            isAnimationActive={!staticCharts}
+            name="Growth"
+            dataKey="value"
+            stroke="var(--color-value)"
+            fill="var(--color-value)"
+            fillOpacity={0.5}
+          />
           <ChartTooltip content={<ChartTooltipContent />} />
         </RadarChart>
       </ChartContainer>
@@ -740,7 +812,12 @@ export function IPVPTSDChart() {
           <XAxis dataKey="category" angle={-15} textAnchor="end" height={60} />
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="percentage" fill="var(--color-percentage)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="percentage"
+            fill="var(--color-percentage)"
+            radius={4}
+          >
             <LabelList
               dataKey="percentage"
               position="top"
@@ -778,9 +855,9 @@ export function DBTSkillsChart() {
       subtitle="Patient-reported improvement by DBT skill module"
       source={
         <>
-          Modules after Linehan, M. M. (2015). <em>DBT Skills Training Manual</em> (2nd ed.).
-          Guilford. Magnitudes are illustrative — they show the pattern clinicians describe,
-          not measured values.
+          Modules after Linehan, M. M. (2015). <em>DBT Skills Training Manual</em> (2nd
+          ed.). Guilford. Magnitudes are illustrative — they show the pattern clinicians
+          describe, not measured values.
         </>
       }
     >
@@ -790,7 +867,12 @@ export function DBTSkillsChart() {
           <XAxis dataKey="skill" />
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="effectiveness" fill="var(--color-effectiveness)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="effectiveness"
+            fill="var(--color-effectiveness)"
+            radius={4}
+          >
             <LabelList
               dataKey="effectiveness"
               position="top"
@@ -851,9 +933,30 @@ export function PhysicalWellnessChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="exercise" stroke="var(--color-exercise)" strokeWidth={2} dot={{ r: 4 }} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="sleep" stroke="var(--color-sleep)" strokeWidth={2} dot={{ r: 4 }} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="nutrition" stroke="var(--color-nutrition)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="exercise"
+            stroke="var(--color-exercise)"
+            strokeWidth={2}
+            dot={{ r: 4 }}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="sleep"
+            stroke="var(--color-sleep)"
+            strokeWidth={2}
+            dot={{ r: 4 }}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="nutrition"
+            stroke="var(--color-nutrition)"
+            strokeWidth={2}
+            dot={{ r: 4 }}
+          />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -892,10 +995,10 @@ export function ExerciseImpactChart() {
       subtitle="Relative symptom levels by exercise frequency"
       source={
         <>
-          Direction of effect after Björkman, F., &amp; Ekblom, Ö. (2022). Physical exercise
-          as treatment for PTSD. <em>Military Medicine, 187</em>(9–10), e1103–e1113.
-          Magnitudes are illustrative — they show the pattern clinicians describe, not
-          measured values.
+          Direction of effect after Björkman, F., &amp; Ekblom, Ö. (2022). Physical
+          exercise as treatment for PTSD. <em>Military Medicine, 187</em>(9–10),
+          e1103–e1113. Magnitudes are illustrative — they show the pattern clinicians
+          describe, not measured values.
         </>
       }
     >
@@ -906,9 +1009,24 @@ export function ExerciseImpactChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="depression" fill="var(--color-depression)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="anxiety" fill="var(--color-anxiety)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="depression"
+            fill="var(--color-depression)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="anxiety"
+            fill="var(--color-anxiety)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="ptsd"
+            fill="var(--color-ptsd)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -957,9 +1075,30 @@ export function FourPillarsChart() {
           <PolarGrid />
           <PolarAngleAxis dataKey="pillar" className="text-sm" />
           <PolarRadiusAxis angle={30} domain={[0, 100]} />
-          <Radar isAnimationActive={!staticCharts} name="Healthy" dataKey="healthy" stroke="var(--color-healthy)" fill="var(--color-healthy)" fillOpacity={0.3} />
-          <Radar isAnimationActive={!staticCharts} name="Recovering" dataKey="recovering" stroke="var(--color-recovering)" fill="var(--color-recovering)" fillOpacity={0.3} />
-          <Radar isAnimationActive={!staticCharts} name="Struggling" dataKey="struggling" stroke="var(--color-struggling)" fill="var(--color-struggling)" fillOpacity={0.3} />
+          <Radar
+            isAnimationActive={!staticCharts}
+            name="Healthy"
+            dataKey="healthy"
+            stroke="var(--color-healthy)"
+            fill="var(--color-healthy)"
+            fillOpacity={0.3}
+          />
+          <Radar
+            isAnimationActive={!staticCharts}
+            name="Recovering"
+            dataKey="recovering"
+            stroke="var(--color-recovering)"
+            fill="var(--color-recovering)"
+            fillOpacity={0.3}
+          />
+          <Radar
+            isAnimationActive={!staticCharts}
+            name="Struggling"
+            dataKey="struggling"
+            stroke="var(--color-struggling)"
+            fill="var(--color-struggling)"
+            fillOpacity={0.3}
+          />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
         </RadarChart>
@@ -1000,9 +1139,7 @@ export function EmotionalRegulationChart() {
       title="Emotional Wellness Development Through Recovery"
       subtitle="Growth in emotional skills across recovery stages"
       source={
-        <>
-          A composite trajectory across recovery stages rather than a measured cohort.
-        </>
+        <>A composite trajectory across recovery stages rather than a measured cohort.</>
       }
     >
       <ChartContainer config={emotionalConfig} className="h-[300px] w-full">
@@ -1012,9 +1149,30 @@ export function EmotionalRegulationChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="regulation" stroke="var(--color-regulation)" strokeWidth={2} dot={{ r: 4 }} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="awareness" stroke="var(--color-awareness)" strokeWidth={2} dot={{ r: 4 }} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="expression" stroke="var(--color-expression)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="regulation"
+            stroke="var(--color-regulation)"
+            strokeWidth={2}
+            dot={{ r: 4 }}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="awareness"
+            stroke="var(--color-awareness)"
+            strokeWidth={2}
+            dot={{ r: 4 }}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="expression"
+            stroke="var(--color-expression)"
+            strokeWidth={2}
+            dot={{ r: 4 }}
+          />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -1047,20 +1205,29 @@ export function MentalWellnessChart() {
       subtitle="Average improvement in mental wellness components after 12 weeks of treatment"
       source={
         <>
-          Direction of effect after Hofmann, S. G., et al. (2012). The efficacy of cognitive
-          behavioral therapy: A review of meta-analyses. <em>Cognitive Therapy and Research,
-          36</em>(5), 427–440. Magnitudes are illustrative — they show the pattern clinicians
-          describe, not measured values.
+          Direction of effect after Hofmann, S. G., et al. (2012). The efficacy of
+          cognitive behavioral therapy: A review of meta-analyses.{" "}
+          <em>Cognitive Therapy and Research, 36</em>(5), 427–440. Magnitudes are
+          illustrative — they show the pattern clinicians describe, not measured values.
         </>
       }
     >
       <ChartContainer config={mentalConfig} className="h-[300px] w-full">
-        <BarChart margin={{ top: 5, right: 46, bottom: 5, left: 5 }} data={mentalWellnessData} layout="vertical">
+        <BarChart
+          margin={{ top: 5, right: 46, bottom: 5, left: 5 }}
+          data={mentalWellnessData}
+          layout="vertical"
+        >
           <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
           <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="factor" width={140} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="percentage" fill="var(--color-percentage)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="percentage"
+            fill="var(--color-percentage)"
+            radius={4}
+          >
             <LabelList
               dataKey="percentage"
               position="right"
@@ -1105,8 +1272,8 @@ export function SocialConnectionChart() {
         <>
           Direction of effect after Holt-Lunstad, J., Smith, T. B., &amp; Layton, J. B.
           (2010). Social relationships and mortality risk. <em>PLoS Medicine, 7</em>(7),
-          e1000316. Magnitudes are illustrative — they show the pattern clinicians describe,
-          not measured values.
+          e1000316. Magnitudes are illustrative — they show the pattern clinicians
+          describe, not measured values.
         </>
       }
     >
@@ -1117,8 +1284,18 @@ export function SocialConnectionChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="recovery" fill="var(--color-recovery)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="wellbeing" fill="var(--color-wellbeing)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="recovery"
+            fill="var(--color-recovery)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="wellbeing"
+            fill="var(--color-wellbeing)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1154,10 +1331,10 @@ export function NutritionImpactChart() {
       subtitle="Research-supported nutritional interventions for mental health"
       source={
         <>
-          Direction of effect after Jacka, F. N., et al. (2017). A randomised controlled trial
-          of dietary improvement for adults with major depression (the SMILES trial). <em>BMC
-          Medicine, 15</em>, 23. Magnitudes are illustrative — they show the pattern
-          clinicians describe, not measured values.
+          Direction of effect after Jacka, F. N., et al. (2017). A randomised controlled
+          trial of dietary improvement for adults with major depression (the SMILES
+          trial). <em>BMC Medicine, 15</em>, 23. Magnitudes are illustrative — they show
+          the pattern clinicians describe, not measured values.
         </>
       }
     >
@@ -1168,8 +1345,18 @@ export function NutritionImpactChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 50]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="moodImprovement" fill="var(--color-moodImprovement)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="anxietyReduction" fill="var(--color-anxietyReduction)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="moodImprovement"
+            fill="var(--color-moodImprovement)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="anxietyReduction"
+            fill="var(--color-anxietyReduction)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1217,8 +1404,18 @@ export function SleepRecoveryChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="ptsdSeverity" fill="var(--color-ptsdSeverity)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="recoveryRate" fill="var(--color-recoveryRate)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="ptsdSeverity"
+            fill="var(--color-ptsdSeverity)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="recoveryRate"
+            fill="var(--color-recoveryRate)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1252,18 +1449,27 @@ export function AmygdalaActivityChart() {
       source={
         <>
           Shin, L. M., &amp; Liberzon, I. (2010). The neurocircuitry of fear, stress, and
-          anxiety disorders. <em>Neuropsychopharmacology, 35</em>(1), 169–191. Magnitudes are
-          illustrative — they show the pattern clinicians describe, not measured values.
+          anxiety disorders. <em>Neuropsychopharmacology, 35</em>(1), 169–191. Magnitudes
+          are illustrative — they show the pattern clinicians describe, not measured
+          values.
         </>
       }
     >
       <ChartContainer config={amygdalaConfig} className="h-[300px] w-full">
-        <BarChart margin={{ top: 24, right: 8, bottom: 5, left: 5 }} data={amygdalaActivityData}>
+        <BarChart
+          margin={{ top: 24, right: 8, bottom: 5, left: 5 }}
+          data={amygdalaActivityData}
+        >
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="condition" />
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="activity" fill="var(--color-activity)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="activity"
+            fill="var(--color-activity)"
+            radius={4}
+          >
             <LabelList
               dataKey="activity"
               position="top"
@@ -1302,10 +1508,10 @@ export function BrainRegionsTraumaChart() {
       subtitle="Percentage change in activity/volume compared to non-traumatized controls"
       source={
         <>
-          Directions of change after Bremner, J. D. (2006). Traumatic stress: effects on the
-          brain. <em>Dialogues in Clinical Neuroscience, 8</em>(4), 445–461, and van der Kolk,
-          B. (2014). <em>The Body Keeps the Score</em>. Viking. Magnitudes are illustrative —
-          they show the pattern clinicians describe, not measured values.
+          Directions of change after Bremner, J. D. (2006). Traumatic stress: effects on
+          the brain. <em>Dialogues in Clinical Neuroscience, 8</em>(4), 445–461, and van
+          der Kolk, B. (2014). <em>The Body Keeps the Score</em>. Viking. Magnitudes are
+          illustrative — they show the pattern clinicians describe, not measured values.
         </>
       }
     >
@@ -1315,7 +1521,12 @@ export function BrainRegionsTraumaChart() {
           <XAxis type="number" domain={[-30, 50]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="region" width={120} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="change" fill="var(--color-change)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="change"
+            fill="var(--color-change)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1352,9 +1563,9 @@ export function NeurotransmitterLevelsChart() {
       source={
         <>
           Sherin, J. E., &amp; Nemeroff, C. B. (2011). Post-traumatic stress disorder: the
-          neurobiological impact of psychological trauma. <em>Dialogues in Clinical
-          Neuroscience, 13</em>(3), 263–278. Magnitudes are illustrative — they show the
-          pattern clinicians describe, not measured values.
+          neurobiological impact of psychological trauma.{" "}
+          <em>Dialogues in Clinical Neuroscience, 13</em>(3), 263–278. Magnitudes are
+          illustrative — they show the pattern clinicians describe, not measured values.
         </>
       }
     >
@@ -1365,8 +1576,18 @@ export function NeurotransmitterLevelsChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 160]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="normal" fill="var(--color-normal)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="normal"
+            fill="var(--color-normal)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="ptsd"
+            fill="var(--color-ptsd)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1404,9 +1625,9 @@ export function CortisolPatternChart() {
       subtitle="Normal vs. PTSD cortisol rhythms throughout the day"
       source={
         <>
-          Yehuda, R. (2002). Post-traumatic stress disorder. <em>New England Journal of
-          Medicine, 346</em>(2), 108–114. The flattened curve — not simply a higher or lower
-          one — is the finding.
+          Yehuda, R. (2002). Post-traumatic stress disorder.{" "}
+          <em>New England Journal of Medicine, 346</em>(2), 108–114. The flattened curve —
+          not simply a higher or lower one — is the finding.
         </>
       }
     >
@@ -1414,11 +1635,27 @@ export function CortisolPatternChart() {
         <LineChart data={cortisolPatternData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="time" />
-          <YAxis label={{ value: 'Cortisol (mcg/dL)', angle: -90, position: 'insideLeft' }} />
+          <YAxis
+            label={{ value: "Cortisol (mcg/dL)", angle: -90, position: "insideLeft" }}
+          />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="normal" stroke="var(--color-normal)" strokeWidth={2} dot={{ r: 4 }} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="ptsd" stroke="var(--color-ptsd)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="normal"
+            stroke="var(--color-normal)"
+            strokeWidth={2}
+            dot={{ r: 4 }}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="ptsd"
+            stroke="var(--color-ptsd)"
+            strokeWidth={2}
+            dot={{ r: 4 }}
+          />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -1456,9 +1693,9 @@ export function PolyvagalStatesChart() {
       subtitle="Characteristics of each autonomic nervous system state"
       source={
         <>
-          Porges, S. W. (2011). <em>The Polyvagal Theory</em>. Norton. Polyvagal theory is a
-          model of autonomic states, and parts of it remain contested; the three states are
-          useful as a map of what the body is doing, not as settled anatomy.
+          Porges, S. W. (2011). <em>The Polyvagal Theory</em>. Norton. Polyvagal theory is
+          a model of autonomic states, and parts of it remain contested; the three states
+          are useful as a map of what the body is doing, not as settled anatomy.
         </>
       }
     >
@@ -1469,9 +1706,24 @@ export function PolyvagalStatesChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="safetyLevel" fill="var(--color-safetyLevel)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="socialEngagement" fill="var(--color-socialEngagement)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="energyLevel" fill="var(--color-energyLevel)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="safetyLevel"
+            fill="var(--color-safetyLevel)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="socialEngagement"
+            fill="var(--color-socialEngagement)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="energyLevel"
+            fill="var(--color-energyLevel)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1502,19 +1754,27 @@ export function PTSDSymptomsChart() {
       subtitle="Prevalence of each symptom cluster in PTSD patients"
       source={
         <>
-          Clusters as defined in the American Psychiatric Association (2013). <em>Diagnostic
-          and Statistical Manual of Mental Disorders</em> (5th ed.). The four clusters are
-          diagnostic criteria; the proportions shown are illustrative.
+          Clusters as defined in the American Psychiatric Association (2013).{" "}
+          <em>Diagnostic and Statistical Manual of Mental Disorders</em> (5th ed.). The
+          four clusters are diagnostic criteria; the proportions shown are illustrative.
         </>
       }
     >
       <ChartContainer config={ptsdSymptomsConfig} className="h-[300px] w-full">
-        <BarChart margin={{ top: 24, right: 8, bottom: 5, left: 5 }} data={ptsdSymptomsData}>
+        <BarChart
+          margin={{ top: 24, right: 8, bottom: 5, left: 5 }}
+          data={ptsdSymptomsData}
+        >
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="category" />
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="value" fill="var(--color-value)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="value"
+            fill="var(--color-value)"
+            radius={4}
+          >
             <LabelList
               dataKey="value"
               position="top"
@@ -1556,10 +1816,10 @@ export function ComplexPTSDChart() {
       subtitle="Disturbances in Self-Organization (DSO) symptoms"
       source={
         <>
-          Disturbances in self-organization as defined in ICD-11 6B41, following Cloitre, M.,
-          et al. (2018). The International Trauma Questionnaire. <em>Acta Psychiatrica
-          Scandinavica, 138</em>(6), 536–546. Magnitudes are illustrative — they show the
-          pattern clinicians describe, not measured values.
+          Disturbances in self-organization as defined in ICD-11 6B41, following Cloitre,
+          M., et al. (2018). The International Trauma Questionnaire.{" "}
+          <em>Acta Psychiatrica Scandinavica, 138</em>(6), 536–546. Magnitudes are
+          illustrative — they show the pattern clinicians describe, not measured values.
         </>
       }
     >
@@ -1570,8 +1830,18 @@ export function ComplexPTSDChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="cptsd" fill="var(--color-cptsd)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="cptsd"
+            fill="var(--color-cptsd)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="ptsd"
+            fill="var(--color-ptsd)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1607,9 +1877,9 @@ export function BrainHealingChart() {
       source={
         <>
           Directions of change after Thomaes, K., et al. (2014). Can pharmacological and
-          psychological treatment change brain structure and function in PTSD? <em>Journal of
-          Psychiatric Research, 50</em>, 1–15. Magnitudes are illustrative — they show the
-          pattern clinicians describe, not measured values.
+          psychological treatment change brain structure and function in PTSD?{" "}
+          <em>Journal of Psychiatric Research, 50</em>, 1–15. Magnitudes are illustrative
+          — they show the pattern clinicians describe, not measured values.
         </>
       }
     >
@@ -1620,8 +1890,18 @@ export function BrainHealingChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 160]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="before" fill="var(--color-before)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="after" fill="var(--color-after)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="before"
+            fill="var(--color-before)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="after"
+            fill="var(--color-after)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1654,9 +1934,9 @@ export function ACTHexaflexChart() {
       subtitle="Psychological flexibility develops through strengthening all six interconnected processes"
       source={
         <>
-          Hayes, S. C., Strosahl, K. D., &amp; Wilson, K. G. (2012). <em>Acceptance and
-          Commitment Therapy</em> (2nd ed.). Guilford. Magnitudes are illustrative — they show
-          the pattern clinicians describe, not measured values.
+          Hayes, S. C., Strosahl, K. D., &amp; Wilson, K. G. (2012).{" "}
+          <em>Acceptance and Commitment Therapy</em> (2nd ed.). Guilford. Magnitudes are
+          illustrative — they show the pattern clinicians describe, not measured values.
         </>
       }
     >
@@ -1665,7 +1945,14 @@ export function ACTHexaflexChart() {
           <PolarGrid />
           <PolarAngleAxis dataKey="process" className="text-xs" />
           <PolarRadiusAxis angle={30} domain={[0, 100]} />
-          <Radar isAnimationActive={!staticCharts} name="Process Strength" dataKey="importance" stroke="var(--color-importance)" fill="var(--color-importance)" fillOpacity={0.5} />
+          <Radar
+            isAnimationActive={!staticCharts}
+            name="Process Strength"
+            dataKey="importance"
+            stroke="var(--color-importance)"
+            fill="var(--color-importance)"
+            fillOpacity={0.5}
+          />
           <ChartTooltip content={<ChartTooltipContent />} />
         </RadarChart>
       </ChartContainer>
@@ -1699,19 +1986,29 @@ export function FamilyDysfunctionChart() {
       subtitle="Prevalence of dysfunctional patterns in families with identified dysfunction"
       source={
         <>
-          Patterns after Bowen, M. (1978). <em>Family Therapy in Clinical Practice</em>. Jason
-          Aronson, and Black, C. (1981). <em>It Will Never Happen to Me</em>. Magnitudes are
-          illustrative — they show the pattern clinicians describe, not measured values.
+          Patterns after Bowen, M. (1978). <em>Family Therapy in Clinical Practice</em>.
+          Jason Aronson, and Black, C. (1981). <em>It Will Never Happen to Me</em>.
+          Magnitudes are illustrative — they show the pattern clinicians describe, not
+          measured values.
         </>
       }
     >
       <ChartContainer config={familyDysfunctionConfig} className="h-[300px] w-full">
-        <BarChart margin={{ top: 5, right: 46, bottom: 5, left: 5 }} data={familyDysfunctionData} layout="vertical">
+        <BarChart
+          margin={{ top: 5, right: 46, bottom: 5, left: 5 }}
+          data={familyDysfunctionData}
+          layout="vertical"
+        >
           <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
           <XAxis type="number" domain={[0, 60]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="pattern" width={120} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="prevalence" fill="var(--color-prevalence)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="prevalence"
+            fill="var(--color-prevalence)"
+            radius={4}
+          >
             <LabelList
               dataKey="prevalence"
               position="right"
@@ -1751,9 +2048,10 @@ export function ChildhoodTraumaTimelineChart() {
       subtitle="Earlier trauma during critical periods has greater developmental impact"
       source={
         <>
-          Perry, B. D. (2009). Examining child maltreatment through a neurodevelopmental lens.
-          <em>Journal of Loss and Trauma, 14</em>(4), 240–255. Magnitudes are illustrative —
-          they show the pattern clinicians describe, not measured values.
+          Perry, B. D. (2009). Examining child maltreatment through a neurodevelopmental
+          lens.
+          <em>Journal of Loss and Trauma, 14</em>(4), 240–255. Magnitudes are illustrative
+          — they show the pattern clinicians describe, not measured values.
         </>
       }
     >
@@ -1763,7 +2061,14 @@ export function ChildhoodTraumaTimelineChart() {
           <XAxis dataKey="age" />
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="impact" stroke="var(--color-impact)" strokeWidth={3} dot={{ r: 6 }} />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="impact"
+            stroke="var(--color-impact)"
+            strokeWidth={3}
+            dot={{ r: 6 }}
+          />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -1817,9 +2122,24 @@ export function RelationshipSafetyChart() {
           <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="healthy" fill="var(--color-healthy)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="concerning" fill="var(--color-concerning)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="dangerous" fill="var(--color-dangerous)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="healthy"
+            fill="var(--color-healthy)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="concerning"
+            fill="var(--color-concerning)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="dangerous"
+            fill="var(--color-dangerous)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1853,8 +2173,8 @@ export function WindowToleranceChart() {
       subtitle="Arousal states and optimal functioning zones"
       source={
         <>
-          Siegel, D. J. (1999). <em>The Developing Mind</em>. Guilford. The window widens with
-          practice; its edges are not fixed.
+          Siegel, D. J. (1999). <em>The Developing Mind</em>. Guilford. The window widens
+          with practice; its edges are not fixed.
         </>
       }
     >
@@ -1865,8 +2185,20 @@ export function WindowToleranceChart() {
           <YAxis type="category" dataKey="state" width={140} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="intensity" fill="var(--color-intensity)" radius={4} stackId="a" />
-          <Bar isAnimationActive={!staticCharts} dataKey="optimal" fill="var(--color-optimal)" radius={4} stackId="a" />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="intensity"
+            fill="var(--color-intensity)"
+            radius={4}
+            stackId="a"
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="optimal"
+            fill="var(--color-optimal)"
+            radius={4}
+            stackId="a"
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -1901,19 +2233,29 @@ export function AdultTraumaTypesChart() {
       subtitle="Prevalence of different trauma types in adult populations"
       source={
         <>
-          Categories after SAMHSA (2014). <em>SAMHSA’s Concept of Trauma and Guidance for a
-          Trauma-Informed Approach</em> (HHS Publication No. SMA 14-4884). Magnitudes are
-          illustrative — they show the pattern clinicians describe, not measured values.
+          Categories after SAMHSA (2014).{" "}
+          <em>SAMHSA’s Concept of Trauma and Guidance for a Trauma-Informed Approach</em>{" "}
+          (HHS Publication No. SMA 14-4884). Magnitudes are illustrative — they show the
+          pattern clinicians describe, not measured values.
         </>
       }
     >
       <ChartContainer config={adultTraumaTypesConfig} className="h-[350px] w-full">
-        <BarChart margin={{ top: 5, right: 46, bottom: 5, left: 5 }} data={adultTraumaTypesData} layout="vertical">
+        <BarChart
+          margin={{ top: 5, right: 46, bottom: 5, left: 5 }}
+          data={adultTraumaTypesData}
+          layout="vertical"
+        >
           <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
           <XAxis type="number" domain={[0, 30]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="type" width={160} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="prevalence" fill="var(--color-prevalence)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="prevalence"
+            fill="var(--color-prevalence)"
+            radius={4}
+          >
             <LabelList
               dataKey="prevalence"
               position="right"
@@ -1964,7 +2306,8 @@ export function GroundingTechniquesChart() {
           <PolarGrid />
           <PolarAngleAxis dataKey="technique" tick={{ fontSize: 11 }} />
           <PolarRadiusAxis angle={30} domain={[0, 100]} />
-          <Radar isAnimationActive={!staticCharts}
+          <Radar
+            isAnimationActive={!staticCharts}
             name="Effectiveness"
             dataKey="effectiveness"
             stroke="hsl(var(--primary))"
@@ -2010,20 +2353,36 @@ export function CopingStrategiesChart() {
       source={
         <>
           Adaptive/maladaptive framing after Lazarus, R. S., &amp; Folkman, S. (1984).
-          <em>Stress, Appraisal, and Coping</em>. Springer. Magnitudes are illustrative — they
-          show the pattern clinicians describe, not measured values.
+          <em>Stress, Appraisal, and Coping</em>. Springer. Magnitudes are illustrative —
+          they show the pattern clinicians describe, not measured values.
         </>
       }
     >
       <ChartContainer config={copingStrategiesConfig} className="h-[300px] w-full">
         <BarChart data={copingStrategiesData}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="strategy" angle={-45} textAnchor="end" height={80} tick={{ fontSize: 11 }} />
+          <XAxis
+            dataKey="strategy"
+            angle={-45}
+            textAnchor="end"
+            height={80}
+            tick={{ fontSize: 11 }}
+          />
           <YAxis tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="healthy" fill="var(--color-healthy)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="avoidant" fill="var(--color-avoidant)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="healthy"
+            fill="var(--color-healthy)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="avoidant"
+            fill="var(--color-avoidant)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2056,10 +2415,10 @@ export function ResilienceFactorsChart() {
       subtitle="Factors that contribute to post-trauma resilience"
       source={
         <>
-          Factors after Southwick, S. M., &amp; Charney, D. S. (2018). <em>Resilience: The
-          Science of Mastering Life’s Greatest Challenges</em> (2nd ed.). Cambridge University
-          Press. Magnitudes are illustrative — they show the pattern clinicians describe, not
-          measured values.
+          Factors after Southwick, S. M., &amp; Charney, D. S. (2018).{" "}
+          <em>Resilience: The Science of Mastering Life’s Greatest Challenges</em> (2nd
+          ed.). Cambridge University Press. Magnitudes are illustrative — they show the
+          pattern clinicians describe, not measured values.
         </>
       }
     >
@@ -2068,7 +2427,8 @@ export function ResilienceFactorsChart() {
           <PolarGrid />
           <PolarAngleAxis dataKey="factor" tick={{ fontSize: 11 }} />
           <PolarRadiusAxis angle={30} domain={[0, 100]} />
-          <Radar isAnimationActive={!staticCharts}
+          <Radar
+            isAnimationActive={!staticCharts}
             name="Score"
             dataKey="score"
             stroke="hsl(var(--primary))"
@@ -2121,12 +2481,28 @@ export function SpiritualPracticesChart() {
       <ChartContainer config={spiritualPracticesConfig} className="h-[300px] w-full">
         <BarChart data={spiritualPracticesData}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="practice" angle={-45} textAnchor="end" height={80} tick={{ fontSize: 11 }} />
+          <XAxis
+            dataKey="practice"
+            angle={-45}
+            textAnchor="end"
+            height={80}
+            tick={{ fontSize: 11 }}
+          />
           <YAxis tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="benefit" fill="var(--color-benefit)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="adoption" fill="var(--color-adoption)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="benefit"
+            fill="var(--color-benefit)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="adoption"
+            fill="var(--color-adoption)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2161,7 +2537,8 @@ export function RecoveryValuesChart() {
       subtitle="Values commonly prioritized by those in trauma recovery"
       source={
         <>
-          Values domains after Wilson, K. G., et al. (2010). The Valued Living Questionnaire.
+          Values domains after Wilson, K. G., et al. (2010). The Valued Living
+          Questionnaire.
           <em>The Psychological Record, 60</em>(2), 249–272. Magnitudes are illustrative —
           they show the pattern clinicians describe, not measured values.
         </>
@@ -2172,7 +2549,8 @@ export function RecoveryValuesChart() {
           <PolarGrid />
           <PolarAngleAxis dataKey="value" tick={{ fontSize: 11 }} />
           <PolarRadiusAxis angle={30} domain={[0, 100]} />
-          <Radar isAnimationActive={!staticCharts}
+          <Radar
+            isAnimationActive={!staticCharts}
             name="Importance"
             dataKey="importance"
             stroke="hsl(var(--primary))"
@@ -2220,7 +2598,8 @@ export function TreatmentModalitiesChart() {
       subtitle="Effectiveness of trauma treatment approaches by condition"
       source={
         <>
-          Bisson, J. I., et al. (2013). Psychological therapies for chronic PTSD in adults.
+          Bisson, J. I., et al. (2013). Psychological therapies for chronic PTSD in
+          adults.
           <em>Cochrane Database of Systematic Reviews</em>, CD003388. Magnitudes are
           illustrative — they show the pattern clinicians describe, not measured values.
         </>
@@ -2233,9 +2612,24 @@ export function TreatmentModalitiesChart() {
           <YAxis tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="ptsd" fill="var(--color-ptsd)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="depression" fill="var(--color-depression)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="anxiety" fill="var(--color-anxiety)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="ptsd"
+            fill="var(--color-ptsd)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="depression"
+            fill="var(--color-depression)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="anxiety"
+            fill="var(--color-anxiety)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2270,19 +2664,29 @@ export function CognitiveDistortionsChart() {
       subtitle="Prevalence of thinking errors among trauma survivors"
       source={
         <>
-          Distortions after Beck, A. T. (1976). <em>Cognitive Therapy and the Emotional
-          Disorders</em>, and Burns, D. D. (1980). <em>Feeling Good</em>. Magnitudes are
-          illustrative — they show the pattern clinicians describe, not measured values.
+          Distortions after Beck, A. T. (1976).{" "}
+          <em>Cognitive Therapy and the Emotional Disorders</em>, and Burns, D. D. (1980).{" "}
+          <em>Feeling Good</em>. Magnitudes are illustrative — they show the pattern
+          clinicians describe, not measured values.
         </>
       }
     >
       <ChartContainer config={cognitiveDistortionsConfig} className="h-[350px] w-full">
-        <BarChart margin={{ top: 5, right: 46, bottom: 5, left: 5 }} data={cognitiveDistortionsData} layout="vertical">
+        <BarChart
+          margin={{ top: 5, right: 46, bottom: 5, left: 5 }}
+          data={cognitiveDistortionsData}
+          layout="vertical"
+        >
           <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
           <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="distortion" width={130} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="frequency" fill="var(--color-frequency)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="frequency"
+            fill="var(--color-frequency)"
+            radius={4}
+          >
             <LabelList
               dataKey="frequency"
               position="right"
@@ -2330,10 +2734,10 @@ export function MindfulnessBenefitsChart() {
       subtitle="Improvements from regular mindfulness practice"
       source={
         <>
-          Direction of effect after Khoury, B., et al. (2013). Mindfulness-based therapy: A
-          comprehensive meta-analysis. <em>Clinical Psychology Review, 33</em>(6), 763–771.
-          Magnitudes are illustrative — they show the pattern clinicians describe, not
-          measured values.
+          Direction of effect after Khoury, B., et al. (2013). Mindfulness-based therapy:
+          A comprehensive meta-analysis. <em>Clinical Psychology Review, 33</em>(6),
+          763–771. Magnitudes are illustrative — they show the pattern clinicians
+          describe, not measured values.
         </>
       }
     >
@@ -2344,9 +2748,27 @@ export function MindfulnessBenefitsChart() {
           <YAxis domain={[0, 100]} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="stress" stroke="var(--color-stress)" strokeWidth={2} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="focus" stroke="var(--color-focus)" strokeWidth={2} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="regulation" stroke="var(--color-regulation)" strokeWidth={2} />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="stress"
+            stroke="var(--color-stress)"
+            strokeWidth={2}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="focus"
+            stroke="var(--color-focus)"
+            strokeWidth={2}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="regulation"
+            stroke="var(--color-regulation)"
+            strokeWidth={2}
+          />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -2380,10 +2802,10 @@ export function SomaticTherapyChart() {
       source={
         <>
           Techniques after Levine, P. A. (1997). <em>Waking the Tiger</em>. North Atlantic
-          Books. The evidence base is younger and thinner than for CBT or EMDR; see Kuhfuß,
-          M., et al. (2021). <em>European Journal of Psychotraumatology, 12</em>(1), 1929023.
-          Magnitudes are illustrative — they show the pattern clinicians describe, not
-          measured values.
+          Books. The evidence base is younger and thinner than for CBT or EMDR; see
+          Kuhfuß, M., et al. (2021). <em>European Journal of Psychotraumatology, 12</em>
+          (1), 1929023. Magnitudes are illustrative — they show the pattern clinicians
+          describe, not measured values.
         </>
       }
     >
@@ -2392,7 +2814,8 @@ export function SomaticTherapyChart() {
           <PolarGrid />
           <PolarAngleAxis dataKey="technique" tick={{ fontSize: 11 }} />
           <PolarRadiusAxis angle={30} domain={[0, 100]} />
-          <Radar isAnimationActive={!staticCharts}
+          <Radar
+            isAnimationActive={!staticCharts}
             name="Effectiveness"
             dataKey="effectiveness"
             stroke="hsl(var(--primary))"
@@ -2438,8 +2861,8 @@ export function EMDRPhasesChart() {
       source={
         <>
           Shapiro, F. (2018). <em>Eye Movement Desensitization and Reprocessing</em> (3rd
-          ed.). Guilford. The eight phases are the protocol; the session counts are typical
-          rather than prescribed.
+          ed.). Guilford. The eight phases are the protocol; the session counts are
+          typical rather than prescribed.
         </>
       }
     >
@@ -2450,8 +2873,18 @@ export function EMDRPhasesChart() {
           <YAxis type="category" dataKey="phase" width={120} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="time" fill="var(--color-time)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="importance" fill="var(--color-importance)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="time"
+            fill="var(--color-time)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="importance"
+            fill="var(--color-importance)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2492,10 +2925,10 @@ export function BoundaryTypesChart() {
       subtitle="Distribution of boundary styles across different areas"
       source={
         <>
-          Boundary styles after Mellody, P. (1989). <em>Facing Codependence</em>. Harper &amp;
-          Row, and Cloud, H., &amp; Townsend, J. (1992). <em>Boundaries</em>. Zondervan.
-          Magnitudes are illustrative — they show the pattern clinicians describe, not
-          measured values.
+          Boundary styles after Mellody, P. (1989). <em>Facing Codependence</em>. Harper
+          &amp; Row, and Cloud, H., &amp; Townsend, J. (1992). <em>Boundaries</em>.
+          Zondervan. Magnitudes are illustrative — they show the pattern clinicians
+          describe, not measured values.
         </>
       }
     >
@@ -2506,9 +2939,24 @@ export function BoundaryTypesChart() {
           <YAxis tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="healthy" fill="var(--color-healthy)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="porous" fill="var(--color-porous)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="rigid" fill="var(--color-rigid)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="healthy"
+            fill="var(--color-healthy)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="porous"
+            fill="var(--color-porous)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="rigid"
+            fill="var(--color-rigid)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2561,9 +3009,27 @@ export function InnerChildHealingChart() {
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="awareness" stroke="var(--color-awareness)" strokeWidth={2} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="safety" stroke="var(--color-safety)" strokeWidth={2} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="expression" stroke="var(--color-expression)" strokeWidth={2} />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="awareness"
+            stroke="var(--color-awareness)"
+            strokeWidth={2}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="safety"
+            stroke="var(--color-safety)"
+            strokeWidth={2}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="expression"
+            stroke="var(--color-expression)"
+            strokeWidth={2}
+          />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -2596,19 +3062,27 @@ export function DistressToleranceSkillsChart() {
       subtitle="Effectiveness ratings for crisis survival skills"
       source={
         <>
-          Skills after Linehan, M. M. (2015). <em>DBT Skills Training Manual</em> (2nd ed.).
-          Guilford. Magnitudes are illustrative — they show the pattern clinicians describe,
-          not measured values.
+          Skills after Linehan, M. M. (2015). <em>DBT Skills Training Manual</em> (2nd
+          ed.). Guilford. Magnitudes are illustrative — they show the pattern clinicians
+          describe, not measured values.
         </>
       }
     >
       <ChartContainer config={distressToleranceConfig} className="h-[300px] w-full">
-        <BarChart margin={{ top: 24, right: 8, bottom: 5, left: 5 }} data={distressToleranceData}>
+        <BarChart
+          margin={{ top: 24, right: 8, bottom: 5, left: 5 }}
+          data={distressToleranceData}
+        >
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="skill" />
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="effectiveness" fill="var(--color-effectiveness)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="effectiveness"
+            fill="var(--color-effectiveness)"
+            radius={4}
+          >
             <LabelList
               dataKey="effectiveness"
               position="top"
@@ -2654,22 +3128,40 @@ export function InterpersonalEffectivenessChart() {
       subtitle="When to use each skill set"
       source={
         <>
-          Linehan, M. M. (2015). <em>DBT Skills Training Manual</em> (2nd ed.). Guilford. DEAR
-          MAN, GIVE and FAST are her acronyms. Magnitudes are illustrative — they show the
-          pattern clinicians describe, not measured values.
+          Linehan, M. M. (2015). <em>DBT Skills Training Manual</em> (2nd ed.). Guilford.
+          DEAR MAN, GIVE and FAST are her acronyms. Magnitudes are illustrative — they
+          show the pattern clinicians describe, not measured values.
         </>
       }
     >
-      <ChartContainer config={interpersonalEffectivenessConfig} className="h-[300px] w-full">
+      <ChartContainer
+        config={interpersonalEffectivenessConfig}
+        className="h-[300px] w-full"
+      >
         <BarChart data={interpersonalEffectivenessData}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="skill" />
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="objective" fill="var(--color-objective)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="relationship" fill="var(--color-relationship)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="selfrespect" fill="var(--color-selfrespect)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="objective"
+            fill="var(--color-objective)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="relationship"
+            fill="var(--color-relationship)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="selfrespect"
+            fill="var(--color-selfrespect)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2706,12 +3198,21 @@ export function SexAddictionPrevalenceChart() {
       }
     >
       <ChartContainer config={sexAddictionPrevalenceConfig} className="h-[300px] w-full">
-        <BarChart margin={{ top: 5, right: 46, bottom: 5, left: 5 }} data={sexAddictionPrevalenceData} layout="vertical">
+        <BarChart
+          margin={{ top: 5, right: 46, bottom: 5, left: 5 }}
+          data={sexAddictionPrevalenceData}
+          layout="vertical"
+        >
           <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
           <XAxis type="number" domain={[0, 35]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="group" width={160} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="rate" fill="var(--color-rate)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="rate"
+            fill="var(--color-rate)"
+            radius={4}
+          >
             <LabelList
               dataKey="rate"
               position="right"
@@ -2749,8 +3250,9 @@ export function SexAddictionBrainChart() {
       source={
         <>
           Kühn, S., &amp; Gallinat, J. (2014). Brain structure and functional connectivity
-          associated with pornography consumption. <em>JAMA Psychiatry, 71</em>(7), 827–834.
-          Cross-sectional: it shows an association, not that one caused the other.
+          associated with pornography consumption. <em>JAMA Psychiatry, 71</em>(7),
+          827–834. Cross-sectional: it shows an association, not that one caused the
+          other.
         </>
       }
     >
@@ -2761,8 +3263,18 @@ export function SexAddictionBrainChart() {
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="addiction" fill="var(--color-addiction)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="healthy" fill="var(--color-healthy)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="addiction"
+            fill="var(--color-addiction)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="healthy"
+            fill="var(--color-healthy)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2791,19 +3303,28 @@ export function SexAddictionTraumaChart() {
       subtitle="Percentage of sex addicts reporting specific childhood trauma types"
       source={
         <>
-          Carnes, P. (2001). <em>Out of the Shadows: Understanding Sexual Addiction</em> (3rd
-          ed.). Hazelden. Figures come from clinical samples in treatment, which are not the
-          general population.
+          Carnes, P. (2001). <em>Out of the Shadows: Understanding Sexual Addiction</em>{" "}
+          (3rd ed.). Hazelden. Figures come from clinical samples in treatment, which are
+          not the general population.
         </>
       }
     >
       <ChartContainer config={sexAddictionTraumaConfig} className="h-[300px] w-full">
-        <BarChart margin={{ top: 5, right: 46, bottom: 5, left: 5 }} data={sexAddictionTraumaData} layout="vertical">
+        <BarChart
+          margin={{ top: 5, right: 46, bottom: 5, left: 5 }}
+          data={sexAddictionTraumaData}
+          layout="vertical"
+        >
           <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
           <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="trauma" width={150} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="percentage" fill="var(--color-percentage)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="percentage"
+            fill="var(--color-percentage)"
+            radius={4}
+          >
             <LabelList
               dataKey="percentage"
               position="right"
@@ -2839,9 +3360,9 @@ export function CarnesAddictionCycleChart() {
       subtitle="Relative neurochemical intensity and duration of each phase"
       source={
         <>
-          Carnes, P. (2001). <em>Out of the Shadows</em> (3rd ed.). Hazelden; the four-phase
-          cycle first appeared in the 1983 edition. Magnitudes are illustrative — they show
-          the pattern clinicians describe, not measured values.
+          Carnes, P. (2001). <em>Out of the Shadows</em> (3rd ed.). Hazelden; the
+          four-phase cycle first appeared in the 1983 edition. Magnitudes are illustrative
+          — they show the pattern clinicians describe, not measured values.
         </>
       }
     >
@@ -2852,8 +3373,18 @@ export function CarnesAddictionCycleChart() {
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="intensity" fill="var(--color-intensity)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="duration" fill="var(--color-duration)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="intensity"
+            fill="var(--color-intensity)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="duration"
+            fill="var(--color-duration)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -2881,18 +3412,27 @@ export function SexAddictionBeliefsChart() {
       subtitle="Percentage of sex addicts endorsing core distorted beliefs"
       source={
         <>
-          Carnes, P. (2001). <em>Out of the Shadows</em> (3rd ed.). Hazelden. Clinical sample,
-          not the general population.
+          Carnes, P. (2001). <em>Out of the Shadows</em> (3rd ed.). Hazelden. Clinical
+          sample, not the general population.
         </>
       }
     >
       <ChartContainer config={sexAddictionBeliefsConfig} className="h-[300px] w-full">
-        <BarChart margin={{ top: 5, right: 46, bottom: 5, left: 5 }} data={sexAddictionBeliefsData} layout="vertical">
+        <BarChart
+          margin={{ top: 5, right: 46, bottom: 5, left: 5 }}
+          data={sexAddictionBeliefsData}
+          layout="vertical"
+        >
           <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
           <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="belief" width={175} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="percentage" fill="var(--color-percentage)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="percentage"
+            fill="var(--color-percentage)"
+            radius={4}
+          >
             <LabelList
               dataKey="percentage"
               position="right"
@@ -2934,16 +3474,25 @@ export function ThreeCirclesChart() {
       }
       source={
         <>
-          The three-circle tool as used in Sex Addicts Anonymous, <em>Sex Addicts
-          Anonymous</em> (3rd ed., 2005), building on Carnes, P. (2001). <em>Out of the
-          Shadows</em> (3rd ed.). Hazelden. What goes in each circle is yours to define with a
-          sponsor or therapist — the sizes here mean nothing.
+          The three-circle tool as used in Sex Addicts Anonymous,{" "}
+          <em>Sex Addicts Anonymous</em> (3rd ed., 2005), building on Carnes, P. (2001).{" "}
+          <em>Out of the Shadows</em> (3rd ed.). Hazelden. What goes in each circle is
+          yours to define with a sponsor or therapist — the sizes here mean nothing.
         </>
       }
     >
       <ChartContainer config={{}} className="h-[300px] w-full">
         <PieChart>
-          <Pie isAnimationActive={!staticCharts} data={threeCirclesData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} label={({ name }) => name}>
+          <Pie
+            isAnimationActive={!staticCharts}
+            data={threeCirclesData}
+            dataKey="value"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            outerRadius={100}
+            label={({ name }) => name}
+          >
             {threeCirclesData.map((entry, index) => (
               <Cell key={index} fill={entry.fill} />
             ))}
@@ -2977,9 +3526,9 @@ export function LoveAddictionPatternsChart() {
       subtitle="Comparison of behavioral patterns in love addiction and love avoidance"
       source={
         <>
-          Mellody, P., Miller, A. W., &amp; Miller, J. K. (2003). <em>Facing Love
-          Addiction</em>. HarperOne. Magnitudes are illustrative — they show the pattern
-          clinicians describe, not measured values.
+          Mellody, P., Miller, A. W., &amp; Miller, J. K. (2003).{" "}
+          <em>Facing Love Addiction</em>. HarperOne. Magnitudes are illustrative — they
+          show the pattern clinicians describe, not measured values.
         </>
       }
     >
@@ -2990,8 +3539,18 @@ export function LoveAddictionPatternsChart() {
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="loveAddict" fill="var(--color-loveAddict)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="loveAvoidant" fill="var(--color-loveAvoidant)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="loveAddict"
+            fill="var(--color-loveAddict)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="loveAvoidant"
+            fill="var(--color-loveAvoidant)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -3022,9 +3581,9 @@ export function TraumaBondingCycleChart() {
       source={
         <>
           Dutton, D. G., &amp; Painter, S. (1993). Emotional attachments in abusive
-          relationships: A test of traumatic bonding theory. <em>Violence and Victims,
-          8</em>(2), 105–120. Magnitudes are illustrative — they show the pattern clinicians
-          describe, not measured values.
+          relationships: A test of traumatic bonding theory.{" "}
+          <em>Violence and Victims, 8</em>(2), 105–120. Magnitudes are illustrative — they
+          show the pattern clinicians describe, not measured values.
         </>
       }
     >
@@ -3034,7 +3593,14 @@ export function TraumaBondingCycleChart() {
           <XAxis dataKey="phase" tick={{ fontSize: 10 }} />
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="intensity" stroke="var(--color-intensity)" strokeWidth={3} dot={{ r: 5 }} />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="intensity"
+            stroke="var(--color-intensity)"
+            strokeWidth={3}
+            dot={{ r: 5 }}
+          />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -3064,19 +3630,27 @@ export function MeadowsTreatmentModelChart() {
       subtitle="Patient-reported benefit ratings for key Meadows treatment modalities"
       source={
         <>
-          Components after the Meadows model as described in Mellody, P. (1989). <em>Facing
-          Codependence</em>. Harper &amp; Row. Benefit ratings are illustrative and not
-          outcome data.
+          Components after the Meadows model as described in Mellody, P. (1989).{" "}
+          <em>Facing Codependence</em>. Harper &amp; Row. Benefit ratings are illustrative
+          and not outcome data.
         </>
       }
     >
       <ChartContainer config={meadowsTreatmentConfig} className="h-[300px] w-full">
-        <BarChart margin={{ top: 24, right: 8, bottom: 5, left: 5 }} data={meadowsTreatmentData}>
+        <BarChart
+          margin={{ top: 24, right: 8, bottom: 5, left: 5 }}
+          data={meadowsTreatmentData}
+        >
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="component" tick={{ fontSize: 10 }} />
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="effectiveness" fill="var(--color-effectiveness)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="effectiveness"
+            fill="var(--color-effectiveness)"
+            radius={4}
+          >
             <LabelList
               dataKey="effectiveness"
               position="top"
@@ -3115,8 +3689,9 @@ export function MeadowsOutcomeChart() {
       subtitle="Trajectory of sobriety maintenance, well-being, and relationship quality during recovery"
       source={
         <>
-          Carnes, P., et al. (2005). <em>Facing the Shadow</em>. Gentle Path Press. Magnitudes
-          are illustrative — they show the pattern clinicians describe, not measured values.
+          Carnes, P., et al. (2005). <em>Facing the Shadow</em>. Gentle Path Press.
+          Magnitudes are illustrative — they show the pattern clinicians describe, not
+          measured values.
         </>
       }
     >
@@ -3127,9 +3702,30 @@ export function MeadowsOutcomeChart() {
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="sobriety" stroke="var(--color-sobriety)" strokeWidth={2} dot={{ r: 4 }} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="wellbeing" stroke="var(--color-wellbeing)" strokeWidth={2} dot={{ r: 4 }} />
-          <Line isAnimationActive={!staticCharts} type="monotone" dataKey="relationships" stroke="var(--color-relationships)" strokeWidth={2} dot={{ r: 4 }} />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="sobriety"
+            stroke="var(--color-sobriety)"
+            strokeWidth={2}
+            dot={{ r: 4 }}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="wellbeing"
+            stroke="var(--color-wellbeing)"
+            strokeWidth={2}
+            dot={{ r: 4 }}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            type="monotone"
+            dataKey="relationships"
+            stroke="var(--color-relationships)"
+            strokeWidth={2}
+            dot={{ r: 4 }}
+          />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -3165,16 +3761,34 @@ export function SexAddictionRecoveryProgressChart() {
         </>
       }
     >
-      <ChartContainer config={sexAddictionRecoveryProgressConfig} className="h-[300px] w-full">
+      <ChartContainer
+        config={sexAddictionRecoveryProgressConfig}
+        className="h-[300px] w-full"
+      >
         <BarChart data={sexAddictionRecoveryProgressData}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="stage" />
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="innerCircle" fill="var(--color-innerCircle)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="middleCircle" fill="var(--color-middleCircle)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="outerCircle" fill="var(--color-outerCircle)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="innerCircle"
+            fill="var(--color-innerCircle)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="middleCircle"
+            fill="var(--color-middleCircle)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="outerCircle"
+            fill="var(--color-outerCircle)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -3210,13 +3824,30 @@ export function SexAddictionRecoveryRoadmapChart() {
         </>
       }
     >
-      <ChartContainer config={sexAddictionRecoveryRoadmapConfig} className="h-[320px] w-full">
-        <BarChart margin={{ top: 5, right: 46, bottom: 5, left: 5 }} data={sexAddictionRecoveryRoadmapData} layout="vertical">
+      <ChartContainer
+        config={sexAddictionRecoveryRoadmapConfig}
+        className="h-[320px] w-full"
+      >
+        <BarChart
+          margin={{ top: 5, right: 46, bottom: 5, left: 5 }}
+          data={sexAddictionRecoveryRoadmapData}
+          layout="vertical"
+        >
           <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
           <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
-          <YAxis type="category" dataKey="milestone" width={165} tick={{ fontSize: 11 }} />
+          <YAxis
+            type="category"
+            dataKey="milestone"
+            width={165}
+            tick={{ fontSize: 11 }}
+          />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="completion" fill="var(--color-completion)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="completion"
+            fill="var(--color-completion)"
+            radius={4}
+          >
             <LabelList
               dataKey="completion"
               position="right"
@@ -3266,8 +3897,18 @@ export function TreatmentAccessChart() {
           <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="accessibility" fill="var(--color-accessibility)" radius={4} />
-          <Bar isAnimationActive={!staticCharts} dataKey="availability" fill="var(--color-availability)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="accessibility"
+            fill="var(--color-accessibility)"
+            radius={4}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="availability"
+            fill="var(--color-availability)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -3360,8 +4001,8 @@ export function AddictionHeritabilityChart() {
       title="How Heritable Is Addiction?"
       subtitle={
         <>
-          Proportion of the variation in liability that twin and family studies
-          attribute to genes. Bars show the range across studies, not a single number.
+          Proportion of the variation in liability that twin and family studies attribute
+          to genes. Bars show the range across studies, not a single number.
         </>
       }
       source={
@@ -3379,8 +4020,19 @@ export function AddictionHeritabilityChart() {
           <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
           <YAxis type="category" dataKey="substance" width={90} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="low" stackId="a" fill="transparent" />
-          <Bar isAnimationActive={!staticCharts} dataKey="span" stackId="a" fill="var(--color-span)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="low"
+            stackId="a"
+            fill="transparent"
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="span"
+            stackId="a"
+            fill="var(--color-span)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -3422,8 +4074,8 @@ export function DopamineRateChart() {
       source={
         <>
           Schematic, showing dopamine in the nucleus accumbens as a percentage of
-          baseline. Shape after Volkow, N. D., et al. (2000), and the rate hypothesis
-          set out in Kevin McCauley's <em>Pleasure Unwoven</em> (2010).
+          baseline. Shape after Volkow, N. D., et al. (2000), and the rate hypothesis set
+          out in Kevin McCauley's <em>Pleasure Unwoven</em> (2010).
         </>
       }
     >
@@ -3438,10 +4090,34 @@ export function DopamineRateChart() {
           <YAxis tickFormatter={(v) => `${v}%`} label={undefined} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line isAnimationActive={!staticCharts} dataKey="smoked" stroke="var(--color-smoked)" dot={false} strokeWidth={2} />
-          <Line isAnimationActive={!staticCharts} dataKey="injected" stroke="var(--color-injected)" dot={false} strokeWidth={2} />
-          <Line isAnimationActive={!staticCharts} dataKey="snorted" stroke="var(--color-snorted)" dot={false} strokeWidth={2} />
-          <Line isAnimationActive={!staticCharts} dataKey="oral" stroke="var(--color-oral)" dot={false} strokeWidth={2} />
+          <Line
+            isAnimationActive={!staticCharts}
+            dataKey="smoked"
+            stroke="var(--color-smoked)"
+            dot={false}
+            strokeWidth={2}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            dataKey="injected"
+            stroke="var(--color-injected)"
+            dot={false}
+            strokeWidth={2}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            dataKey="snorted"
+            stroke="var(--color-snorted)"
+            dot={false}
+            strokeWidth={2}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            dataKey="oral"
+            stroke="var(--color-oral)"
+            dot={false}
+            strokeWidth={2}
+          />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -3474,16 +4150,15 @@ export function AlcoholGabaGlutamateChart() {
       title="Why the Hangover Gets Worse: GABA and Glutamate"
       subtitle={
         <>
-          Each drink is a GABA wave that peaks and falls. Underneath it, glutamate
-          climbs and does not come back down between drinks. The rising floor is
-          the hangover.
+          Each drink is a GABA wave that peaks and falls. Underneath it, glutamate climbs
+          and does not come back down between drinks. The rising floor is the hangover.
         </>
       }
       source={
         <>
-          Schematic. Alcohol potentiates GABA-A and inhibits NMDA glutamate
-          receptors; the brain compensates by upregulating glutamate, which is what
-          is left exposed when the alcohol clears. See Valenzuela, C. F. (1997),
+          Schematic. Alcohol potentiates GABA-A and inhibits NMDA glutamate receptors; the
+          brain compensates by upregulating glutamate, which is what is left exposed when
+          the alcohol clears. See Valenzuela, C. F. (1997),
           <em> Alcohol Health &amp; Research World, 21</em>(2), 144–148.
         </>
       }
@@ -3491,12 +4166,23 @@ export function AlcoholGabaGlutamateChart() {
       <ChartContainer config={alcoholConfig} className="h-[320px] w-full">
         <LineChart data={alcoholNeurotransmitterData}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="t" tickFormatter={(v) => `${Math.round(v)}`} ticks={[0, 1, 2, 3, 4, 5, 6]} />
+          <XAxis
+            dataKey="t"
+            tickFormatter={(v) => `${Math.round(v)}`}
+            ticks={[0, 1, 2, 3, 4, 5, 6]}
+          />
           <YAxis tickFormatter={(v) => `${v}`} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line isAnimationActive={!staticCharts} dataKey="felt" stroke="var(--color-felt)" dot={false} strokeWidth={2} />
-          <Line isAnimationActive={!staticCharts}
+          <Line
+            isAnimationActive={!staticCharts}
+            dataKey="felt"
+            stroke="var(--color-felt)"
+            dot={false}
+            strokeWidth={2}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
             dataKey="glutamate"
             stroke="var(--color-glutamate)"
             dot={false}
@@ -3535,15 +4221,15 @@ export function RelationshipTypesChart() {
       title="Three Ways a Relationship Can Go"
       subtitle={
         <>
-          Fantasy burns hottest and is gone by about six months. The mask survives
-          far longer — often a decade — and then collapses. Authenticity starts
-          lower and never stops climbing.
+          Fantasy burns hottest and is gone by about six months. The mask survives far
+          longer — often a decade — and then collapses. Authenticity starts lower and
+          never stops climbing.
         </>
       }
       source={
         <>
-          The vertical axis is felt intensity, not quality. Fantasy and the mask both
-          feel like more, right up until they stop.
+          The vertical axis is felt intensity, not quality. Fantasy and the mask both feel
+          like more, right up until they stop.
         </>
       }
     >
@@ -3558,9 +4244,22 @@ export function RelationshipTypesChart() {
           <YAxis domain={[0, 100]} tick={false} tickLine={false} width={8} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line isAnimationActive={!staticCharts} dataKey="fantasy" stroke="var(--color-fantasy)" dot={false} strokeWidth={2} />
-          <Line isAnimationActive={!staticCharts} dataKey="mask" stroke="var(--color-mask)" dot={false} strokeWidth={2} />
-          <Line isAnimationActive={!staticCharts}
+          <Line
+            isAnimationActive={!staticCharts}
+            dataKey="fantasy"
+            stroke="var(--color-fantasy)"
+            dot={false}
+            strokeWidth={2}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
+            dataKey="mask"
+            stroke="var(--color-mask)"
+            dot={false}
+            strokeWidth={2}
+          />
+          <Line
+            isAnimationActive={!staticCharts}
             dataKey="authenticity"
             stroke="var(--color-authenticity)"
             dot={false}
@@ -3597,8 +4296,8 @@ export function SobrietyChallengesChart() {
       title="Every Challenge Has Two Failure Modes"
       subtitle={
         <>
-          You can miss the mark in either direction. Numbness and indulgent rage are
-          the same challenge — disordered affect — failing at opposite ends.
+          You can miss the mark in either direction. Numbness and indulgent rage are the
+          same challenge — disordered affect — failing at opposite ends.
         </>
       }
       source={
@@ -3611,12 +4310,30 @@ export function SobrietyChallengesChart() {
       <ChartContainer config={sobrietyChallengesConfig} className="h-[420px] w-full">
         <BarChart data={sobrietyChallengesData} layout="vertical" stackOffset="sign">
           <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-          <XAxis type="number" domain={[-100, 100]} tick={false} tickLine={false} height={8} />
+          <XAxis
+            type="number"
+            domain={[-100, 100]}
+            tick={false}
+            tickLine={false}
+            height={8}
+          />
           <YAxis type="category" dataKey="challenge" width={190} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="under" stackId="s" fill="var(--color-under)" radius={3} />
-          <Bar isAnimationActive={!staticCharts} dataKey="over" stackId="s" fill="var(--color-over)" radius={3} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="under"
+            stackId="s"
+            fill="var(--color-under)"
+            radius={3}
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="over"
+            stackId="s"
+            fill="var(--color-over)"
+            radius={3}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -3645,8 +4362,8 @@ export function CarnesRecoveryStagesChart() {
       title="The Stages Overlap"
       subtitle={
         <>
-          Recovery is not a queue of stages you finish one at a time. Month zero is
-          the crisis; grief is still running while repair has already started.
+          Recovery is not a queue of stages you finish one at a time. Month zero is the
+          crisis; grief is still running while repair has already started.
         </>
       }
       source={
@@ -3667,8 +4384,19 @@ export function CarnesRecoveryStagesChart() {
           />
           <YAxis type="category" dataKey="stage" width={140} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="start" stackId="g" fill="transparent" />
-          <Bar isAnimationActive={!staticCharts} dataKey="length" stackId="g" fill="var(--color-length)" radius={4} />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="start"
+            stackId="g"
+            fill="transparent"
+          />
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="length"
+            stackId="g"
+            fill="var(--color-length)"
+            radius={4}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -3697,8 +4425,8 @@ export function WorryWindowChart() {
       title="Widen the Window, and the Worry Shrinks"
       subtitle={
         <>
-          The events did not get smaller. The swings did. Same nervous system, same
-          life, after the window of tolerance was widened.
+          The events did not get smaller. The swings did. Same nervous system, same life,
+          after the window of tolerance was widened.
         </>
       }
       source={
@@ -3715,28 +4443,32 @@ export function WorryWindowChart() {
           <YAxis domain={[0, 100]} tick={false} tickLine={false} width={8} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Line isAnimationActive={!staticCharts}
+          <Line
+            isAnimationActive={!staticCharts}
             dataKey="upper"
             stroke="var(--color-upper)"
             dot={false}
             strokeWidth={1}
             strokeDasharray="4 4"
           />
-          <Line isAnimationActive={!staticCharts}
+          <Line
+            isAnimationActive={!staticCharts}
             dataKey="lower"
             stroke="var(--color-upper)"
             dot={false}
             strokeWidth={1}
             strokeDasharray="4 4"
           />
-          <Line isAnimationActive={!staticCharts}
+          <Line
+            isAnimationActive={!staticCharts}
             dataKey="before"
             stroke="var(--color-before)"
             dot={false}
             strokeWidth={2}
             connectNulls={false}
           />
-          <Line isAnimationActive={!staticCharts}
+          <Line
+            isAnimationActive={!staticCharts}
             dataKey="after"
             stroke="var(--color-after)"
             dot={false}
@@ -3770,15 +4502,15 @@ export function FunctionalAdultCurveChart() {
       subtitle={
         <>
           The Functional Adult sits at the peak, running at roughly 65% — flexible,
-          disciplined, relational, in reality, in moderation. Both tails are the
-          problem, and only one of them looks like failure.
+          disciplined, relational, in reality, in moderation. Both tails are the problem,
+          and only one of them looks like failure.
         </>
       }
       source={
         <>
-          Ego states after Pia Mellody, <em>Facing Codependence</em> (Harper &amp; Row, 1989).
-          The right-hand tail — "100% productive in a few narrow areas" — is the one
-          the world tends to reward.
+          Ego states after Pia Mellody, <em>Facing Codependence</em> (Harper &amp; Row,
+          1989). The right-hand tail — "100% productive in a few narrow areas" — is the
+          one the world tends to reward.
         </>
       }
     >
@@ -3794,7 +4526,13 @@ export function FunctionalAdultCurveChart() {
           />
           <YAxis tick={false} tickLine={false} width={8} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Line isAnimationActive={!staticCharts} dataKey="density" stroke="var(--color-density)" dot={false} strokeWidth={2.5} />
+          <Line
+            isAnimationActive={!staticCharts}
+            dataKey="density"
+            stroke="var(--color-density)"
+            dot={false}
+            strokeWidth={2.5}
+          />
         </LineChart>
       </ChartContainer>
     </ChartFrame>
@@ -3813,8 +4551,8 @@ export function DramaTriangleChart() {
       title="The Drama Triangle, and the Way Out"
       subtitle={
         <>
-          Three roles that hand each other the same feelings, and the three
-          positions that dissolve them.
+          Three roles that hand each other the same feelings, and the three positions that
+          dissolve them.
         </>
       }
       source={
@@ -3834,12 +4572,11 @@ export function DramaTriangleChart() {
         >
           <title id="drama-triangle-title">The Karpman drama triangle</title>
           <desc id="drama-triangle-desc">
-            Rescuer and Persecutor sit at the top corners, Victim at the bottom.
-            Rescuer sends entitlement and resentment to Persecutor, and receives
-            guilt and remorse back. Victim sends entitlement and resentment to
-            Persecutor and guilt and powerlessness to Rescuer. Inside the
-            triangle, the same three positions become Coach, Challenger and
-            Creator.
+            Rescuer and Persecutor sit at the top corners, Victim at the bottom. Rescuer
+            sends entitlement and resentment to Persecutor, and receives guilt and remorse
+            back. Victim sends entitlement and resentment to Persecutor and guilt and
+            powerlessness to Rescuer. Inside the triangle, the same three positions become
+            Coach, Challenger and Creator.
           </desc>
 
           <polygon
@@ -3863,28 +4600,48 @@ export function DramaTriangleChart() {
           />
 
           <g fill="hsl(var(--destructive))" fontSize="15" fontWeight="600">
-            <text x="90" y="48" textAnchor="middle">Rescuer</text>
-            <text x="430" y="48" textAnchor="middle">Persecutor</text>
-            <text x="260" y="308" textAnchor="middle">Victim</text>
+            <text x="90" y="48" textAnchor="middle">
+              Rescuer
+            </text>
+            <text x="430" y="48" textAnchor="middle">
+              Persecutor
+            </text>
+            <text x="260" y="308" textAnchor="middle">
+              Victim
+            </text>
           </g>
 
           <g fill="hsl(var(--primary))" fontSize="13" fontWeight="600">
-            <text x="260" y="52" textAnchor="middle" dy="-14">Creator</text>
-            <text x="160" y="192" textAnchor="end">Coach</text>
-            <text x="360" y="192" textAnchor="start">Challenger</text>
+            <text x="260" y="52" textAnchor="middle" dy="-14">
+              Creator
+            </text>
+            <text x="160" y="192" textAnchor="end">
+              Coach
+            </text>
+            <text x="360" y="192" textAnchor="start">
+              Challenger
+            </text>
           </g>
 
-          <g
-            fill="hsl(var(--muted-foreground))"
-            fontSize="10.5"
-            fontStyle="italic"
-          >
-            <text x="260" y="76" textAnchor="middle">entitlement · resentment →</text>
-            <text x="260" y="92" textAnchor="middle">← guilt · remorse</text>
-            <text x="150" y="240" textAnchor="middle">guilt</text>
-            <text x="150" y="254" textAnchor="middle">powerlessness</text>
-            <text x="378" y="240" textAnchor="middle">entitlement</text>
-            <text x="378" y="254" textAnchor="middle">resentment</text>
+          <g fill="hsl(var(--muted-foreground))" fontSize="10.5" fontStyle="italic">
+            <text x="260" y="76" textAnchor="middle">
+              entitlement · resentment →
+            </text>
+            <text x="260" y="92" textAnchor="middle">
+              ← guilt · remorse
+            </text>
+            <text x="150" y="240" textAnchor="middle">
+              guilt
+            </text>
+            <text x="150" y="254" textAnchor="middle">
+              powerlessness
+            </text>
+            <text x="378" y="240" textAnchor="middle">
+              entitlement
+            </text>
+            <text x="378" y="254" textAnchor="middle">
+              resentment
+            </text>
           </g>
         </svg>
       </div>
@@ -3893,10 +4650,22 @@ export function DramaTriangleChart() {
 }
 
 const acaTreeFruit = [
-  "arrogance", "feeling superior", "pettiness", "mistrust", "procrastination",
-  "greed", "lust", "envy", "isolation", "perfectionism", "dishonesty",
-  "addicted to excitement", "self-sacrificial", "approval seeking",
-  "judgement", "self-centredness",
+  "arrogance",
+  "feeling superior",
+  "pettiness",
+  "mistrust",
+  "procrastination",
+  "greed",
+  "lust",
+  "envy",
+  "isolation",
+  "perfectionism",
+  "dishonesty",
+  "addicted to excitement",
+  "self-sacrificial",
+  "approval seeking",
+  "judgement",
+  "self-centredness",
 ];
 
 const acaTreeBranches = [
@@ -3914,16 +4683,15 @@ export function ACATreeChart() {
       title="The Tree: Fear at the Root"
       subtitle={
         <>
-          The behaviour everyone can see is the fruit. The traits that grow it are
-          the branches. Underneath both, one root.
+          The behaviour everyone can see is the fruit. The traits that grow it are the
+          branches. Underneath both, one root.
         </>
       }
       source={
         <>
-          After the problem tree used in Adult Children of Alcoholics &amp;
-          Dysfunctional Families literature; the branch traits are drawn from
-          Tony A.'s Laundry List (1978). Cutting fruit off a tree does not change
-          the tree.
+          After the problem tree used in Adult Children of Alcoholics &amp; Dysfunctional
+          Families literature; the branch traits are drawn from Tony A.'s Laundry List
+          (1978). Cutting fruit off a tree does not change the tree.
         </>
       }
     >
@@ -4001,9 +4769,9 @@ export function CoreSymptomsChart() {
       title="Five Things a Child Is, and What Happens When Each Is Injured"
       subtitle={
         <>
-          Read a row left to right: the natural characteristic, the core symptom
-          when it is damaged, the two directions that damage runs, and what it
-          eventually costs in a relationship.
+          Read a row left to right: the natural characteristic, the core symptom when it
+          is damaged, the two directions that damage runs, and what it eventually costs in
+          a relationship.
         </>
       }
       source={
@@ -4018,17 +4786,29 @@ export function CoreSymptomsChart() {
         <table className="w-full min-w-[620px] text-sm border-collapse">
           <thead>
             <tr className="text-left">
-              <th className="border-b border-border py-2 pr-3 font-semibold">The child is…</th>
-              <th className="border-b border-border py-2 pr-3 font-semibold">Core symptom</th>
-              <th className="border-b border-border py-2 pr-3 font-semibold">Which way it fails</th>
-              <th className="border-b border-border py-2 pr-3 font-semibold">Secondary</th>
-              <th className="border-b border-border py-2 font-semibold">In relationship</th>
+              <th className="border-b border-border py-2 pr-3 font-semibold">
+                The child is…
+              </th>
+              <th className="border-b border-border py-2 pr-3 font-semibold">
+                Core symptom
+              </th>
+              <th className="border-b border-border py-2 pr-3 font-semibold">
+                Which way it fails
+              </th>
+              <th className="border-b border-border py-2 pr-3 font-semibold">
+                Secondary
+              </th>
+              <th className="border-b border-border py-2 font-semibold">
+                In relationship
+              </th>
             </tr>
           </thead>
           <tbody>
             {coreSymptomRows.map((r) => (
               <tr key={r.core}>
-                <td className="border-b border-border/60 py-2 pr-3 font-medium">{r.child}</td>
+                <td className="border-b border-border/60 py-2 pr-3 font-medium">
+                  {r.child}
+                </td>
                 <td className="border-b border-border/60 py-2 pr-3">{r.core}</td>
                 <td className="border-b border-border/60 py-2 pr-3 text-muted-foreground italic">
                   {r.poles}
@@ -4085,15 +4865,15 @@ export function FourHorsemenChart() {
       title="The Four Horsemen, and What Answers Each One"
       subtitle={
         <>
-          Each has a near neighbour that is fine, and a specific antidote. The
-          antidote is a behaviour, not an attitude.
+          Each has a near neighbour that is fine, and a specific antidote. The antidote is
+          a behaviour, not an attitude.
         </>
       }
       source={
         <>
-          Gottman, J. M., &amp; Silver, N. (1999). <em>The seven principles for making
-          marriage work</em>. Crown. Of the four, contempt is the single strongest
-          predictor of a relationship ending.
+          Gottman, J. M., &amp; Silver, N. (1999).{" "}
+          <em>The seven principles for making marriage work</em>. Crown. Of the four,
+          contempt is the single strongest predictor of a relationship ending.
         </>
       }
     >
@@ -4119,10 +4899,26 @@ export function FourHorsemenChart() {
 }
 
 const boundaryRungs = [
-  { step: "Inform", say: "“When you raise your voice I stop being able to hear you.”", note: "Most boundaries never need to go past here." },
-  { step: "Request", say: "“I'm asking you not to raise your voice with me.”", note: "Still collaborative. Still assumes good faith." },
-  { step: "Insist", say: "“I need this to stop.”", note: "The tone changes. The ask does not." },
-  { step: "Walk away", say: "“I'm going to end this conversation now.”", note: "Not a threat and not a punishment — the consequence you already named, happening." },
+  {
+    step: "Inform",
+    say: "“When you raise your voice I stop being able to hear you.”",
+    note: "Most boundaries never need to go past here.",
+  },
+  {
+    step: "Request",
+    say: "“I'm asking you not to raise your voice with me.”",
+    note: "Still collaborative. Still assumes good faith.",
+  },
+  {
+    step: "Insist",
+    say: "“I need this to stop.”",
+    note: "The tone changes. The ask does not.",
+  },
+  {
+    step: "Walk away",
+    say: "“I'm going to end this conversation now.”",
+    note: "Not a threat and not a punishment — the consequence you already named, happening.",
+  },
 ];
 
 export function BoundaryLadderChart() {
@@ -4131,15 +4927,15 @@ export function BoundaryLadderChart() {
       title="The Four Rungs of a Boundary"
       subtitle={
         <>
-          You start at the bottom, every time. Skipping to the top is not a
-          boundary, it is an ultimatum.
+          You start at the bottom, every time. Skipping to the top is not a boundary, it
+          is an ultimatum.
         </>
       }
       source={
         <>
-          A boundary is clear, communicated, consistent, and carries a consequence
-          that is <em>within your control</em>. If enforcing it requires the other
-          person to cooperate, it is not a boundary — it is a request.
+          A boundary is clear, communicated, consistent, and carries a consequence that is{" "}
+          <em>within your control</em>. If enforcing it requires the other person to
+          cooperate, it is not a boundary — it is a request.
         </>
       }
     >
@@ -4170,16 +4966,16 @@ export function AttachmentMapChart() {
       title="Attachment Is a Position, Not a Verdict"
       subtitle={
         <>
-          Four quadrants, and the only three points that matter: where you were,
-          where you are, and where you are going.
+          Four quadrants, and the only three points that matter: where you were, where you
+          are, and where you are going.
         </>
       }
       source={
         <>
           Quadrants after Bartholomew, K., &amp; Horowitz, L. M. (1991),
           <em> Journal of Personality and Social Psychology, 61</em>(2), 226–244.
-          Attachment style is measurably changeable in adulthood — the research
-          term is <em>earned secure attachment</em>.
+          Attachment style is measurably changeable in adulthood — the research term is{" "}
+          <em>earned secure attachment</em>.
         </>
       }
     >
@@ -4192,20 +4988,49 @@ export function AttachmentMapChart() {
         >
           <title id="attach-title">The attachment map with a path marked</title>
           <desc id="attach-desc">
-            A two-by-two grid. Secure is top left, Anxious top right, Avoidant
-            bottom left, Dismissive bottom right. Three marked points trace a
-            path from deep in the anxious quadrant, part-way back, and on toward
-            secure.
+            A two-by-two grid. Secure is top left, Anxious top right, Avoidant bottom
+            left, Dismissive bottom right. Three marked points trace a path from deep in
+            the anxious quadrant, part-way back, and on toward secure.
           </desc>
-          <rect x="40" y="30" width="380" height="240" fill="none" stroke="hsl(var(--border))" strokeWidth="1.5" />
-          <line x1="230" y1="30" x2="230" y2="270" stroke="hsl(var(--border))" strokeWidth="1.5" />
-          <line x1="40" y1="150" x2="420" y2="150" stroke="hsl(var(--border))" strokeWidth="1.5" />
+          <rect
+            x="40"
+            y="30"
+            width="380"
+            height="240"
+            fill="none"
+            stroke="hsl(var(--border))"
+            strokeWidth="1.5"
+          />
+          <line
+            x1="230"
+            y1="30"
+            x2="230"
+            y2="270"
+            stroke="hsl(var(--border))"
+            strokeWidth="1.5"
+          />
+          <line
+            x1="40"
+            y1="150"
+            x2="420"
+            y2="150"
+            stroke="hsl(var(--border))"
+            strokeWidth="1.5"
+          />
 
           <g fill="hsl(var(--muted-foreground))" fontSize="14" fontWeight="600">
-            <text x="56" y="52">Secure</text>
-            <text x="246" y="52">Anxious</text>
-            <text x="56" y="262">Avoidant</text>
-            <text x="246" y="262">Dismissive</text>
+            <text x="56" y="52">
+              Secure
+            </text>
+            <text x="246" y="52">
+              Anxious
+            </text>
+            <text x="56" y="262">
+              Avoidant
+            </text>
+            <text x="246" y="262">
+              Dismissive
+            </text>
           </g>
 
           <path
@@ -4218,15 +5043,41 @@ export function AttachmentMapChart() {
           />
           <circle cx="380" cy="96" r="6" fill="hsl(var(--muted-foreground))" />
           <circle cx="300" cy="118" r="7" fill="hsl(var(--primary))" />
-          <circle cx="150" cy="96" r="6" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" />
+          <circle
+            cx="150"
+            cy="96"
+            r="6"
+            fill="none"
+            stroke="hsl(var(--primary))"
+            strokeWidth="2"
+          />
 
           <g fontSize="11" fill="hsl(var(--muted-foreground))">
-            <text x="380" y="84" textAnchor="middle">where I was</text>
-            <text x="300" y="140" textAnchor="middle" fill="hsl(var(--primary))" fontWeight="600">where I am</text>
-            <text x="150" y="84" textAnchor="middle">where I'm going</text>
+            <text x="380" y="84" textAnchor="middle">
+              where I was
+            </text>
+            <text
+              x="300"
+              y="140"
+              textAnchor="middle"
+              fill="hsl(var(--primary))"
+              fontWeight="600"
+            >
+              where I am
+            </text>
+            <text x="150" y="84" textAnchor="middle">
+              where I'm going
+            </text>
           </g>
 
-          <text x="230" y="300" textAnchor="middle" fontSize="11" fill="hsl(var(--muted-foreground))" fontStyle="italic">
+          <text
+            x="230"
+            y="300"
+            textAnchor="middle"
+            fontSize="11"
+            fill="hsl(var(--muted-foreground))"
+            fontStyle="italic"
+          >
             earned security: the destination is a quadrant, not a personality
           </text>
         </svg>
@@ -4248,21 +5099,24 @@ export function CatastrophizingIcebergChart() {
       title="What Shows, and What Is Underneath"
       subtitle={
         <>
-          The feeling other people meet is almost never the feeling you are having.
-          The visible one is the one that felt safe to have.
+          The feeling other people meet is almost never the feeling you are having. The
+          visible one is the one that felt safe to have.
         </>
       }
       source={
         <>
           Anger and anxiety are frequently secondary — they sit on top of a primary
-          feeling that was less permitted. Asking "what is under this?" is often
-          more useful than trying to manage what is on top.
+          feeling that was less permitted. Asking "what is under this?" is often more
+          useful than trying to manage what is on top.
         </>
       }
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {icebergs.map((berg) => (
-          <div key={berg.above} className="rounded-md border border-border overflow-hidden">
+          <div
+            key={berg.above}
+            className="rounded-md border border-border overflow-hidden"
+          >
             <div className="bg-muted/60 px-3 py-4 text-center">
               <p className="font-semibold">{berg.above}</p>
               <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-1">
@@ -4272,7 +5126,9 @@ export function CatastrophizingIcebergChart() {
             <div className="border-t-2 border-dashed border-primary/50" />
             <div className="px-3 py-4 text-center bg-primary/5">
               {berg.below.map((b) => (
-                <p key={b} className="text-sm text-muted-foreground">{b}</p>
+                <p key={b} className="text-sm text-muted-foreground">
+                  {b}
+                </p>
               ))}
               <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-2">
                 below
@@ -4300,17 +5156,13 @@ export function CBTTriangleChart() {
   return (
     <ChartFrame
       title="The CBT Triangle"
-      subtitle={
-        <>
-          Thoughts, feelings and behaviours, each one feeding the other two.
-        </>
-      }
+      subtitle={<>Thoughts, feelings and behaviours, each one feeding the other two.</>}
       source={
         <>
-          The cognitive model as set out in Beck, A. T. (1979). <em>Cognitive Therapy of
-          Depression</em>. Guilford. The arrows run both ways on purpose: no corner is
-          the cause of the others, which is why a change at any one of them moves
-          the whole triangle.
+          The cognitive model as set out in Beck, A. T. (1979).{" "}
+          <em>Cognitive Therapy of Depression</em>. Guilford. The arrows run both ways on
+          purpose: no corner is the cause of the others, which is why a change at any one
+          of them moves the whole triangle.
         </>
       }
     >
@@ -4323,13 +5175,12 @@ export function CBTTriangleChart() {
         >
           <title id="cbt-triangle-title">The CBT triangle</title>
           <desc id="cbt-triangle-desc">
-            Thoughts sit at the top, feelings at the bottom left, behaviours at
-            the bottom right. Each corner is joined to the other two by an arrow
-            pointing in both directions: thoughts shape feelings and feelings
-            shape thoughts, thoughts drive behaviour and behaviour confirms
-            thoughts, and feelings drive behaviour while behaviour changes
-            feelings. Thoughts are what you think, feelings what you feel, and
-            behaviours what you do.
+            Thoughts sit at the top, feelings at the bottom left, behaviours at the bottom
+            right. Each corner is joined to the other two by an arrow pointing in both
+            directions: thoughts shape feelings and feelings shape thoughts, thoughts
+            drive behaviour and behaviour confirms thoughts, and feelings drive behaviour
+            while behaviour changes feelings. Thoughts are what you think, feelings what
+            you feel, and behaviours what you do.
           </desc>
 
           <defs>
@@ -4359,20 +5210,48 @@ export function CBTTriangleChart() {
             <line x1="150" y1="243" x2="370" y2="243" />
           </g>
 
-          <g textAnchor="middle" fill="hsl(var(--foreground))" fontSize="16" fontWeight="600">
-            <text x="260" y="42">THOUGHTS</text>
-            <text x="96" y="272">FEELINGS</text>
-            <text x="424" y="272">BEHAVIOURS</text>
+          <g
+            textAnchor="middle"
+            fill="hsl(var(--foreground))"
+            fontSize="16"
+            fontWeight="600"
+          >
+            <text x="260" y="42">
+              THOUGHTS
+            </text>
+            <text x="96" y="272">
+              FEELINGS
+            </text>
+            <text x="424" y="272">
+              BEHAVIOURS
+            </text>
           </g>
           <g textAnchor="middle" fill="hsl(var(--muted-foreground))" fontSize="12">
-            <text x="260" y="60">(cognitions)</text>
-            <text x="96" y="290">(emotions)</text>
-            <text x="424" y="290">(actions)</text>
+            <text x="260" y="60">
+              (cognitions)
+            </text>
+            <text x="96" y="290">
+              (emotions)
+            </text>
+            <text x="424" y="290">
+              (actions)
+            </text>
           </g>
-          <g textAnchor="middle" fill="hsl(var(--muted-foreground))" fontSize="12" fontStyle="italic">
-            <text x="260" y="78">“what I think”</text>
-            <text x="96" y="308">“what I feel”</text>
-            <text x="424" y="308">“what I do”</text>
+          <g
+            textAnchor="middle"
+            fill="hsl(var(--muted-foreground))"
+            fontSize="12"
+            fontStyle="italic"
+          >
+            <text x="260" y="78">
+              “what I think”
+            </text>
+            <text x="96" y="308">
+              “what I feel”
+            </text>
+            <text x="424" y="308">
+              “what I do”
+            </text>
           </g>
         </svg>
       </div>
@@ -4383,9 +5262,15 @@ export function CBTTriangleChart() {
 export function CoreBeliefCycleChart() {
   const nodes = [
     { label: "Negative core belief", detail: "“I'm not worth anything.”" },
-    { label: "Rules and assumptions", detail: "“So I must never need anything from anyone.”" },
+    {
+      label: "Rules and assumptions",
+      detail: "“So I must never need anything from anyone.”",
+    },
     { label: "Behaviour", detail: "Withdraw. Don't ask. Handle it alone." },
-    { label: "Other people's response", detail: "They leave you to it. They stop offering." },
+    {
+      label: "Other people's response",
+      detail: "They leave you to it. They stop offering.",
+    },
     { label: "Evidence", detail: "“See — nobody was there.”" },
   ];
   return (
@@ -4393,15 +5278,15 @@ export function CoreBeliefCycleChart() {
       title="Why a Core Belief Never Runs Out of Proof"
       subtitle={
         <>
-          The belief produces the behaviour, the behaviour produces the response,
-          and the response is filed as evidence for the belief.
+          The belief produces the behaviour, the behaviour produces the response, and the
+          response is filed as evidence for the belief.
         </>
       }
       source={
         <>
-          The maintenance cycle in cognitive therapy. Note where the loop is
-          breakable: not at the belief, which will not argue, but at step 3 —
-          the behaviour is the only node you directly control.
+          The maintenance cycle in cognitive therapy. Note where the loop is breakable:
+          not at the belief, which will not argue, but at step 3 — the behaviour is the
+          only node you directly control.
         </>
       }
     >
@@ -4438,11 +5323,23 @@ const askIntensity = [
   { n: 2, ask: "Hint indirectly. Take no.", no: "Don't complain. Do it cheerfully." },
   { n: 3, ask: "Hint openly. Take no.", no: "Do it, even without cheer." },
   { n: 4, ask: "Ask tentatively. Take no.", no: "Do it, but show you'd rather not." },
-  { n: 5, ask: "Ask gracefully. Take no.", no: "Say you'd rather not, but do it gracefully." },
+  {
+    n: 5,
+    ask: "Ask gracefully. Take no.",
+    no: "Say you'd rather not, but do it gracefully.",
+  },
   { n: 6, ask: "Ask confidently. Take no.", no: "Say no confidently — but reconsider." },
-  { n: 7, ask: "Ask confidently. Resist no.", no: "Say no confidently. Resist saying yes." },
+  {
+    n: 7,
+    ask: "Ask confidently. Resist no.",
+    no: "Say no confidently. Resist saying yes.",
+  },
   { n: 8, ask: "Ask firmly. Resist no.", no: "Say no firmly. Resist saying yes." },
-  { n: 9, ask: "Ask firmly. Negotiate. Keep trying.", no: "Say no firmly. Negotiate. Keep trying." },
+  {
+    n: 9,
+    ask: "Ask firmly. Negotiate. Keep trying.",
+    no: "Say no firmly. Negotiate. Keep trying.",
+  },
   { n: 10, ask: "Ask and don't take no for an answer.", no: "Don't do it." },
 ];
 
@@ -4452,16 +5349,16 @@ export function AskIntensityChart() {
       title="How Hard to Ask, and How Hard to Refuse"
       subtitle={
         <>
-          Not <em>whether</em> to ask — how intensely. Most people own two or three
-          of these ten settings and use them for everything.
+          Not <em>whether</em> to ask — how intensely. Most people own two or three of
+          these ten settings and use them for everything.
         </>
       }
       source={
         <>
           Linehan, M. M. (2015). <em>DBT skills training handouts and worksheets</em>
-          (2nd ed.). Guilford Press. Intensity is chosen from the situation — how
-          capable you are, how urgent it is, the relationship, your own priorities
-          and self-respect — not from how frightened you feel.
+          (2nd ed.). Guilford Press. Intensity is chosen from the situation — how capable
+          you are, how urgent it is, the relationship, your own priorities and
+          self-respect — not from how frightened you feel.
         </>
       }
     >
@@ -4470,7 +5367,9 @@ export function AskIntensityChart() {
           <thead>
             <tr className="text-left">
               <th className="border-b border-border py-2 pr-3 w-10 font-semibold">#</th>
-              <th className="border-b border-border py-2 pr-4 font-semibold">Asking for something</th>
+              <th className="border-b border-border py-2 pr-4 font-semibold">
+                Asking for something
+              </th>
               <th className="border-b border-border py-2 font-semibold">Saying no</th>
             </tr>
           </thead>
@@ -4481,7 +5380,9 @@ export function AskIntensityChart() {
                   {r.n}
                 </td>
                 <td className="border-b border-border/60 py-1.5 pr-4">{r.ask}</td>
-                <td className="border-b border-border/60 py-1.5 text-muted-foreground">{r.no}</td>
+                <td className="border-b border-border/60 py-1.5 text-muted-foreground">
+                  {r.no}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -4492,10 +5393,26 @@ export function AskIntensityChart() {
 }
 
 const dialecticPairs = [
-  { a: "Reasonable mind", b: "Emotional mind", syn: "Decide with values and experience both in the room" },
-  { a: "Doing mind", b: "Nothing-to-do mind", syn: "Do what the moment needs, and be in it" },
-  { a: "Wanting change", b: "Radical acceptance", syn: "Want it to be different and accept that it is not" },
-  { a: "Self-denial", b: "Self-indulgence", syn: "Moderation that still satisfies the senses" },
+  {
+    a: "Reasonable mind",
+    b: "Emotional mind",
+    syn: "Decide with values and experience both in the room",
+  },
+  {
+    a: "Doing mind",
+    b: "Nothing-to-do mind",
+    syn: "Do what the moment needs, and be in it",
+  },
+  {
+    a: "Wanting change",
+    b: "Radical acceptance",
+    syn: "Want it to be different and accept that it is not",
+  },
+  {
+    a: "Self-denial",
+    b: "Self-indulgence",
+    syn: "Moderation that still satisfies the senses",
+  },
   { a: "Doing too much", b: "Doing too little", syn: "Enough" },
 ];
 
@@ -4505,8 +5422,8 @@ export function MiddlePathChart() {
       title="Walking the Middle Path"
       subtitle={
         <>
-          Not a compromise between the two poles, and not picking one. A third
-          thing that holds both at once.
+          Not a compromise between the two poles, and not picking one. A third thing that
+          holds both at once.
         </>
       }
       source={
@@ -4523,7 +5440,10 @@ export function MiddlePathChart() {
             className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] gap-2 sm:gap-3 items-center rounded-md border border-border p-3"
           >
             <p className="text-sm text-right sm:text-right font-medium">{p.a}</p>
-            <p className="text-center text-primary font-semibold text-sm" aria-hidden="true">
+            <p
+              className="text-center text-primary font-semibold text-sm"
+              aria-hidden="true"
+            >
               ⟷
             </p>
             <p className="text-sm font-medium">{p.b}</p>
@@ -4555,15 +5475,15 @@ export function BullseyeChart() {
       title="The Bullseye"
       subtitle={
         <>
-          Four domains. In each one, mark how close your actual behaviour is to the
-          person you want to be. The centre is not perfection — it is congruence.
+          Four domains. In each one, mark how close your actual behaviour is to the person
+          you want to be. The centre is not perfection — it is congruence.
         </>
       }
       source={
         <>
           Lundgren, T., et al. (2012). The Bull's-Eye Values Survey: A psychometric
-          evaluation. <em>Cognitive and Behavioral Practice, 19</em>(4), 518–526.
-          A dot near the edge is information, not a verdict.
+          evaluation. <em>Cognitive and Behavioral Practice, 19</em>(4), 518–526. A dot
+          near the edge is information, not a verdict.
         </>
       }
     >
@@ -4576,11 +5496,11 @@ export function BullseyeChart() {
         >
           <title id="bullseye-title">A bullseye divided into four life domains</title>
           <desc id="bullseye-desc">
-            Concentric rings quartered into work and education, relationships,
-            personal growth and health, and leisure. A mark in each quadrant
-            shows how far current behaviour sits from the centre. In this
-            example, work is close to the centre, leisure is mid-way, and
-            relationships and personal growth are near the outer edge.
+            Concentric rings quartered into work and education, relationships, personal
+            growth and health, and leisure. A mark in each quadrant shows how far current
+            behaviour sits from the centre. In this example, work is close to the centre,
+            leisure is mid-way, and relationships and personal growth are near the outer
+            edge.
           </desc>
           {[1, 0.75, 0.5, 0.25].map((r, i) => (
             <circle
@@ -4594,22 +5514,52 @@ export function BullseyeChart() {
               strokeWidth="1"
             />
           ))}
-          <circle cx={cx} cy={cy} r={R * 0.1} fill="hsl(var(--primary))" fillOpacity="0.25" />
-          <line x1={cx - R} y1={cy} x2={cx + R} y2={cy} stroke="hsl(var(--border))" strokeWidth="1" />
-          <line x1={cx} y1={cy - R} x2={cx} y2={cy + R} stroke="hsl(var(--border))" strokeWidth="1" />
+          <circle
+            cx={cx}
+            cy={cy}
+            r={R * 0.1}
+            fill="hsl(var(--primary))"
+            fillOpacity="0.25"
+          />
+          <line
+            x1={cx - R}
+            y1={cy}
+            x2={cx + R}
+            y2={cy}
+            stroke="hsl(var(--border))"
+            strokeWidth="1"
+          />
+          <line
+            x1={cx}
+            y1={cy - R}
+            x2={cx}
+            y2={cy + R}
+            stroke="hsl(var(--border))"
+            strokeWidth="1"
+          />
 
           {bullseyeDomains.map((d) => {
             const rad = (d.angle * Math.PI) / 180;
             const x = cx + Math.cos(rad) * R * d.distance;
             const y = cy - Math.sin(rad) * R * d.distance;
-            return <circle key={d.domain} cx={x} cy={y} r="6" fill="hsl(var(--primary))" />;
+            return (
+              <circle key={d.domain} cx={x} cy={y} r="6" fill="hsl(var(--primary))" />
+            );
           })}
 
           <g fontSize="10.5" fill="hsl(var(--muted-foreground))">
-            <text x={cx - R + 4} y={cy - R + 14}>work / education</text>
-            <text x={cx + R - 4} y={cy - R + 14} textAnchor="end">leisure</text>
-            <text x={cx - R + 4} y={cy + R - 6}>relationships</text>
-            <text x={cx + R - 4} y={cy + R - 6} textAnchor="end">growth / health</text>
+            <text x={cx - R + 4} y={cy - R + 14}>
+              work / education
+            </text>
+            <text x={cx + R - 4} y={cy - R + 14} textAnchor="end">
+              leisure
+            </text>
+            <text x={cx - R + 4} y={cy + R - 6}>
+              relationships
+            </text>
+            <text x={cx + R - 4} y={cy + R - 6} textAnchor="end">
+              growth / health
+            </text>
           </g>
         </svg>
         <div className="text-sm space-y-3">
@@ -4638,10 +5588,32 @@ export function BullseyeChart() {
 }
 
 const fearDare = [
-  { f: "Fusion", d: "Defusion", fWhat: "Being welded to a thought, so it is not a thought — it is just how things are.", dWhat: "Seeing the thought as a thought. Naming it, and letting it be there without obeying it." },
-  { f: "Excessive goals", d: "Realistic goals", fWhat: "Goals too big for the resources, skills or time you actually have.", dWhat: "Break it down until the first step is genuinely possible this week." },
-  { f: "Avoidance of discomfort", d: "Acceptance of discomfort", fWhat: "Unwillingness to feel what moving forward would make you feel.", dWhat: "Make room for it. Not liking it — allowing it." },
-  { f: "Remoteness from values", d: "Embracing values", fWhat: "Losing contact with why any of this was supposed to matter.", dWhat: "Reconnect to what you actually care about, in words, out loud." },
+  {
+    f: "Fusion",
+    d: "Defusion",
+    fWhat:
+      "Being welded to a thought, so it is not a thought — it is just how things are.",
+    dWhat:
+      "Seeing the thought as a thought. Naming it, and letting it be there without obeying it.",
+  },
+  {
+    f: "Excessive goals",
+    d: "Realistic goals",
+    fWhat: "Goals too big for the resources, skills or time you actually have.",
+    dWhat: "Break it down until the first step is genuinely possible this week.",
+  },
+  {
+    f: "Avoidance of discomfort",
+    d: "Acceptance of discomfort",
+    fWhat: "Unwillingness to feel what moving forward would make you feel.",
+    dWhat: "Make room for it. Not liking it — allowing it.",
+  },
+  {
+    f: "Remoteness from values",
+    d: "Embracing values",
+    fWhat: "Losing contact with why any of this was supposed to matter.",
+    dWhat: "Reconnect to what you actually care about, in words, out loud.",
+  },
 ];
 
 export function FearDareChart() {
@@ -4650,8 +5622,8 @@ export function FearDareChart() {
       title="FEAR, and What to DARE Instead"
       subtitle={
         <>
-          Four ways forward motion stops, each with its counterpart. When you are
-          stuck, one of these four is usually the reason.
+          Four ways forward motion stops, each with its counterpart. When you are stuck,
+          one of these four is usually the reason.
         </>
       }
       source={
@@ -4663,7 +5635,10 @@ export function FearDareChart() {
     >
       <div className="space-y-3">
         {fearDare.map((r) => (
-          <div key={r.f} className="grid gap-3 md:grid-cols-2 rounded-md border border-border p-4">
+          <div
+            key={r.f}
+            className="grid gap-3 md:grid-cols-2 rounded-md border border-border p-4"
+          >
             <div>
               <p className="font-semibold text-destructive text-sm">{r.f}</p>
               <p className="text-xs text-muted-foreground mt-1">{r.fWhat}</p>
@@ -4681,25 +5656,34 @@ export function FearDareChart() {
 
 export function AddictiveSystemChart() {
   const inner = [
-    { phase: "Preoccupation", note: "The mind starts to hunt. Everything becomes a cue." },
-    { phase: "Ritualisation", note: "The routines before. Often more charged than the act." },
+    {
+      phase: "Preoccupation",
+      note: "The mind starts to hunt. Everything becomes a cue.",
+    },
+    {
+      phase: "Ritualisation",
+      note: "The routines before. Often more charged than the act.",
+    },
     { phase: "Compulsive behaviour", note: "The act itself. Usually the briefest part." },
-    { phase: "Despair", note: "Shame, and powerlessness — which is the fuel for the next cycle." },
+    {
+      phase: "Despair",
+      note: "Shame, and powerlessness — which is the fuel for the next cycle.",
+    },
   ];
   return (
     <ChartFrame
       title="The Cycle Inside the System"
       subtitle={
         <>
-          Four phases that feed each other, sitting inside a larger loop of belief
-          and unmanageability.
+          Four phases that feed each other, sitting inside a larger loop of belief and
+          unmanageability.
         </>
       }
       source={
         <>
-          Carnes, P. J. (2001). <em>Out of the Shadows: Understanding sexual
-          addiction</em> (3rd ed.). Hazelden. Despair is not the end of the cycle —
-          it is what powers the next one.
+          Carnes, P. J. (2001).{" "}
+          <em>Out of the Shadows: Understanding sexual addiction</em> (3rd ed.). Hazelden.
+          Despair is not the end of the cycle — it is what powers the next one.
         </>
       }
     >
@@ -4755,15 +5739,15 @@ export function ThreeCirclesGuideChart() {
       title="The Three Circles"
       subtitle={
         <>
-          A sobriety definition you write yourself, because unlike alcohol there is
-          no substance to abstain from.
+          A sobriety definition you write yourself, because unlike alcohol there is no
+          substance to abstain from.
         </>
       }
       source={
         <>
-          Used across Sex Addicts Anonymous and related fellowships; see
-          Carnes, P. J. (2001). Write it with a sponsor or a therapist, not alone —
-          the inner circle is exactly where the disease gets a vote.
+          Used across Sex Addicts Anonymous and related fellowships; see Carnes, P. J.
+          (2001). Write it with a sponsor or a therapist, not alone — the inner circle is
+          exactly where the disease gets a vote.
         </>
       }
     >
@@ -4810,11 +5794,10 @@ export function RelapsePrecipitantsChart() {
       subtitle="Situations reported at the point of first use, across substances"
       source={
         <>
-          Marlatt's relapse-precipitant taxonomy, as reported in Cummings, C.,
-          Gordon, J. R., &amp; Marlatt, G. A. (1980) and developed in Marlatt, G. A.,
-          &amp; Gordon, J. R. (1985). <em>Relapse Prevention</em>. Guilford Press.
-          Proportions vary by substance and sample; the ordering is the robust
-          finding, not the exact figures.
+          Marlatt's relapse-precipitant taxonomy, as reported in Cummings, C., Gordon, J.
+          R., &amp; Marlatt, G. A. (1980) and developed in Marlatt, G. A., &amp; Gordon,
+          J. R. (1985). <em>Relapse Prevention</em>. Guilford Press. Proportions vary by
+          substance and sample; the ordering is the robust finding, not the exact figures.
         </>
       }
     >
@@ -4826,9 +5809,19 @@ export function RelapsePrecipitantsChart() {
         >
           <CartesianGrid strokeDasharray="3 3" horizontal={false} />
           <XAxis type="number" domain={[0, 40]} tickFormatter={(v) => `${v}%`} />
-          <YAxis type="category" dataKey="situation" width={160} tick={{ fontSize: 11 }} />
+          <YAxis
+            type="category"
+            dataKey="situation"
+            width={160}
+            tick={{ fontSize: 11 }}
+          />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar isAnimationActive={!staticCharts} dataKey="share" fill="var(--color-share)" radius={4}>
+          <Bar
+            isAnimationActive={!staticCharts}
+            dataKey="share"
+            fill="var(--color-share)"
+            radius={4}
+          >
             <LabelList
               dataKey="share"
               position="right"
@@ -4855,25 +5848,30 @@ export function StagesOfChangeChart() {
       n: 2,
       name: "Contemplation",
       inside: "I can see it. I am not ready. Both of those are true at once.",
-      helps: "Ambivalence explored rather than resolved for you — a cost–benefit sheet, not a lecture.",
+      helps:
+        "Ambivalence explored rather than resolved for you — a cost–benefit sheet, not a lecture.",
     },
     {
       n: 3,
       name: "Preparation",
       inside: "I am going to do something, and I am working out what.",
-      helps: "A date, a first appointment, a phone number in your pocket. Small commitments made out loud.",
+      helps:
+        "A date, a first appointment, a phone number in your pocket. Small commitments made out loud.",
     },
     {
       n: 4,
       name: "Action",
       inside: "The behaviour has changed and it is taking everything I have.",
-      helps: "Structure, substitution, and people who have done it. This stage is expensive; plan for that.",
+      helps:
+        "Structure, substitution, and people who have done it. This stage is expensive; plan for that.",
     },
     {
       n: 5,
       name: "Maintenance",
-      inside: "The change is holding, and the risk is now complacency rather than craving.",
-      helps: "The relapse-prevention plan itself. Maintenance is where a written plan earns its keep.",
+      inside:
+        "The change is holding, and the risk is now complacency rather than craving.",
+      helps:
+        "The relapse-prevention plan itself. Maintenance is where a written plan earns its keep.",
     },
   ];
   return (
@@ -4883,9 +5881,10 @@ export function StagesOfChangeChart() {
       source={
         <>
           Prochaska, J. O., &amp; DiClemente, C. C. (1983). Stages and processes of
-          self-change of smoking. <em>Journal of Consulting and Clinical Psychology,
-          51</em>(3), 390–395. The model is descriptive: knowing which stage you are in
-          tells you what kind of help will land, not how long it will take.
+          self-change of smoking.{" "}
+          <em>Journal of Consulting and Clinical Psychology, 51</em>(3), 390–395. The
+          model is descriptive: knowing which stage you are in tells you what kind of help
+          will land, not how long it will take.
         </>
       }
     >
@@ -4910,12 +5909,13 @@ export function StagesOfChangeChart() {
         ))}
         <div className="rounded-md border border-dashed bg-muted/40 p-3.5">
           <p className="text-sm">
-            <span className="font-semibold">Recurrence returns you to the cycle, not to the
-            start.</span>{" "}
-            Prochaska and DiClemente drew this as a wheel for a reason. Most people go round
-            it several times, and each pass usually begins further along than the last one
-            did. A return to use is information about which stage the plan was actually in —
-            not proof that none of it counted.
+            <span className="font-semibold">
+              Recurrence returns you to the cycle, not to the start.
+            </span>{" "}
+            Prochaska and DiClemente drew this as a wheel for a reason. Most people go
+            round it several times, and each pass usually begins further along than the
+            last one did. A return to use is information about which stage the plan was
+            actually in — not proof that none of it counted.
           </p>
         </div>
       </div>
@@ -4960,8 +5960,8 @@ export function ThreeStagesOfRelapseChart() {
       source={
         <>
           Melemis, S. M. (2015). Relapse prevention and the five rules of recovery.{" "}
-          <em>Yale Journal of Biology and Medicine, 88</em>(3), 325–332; the staged
-          model follows Gorski's earlier work on relapse warning signs.
+          <em>Yale Journal of Biology and Medicine, 88</em>(3), 325–332; the staged model
+          follows Gorski's earlier work on relapse warning signs.
         </>
       }
     >
@@ -4972,7 +5972,9 @@ export function ThreeStagesOfRelapseChart() {
               <p className="font-semibold">
                 {i + 1}. {s.name}
               </p>
-              <p className="text-xs uppercase tracking-wide text-muted-foreground">{s.when}</p>
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                {s.when}
+              </p>
             </div>
             <p className="mt-1.5 text-sm text-muted-foreground">{s.signs}</p>
             <p className="mt-2 text-sm">
@@ -5011,8 +6013,8 @@ export function UrgeEscalationChart() {
       source={
         <>
           The escalation is SMART Recovery's; see SMART Recovery (2008).{" "}
-          <em>Members' Handbook</em>, and Horvath, A. T., &amp; Yeterian, J. (2012).
-          SMART Recovery: Self-empowering, science-based addiction recovery support.{" "}
+          <em>Members' Handbook</em>, and Horvath, A. T., &amp; Yeterian, J. (2012). SMART
+          Recovery: Self-empowering, science-based addiction recovery support.{" "}
           <em>Journal of Groups in Addiction &amp; Recovery, 7</em>(2–4), 102–117.
         </>
       }
@@ -5029,7 +6031,10 @@ export function UrgeEscalationChart() {
               </p>
             </div>
             {i < steps.length - 1 ? (
-              <p className="py-1 text-center text-lg leading-none text-muted-foreground" aria-hidden="true">
+              <p
+                className="py-1 text-center text-lg leading-none text-muted-foreground"
+                aria-hidden="true"
+              >
                 ↓
               </p>
             ) : null}
@@ -5077,11 +6082,11 @@ export function SmartFourPointChart() {
       subtitle="A cognitive-behavioural alternative to the twelve steps, with tools rather than steps"
       source={
         <>
-          SMART Recovery (2008). <em>Members' Handbook</em>. Self Management And
-          Recovery Training; Horvath, A. T., &amp; Yeterian, J. (2012).{" "}
-          <em>Journal of Groups in Addiction &amp; Recovery, 7</em>(2–4), 102–117.
-          The four points are worked in any order and revisited, unlike the twelve
-          steps, which are worked through.
+          SMART Recovery (2008). <em>Members' Handbook</em>. Self Management And Recovery
+          Training; Horvath, A. T., &amp; Yeterian, J. (2012).{" "}
+          <em>Journal of Groups in Addiction &amp; Recovery, 7</em>(2–4), 102–117. The
+          four points are worked in any order and revisited, unlike the twelve steps,
+          which are worked through.
         </>
       }
     >
@@ -5107,7 +6112,8 @@ export function MutualAidComparisonChart() {
   const rows = [
     {
       programme: "AA / NA",
-      problem: "A disease of body, mind and spirit; powerlessness is the starting admission",
+      problem:
+        "A disease of body, mind and spirit; powerlessness is the starting admission",
       change: "A higher power, the twelve steps, sponsorship and service",
       shape: "Open and closed meetings, readings, shares, no cross-talk; lifelong",
     },
@@ -5115,19 +6121,23 @@ export function MutualAidComparisonChart() {
       programme: "SMART Recovery",
       problem: "A learned, changeable behaviour maintained by beliefs and reinforcement",
       change: "Self-management: REBT and CBT tools worked with a trained facilitator",
-      shape: "Facilitated discussion around an agenda and a whiteboard; graduation expected",
+      shape:
+        "Facilitated discussion around an agenda and a whiteboard; graduation expected",
     },
     {
       programme: "Celebrate Recovery",
       problem: "A hurt, hang-up or habit — deliberately wider than substances",
-      change: "Explicitly Christian: eight principles from the Beatitudes, mapped onto the twelve steps",
+      change:
+        "Explicitly Christian: eight principles from the Beatitudes, mapped onto the twelve steps",
       shape: "Large-group teaching then small groups by issue and gender; church-hosted",
     },
     {
       programme: "Refuge Recovery",
       problem: "Craving and the suffering it produces, framed by the Four Noble Truths",
-      change: "Buddhist practice — meditation, inventory, an eightfold path adapted to recovery",
-      shape: "Meditation then reading and sharing; secular in tone, Buddhist in structure",
+      change:
+        "Buddhist practice — meditation, inventory, an eightfold path adapted to recovery",
+      shape:
+        "Meditation then reading and sharing; secular in tone, Buddhist in structure",
     },
   ];
   return (
@@ -5136,13 +6146,12 @@ export function MutualAidComparisonChart() {
       subtitle="They disagree about the mechanism and agree about the room"
       source={
         <>
-          Compiled from each programme's own literature. On effectiveness, the
-          strongest evidence is for manualised twelve-step facilitation: Kelly, J. F.,
-          Humphreys, K., &amp; Ferri, M. (2020). Alcoholics Anonymous and other
-          12-step programs for alcohol use disorder. <em>Cochrane Database of
-          Systematic Reviews</em>, 3, CD012880. The others have far less trial
-          evidence, which is a statement about how much research has been done, not a
-          finding that they do not work.
+          Compiled from each programme's own literature. On effectiveness, the strongest
+          evidence is for manualised twelve-step facilitation: Kelly, J. F., Humphreys,
+          K., &amp; Ferri, M. (2020). Alcoholics Anonymous and other 12-step programs for
+          alcohol use disorder. <em>Cochrane Database of Systematic Reviews</em>, 3,
+          CD012880. The others have far less trial evidence, which is a statement about
+          how much research has been done, not a finding that they do not work.
         </>
       }
     >
@@ -5155,10 +6164,18 @@ export function MutualAidComparisonChart() {
           </caption>
           <thead>
             <tr className="border-b text-left align-bottom">
-              <th scope="col" className="py-2 pr-3 font-semibold">Programme</th>
-              <th scope="col" className="py-2 pr-3 font-semibold">The problem is…</th>
-              <th scope="col" className="py-2 pr-3 font-semibold">Change comes from…</th>
-              <th scope="col" className="py-2 font-semibold">A meeting looks like</th>
+              <th scope="col" className="py-2 pr-3 font-semibold">
+                Programme
+              </th>
+              <th scope="col" className="py-2 pr-3 font-semibold">
+                The problem is…
+              </th>
+              <th scope="col" className="py-2 pr-3 font-semibold">
+                Change comes from…
+              </th>
+              <th scope="col" className="py-2 font-semibold">
+                A meeting looks like
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -5185,14 +6202,54 @@ export function MutualAidComparisonChart() {
 
 export function EightPrinciplesChart() {
   const rows = [
-    { n: 1, word: "Realise", principle: "I am not God, and my life is unmanageable", steps: "1" },
-    { n: 2, word: "Earnestly believe", principle: "That God exists and can help me recover", steps: "2" },
-    { n: 3, word: "Consciously choose", principle: "To commit my life and will to his care", steps: "3" },
-    { n: 4, word: "Openly examine", principle: "And confess my faults to myself, to God and to someone I trust", steps: "4–5" },
-    { n: 5, word: "Voluntarily submit", principle: "To the changes and ask for my defects to be removed", steps: "6–7" },
-    { n: 6, word: "Evaluate", principle: "All my relationships; forgive, and make amends where I did harm", steps: "8–9" },
-    { n: 7, word: "Reserve", principle: "A daily time for self-examination, reading and prayer", steps: "10–11" },
-    { n: 8, word: "Yield", principle: "Myself to carry this to others, by example and by word", steps: "12" },
+    {
+      n: 1,
+      word: "Realise",
+      principle: "I am not God, and my life is unmanageable",
+      steps: "1",
+    },
+    {
+      n: 2,
+      word: "Earnestly believe",
+      principle: "That God exists and can help me recover",
+      steps: "2",
+    },
+    {
+      n: 3,
+      word: "Consciously choose",
+      principle: "To commit my life and will to his care",
+      steps: "3",
+    },
+    {
+      n: 4,
+      word: "Openly examine",
+      principle: "And confess my faults to myself, to God and to someone I trust",
+      steps: "4–5",
+    },
+    {
+      n: 5,
+      word: "Voluntarily submit",
+      principle: "To the changes and ask for my defects to be removed",
+      steps: "6–7",
+    },
+    {
+      n: 6,
+      word: "Evaluate",
+      principle: "All my relationships; forgive, and make amends where I did harm",
+      steps: "8–9",
+    },
+    {
+      n: 7,
+      word: "Reserve",
+      principle: "A daily time for self-examination, reading and prayer",
+      steps: "10–11",
+    },
+    {
+      n: 8,
+      word: "Yield",
+      principle: "Myself to carry this to others, by example and by word",
+      steps: "12",
+    },
   ];
   return (
     <ChartFrame
@@ -5201,9 +6258,9 @@ export function EightPrinciplesChart() {
       source={
         <>
           Warren, R. Celebrate Recovery's eight recovery principles, drawn from the
-          Beatitudes (Matthew 5) and aligned to the twelve steps of Alcoholics
-          Anonymous. Paraphrased here; the wording is Saddleback Church's. The initials
-          of the eight spell RECOVERY, which is the point of the ordering.
+          Beatitudes (Matthew 5) and aligned to the twelve steps of Alcoholics Anonymous.
+          Paraphrased here; the wording is Saddleback Church's. The initials of the eight
+          spell RECOVERY, which is the point of the ordering.
         </>
       }
     >
@@ -5215,15 +6272,23 @@ export function EightPrinciplesChart() {
           </caption>
           <thead>
             <tr className="border-b text-left">
-              <th scope="col" className="py-2 pr-3 font-semibold">#</th>
-              <th scope="col" className="py-2 pr-3 font-semibold">Principle</th>
-              <th scope="col" className="py-2 font-semibold">Steps</th>
+              <th scope="col" className="py-2 pr-3 font-semibold">
+                #
+              </th>
+              <th scope="col" className="py-2 pr-3 font-semibold">
+                Principle
+              </th>
+              <th scope="col" className="py-2 font-semibold">
+                Steps
+              </th>
             </tr>
           </thead>
           <tbody>
             {rows.map((r) => (
               <tr key={r.n} className="border-b last:border-0 align-top">
-                <th scope="row" className="py-2 pr-3 text-left font-medium">{r.n}</th>
+                <th scope="row" className="py-2 pr-3 text-left font-medium">
+                  {r.n}
+                </th>
                 <td className="py-2 pr-3">
                   <span className="font-medium">{r.word}</span>{" "}
                   <span className="text-muted-foreground">{r.principle}</span>
@@ -5242,7 +6307,10 @@ export function DailyPracticeChart() {
   const domains = [
     {
       name: "Mental",
-      items: ["A deliberately positive frame for the day", "Recovery-centred reading or a podcast"],
+      items: [
+        "A deliberately positive frame for the day",
+        "Recovery-centred reading or a podcast",
+      ],
       why: "Sets what the mind is chewing on before the day sets it for you.",
     },
     {
@@ -5338,10 +6406,13 @@ export function AmendsKindsChart() {
       source={
         <>
           The ninth step of Alcoholics Anonymous — "made direct amends to such people
-          wherever possible, except when to do so would injure them or others" — and
-          the practice that has grown around it. On what the process does for the
-          person making them, see Seperack, A. (2012). <em>The process of making
-          amends in the Alcoholics Anonymous program: A qualitative study</em>
+          wherever possible, except when to do so would injure them or others" — and the
+          practice that has grown around it. On what the process does for the person
+          making them, see Seperack, A. (2012).{" "}
+          <em>
+            The process of making amends in the Alcoholics Anonymous program: A
+            qualitative study
+          </em>
           (master's thesis, University of Rhode Island).
         </>
       }
@@ -5363,14 +6434,13 @@ export function AmendsKindsChart() {
             <span className="font-semibold">
               “Except when to do so would injure them or others.”
             </span>{" "}
-            That clause is not a loophole and it is not optional. An amends that
-            transfers your discomfort onto somebody who has already been harmed by you
-            is not an amends — it is one more thing done to them for your benefit.
-            Disclosing an affair to a spouse who did not know, contacting someone who
-            asked you never to, telling a child something they cannot carry: those are
-            confessions, and they belong with a sponsor or a therapist, not with the
-            person you hurt. Work the list with someone else before you work it with
-            them.
+            That clause is not a loophole and it is not optional. An amends that transfers
+            your discomfort onto somebody who has already been harmed by you is not an
+            amends — it is one more thing done to them for your benefit. Disclosing an
+            affair to a spouse who did not know, contacting someone who asked you never
+            to, telling a child something they cannot carry: those are confessions, and
+            they belong with a sponsor or a therapist, not with the person you hurt. Work
+            the list with someone else before you work it with them.
           </p>
         </div>
       </div>

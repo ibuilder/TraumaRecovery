@@ -4,7 +4,12 @@ import type { jsPDF } from "jspdf";
 import { BOOK_FONT, loadBookFontFaces } from "@/lib/book-fonts";
 import { Button } from "@/components/ui/button";
 import { Download, Loader2 } from "lucide-react";
-import { bookInfo, loadAllChapters } from "@/lib/chapters";
+import {
+  bookInfo,
+  chapters as chapterManifest,
+  loadAllChapters,
+  loadChapter,
+} from "@/lib/chapters";
 import type { Chapter } from "@/lib/chapters";
 
 /**
@@ -201,7 +206,12 @@ function linesLeft(y: number, lineH: number): number {
 const MIN_ORPHAN = 2;
 const MIN_WIDOW = 2;
 
-function checkPageBreak(state: DocState, neededHeight: number, leftHeader: string, rightHeader: string): DocState {
+function checkPageBreak(
+  state: DocState,
+  neededHeight: number,
+  leftHeader: string,
+  rightHeader: string
+): DocState {
   if (state.y + neededHeight > PAGE_FLOOR) {
     return newPage(state, leftHeader, rightHeader);
   }
@@ -370,7 +380,10 @@ function collectBibliography(chaps: Chapter[]): string[] {
         // the surname, the year and the opening of the title so those merge,
         // but two different works by one author in one year do not.
         const year = /\((\d{4}[a-z]?)\)/.exec(line)?.[1] ?? "";
-        const surname = line.split(",")[0]!.toLowerCase().replace(/[^a-z ]/g, "");
+        const surname = line
+          .split(",")[0]!
+          .toLowerCase()
+          .replace(/[^a-z ]/g, "");
         // Key on the main title — everything before the subtitle colon or the
         // sentence stop. The same book is cited both in full and short form
         // ("No bad parts: Healing trauma…" and "No bad parts."), which a
@@ -436,13 +449,21 @@ function addHangingEntry(
 }
 
 /** Height of one laid-out table row. */
-function tableRowHeight(state: DocState, row: string[], columns: number, bold: boolean): number {
+function tableRowHeight(
+  state: DocState,
+  row: string[],
+  columns: number,
+  bold: boolean
+): number {
   const { doc } = state;
   doc.setFont(BOOK_FONT, bold ? "bold" : "normal");
   doc.setFontSize(FONT_SIZE_SMALL);
   const colWidth = TABLE_WIDTH / columns;
-  const lines = Array.from({ length: columns }, (_, i) =>
-    (doc.splitTextToSize(row[i] ?? "", colWidth - 2 * TABLE_ROW_PADDING) as string[]).length
+  const lines = Array.from(
+    { length: columns },
+    (_, i) =>
+      (doc.splitTextToSize(row[i] ?? "", colWidth - 2 * TABLE_ROW_PADDING) as string[])
+        .length
   );
   return Math.max(1, ...lines) * TABLE_CELL_LINE_HEIGHT + 2 * TABLE_ROW_PADDING;
 }
@@ -457,7 +478,9 @@ function tableRowHeight(state: DocState, row: string[], columns: number, bold: b
 function tableReserve(state: DocState, rows: string[][], hasHeader: boolean): number {
   const columns = Math.max(...rows.map((r) => r.length));
   if (columns === 0) return 0;
-  const heights = rows.map((r, i) => tableRowHeight(state, r, columns, hasHeader && i === 0));
+  const heights = rows.map((r, i) =>
+    tableRowHeight(state, r, columns, hasHeader && i === 0)
+  );
   const lead = heights.slice(0, hasHeader ? 2 : 1).reduce((a, b) => a + b, 0);
   const total = heights.reduce((a, b) => a + b, 0);
   return 3 + (rows.length <= SMALL_TABLE_ROWS ? total : lead);
@@ -491,10 +514,7 @@ function addTable(
     return { wrapped, height };
   };
 
-  const draw = (
-    laid: { wrapped: string[][]; height: number },
-    isHeaderRow: boolean
-  ) => {
+  const draw = (laid: { wrapped: string[][]; height: number }, isHeaderRow: boolean) => {
     doc.setFont(BOOK_FONT, isHeaderRow ? "bold" : "normal");
     doc.setFontSize(FONT_SIZE_SMALL);
     if (isHeaderRow) {
@@ -529,7 +549,7 @@ function addTable(
   // page when it would fit there.
   if (
     state.y + total > PAGE_FLOOR &&
-    total <= PAGE_FLOOR - (TEXT_TOP) &&
+    total <= PAGE_FLOOR - TEXT_TOP &&
     rows.length <= SMALL_TABLE_ROWS
   ) {
     state = newPage(state, leftHeader, rightHeader);
@@ -596,7 +616,17 @@ async function renderMarkdownContent(
     group.forEach((head, i) => {
       // The gap above the first heading is swallowed by the page break.
       if (!(breaking && i === 0)) state.y += head.before;
-      state = addText(state, head.text, head.size, "bold", leftHeader, rightHeader, 0, [26, 26, 26], true);
+      state = addText(
+        state,
+        head.text,
+        head.size,
+        "bold",
+        leftHeader,
+        rightHeader,
+        0,
+        [26, 26, 26],
+        true
+      );
       state.y += head.after;
     });
   };
@@ -625,9 +655,8 @@ async function renderMarkdownContent(
   const quoteOpeningHeight = (text: string) => {
     state.doc.setFontSize(FONT_SIZE_NORMAL);
     state.doc.setFont(BOOK_FONT, "italic");
-    const n = (
-      state.doc.splitTextToSize(text, TEXT_WIDTH - 2 * QUOTE_INSET) as string[]
-    ).length;
+    const n = (state.doc.splitTextToSize(text, TEXT_WIDTH - 2 * QUOTE_INSET) as string[])
+      .length;
     const carried =
       n <= linesLeft(TEXT_TOP, LINE_HEIGHT_NORMAL) || n < MIN_ORPHAN + MIN_WIDOW
         ? n
@@ -680,7 +709,10 @@ async function renderMarkdownContent(
   const flushPara = () => {
     if (paraBuffer.length === 0) return;
     const combined = paraBuffer.join(" ").trim();
-    if (!combined) { paraBuffer = []; return; }
+    if (!combined) {
+      paraBuffer = [];
+      return;
+    }
     paraBuffer = [];
 
     // A paragraph that opens with a bold run — "**The Functional Adult is the
@@ -697,7 +729,14 @@ async function renderMarkdownContent(
         pending.push({ text: label, size: FONT_SIZE_NORMAL, before: 4, after: 0 });
         if (rest) {
           placeHeading(openingHeight(rest));
-          state = addText(state, rest, FONT_SIZE_NORMAL, "normal", leftHeader, rightHeader);
+          state = addText(
+            state,
+            rest,
+            FONT_SIZE_NORMAL,
+            "normal",
+            leftHeader,
+            rightHeader
+          );
           state.y += 2;
         }
         return;
@@ -708,7 +747,14 @@ async function renderMarkdownContent(
     if (cleaned) {
       placeHeading(openingHeight(cleaned));
       state.y += 2;
-      state = addText(state, cleaned, FONT_SIZE_NORMAL, "normal", leftHeader, rightHeader);
+      state = addText(
+        state,
+        cleaned,
+        FONT_SIZE_NORMAL,
+        "normal",
+        leftHeader,
+        rightHeader
+      );
       state.y += 2;
     }
   };
@@ -758,7 +804,16 @@ async function renderMarkdownContent(
       } else {
         placeHeading(LINE_HEIGHT_NORMAL);
         state.y += 2;
-        state = addText(state, `[Chart: ${chartName}]`, FONT_SIZE_SMALL, "italic", leftHeader, rightHeader, 4, [120, 120, 120]);
+        state = addText(
+          state,
+          `[Chart: ${chartName}]`,
+          FONT_SIZE_SMALL,
+          "italic",
+          leftHeader,
+          rightHeader,
+          4,
+          [120, 120, 120]
+        );
         state.y += 2;
       }
       continue;
@@ -772,7 +827,11 @@ async function renderMarkdownContent(
       // that pair of braces, and it is loud.
       flushPara();
       const start = i;
-      while (i < lines.length - 1 && !lines[++i].trim().startsWith("```")) {}
+      // Scan to the closing fence. The body is empty on purpose: the work is
+      // the increment in the condition.
+      while (i < lines.length - 1 && !lines[++i].trim().startsWith("```")) {
+        /* advance */
+      }
       console.warn(
         `pdf-generator: skipped a fenced block at line ${start + 1} — the ` +
           `exporter cannot typeset one. Make it a chart component instead.`
@@ -905,37 +964,64 @@ async function renderMarkdownContent(
   return state;
 }
 
-function buildCoverPage(doc: jsPDF): void {
+/**
+ * The cover. `chapter` set means this is a single-chapter export, so the
+ * chapter's own title is the headline and the book's title becomes the line
+ * above it -- an offprint of one chapter, not a copy of the book that happens
+ * to be short.
+ */
+function buildCoverPage(doc: jsPDF, chapter?: Chapter): void {
   doc.setFillColor(245, 247, 250);
   doc.rect(0, 0, PAGE_WIDTH, PAGE_HEIGHT, "F");
   doc.setFillColor(59, 130, 246);
   doc.rect(0, 0, PAGE_WIDTH, 8, "F");
 
+  if (chapter) {
+    doc.setFont(BOOK_FONT, "normal");
+    doc.setFontSize(11);
+    doc.setTextColor(100, 116, 139);
+    doc.text(bookInfo.title.toUpperCase(), PAGE_WIDTH / 2, 62, { align: "center" });
+    doc.setFontSize(10);
+    doc.text(`CHAPTER ${chapter.order}`, PAGE_WIDTH / 2, 70, { align: "center" });
+  }
+
   doc.setFont(BOOK_FONT, "bold");
-  doc.setFontSize(32);
+  doc.setFontSize(chapter ? 26 : 32);
   doc.setTextColor(15, 23, 42);
-  doc.text(bookInfo.title, PAGE_WIDTH / 2, 80, { align: "center" });
+  const headlineLines = doc.splitTextToSize(
+    chapter ? chapter.title : bookInfo.title,
+    150
+  ) as string[];
+  headlineLines.forEach((line, i) => {
+    doc.text(line, PAGE_WIDTH / 2, 84 + i * 12, { align: "center" });
+  });
+  const ruleY = 84 + headlineLines.length * 12;
 
   doc.setDrawColor(59, 130, 246);
   doc.setLineWidth(1);
-  doc.line(60, 92, PAGE_WIDTH - 60, 92);
+  doc.line(60, ruleY, PAGE_WIDTH - 60, ruleY);
   doc.setLineWidth(0.2);
 
   doc.setFont(BOOK_FONT, "italic");
   doc.setFontSize(14);
   doc.setTextColor(71, 85, 105);
-  const subtitleLines = doc.splitTextToSize(bookInfo.subtitle, 140);
+  const subtitleLines = doc.splitTextToSize(
+    chapter ? chapter.description : bookInfo.subtitle,
+    140
+  );
   subtitleLines.forEach((line: string, i: number) => {
-    doc.text(line, PAGE_WIDTH / 2, 104 + i * 8, { align: "center" });
+    doc.text(line, PAGE_WIDTH / 2, ruleY + 12 + i * 8, { align: "center" });
   });
 
-  doc.setFont(BOOK_FONT, "normal");
-  doc.setFontSize(11);
-  doc.setTextColor(100, 116, 139);
-  const descLines = doc.splitTextToSize(bookInfo.description, 130);
-  descLines.slice(0, 4).forEach((line: string, i: number) => {
-    doc.text(line, PAGE_WIDTH / 2, 130 + i * 6.5, { align: "center" });
-  });
+  if (!chapter) {
+    doc.setFont(BOOK_FONT, "normal");
+    doc.setFontSize(11);
+    doc.setTextColor(100, 116, 139);
+    const descLines = doc.splitTextToSize(bookInfo.description, 130);
+    descLines.slice(0, 4).forEach((line: string, i: number) => {
+      doc.text(line, PAGE_WIDTH / 2, 130 + i * 6.5, { align: "center" });
+    });
+  }
 
   doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(14);
@@ -959,30 +1045,35 @@ function buildCopyrightPage(doc: jsPDF): void {
   let y = 60;
   const addLine = (text: string, gap = 6) => {
     const lines = doc.splitTextToSize(text, TEXT_WIDTH);
-    lines.forEach((l: string) => { doc.text(l, MARGIN_LEFT, y); y += gap; });
+    lines.forEach((l: string) => {
+      doc.text(l, MARGIN_LEFT, y);
+      y += gap;
+    });
     y += 2;
   };
 
   doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(12);
-  doc.text(bookInfo.title, MARGIN_LEFT, y); y += 8;
+  doc.text(bookInfo.title, MARGIN_LEFT, y);
+  y += 8;
   doc.setFont(BOOK_FONT, "italic");
   doc.setFontSize(10);
-  doc.text(bookInfo.subtitle, MARGIN_LEFT, y); y += 10;
+  doc.text(bookInfo.subtitle, MARGIN_LEFT, y);
+  y += 10;
   doc.setFont(BOOK_FONT, "normal");
 
   addLine(`By ${bookInfo.author}`, 8);
   addLine(`Copyright © 2025 ${bookInfo.author}. All rights reserved.`);
   addLine(
     "No part of this publication may be reproduced, distributed, or transmitted in any form or by any means, " +
-    "including photocopying, recording, or other electronic or mechanical methods, without the prior written " +
-    "permission of the publisher, except in the case of brief quotations embodied in critical reviews and " +
-    "certain other noncommercial uses permitted by copyright law."
+      "including photocopying, recording, or other electronic or mechanical methods, without the prior written " +
+      "permission of the publisher, except in the case of brief quotations embodied in critical reviews and " +
+      "certain other noncommercial uses permitted by copyright law."
   );
   addLine(
     "This book is intended for educational and informational purposes only. It is not a substitute for " +
-    "professional medical or mental health advice, diagnosis, or treatment. Always seek the guidance of " +
-    "your physician or other qualified health provider with any questions regarding a medical or mental health condition."
+      "professional medical or mental health advice, diagnosis, or treatment. Always seek the guidance of " +
+      "your physician or other qualified health provider with any questions regarding a medical or mental health condition."
   );
   y += 6;
   doc.setFont(BOOK_FONT, "bold");
@@ -1000,10 +1091,15 @@ function buildCopyrightPage(doc: jsPDF): void {
     "Crisis Text Line — text HOME to 741741",
     "SAMHSA National Helpline — 1-800-662-4357",
     "National Domestic Violence Hotline — 1-800-799-7233",
-  ].forEach((line) => { doc.text(line, MARGIN_LEFT, y); y += 5.5; });
+  ].forEach((line) => {
+    doc.text(line, MARGIN_LEFT, y);
+    y += 5.5;
+  });
   y += 2;
   doc.setFontSize(9);
-  addLine("These numbers are for the United States. Elsewhere, findahelpline.com lists services by country.");
+  addLine(
+    "These numbers are for the United States. Elsewhere, findahelpline.com lists services by country."
+  );
 
   doc.setFontSize(10);
   y += 8;
@@ -1084,7 +1180,11 @@ function drawList(
     const lineH = entry.isChapter ? TOC_CHAPTER_LINE : TOC_SUB_LINE;
     doc.setFont(BOOK_FONT, entry.isChapter ? "bold" : "normal");
     doc.setFontSize(entry.isChapter ? 12 : 10);
-    doc.setTextColor(entry.isChapter ? 15 : 70, entry.isChapter ? 23 : 80, entry.isChapter ? 42 : 90);
+    doc.setTextColor(
+      entry.isChapter ? 15 : 70,
+      entry.isChapter ? 23 : 80,
+      entry.isChapter ? 42 : 90
+    );
     const indent = entry.isChapter ? 0 : 10;
     const lines = doc.splitTextToSize(entry.label, TEXT_WIDTH - indent - 20) as string[];
     lines.forEach((l, i) => doc.text(l, MARGIN_LEFT + indent, y + i * lineH));
@@ -1211,26 +1311,54 @@ async function captureCharts(
   return chartImages;
 }
 
-async function generateBookPDF(onProgress: (msg: string) => void): Promise<void> {
+/**
+ * Renders the book, or one chapter of it.
+ *
+ * `chapterSlug` set produces an offprint: that chapter's own cover, its own
+ * contents and figures, and only the references its text actually cites. It is
+ * not a filtered copy of the whole book -- nothing about the other thirteen
+ * chapters is loaded, so the wait is a few seconds rather than the ninety the
+ * full book takes, and the charts captured are only the ones on its pages.
+ *
+ * The crisis resources are in the back matter of both. An excerpt of a
+ * trauma-recovery book that drops them is worse than no excerpt.
+ */
+async function generateBookPDF(
+  onProgress: (msg: string) => void,
+  chapterSlug?: string
+): Promise<void> {
   // jsPDF + html2canvas are ~600 kB, and the full book text is over a megabyte.
   // None of it is fetched until someone actually asks for the PDF.
-  onProgress("Loading the book...");
-  const [{ jsPDF: JsPDF }, { default: html2canvas }, charts, chapters] = await Promise.all([
+  onProgress(chapterSlug ? "Loading the chapter..." : "Loading the book...");
+  const [{ jsPDF: JsPDF }, { default: html2canvas }, charts, loaded] = await Promise.all([
     import("jspdf"),
     import("html2canvas"),
     import("@/components/chart-registry"),
-    loadAllChapters(),
+    chapterSlug
+      ? loadChapter(chapterSlug).then((c) => (c ? [c] : []))
+      : loadAllChapters(),
   ]);
+
+  const chapters = loaded;
+  if (chapterSlug && chapters.length === 0) {
+    throw new Error(`No chapter with slug "${chapterSlug}"`);
+  }
+  const only = chapterSlug ? chapters[0] : undefined;
 
   const referencedCharts = collectReferencedCharts(chapters, charts.ALL_CHART_COMPONENTS);
   onProgress(`Capturing ${referencedCharts.length} charts (this takes a minute)...`);
-  const chartImages = await captureCharts(referencedCharts, html2canvas, charts, onProgress);
+  const chartImages = await captureCharts(
+    referencedCharts,
+    html2canvas,
+    charts,
+    onProgress
+  );
 
   onProgress("Building PDF...");
   const doc = new JsPDF({ unit: "mm", format: "letter", orientation: "portrait" });
   await embedBookFont(doc);
 
-  buildCoverPage(doc);
+  buildCoverPage(doc, only);
   doc.addPage("letter");
   buildCopyrightPage(doc);
 
@@ -1246,7 +1374,9 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
       isChapter: false,
     })),
   ]);
-  tocShape.push({ label: "Sources and Further Reading", page: 0, isChapter: true });
+  if (collectBibliography(chapters).length) {
+    tocShape.push({ label: "Sources and Further Reading", page: 0, isChapter: true });
+  }
 
   const figureShape: TocEntry[] = referencedCharts.map((name) => ({
     label: figureTitle(name),
@@ -1279,13 +1409,16 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     doc.addPage("letter");
     state.pageNum++;
     state.y = TEXT_TOP + CHAPTER_SINK;
-    toc.push({ label: `${chapter.order}. ${chapter.title}`, page: state.pageNum, isChapter: true });
+    toc.push({
+      label: `${chapter.order}. ${chapter.title}`,
+      page: state.pageNum,
+      isChapter: true,
+    });
 
     // No running header on an opener: the page announces the chapter itself,
     // and a strap repeating it above the title is the mark of a page produced
     // by a loop rather than laid out.
     const leftH = bookInfo.title;
-    const rightH = `Chapter ${chapter.order}`;
 
     // Lay the opener out before painting the tint, so the band always fits its
     // contents and the eyebrow never collides with the title baseline.
@@ -1330,7 +1463,14 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     doc.line(MARGIN_LEFT, state.y, PAGE_WIDTH - MARGIN_RIGHT, state.y);
     state.y += 8;
 
-    state = await renderMarkdownContent(state, chapter.content, leftH, chapter.title, chartImages, figures);
+    state = await renderMarkdownContent(
+      state,
+      chapter.content,
+      leftH,
+      chapter.title,
+      chartImages,
+      figures
+    );
 
     for (const sub of chapter.subchapters) {
       addPageNumber(state);
@@ -1368,7 +1508,14 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
       state.y += 8;
 
       doc.setTextColor(26, 26, 26);
-      state = await renderMarkdownContent(state, sub.content, subLeftH, subRightH, chartImages, figures);
+      state = await renderMarkdownContent(
+        state,
+        sub.content,
+        subLeftH,
+        subRightH,
+        chartImages,
+        figures
+      );
     }
   }
 
@@ -1398,7 +1545,10 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
       "Works cited across the book, in one list. Where the text names an author and a year, the full reference is here.",
       TEXT_WIDTH
     ) as string[];
-    bibNote.forEach((l) => { doc.text(l, MARGIN_LEFT, state.y); state.y += 5; });
+    bibNote.forEach((l) => {
+      doc.text(l, MARGIN_LEFT, state.y);
+      state.y += 5;
+    });
     state.y += 5;
 
     for (const entry of bibliography) {
@@ -1411,29 +1561,53 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
   state.pageNum++;
   state.y = TEXT_TOP;
 
-  doc.setFont(BOOK_FONT, "bold");
-  doc.setFontSize(18);
-  doc.setTextColor(15, 23, 42);
-  doc.text("A Note from the Author", PAGE_WIDTH / 2, state.y + 15, { align: "center" });
-  state.y += 28;
+  // The author's note speaks for the whole book, so a single-chapter offprint
+  // does not carry it. The crisis resources below are carried by both: an
+  // excerpt of a trauma-recovery book that drops them is worse than no excerpt.
+  if (!only) {
+    doc.setFont(BOOK_FONT, "bold");
+    doc.setFontSize(18);
+    doc.setTextColor(15, 23, 42);
+    doc.text("A Note from the Author", PAGE_WIDTH / 2, state.y + 15, { align: "center" });
+    state.y += 28;
 
-  doc.setDrawColor(180, 180, 180);
-  doc.line(MARGIN_LEFT + 20, state.y, PAGE_WIDTH - MARGIN_RIGHT - 20, state.y);
-  state.y += 10;
+    doc.setDrawColor(180, 180, 180);
+    doc.line(MARGIN_LEFT + 20, state.y, PAGE_WIDTH - MARGIN_RIGHT - 20, state.y);
+    state.y += 10;
 
-  const noteText = `Writing this book has been a labor of love, born from witnessing the profound courage it takes for ordinary people to face extraordinary pain. Healing is not linear, and it is rarely neat — but it is always possible.\n\nIf even one person finds comfort, clarity, or hope in these pages, the work has been worthwhile. You are not alone. Recovery is possible. You deserve to heal.`;
-  doc.setFont(BOOK_FONT, "italic");
-  doc.setFontSize(FONT_SIZE_NORMAL);
-  doc.setTextColor(60, 60, 60);
-  const noteLines = doc.splitTextToSize(noteText, TEXT_WIDTH);
-  noteLines.forEach((l: string) => { doc.text(l, MARGIN_LEFT, state.y); state.y += 6.5; });
+    const noteText = `Writing this book has been a labor of love, born from witnessing the profound courage it takes for ordinary people to face extraordinary pain. Healing is not linear, and it is rarely neat — but it is always possible.\n\nIf even one person finds comfort, clarity, or hope in these pages, the work has been worthwhile. You are not alone. Recovery is possible. You deserve to heal.`;
+    doc.setFont(BOOK_FONT, "italic");
+    doc.setFontSize(FONT_SIZE_NORMAL);
+    doc.setTextColor(60, 60, 60);
+    const noteLines = doc.splitTextToSize(noteText, TEXT_WIDTH);
+    noteLines.forEach((l: string) => {
+      doc.text(l, MARGIN_LEFT, state.y);
+      state.y += 6.5;
+    });
 
-  state.y += 8;
-  doc.setFont(BOOK_FONT, "bold");
-  doc.setFontSize(11);
-  doc.setTextColor(26, 26, 26);
-  doc.text(`— ${bookInfo.author}`, MARGIN_LEFT + 20, state.y);
-  state.y += 20;
+    state.y += 8;
+    doc.setFont(BOOK_FONT, "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(26, 26, 26);
+    doc.text(`— ${bookInfo.author}`, MARGIN_LEFT + 20, state.y);
+    state.y += 20;
+  } else {
+    // An offprint says what it is an offprint of, and where the rest lives.
+    doc.setFont(BOOK_FONT, "italic");
+    doc.setFontSize(FONT_SIZE_NORMAL);
+    doc.setTextColor(60, 60, 60);
+    const provenance = doc.splitTextToSize(
+      `This is chapter ${only.order} of ${bookInfo.title} by ${bookInfo.author}, ` +
+        `printed on its own. The other ${chapterManifest.length - 1} chapters, the full ` +
+        `bibliography and the complete book are on the website.`,
+      TEXT_WIDTH
+    ) as string[];
+    provenance.forEach((l) => {
+      doc.text(l, MARGIN_LEFT, state.y);
+      state.y += 6.5;
+    });
+    state.y += 14;
+  }
 
   doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(13);
@@ -1449,7 +1623,10 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
     "SAMHSA National Helpline: 1-800-662-4357",
     "Sex Addicts Anonymous: www.saa-recovery.org",
   ];
-  resources.forEach((r) => { doc.text(r, MARGIN_LEFT, state.y); state.y += 6; });
+  resources.forEach((r) => {
+    doc.text(r, MARGIN_LEFT, state.y);
+    state.y += 6;
+  });
 
   state.y += 15;
   doc.setDrawColor(180, 180, 180);
@@ -1459,11 +1636,13 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
   doc.setFont(BOOK_FONT, "bold");
   doc.setFontSize(12);
   doc.setTextColor(15, 23, 42);
-  doc.text(bookInfo.title, MARGIN_LEFT, state.y); state.y += 7;
+  doc.text(bookInfo.title, MARGIN_LEFT, state.y);
+  state.y += 7;
   doc.setFont(BOOK_FONT, "normal");
   doc.setFontSize(10);
   doc.setTextColor(80, 80, 80);
-  doc.text(`By ${bookInfo.author}`, MARGIN_LEFT, state.y); state.y += 6;
+  doc.text(`By ${bookInfo.author}`, MARGIN_LEFT, state.y);
+  state.y += 6;
   doc.text("Recovery Works Publishing • 2025", MARGIN_LEFT, state.y);
 
   addPageNumber(state);
@@ -1495,26 +1674,91 @@ async function generateBookPDF(onProgress: (msg: string) => void): Promise<void>
   if (doc.getNumberOfPages() % 2 === 1) doc.addPage("letter");
 
   onProgress("Saving PDF...");
-  doc.save("healing-together-matthew-emma.pdf");
+  doc.save(
+    only
+      ? `healing-together-${String(only.order).padStart(2, "0")}-${only.slug}.pdf`
+      : "healing-together-matthew-emma.pdf"
+  );
+}
+
+/**
+ * Shared by both download buttons: the loading flag, the progress line, and
+ * turning a thrown error into something a reader can act on rather than a
+ * button that silently goes back to idle.
+ */
+function usePdfDownload(chapterSlug?: string) {
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
+  const [failed, setFailed] = useState(false);
+
+  const start = async () => {
+    setLoading(true);
+    setFailed(false);
+    setStatus("Starting...");
+    try {
+      await generateBookPDF((msg) => setStatus(msg), chapterSlug);
+      setStatus("");
+    } catch (err) {
+      console.error("PDF generation failed:", err);
+      setFailed(true);
+      setStatus("Could not build the PDF. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, status, failed, start };
+}
+
+/**
+ * One chapter as its own PDF.
+ *
+ * The full book takes about ninety seconds, nearly all of it capturing
+ * ninety-one charts through an offscreen React root. A reader who wants the
+ * grounding-techniques chapter should not wait for the other thirteen, and
+ * mostly will not: a chapter captures only the figures on its own pages.
+ */
+export function ChapterPDFButton({ slug, title }: { slug: string; title: string }) {
+  const { loading, status, failed, start } = usePdfDownload(slug);
+
+  return (
+    <div className="flex flex-col gap-2">
+      <Button
+        variant="outline"
+        size="sm"
+        className="gap-2"
+        disabled={loading}
+        onClick={start}
+        data-testid="button-download-chapter-pdf"
+      >
+        {loading ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+            Building PDF...
+          </>
+        ) : (
+          <>
+            <Download className="h-4 w-4" aria-hidden="true" />
+            Download this chapter (PDF)
+          </>
+        )}
+        <span className="sr-only">: {title}</span>
+      </Button>
+      {status ? (
+        <p
+          className={`max-w-xs text-xs ${failed ? "text-destructive" : "text-muted-foreground"}`}
+          role="status"
+          aria-live="polite"
+        >
+          {status}
+        </p>
+      ) : null}
+    </div>
+  );
 }
 
 export function PDFDownloadButton() {
-  const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState("");
-
-  const handleDownload = async () => {
-    setLoading(true);
-    setStatus("Starting...");
-    try {
-      await generateBookPDF((msg) => setStatus(msg));
-    } catch (err) {
-      console.error("PDF generation failed:", err);
-      setStatus("Error generating PDF. Please try again.");
-    } finally {
-      setLoading(false);
-      setStatus("");
-    }
-  };
+  const { loading, status, failed, start } = usePdfDownload();
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -1523,24 +1767,30 @@ export function PDFDownloadButton() {
         variant="outline"
         className="gap-2"
         disabled={loading}
-        onClick={handleDownload}
+        onClick={start}
         data-testid="button-download-pdf"
       >
         {loading ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
             Generating PDF...
           </>
         ) : (
           <>
-            <Download className="h-4 w-4" />
+            <Download className="h-4 w-4" aria-hidden="true" />
             Download Full Book (PDF)
           </>
         )}
       </Button>
-      {loading && status && (
-        <p className="text-xs text-muted-foreground max-w-xs text-center">{status}</p>
-      )}
+      {status ? (
+        <p
+          className={`max-w-xs text-center text-xs ${failed ? "text-destructive" : "text-muted-foreground"}`}
+          role="status"
+          aria-live="polite"
+        >
+          {status}
+        </p>
+      ) : null}
     </div>
   );
 }

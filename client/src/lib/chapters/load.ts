@@ -26,8 +26,7 @@ async function importChapter(slug: string): Promise<Chapter | null> {
   // Each module has a single chapter export; match on slug so a manifest that
   // has drifted fails loudly rather than rendering the wrong chapter.
   const chapter = Object.values(mod).find(
-    (v): v is Chapter =>
-      !!v && typeof v === "object" && (v as Chapter).slug === slug
+    (v): v is Chapter => !!v && typeof v === "object" && (v as Chapter).slug === slug
   );
   return chapter ?? null;
 }

@@ -43,5 +43,7 @@ export function allRoutes(): Route[] {
  * real 404 status carrying the SPA shell, which the browser logs.
  */
 export function isRealConsoleError(text: string): boolean {
-  return !/ERR_|fonts\.(googleapis|gstatic)|status of 404|Failed to load resource/.test(text);
+  return !/ERR_|fonts\.(googleapis|gstatic)|status of 404|Failed to load resource/.test(
+    text
+  );
 }

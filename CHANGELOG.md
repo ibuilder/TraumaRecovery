@@ -7,6 +7,183 @@ decision for Matthew rather than a change anyone can make in code.
 
 ## Unreleased
 
+### A chapter downloads as its own PDF
+
+From the chapter's own page. The chapter's cover under the book's name, its own
+contents and list of figures, only the references its text cites, and the crisis
+resources. Not a filtered copy of the book: nothing about the other thirteen
+chapters is loaded, and only the figures on its own pages are captured.
+
+Measured by clicking the real button on the built site:
+
+| | figures | time |
+|---|---|---|
+| Whole book | 88 | **164 s** |
+| Chapter 1, the figure-heaviest | 17 | 53 s |
+| Chapter 12 | 4 | 8.8 s |
+| Chapter 14 | 1 | 2.9 s |
+
+The roadmap said the full book took "about 90 seconds". It takes 164 -- that
+number dates from when the book was 679 pages and 56 figures, and it is now 734
+and 88. Export time is almost all figure capture, so a chapter costs roughly two
+seconds per figure it has.
+
+The offprint drops the author's note, which speaks for the whole book, and keeps
+the crisis resources, which is the point.
+
+**The test that guards that was vacuous on its first draft**, and it is worth
+recording why. It exported the Resources chapter -- the one whose own prose
+lists crisis lines -- so deleting the entire back matter still left "Crisis
+Resources" and "988" in the extracted text and the assertion passed. It now
+exports a chapter that mentions neither, and reads only the back matter.
+Negative-tested by removing the crisis block and watching it fail.
+
+Two things fell out of the work, both mine and both pre-existing by a day:
+
+- **The accessibility sweep had been under-covering since figures went lazy.**
+  Its `settle()` counted `figure` elements and skipped its own wait when it
+  found none -- which is exactly the state before a lazy chunk lands. It read 73
+  figures instead of 90-odd under parallel load, and passed on a quiet machine.
+  It now waits for every placeholder to resolve into a figure.
+- **`data-chart` was two different attributes.** The vendored `ChartContainer`
+  puts `data-chart={chartId}` on its own wrapper to scope the CSS variables it
+  emits, so `[data-chart]` matched both figure placements and chart internals --
+  and the internals live *inside* a figure, so a wait for "every one holds a
+  figure" could never be satisfied. The EPUB build survived it only by filtering
+  to known component names. The placement marker is `data-chart-slot` now.
+
+Verified: 108 browser tests against a real production build, the Kindle edition
+rebuilt (88 figures, 102 placements, 18/18 preflight), and the full book read
+back with pdf.js -- 734 pages, 15 bookmarks, unchanged.
+
+### Figures load only on the pages that show one
+
+The chart registry is `import * as charts` over `trauma-charts`, so importing it
+pulls all ninety-one figures and Recharts with them. The markdown renderer
+imported it statically and every chapter page loads the markdown renderer, so **a
+route with four figures and a route with none downloaded byte-identical
+JavaScript**: 155.1 kB of chart registry out of 367.9 kB total on
+`/chapter/basic-recovery/subchapter/what-is-trauma`, which has no figure on it.
+42 per cent of the page, for nothing.
+
+Now `lazy` per figure name -- memoised, because `lazy()` returns a new component
+type each call and a new type at the same position remounts the figure and
+replays its entry animation on every render of the prose around it -- behind a
+placeholder that reserves the figure box so the prose below does not jump.
+
+Measured across all 89 routes before and after, by driving a browser at the
+built site and summing the gzipped bytes of every script it requests:
+
+| | before | after |
+|---|---|---|
+| 33 routes with no figure | 326 kB avg | **181 kB avg** |
+| 56 routes with figures | 343 kB avg | 343 kB avg |
+| whole site | 29.3 MB | **24.6 MB** |
+
+No route got heavier. The browser suite runs a minute faster for the same reason.
+
+**`trauma-charts.tsx` was not split, and the measurement is why.** A probe build
+carrying one chart instead of ninety-one came to 106.7 kB gzipped against 155.1
+kB: Recharts is a 107 kB floor no chunking touches, and all ninety-one chart
+definitions together are the other 48 kB -- about half a kilobyte each. Per-chart
+chunks would save a figure-bearing route ~46 kB at best, in exchange for
+ninety-one modules and a mechanical rewrite of 5,379 lines containing
+sixty-eight working figures. The lever for those routes is Recharts itself,
+which is a different and much larger job.
+
+Verified: 107 browser tests against a real production build, the Pages preflight,
+and the Kindle edition rebuilt -- 88 figures captured, 102 placements, 18/18
+preflight checks.
+
+### The Express server is gone, and with it two footguns
+
+"Give it a purpose or delete it" resolved to delete. It served one `/api/health`
+endpoint nothing called, a static directory GitHub Pages serves instead, a
+`MemStorage` for a `users` table nothing imported, and a `drizzle.config.ts`
+that threw unless `DATABASE_URL` was set -- for a database that never existed.
+Its only live function was `npm run dev`, which is plain `vite` now, verified by
+starting it and fetching the page. Port 5173 rather than 5000; the 5000 was the
+original host's firewall constraint, not a choice.
+
+`shared/schema.ts` keeps its content types and loses zod. Nothing ever called
+`.parse()` on those schemas -- the chapter modules are TypeScript source checked
+at compile time, not untrusted input off a wire -- so the validator was buying a
+guarantee the compiler already gave.
+
+**Nine dependencies** went with it: `express`, `@types/express`, `nanoid`,
+`drizzle-orm`, `drizzle-zod`, `drizzle-kit`, `zod`, `pg`, `date-fns`. The last
+two were reachable from nothing at all; the earlier prune missed them because
+its glob did not cover `shared/schema.ts` or `drizzle.config.ts`.
+
+Two footguns went with it as well:
+
+- `script/build.ts` opened with `rm -rf dist` and rebuilt with no base path, so
+  running it after `build:pages` left every route serving the 404 body and all
+  107 tests failing for one reason that looked like 107. The README had to carry
+  a warning about it. It existed only to bundle the server, so it is deleted and
+  `build:pages` is the only build -- the warning is now a note that the trap is
+  gone.
+- `vite.config.ts` still aliased `@assets` to `attached_assets`, a directory
+  removed in the history rewrite.
+
+Verified: lint, typecheck, format, the Pages preflight, `npm run dev` fetched
+and serving, and 107 browser tests against a real production build.
+
+### A linter that guards the accessibility work, and a formatter
+
+There was no lint config in the repository at all. That mattered more than it
+sounds, because the accessibility work put invariants into the code that no type
+can see: a chart drawing has to stay `inert`, landmarks have to keep their
+labels, a figure has to carry its numbers somewhere a screen reader can reach,
+and `role="application"` -- the attribute that made 68 figures unreadable --
+must never be written by hand. Until now nothing caught a regression in any of
+those until the axe sweep, six minutes into CI.
+
+ESLint 10 with `jsx-a11y` and `react-hooks`, plus Prettier, with
+`eslint-config-prettier` so the two never argue. Both run first in the `check`
+job: they are the cheapest signal there by two orders of magnitude.
+
+`role="application"` needed a rule of its own. No `jsx-a11y` rule flags it on a
+`div` -- the element is generic, so none of them read the role as a downgrade --
+so it is a `no-restricted-syntax` selector, negative-tested along with the rest
+of the config before being trusted.
+
+**Its first run found a hole in another guard.** `validate:content` matches
+exported figure components with a regex ending `(?=^export |\Z)`. JavaScript has
+no `\Z` anchor; it matched a literal "Z". So the last exported figure in the
+file was never checked -- `AmendsKindsChart` could have been renamed out of the
+registry and silently vanished from both the site and the book, which is the
+exact failure that guard exists to prevent. Now `$(?![\s\S])`, and
+negative-tested on that same figure.
+
+Also from the first run, all verified before being changed:
+
+- `chapter.tsx` cleared its loaded chapter to `null` inside an effect on every
+  navigation -- a cascading render each time. The chapter is now stored beside
+  the slug that fetched it and staleness is derived during render, which removes
+  the extra render and keeps the guarantee it was there for: the previous
+  chapter's prose never shows for a frame under the new chapter's heading.
+- A dead `rightH` in the PDF chapter opener, left from before openers stopped
+  carrying a running header.
+- Eleven `any`s replaced by real types -- one shared type guard in
+  `markdown-renderer` in place of six `as any` casts to reach `.props`, a typed
+  OPF shape in `check-epub`, and `unknown` with an explicit read in the Express
+  error handler.
+- `tailwind.config.ts` used `require()` in an ESM package.
+
+One suppression, with its reason in the code: `continue-reading` reads
+localStorage in an effect on purpose, because it does not exist during the
+static prerender and reading it during render would make the first paint
+disagree with the prerendered HTML.
+
+`eslint-plugin-react-refresh` was tried and dropped. Its only findings were the
+seven places a component is exported beside its `cva` variants -- the convention
+the vendored UI kit is written in -- and seven permanent warnings teach people to
+ignore lint output.
+
+Verified: 107 browser tests pass against a real production build, including the
+axe sweep over all 89 routes and a full book generation.
+
 ### The figures are readable without seeing them
 
 Recharts draws into an SVG it marks `role="application"`, the most hostile role

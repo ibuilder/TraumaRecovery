@@ -1,13 +1,11 @@
-import type { ReactNode } from "react";
+import { Suspense, lazy, type ComponentType, type ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { ALL_CHART_COMPONENTS } from "@/components/chart-registry";
 
 interface MarkdownRendererProps {
   content: string;
   showCharts?: boolean;
 }
-
 
 /**
  * Chart placeholders are authored as a single-line ```chart:Name``` span, which
@@ -15,16 +13,79 @@ interface MarkdownRendererProps {
  * supported; those arrive wrapped in a <pre>, so `pre` is unwrapped below to keep
  * the chart out of the prose code-block styling.
  */
+/**
+ * Figures are fetched only by the pages that show one.
+ *
+ * The registry is a `import * as charts` over `trauma-charts`, so importing it
+ * pulls all ninety-one figures and Recharts with them -- 155 kB gzipped, which
+ * is 42 per cent of a chapter page's JavaScript. This module is what every
+ * chapter page loads to render its prose, so until now it dragged that in
+ * whether the page had a figure on it or not: a route with four figures and a
+ * route with none downloaded byte-identical JavaScript. Thirty-three of the
+ * eighty-nine routes have no figure at all.
+ *
+ * `lazy` per figure name defers it to the pages that ask. They resolve to the
+ * same chunk, so a page with nine figures still fetches it once.
+ *
+ * Memoised because `lazy()` returns a new component type on every call, and a
+ * new type at the same position is a remount -- the figure would be torn down
+ * and rebuilt, replaying its entry animation, on every render of the prose
+ * around it.
+ */
+const lazyCharts = new Map<string, ComponentType>();
+
+function chartComponent(name: string): ComponentType {
+  const cached = lazyCharts.get(name);
+  if (cached) return cached;
+  const Chart = lazy(async (): Promise<{ default: ComponentType }> => {
+    const { ALL_CHART_COMPONENTS } = await import("@/components/chart-registry");
+    const Found = ALL_CHART_COMPONENTS[name];
+    if (!Found) {
+      if (import.meta.env.DEV) {
+        console.warn(`Unknown chart referenced in content: "${name}"`);
+      }
+      return { default: () => null };
+    }
+    return { default: Found };
+  });
+  lazyCharts.set(name, Chart);
+  return Chart;
+}
+
+/**
+ * Holds the figure's place while its chunk arrives, so the prose below does not
+ * jump when it lands. 300px is the height fifty of the sixty-eight plotted
+ * figures use; the rest are within 50px of it bar one.
+ */
+function ChartPlaceholder() {
+  return (
+    <div className="my-8 rounded-md border bg-card p-6" aria-hidden="true">
+      <div className="mb-4 h-5 w-2/5 animate-pulse rounded bg-muted" />
+      <div className="h-[300px] w-full animate-pulse rounded bg-muted" />
+    </div>
+  );
+}
+
 const CHART_INLINE_RE = /^chart:(\w+)$/;
 const CHART_FENCE_RE = /language-chart:(\w+)/;
 
+/**
+ * react-markdown hands children through as `ReactNode`, which is a union wide
+ * enough that nothing can be read off it directly. This narrows to the one
+ * shape the callers below care about -- an element with props -- so they can
+ * stop casting to `any` to reach `.props`.
+ */
+type NodeWithProps = {
+  type?: unknown;
+  props?: { className?: unknown; children?: ReactNode };
+};
+
+function hasProps(node: unknown): node is NodeWithProps {
+  return !!node && typeof node === "object" && "props" in node;
+}
+
 function isChartElement(node: unknown): boolean {
-  return (
-    !!node &&
-    typeof node === "object" &&
-    "props" in (node as any) &&
-    CHART_FENCE_RE.test(String((node as any).props?.className ?? ""))
-  );
+  return hasProps(node) && CHART_FENCE_RE.test(String(node.props?.className ?? ""));
 }
 
 /**
@@ -45,9 +106,7 @@ function headingText(node: ReactNode): string {
   if (node === null || node === undefined || typeof node === "boolean") return "";
   if (typeof node === "string" || typeof node === "number") return String(node);
   if (Array.isArray(node)) return node.map(headingText).join("");
-  if (typeof node === "object" && "props" in (node as any)) {
-    return headingText((node as any).props?.children);
-  }
+  if (hasProps(node)) return headingText(node.props?.children);
   return "";
 }
 
@@ -75,22 +134,25 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
             const chartName = fencedMatch?.[1] ?? inlineMatch?.[1];
 
             if (chartName && showCharts) {
-              const ChartComponent = ALL_CHART_COMPONENTS[chartName];
-              if (ChartComponent) {
-                // Tagged with the component name so tooling can map a rendered
-                // figure back to the placeholder that asked for it. Guessing
-                // the mapping from the figure's visible title silently lost
-                // sixty of the hundred placements in the EPUB build.
-                return (
-                  <div data-chart={chartName} className="contents">
+              const ChartComponent = chartComponent(chartName);
+              // Tagged with the component name so tooling can map a rendered
+              // figure back to the placeholder that asked for it. Guessing
+              // the mapping from the figure's visible title silently lost
+              // sixty of the hundred placements in the EPUB build.
+              //
+              // `data-chart-slot` rather than `data-chart`: the vendored
+              // ChartContainer puts `data-chart={chartId}` on its own wrapper
+              // to scope the CSS variables it emits, so `[data-chart]` matches
+              // both, and the container ones sit *inside* the figure. Anything
+              // selecting on the bare name gets a mix of placements and
+              // internals -- which is exactly what it did.
+              return (
+                <div data-chart-slot={chartName} className="contents">
+                  <Suspense fallback={<ChartPlaceholder />}>
                     <ChartComponent />
-                  </div>
-                );
-              }
-              if (import.meta.env.DEV) {
-                console.warn(`Unknown chart referenced in content: "${chartName}"`);
-              }
-              return null;
+                  </Suspense>
+                </div>
+              );
             }
 
             return <code className={className}>{children}</code>;
@@ -99,7 +161,8 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
             // A comparison table's corner cell heads nothing, and an empty
             // `<th>` claims to. HTML's answer is a `<td>`; markdown has no way
             // to say it, so it is said here. Five tables in the book have one.
-            const empty = children == null || (Array.isArray(children) && children.length === 0);
+            const empty =
+              children == null || (Array.isArray(children) && children.length === 0);
             return empty ? <td /> : <th {...props}>{children}</th>;
           },
           pre: ({ children }) => {
@@ -120,7 +183,10 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
             );
           },
           h1: ({ children }) => (
-            <h1 className="text-3xl md:text-4xl font-bold mt-0 mb-6 text-foreground" data-testid="text-chapter-title">
+            <h1
+              className="text-3xl md:text-4xl font-bold mt-0 mb-6 text-foreground"
+              data-testid="text-chapter-title"
+            >
               {children}
             </h1>
           ),
@@ -147,12 +213,15 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
           ),
           p: ({ children }) => {
             const childArr = Array.isArray(children) ? children : [children];
+            // A block-level child inside a paragraph: react-markdown will
+            // have produced <p><div>…</div></p>, which is invalid HTML and
+            // which browsers silently reshuffle. Render a <div> instead.
             const hasBlock = childArr.some(
               (child) =>
-                child &&
+                !!child &&
                 typeof child === "object" &&
-                "type" in (child as any) &&
-                typeof (child as any).type !== "string"
+                "type" in child &&
+                typeof (child as NodeWithProps).type !== "string"
             );
             if (hasBlock) {
               return <div className="mb-6">{children}</div>;
@@ -170,9 +239,7 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
             </ol>
           ),
           li: ({ children }) => (
-            <li className="leading-relaxed text-foreground/90">
-              {children}
-            </li>
+            <li className="leading-relaxed text-foreground/90">{children}</li>
           ),
           blockquote: ({ children }) => (
             <blockquote className="border-l-4 border-primary/40 pl-6 my-8 italic text-muted-foreground bg-muted/30 py-4 pr-4 rounded-r-md">
@@ -180,18 +247,10 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
             </blockquote>
           ),
           strong: ({ children }) => (
-            <strong className="font-semibold text-foreground">
-              {children}
-            </strong>
+            <strong className="font-semibold text-foreground">{children}</strong>
           ),
-          em: ({ children }) => (
-            <em className="italic text-foreground/90">
-              {children}
-            </em>
-          ),
-          hr: () => (
-            <hr className="my-8 border-border" />
-          ),
+          em: ({ children }) => <em className="italic text-foreground/90">{children}</em>,
+          hr: () => <hr className="my-8 border-border" />,
           a: ({ href, children }) => (
             <a
               href={href}

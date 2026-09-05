@@ -4,7 +4,8 @@ export const addictionRecoveryChapter: Chapter = {
   id: "3",
   title: "Addiction Recovery",
   slug: "addiction-recovery",
-  description: "Understand the connection between trauma and addiction, and learn pathways to lasting recovery.",
+  description:
+    "Understand the connection between trauma and addiction, and learn pathways to lasting recovery.",
   icon: "Shield",
   order: 3,
   readingTime: "75 min read",

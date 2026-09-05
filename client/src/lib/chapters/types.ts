@@ -6,7 +6,8 @@ export const bookInfo: BookInfo = {
   title: "Healing Together",
   subtitle: "A Practical Guide to Trauma Recovery for Ordinary People",
   author: "Matthew M. Emma",
-  description: "A comprehensive guide to understanding and healing from trauma, written for everyday people seeking practical, compassionate support on their healing journey.",
+  description:
+    "A comprehensive guide to understanding and healing from trauma, written for everyday people seeking practical, compassionate support on their healing journey.",
 };
 
 /**

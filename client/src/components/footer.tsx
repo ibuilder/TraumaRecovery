@@ -13,21 +13,25 @@ export function Footer() {
               <Logo className="h-6 w-6" />
               <span className="font-semibold">{bookInfo.title}</span>
             </div>
-            <p className="text-sm text-muted-foreground">
-              {bookInfo.subtitle}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              By {bookInfo.author}
-            </p>
+            <p className="text-sm text-muted-foreground">{bookInfo.subtitle}</p>
+            <p className="text-sm text-muted-foreground">By {bookInfo.author}</p>
           </div>
 
           <div className="space-y-4">
             <h2 className="font-semibold">Quick Links</h2>
             <nav className="space-y-2" aria-label="Quick links">
-              <Link href="/" className="block text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-home">
+              <Link
+                href="/"
+                className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                data-testid="link-footer-home"
+              >
                 Home
               </Link>
-              <Link href="/chapters" className="block text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-chapters">
+              <Link
+                href="/chapters"
+                className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                data-testid="link-footer-chapters"
+              >
                 All Chapters
               </Link>
             </nav>
@@ -74,10 +78,12 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
             <p className="flex items-center gap-1 flex-wrap">
-              Made with <Heart className="h-4 w-4 text-red-500" /> for those on the healing journey
+              Made with <Heart className="h-4 w-4 text-red-500" /> for those on the
+              healing journey
             </p>
             <p>
-              This content is for educational purposes and is not a substitute for professional mental health care.
+              This content is for educational purposes and is not a substitute for
+              professional mental health care.
             </p>
           </div>
         </div>

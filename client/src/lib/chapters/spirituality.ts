@@ -4,7 +4,8 @@ export const spiritualityChapter: Chapter = {
   id: "12",
   title: "Spirituality in Recovery",
   slug: "spirituality",
-  description: "Explore the spiritual dimension of healing and find deeper meaning through various paths.",
+  description:
+    "Explore the spiritual dimension of healing and find deeper meaning through various paths.",
   icon: "Sun",
   order: 12,
   readingTime: "60 min read",

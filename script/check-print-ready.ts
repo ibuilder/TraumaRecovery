@@ -88,9 +88,8 @@ async function main() {
   const bytes = readFileSync(file);
   const forPdfJs = new Uint8Array(bytes);
 
-  const { getDocument, OPS } = (await import(
-    "pdfjs-dist/legacy/build/pdf.mjs"
-  )) as typeof import("pdfjs-dist");
+  const { getDocument, OPS } =
+    (await import("pdfjs-dist/legacy/build/pdf.mjs")) as typeof import("pdfjs-dist");
   const standardFontDataUrl = path.join(
     path.dirname(require_.resolve("pdfjs-dist/package.json")),
     "standard_fonts/"
@@ -125,7 +124,8 @@ async function main() {
   const odd: number[] = [];
   for (let n = 2; n <= doc.numPages; n++) {
     const v = (await doc.getPage(n)).view;
-    if (v[2] - v[0] !== view[2] - view[0] || v[3] - v[1] !== view[3] - view[1]) odd.push(n);
+    if (v[2] - v[0] !== view[2] - view[0] || v[3] - v[1] !== view[3] - view[1])
+      odd.push(n);
   }
   if (odd.length === 0) pass("Uniform page size", "every page matches page 1");
   else fail("Uniform page size", `${odd.length} pages differ, first is page ${odd[0]}`);
@@ -135,7 +135,8 @@ async function main() {
   if (pages % 2 === 0) pass("Page parity", `${pages} pages, even`);
   else fail("Page parity", `${pages} pages — KDP requires an even count`);
 
-  if (pages < MIN_PAGES) fail("Page count", `${pages} is below the ${MIN_PAGES}-page minimum`);
+  if (pages < MIN_PAGES)
+    fail("Page count", `${pages} is below the ${MIN_PAGES}-page minimum`);
   else if (trim && pages > trim.maxBlackWhite) {
     fail(
       "Page count",
@@ -143,7 +144,10 @@ async function main() {
         `in black ink on white paper. A 6 x 9 trim allows 828.`
     );
   } else if (trim) {
-    pass("Page count", `${pages} within the ${trim.maxBlackWhite}-page maximum for this trim`);
+    pass(
+      "Page count",
+      `${pages} within the ${trim.maxBlackWhite}-page maximum for this trim`
+    );
   }
 
   // ---- fonts ----
@@ -189,7 +193,9 @@ async function main() {
       else if (imageOps.has(fn)) {
         placements++;
         const args = ops.argsArray[i] as [string, number, number];
-        const obj = page.objs.has(args[0]) ? (page.objs.get(args[0]) as { width?: number; kind?: number }) : null;
+        const obj = page.objs.has(args[0])
+          ? (page.objs.get(args[0]) as { width?: number; kind?: number })
+          : null;
         const px = obj?.width ?? args[1];
         // An image is drawn into a unit square scaled by the CTM.
         const placedIn = Math.abs(ctm[0]!) / PT_PER_IN;
@@ -230,7 +236,10 @@ async function main() {
         `raises the limit but turns every figure grey.`
     );
   } else if (colour) {
-    pass("Colour page count", `colour interior within the ${MAX_PAGES_COLOUR}-page maximum`);
+    pass(
+      "Colour page count",
+      `colour interior within the ${MAX_PAGES_COLOUR}-page maximum`
+    );
   }
 
   // ---- margins ----

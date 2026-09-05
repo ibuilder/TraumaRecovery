@@ -208,14 +208,8 @@ The original list follows.
     handling) and the PDF markdown walker (headings, ordered lists, tables, chart blocks).
   - A Playwright smoke suite that walks every route asserting no console errors and the
     expected chart count — the same sweep used to verify Phase 0, promoted into CI.
-- **No linter or formatter.** Add ESLint (`react-hooks`, `jsx-a11y`) and Prettier, and run
-  both in CI. `jsx-a11y` would likely have caught several Phase 3 items already.
-- **Decide what the Express server is for.** It currently serves one `/api/health` endpoint
-  and a static directory. If Pages is the deployment target, either delete `server/`,
-  `drizzle.config.ts`, the unused `MemStorage`/`users` table, and the ~15 unused backend
-  dependencies (`passport`, `express-session`, `connect-pg-simple`, `pg`, `drizzle-orm`,
-  `memorystore`, `ws`) — or keep it and give it a stated purpose. Right now it is scaffolding
-  that implies a database that does not exist.
+- ~~**No linter or formatter**~~ and ~~**decide what the Express server is for**~~ — both
+  done on 2026-09-04; see the two entries at the end of this phase.
 - **Prune unused UI.** ~45 shadcn/ui components are vendored; a handful are used. They are
   tree-shaken out of the bundle but they are still code to maintain and to audit.
 - **`attached_assets/` (22 MB).** It holds two identical copies of a third-party treatment
@@ -240,6 +234,145 @@ The original list follows.
 
 ---
 
+### A linter and a formatter (done, 2026-09-04)
+
+ESLint 10 with `jsx-a11y` and `react-hooks`, plus Prettier and
+`eslint-config-prettier`; both run first in the CI `check` job, being the
+cheapest signal there by two orders of magnitude. The config is a guard rather
+than a style council: what it protects is the accessibility work, none of which
+a typecheck can see. `role="application"` needed a hand-written
+`no-restricted-syntax` selector, since no `jsx-a11y` rule flags it on a `div`.
+
+The whole config was negative-tested before being trusted — a probe file with
+one deliberate violation per rule, checked to fail, then deleted.
+
+Its first run over the codebase found nine things, of which one was a real hole
+in another guard: `validate:content` ended its figure-matching regex with `\Z`,
+which is not a JavaScript anchor and matched a literal "Z", so the last exported
+figure in the file was never checked. Also a cascading render on every chapter
+navigation, a dead variable in the PDF chapter opener, eleven `any`s, and
+`require()` in an ESM package. All fixed and verified; 107 tests pass.
+
+`eslint-plugin-react-refresh` was tried and dropped — its only findings were the
+vendored UI kit's own convention, and seven permanent warnings teach people to
+ignore lint output.
+
+### The Express server is gone (done, 2026-09-04)
+
+The answer to "give it a purpose or delete it" was delete. It served one
+`/api/health` endpoint that nothing called, a static directory that GitHub Pages
+serves instead, a `MemStorage` for a `users` table nothing imported, and a
+`drizzle.config.ts` that threw unless `DATABASE_URL` was set — for a database
+that never existed. The only live function was `npm run dev`, which is plain
+`vite` now (port 5173 rather than 5000; the 5000 was the original host's
+firewall constraint, not a choice).
+
+`shared/schema.ts` kept its content types but lost zod. Nothing ever called
+`.parse()` on those schemas — the chapter modules are TypeScript source checked
+at compile time, not untrusted input off a wire — so the runtime validator was
+buying a guarantee the compiler already gave. They are plain types.
+
+Nine dependencies went with it: `express`, `@types/express`, `nanoid`,
+`drizzle-orm`, `drizzle-zod`, `drizzle-kit`, `zod`, `pg` and `date-fns`. The last
+two were reachable from nothing at all — the earlier prune missed them because
+its glob did not cover `shared/schema.ts` and `drizzle.config.ts`.
+
+Two footguns went too. `script/build.ts` opened with `rm -rf dist` and rebuilt
+without a base path, so running it after `build:pages` made every route serve
+the 404 body and all 107 tests fail for one reason that looked like 107 — the
+trap the README had to warn about. It only existed to bundle the server, so it
+is deleted and `build:pages` is the only build. And `vite.config.ts` still
+aliased `@assets` to `attached_assets`, a directory removed in the history
+rewrite.
+
+Verified: lint, typecheck, format, the Pages preflight, `npm run dev` fetched
+and serving, and 107 browser tests against a real production build.
+
+### Figures load only on the pages that show one (done, 2026-09-04)
+
+The chart registry is `import * as charts` over `trauma-charts`, so anything
+importing it pulls all ninety-one figures and Recharts with them. The markdown
+renderer imported it statically, and every chapter page loads the markdown
+renderer — so **a route with four figures and a route with none downloaded
+byte-identical JavaScript**. Measured against the real built site rather than
+inferred: 155.1 kB of chart registry on
+`/chapter/basic-recovery/subchapter/what-is-trauma`, which has no figure on it,
+out of 367.9 kB total. 42 per cent of the page, for nothing.
+
+Now `lazy` per figure name, memoised so a re-render of the surrounding prose
+does not remount the figure and replay its entry animation, behind a
+placeholder that reserves the figure box so the prose below does not jump.
+
+Measured across all 89 routes, before and after, by driving a browser at the
+built site and summing the gzipped bytes of every script it requests:
+
+| | before | after |
+|---|---|---|
+| 33 routes with no figure | 326 kB avg | **181 kB avg** |
+| 56 routes with figures | 343 kB avg | 343 kB avg |
+| whole site | 29.3 MB | **24.6 MB** |
+
+No route got heavier. The test suite also runs a minute faster, for the same
+reason.
+
+**The file was not split, and the measurement is why.** Splitting it would only
+help the figure-bearing routes, and a probe build carrying one chart instead of
+ninety-one came to 106.7 kB gzipped against 155.1 kB. Recharts is a 107 kB floor
+that no amount of chunking touches; all ninety-one chart definitions together
+are the other 48 kB, about half a kilobyte each. So per-chart chunks would save
+a figure route ~46 kB at best — 13 per cent — in exchange for ninety-one modules
+and a mechanical rewrite of 5,379 lines with sixty-eight working figures in it.
+Not worth it at that price. The lever for figure routes is Recharts itself, and
+that is a different and much larger job.
+
+What remains is a maintainability argument rather than a reader-facing one:
+`trauma-charts.tsx` is still 5,379 lines. Worth splitting when something else
+needs to touch it, not on its own account.
+
+### Per-chapter PDF export (done, 2026-09-05)
+
+A chapter downloads as its own PDF from its own page: the chapter's cover under
+the book's name, its own contents and list of figures, only the references its
+text cites, and the crisis resources. Not a filtered copy of the book — nothing
+about the other thirteen chapters is loaded, and only the figures on its pages
+are captured.
+
+Measured by clicking the real button on the built site:
+
+| | figures | time |
+|---|---|---|
+| Whole book | 88 | **164 s** |
+| Chapter 1, the figure-heaviest | 17 | 53 s |
+| Chapter 12 | 4 | 8.8 s |
+| Chapter 14 | 1 | 2.9 s |
+
+The item said the full book takes "about 90 seconds". It takes 164; that number
+was written when the book was 679 pages and 56 figures, and it is now 734 and 88.
+Export time is almost entirely figure capture, so a chapter costs roughly two
+seconds per figure it contains.
+
+The offprint drops the author's note, which speaks for the whole book, and keeps
+the crisis resources, which is the point — an excerpt of a trauma-recovery book
+that loses the 988 line is worse than no excerpt. `tests/chapter-pdf.spec.ts`
+holds that, and the first draft of it did not: it exported the Resources chapter,
+whose own prose lists crisis lines, so the assertion passed with the back matter
+deleted. It now exports a chapter that mentions neither, and reads the back
+matter specifically. Negative-tested by removing the crisis block and watching
+it fail.
+
+Two things fell out of the work:
+
+- **The accessibility sweep had been quietly under-covering since figures went
+  lazy.** `settle()` counted `figure` elements and skipped its own wait when it
+  found none — which is what happens before the chunk lands. It read 73 figures
+  instead of 90-odd under parallel load and passed anyway on a quiet machine. It
+  now waits for every placeholder to resolve.
+- **`data-chart` was two different attributes.** The vendored `ChartContainer`
+  puts `data-chart={chartId}` on its own wrapper to scope the CSS variables it
+  emits, so `[data-chart]` matched both figure placements and chart internals.
+  The EPUB build only survived it by filtering to known component names. The
+  placement marker is `data-chart-slot` now and the collision is gone.
+
 ## Phase 5 — The printed book (done)
 
 Not in the original plan, because the PDF was assumed to be a byproduct. It is the
@@ -262,9 +395,9 @@ the repository.
 **Verification:** the book is generated end to end, every page's text geometry is read
 back with pdfjs, and pages are rendered to PNG and looked at. A clean text layer is not
 a clean book — mid-animation charts, stranded headings and the folio offset all extracted
-perfectly and were visibly wrong on the page. Current state: 718 pages, 92 figure
-placements, 0 stranded headings, every folio matching its physical page, all 14 contents
-entries and all 78 figure-list entries resolving correctly.
+perfectly and were visibly wrong on the page. Current state, measured 2026-09-05:
+734 pages, 102 figure placements, 15 PDF bookmarks, 0 stranded headings, and every folio
+matching its physical page.
 
 ---
 
@@ -276,7 +409,7 @@ served the way Pages serves it, in its own CI job.
 
 | Spec | What it holds |
 |------|---------------|
-| `site.spec.ts` | All 90 routes, derived from the manifest rather than listed: no console error, no React key warning, no blank `<main>`, no unresolved chart placeholder, and a figure count matching the route's own markdown. Then search, the skip link, and `prefers-reduced-motion` |
+| `site.spec.ts` | All 89 routes, derived from the manifest rather than listed: no console error, no React key warning, no blank `<main>`, no unresolved chart placeholder, and a figure count matching the route's own markdown. Then search, the skip link, and `prefers-reduced-motion` |
 | `book.spec.ts` | The book generated through the site's own download button, then every page's geometry read back with pdf.js: folios against physical pages, stranded headings, characters per line, contents and figure-list entries resolving, references gathered at the back, no placeholder identifiers |
 
 103 tests, about ninety seconds of which is generating the book.
@@ -297,6 +430,11 @@ skip link had no single target.
 
 Everything above is history. This is the queue, top first. Each item says why it is
 where it is, so the order can be argued with.
+
+**Every item left needs the author.** The developer queue emptied on 2026-09-05: the
+linter, the Express server, the figure payload and per-chapter PDF export all landed,
+and nothing remaining can be done by reading the code. Item 1 is one email. Items 2 and
+3 are decisions only Matthew can make, and item 4 needs a budget.
 
 ### 1. Ask GitHub to garbage-collect the old objects
 
@@ -342,34 +480,7 @@ stated twice: 734 pages fits no trim it could be printed at. See
 recommendation (two volumes at 6×9). A cover and an ISBN both wait on it. **Needs the
 author.** The Kindle EPUB depends on none of this and can go up today.
 
-### 4. A linter and a formatter
-
-ESLint with `react-hooks` and `jsx-a11y`, plus Prettier. Worth more now than it was:
-the accessibility work put real invariants into the code — `inert` on decorative
-drawings, labelled landmarks, no heading-order skips — and `jsx-a11y` catches a
-regression at the keystroke rather than at the axe sweep six minutes into CI.
-
-### 5. Split `trauma-charts.tsx`
-
-Over 5,000 lines and 91 figures in one chunk, where a typical chapter shows one to
-four. The home page no longer pays for it (349 kB → 194 kB gzipped, measured), but the
-31 chapter routes carrying no figures still do — 155 kB each. Fixing it wants a
-Suspense boundary per figure placement, and the risk to watch is visible flicker on a
-page someone is reading, so it needs measuring rather than assuming.
-
-### 6. Decide what the Express server is for
-
-One `/api/health` endpoint and a static directory, plus a `drizzle.config.ts` and an
-unused `users` table implying a database that does not exist. Either give it a purpose
-or delete it and the four dependencies (`drizzle-orm`, `drizzle-zod`, `pg`, `zod`) that
-exist only to serve it.
-
-### 7. Per-chapter PDF export
-
-The full book takes about 90 seconds; most readers want one chapter, and the generator
-already works chapter by chapter internally.
-
-### 8. An audio edition
+### 4. An audio edition
 
 A trauma-recovery book has readers who cannot comfortably read: people mid-crisis,
 people with dyslexia, people who would listen on a commute and never open a browser.
@@ -441,5 +552,7 @@ personal GitHub profile, not a book. `charlax/professional-programming` is a rea
 list rather than a tool.
 
 **Taken** — `gitleaks/gitleaks` is now the `secrets` job in CI. `assemblyai.com` is
-speech-to-text rather than text-to-speech, so it is not the vendor for item 9, but
-raising it is what put the audio edition on the list at all.
+speech-to-text rather than text-to-speech, so it is not the vendor for the audio
+edition, but raising it is what put that on the list at all. `ruff` and `sqlfluff`
+have no Python or SQL to lint here; the equivalent for this codebase is the ESLint
+and Prettier setup, which is done.

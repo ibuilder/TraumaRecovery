@@ -21,8 +21,10 @@ interface Finding {
   detail: string;
 }
 const findings: Finding[] = [];
-const pass = (label: string, detail: string) => findings.push({ ok: true, label, detail });
-const fail = (label: string, detail: string) => findings.push({ ok: false, label, detail });
+const pass = (label: string, detail: string) =>
+  findings.push({ ok: true, label, detail });
+const fail = (label: string, detail: string) =>
+  findings.push({ ok: false, label, detail });
 
 function normalizeBase(value: string | undefined): string {
   if (!value || value === "/") return "/";
@@ -31,7 +33,9 @@ function normalizeBase(value: string | undefined): string {
 
 function main() {
   const flag = process.argv.indexOf("--base");
-  const base = normalizeBase(flag === -1 ? process.env.VITE_BASE_PATH : process.argv[flag + 1]);
+  const base = normalizeBase(
+    flag === -1 ? process.env.VITE_BASE_PATH : process.argv[flag + 1]
+  );
 
   if (!existsSync(OUT)) {
     console.error(`No build at ${OUT}. Run \`npm run build:pages\` first.`);
@@ -55,7 +59,11 @@ function main() {
   if (existsSync(path.join(OUT, "404.html"))) {
     const notFound = readFileSync(path.join(OUT, "404.html"), "utf8");
     if (notFound === index) pass("404 fallback", "carries the SPA shell");
-    else fail("404 fallback", "404.html differs from index.html; the router will not pick it up");
+    else
+      fail(
+        "404 fallback",
+        "404.html differs from index.html; the router will not pick it up"
+      );
   }
 
   // The check this script exists for.
@@ -80,8 +88,13 @@ function main() {
     const missing = assetRefs.filter(
       (r) => !existsSync(path.join(OUT, r.slice(base.length)))
     );
-    if (missing.length === 0) pass("Asset references", `all ${assetRefs.length} resolve on disk`);
-    else fail("Asset references", `${missing.length} point at missing files, first ${missing[0]}`);
+    if (missing.length === 0)
+      pass("Asset references", `all ${assetRefs.length} resolve on disk`);
+    else
+      fail(
+        "Asset references",
+        `${missing.length} point at missing files, first ${missing[0]}`
+      );
   }
 
   // Self-hosted fonts are a privacy property, and privacy properties rot
@@ -101,8 +114,13 @@ function main() {
       thirdParty.add(host);
     }
   }
-  if (thirdParty.size === 0) pass("No third-party assets", "nothing is fetched off-origin");
-  else fail("No third-party assets", `the page reaches out to ${[...thirdParty].join(", ")}`);
+  if (thirdParty.size === 0)
+    pass("No third-party assets", "nothing is fetched off-origin");
+  else
+    fail(
+      "No third-party assets",
+      `the page reaches out to ${[...thirdParty].join(", ")}`
+    );
 
   const fonts = assetFiles.filter((f) => f.endsWith(".woff2"));
   if (fonts.length > 0) pass("Fonts", `${fonts.length} self-hosted woff2 files`);
@@ -111,8 +129,10 @@ function main() {
   if (existsSync(assetDir)) {
     const chunks = assetFiles.filter((f) => f.endsWith(".js"));
     const empty = chunks.filter((f) => statSync(path.join(assetDir, f)).size === 0);
-    if (chunks.length < 10) fail("Chunks", `only ${chunks.length} JS chunks; the book is split per chapter`);
-    else if (empty.length) fail("Chunks", `${empty.length} are zero bytes, first ${empty[0]}`);
+    if (chunks.length < 10)
+      fail("Chunks", `only ${chunks.length} JS chunks; the book is split per chapter`);
+    else if (empty.length)
+      fail("Chunks", `${empty.length} are zero bytes, first ${empty[0]}`);
     else pass("Chunks", `${chunks.length} JS chunks, none empty`);
   } else {
     fail("Chunks", "dist/public/assets is missing");

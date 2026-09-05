@@ -68,7 +68,9 @@ test.describe("search", () => {
     await result.click();
 
     await expect(page).toHaveURL(/\/chapter\/addiction-recovery/);
-    await expect(page.getByRole("heading", { name: /urge surfing/i }).first()).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: /urge surfing/i }).first()
+    ).toBeVisible();
   });
 
   test("says so rather than showing nothing when a term is absent", async ({ page }) => {
@@ -81,7 +83,9 @@ test.describe("search", () => {
 });
 
 test.describe("accessibility", () => {
-  test("the skip link is the first tab stop and moves focus to the content", async ({ page }) => {
+  test("the skip link is the first tab stop and moves focus to the content", async ({
+    page,
+  }) => {
     await page.route("**://fonts.g*/**", (r) => r.abort());
     await page.goto(sitePath("/chapter/dbt"), { waitUntil: "load" });
 

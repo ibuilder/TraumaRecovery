@@ -4,7 +4,8 @@ export const dysfunctionalFamiliesChapter: Chapter = {
   id: "4",
   title: "Dysfunctional Families",
   slug: "dysfunctional-families",
-  description: "Recognize patterns from your family of origin and learn to break generational cycles.",
+  description:
+    "Recognize patterns from your family of origin and learn to break generational cycles.",
   icon: "Home",
   order: 4,
   readingTime: "45 min read",

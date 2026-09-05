@@ -3,8 +3,8 @@
 *A Practical Guide to Trauma Recovery for Ordinary People* by Matthew M. Emma.
 
 A static-first React reading app that presents the full book: 14 chapters, 73 subchapters,
-91 figures and data visualisations, a downloadable print-ready PDF of the whole thing, and
-a reflowable EPUB for Kindle.
+88 figures placed across 102 positions, a downloadable print-ready PDF of the whole thing or
+of any single chapter, and a reflowable EPUB for Kindle.
 
 > **This content is educational and is not a substitute for professional mental health care.**
 > If you are in crisis, call or text **988** (US Suicide & Crisis Lifeline).
@@ -17,11 +17,15 @@ a reflowable EPUB for Kindle.
 ## Features
 
 - **14 chapters / 73 subchapters** of markdown content (~119,000 words) rendered with `react-markdown` + GFM
-- **91 figures** embedded in the prose via a ` ```chart:ChartName``` ` placeholder — Recharts plots for data, and hand-built SVG/markup for diagrams. Every one is readable without seeing it: the plots carry their numbers as a table, the diagrams describe themselves (see [Reading the figures](#reading-the-figures-without-seeing-them))
-- **Full-book PDF export** generated in the browser — a typeset 718-page book with a cover,
+- **88 figures** embedded in the prose via a ` ```chart:ChartName``` ` placeholder (91 are defined; `validate:content` warns about the three no chapter places) — Recharts plots for data, and hand-built SVG/markup for diagrams. Every one is readable without seeing it: the plots carry their numbers as a table, the diagrams describe themselves (see [Reading the figures](#reading-the-figures-without-seeing-them))
+- **PDF export** generated in the browser — a typeset 734-page book with a cover,
   copyright page, contents and list of figures with page numbers, PDF bookmarks, running heads,
   folios, floated figures, widow and orphan control, and one bibliography at the back
-  (see [Architecture → The printed book](docs/ARCHITECTURE.md#the-printed-book))
+  (see [Architecture → The printed book](docs/ARCHITECTURE.md#the-printed-book)).
+  **Any single chapter exports the same way**, from its own page: its own cover, its own
+  contents, only the references its text cites, and the crisis resources. The whole book takes
+  about 164 seconds because it screenshots 88 figures; one chapter takes 3 to 53, depending on
+  how many figures are in it
 - **Full-text search** over every chapter and heading (`⌘K` / `Ctrl-K`), against a search index
   built at compile time and loaded on first use
 - **Continue reading** — the last place you were is offered on the home page, kept in the browser
@@ -70,7 +74,7 @@ a reflowable EPUB for Kindle.
 | Search | Compile-time index + `cmdk`, both lazy-loaded on first `⌘K` |
 | PDF | jsPDF + html2canvas, both lazy-loaded on demand |
 | Build | Vite 8 (Rolldown) |
-| Server (optional) | Express — only needed for the `/api/health` endpoint |
+| Server | None. The site is static files; `npm run dev` is plain Vite |
 
 ## Getting started
 
@@ -78,15 +82,19 @@ Requires Node.js 20.19+ (CI and the deploy workflow run 22).
 
 ```bash
 npm install
-npm run dev          # http://localhost:5000
+npm run dev          # http://localhost:5173
 ```
 
 ### Scripts
 
 | Script | What it does |
 |--------|--------------|
-| `npm run dev` | Express + Vite middleware dev server on `PORT` (default 5000) |
+| `npm run dev` | Vite dev server on 5173 (`npm run dev -- --port 3000` to change it) |
 | `npm run check` | TypeScript typecheck |
+| `npm run lint` | ESLint — see [Lint](#lint) for what it is guarding |
+| `npm run lint:fix` | The same, applying what can be fixed automatically |
+| `npm run format` | Format with Prettier |
+| `npm run format:check` | Fail if anything is unformatted (this is what CI runs) |
 | `npm run validate:content` | Structural checks on the book content (see below) |
 | `npm run manifest` | Regenerate `lib/chapters/manifest.ts` from the chapter modules |
 | `npm run book-fonts` | Re-subset the embedded Liberation Serif from the system fonts |
@@ -99,9 +107,7 @@ npm run dev          # http://localhost:5000
 | `npm run test:site` | Just the route sweep and search (~35 s) |
 | `npm run test:book` | Just the printed-book checks (~90 s) |
 | `npm run serve:static` | Serve `dist/public` the way GitHub Pages does |
-| `npm run build` | Full build: static client + bundled Express server → `dist/`. **Wipes `dist/` and rebuilds with no base path** — run it *before* `build:pages`, never after |
-| `npm run build:pages` | Static-only build for GitHub Pages → `dist/public/` |
-| `npm start` | Run the production Express build |
+| `npm run build:pages` | The build. Static site → `dist/public/`; set `VITE_BASE_PATH` for a project site |
 
 ## Tests
 
@@ -114,11 +120,15 @@ Playwright, against a real production build served the way GitHub Pages serves i
 base path and `404.html` fallback included. Every defect these catch only appears in the
 built, base-pathed site.
 
-The build has to be the base-pathed one. `npm run build` starts with `rm -rf dist`, so
-running it after `build:pages` leaves `dist/public` with `/assets/…` URLs, the static
-server answers every route with its 404 body, and all 107 tests fail for one reason that
-looks like 107 reasons. `npm run check:pages` catches exactly this — run it between the
-build and the tests.
+The build has to be the base-pathed one, so build with `VITE_BASE_PATH` set and run
+`npm run check:pages` between the build and the tests. A base-path mistake makes the
+static server answer every route with its 404 body, and all 108 tests fail for one
+reason that looks like 108 reasons.
+
+There used to be a second way into that state: a `npm run build` that opened with
+`rm -rf dist` and rebuilt without a base path, silently undoing `build:pages`. It
+built the Express server, which no longer exists, so it is gone and `build:pages` is
+the only build.
 
 - **`tests/site.spec.ts`** walks all 89 routes, derived from the manifest rather than
   listed, and fails on a console error, a React key warning, a blank `<main>`, an
@@ -136,6 +146,25 @@ build and the tests.
   cannot: that every figure has an accessible name, that every drawing hands over
   its content — as a data table or as its own `<desc>` — and that no drawing takes
   a Tab stop.
+
+### Lint
+
+`eslint.config.js` is a guard, not a style council — formatting is Prettier's job
+and `eslint-config-prettier` turns off everything that would argue with it.
+
+What it is actually protecting is the accessibility work, because none of it is
+visible to a typecheck. A chart drawing has to stay `inert`, every landmark has to
+keep its label, a figure has to carry its numbers somewhere a screen reader can
+reach, and `role="application"` — the attribute that made 68 figures unreadable —
+must never be written by hand. `jsx-a11y` catches most of that at the keystroke
+instead of six minutes into CI, where the axe sweep runs.
+
+One rule is spelled out by hand: no `jsx-a11y` rule flags `role="application"` on
+a `div`, because a `div` is generic and no rule treats the role as a downgrade. It
+is a `no-restricted-syntax` selector instead.
+
+Lint and format run first in the `check` job. They are the cheapest signal there by
+two orders of magnitude, so a bad push fails in seconds rather than after a build.
 
 ```bash
 npm run check:pages     # is the built site actually servable from Pages?
@@ -236,8 +265,8 @@ have rather than downloading: `PLAYWRIGHT_CHROMIUM_PATH=/path/to/chrome npm test
 
 ## Deploying to GitHub Pages
 
-The site is a pure SPA — nothing on the page needs the Express server — so it deploys to
-GitHub Pages as static files.
+The site is a pure SPA with no backend at all, so it deploys to GitHub Pages as
+static files.
 
 1. In the repository, go to **Settings → Pages** and set **Source** to **GitHub Actions**.
 2. Push to `main`. [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml)
@@ -258,9 +287,8 @@ To build the static site locally:
 VITE_BASE_PATH=/traumarecovery/ npm run build:pages
 ```
 
-Deploying anywhere that serves from the domain root (Netlify, Vercel, S3, the bundled Express
-server) needs no base path — leave `VITE_BASE_PATH` unset and add a rewrite of all paths to
-`index.html`.
+Deploying anywhere that serves from the domain root (Netlify, Vercel, S3) needs no base
+path — leave `VITE_BASE_PATH` unset and add a rewrite of all paths to `index.html`.
 
 ## Project structure
 
@@ -271,7 +299,7 @@ client/
     ├── App.tsx                     # routes, providers, base-path-aware router
     ├── components/
     │   ├── markdown-renderer.tsx   # markdown → React, resolves chart placeholders
-    │   ├── pdf-generator.tsx       # full-book PDF export and typesetting
+    │   ├── pdf-generator.tsx       # PDF export and typesetting, book or one chapter
     │   ├── trauma-charts.tsx       # all 81 figure components
     │   ├── search-dialog.tsx       # ⌘K search over the compile-time index
     │   ├── crisis-dialog.tsx       # crisis resources, reachable from the header
@@ -285,10 +313,8 @@ client/
     │   ├── reading-position.ts     # the "continue reading" bookmark
     │   └── scroll-to-anchor.ts     # deep links into lazily-loaded chapters
     └── pages/                      # home, chapters index, chapter, 404
-server/                             # Express host for the non-static deployment
 shared/schema.ts                    # Chapter / Subchapter / BookInfo types
 script/
-├── build.ts                        # client + server build
 ├── build-pages.ts                  # static build for GitHub Pages
 ├── serve-static.ts                 # serves dist/public the way Pages does
 ├── generate-manifest.ts            # writes lib/chapters/manifest.ts

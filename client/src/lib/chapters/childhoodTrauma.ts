@@ -4,7 +4,8 @@ export const childhoodTraumaChapter: Chapter = {
   id: "5",
   title: "Childhood Trauma",
   slug: "childhood-trauma",
-  description: "Understand how early experiences shape us and begin healing your inner child.",
+  description:
+    "Understand how early experiences shape us and begin healing your inner child.",
   icon: "Baby",
   order: 5,
   readingTime: "50 min read",

@@ -41,7 +41,12 @@ export function Header() {
         <div className="flex items-center gap-2 flex-wrap">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden" data-testid="button-mobile-menu">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                data-testid="button-mobile-menu"
+              >
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
@@ -49,7 +54,11 @@ export function Header() {
             <SheetContent side="left" className="w-80 p-0">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="p-4 border-b">
-                <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2">
+                <Link
+                  href="/"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-2"
+                >
                   <Logo className="h-6 w-6" />
                   <span className="font-semibold">{bookInfo.title}</span>
                 </Link>
@@ -72,7 +81,9 @@ export function Header() {
                       href={`/chapter/${chapter.slug}`}
                       onClick={() => setOpen(false)}
                       className={`block px-3 py-2 rounded-md text-sm transition-colors hover-elevate ${
-                        location === `/chapter/${chapter.slug}` ? "bg-accent font-medium" : ""
+                        location === `/chapter/${chapter.slug}`
+                          ? "bg-accent font-medium"
+                          : ""
                       }`}
                       data-testid={`link-chapter-mobile-${chapter.slug}`}
                     >
@@ -84,7 +95,11 @@ export function Header() {
             </SheetContent>
           </Sheet>
 
-          <Link href="/" className="flex items-center gap-2" data-testid="link-home-header">
+          <Link
+            href="/"
+            className="flex items-center gap-2"
+            data-testid="link-home-header"
+          >
             <Logo className="h-6 w-6" />
             <span className="font-semibold hidden sm:inline-block">{bookInfo.title}</span>
           </Link>
