@@ -86,3 +86,27 @@ jobs:
       # that makes that a red build instead of a message.
       - name: Check the deployed site is the book
         run: npx tsx script/check-deployed-site.ts "${{ steps.deployment.outputs.page_url }}"
+
+      # Whether the book *stays* live comes down to one repository setting, and
+      # nothing else in a green run reveals it. With Pages set to "Deploy from a
+      # branch", GitHub runs its own Jekyll build of the repository root on every
+      # push as well as this workflow, and whichever deployment finishes last
+      # wins. This workflow can publish the book, pass the check above, and still
+      # be overwritten seconds later -- which is exactly what happened, twice,
+      # with different winners. The check above sees a snapshot; this sees the
+      # cause. It runs after the deploy so a wrong setting reports the problem
+      # rather than withholding the site.
+      - name: Check Pages deploys from this workflow, not a branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          build_type=$(curl -sS \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pages" \
+            | jq -r '.build_type // "unknown"')
+          echo "Pages build type: $build_type"
+          if [ "$build_type" != "workflow" ]; then
+            echo "::error::Pages source is \"$build_type\", not \"workflow\". GitHub's built-in Jekyll build is still publishing the repository root over this deployment, and whichever finishes last wins, so the live site is a coin flip. Fix it at Settings -> Pages -> Build and deployment -> Source -> GitHub Actions."
+            exit 1
+          fi
