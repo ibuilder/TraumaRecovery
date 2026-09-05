@@ -7,6 +7,31 @@ decision for Matthew rather than a change anyone can make in code.
 
 ## Unreleased
 
+### The tests now use the base path the site is actually deployed at
+
+CI built and served the site at `/traumarecovery/`. The deploy workflow derives
+its base from `github.event.repository.name`, which is `/TraumaRecovery/`.
+**GitHub Pages project-site paths are case-sensitive, so the suite had been
+validating a configuration that is not the one that ships.**
+
+Nothing was broken in production -- the router reads its base from
+`import.meta.env.BASE_URL`, so the site is internally consistent whichever casing
+it is built with -- but the tests were not exercising the deployed path, and the
+mismatch was a live trap. It caught me: rebuilding with the real casing to take
+the README screenshots left `dist/public` serving assets under `/TraumaRecovery/`
+while the suite served `/traumarecovery/`, so all 108 tests failed inside 400 ms
+each, for one reason that looked like a hundred broken pages.
+
+Everything now derives from `BASE_PATH` in `playwright.config.ts`, set to the
+repository's real casing: the four occurrences in `ci.yml`, the EPUB build, the
+static server's default, the Pages preflight, and the three build commands in the
+README. `capture-screenshots.ts` imports it rather than declaring its own, which
+is the part that stops this happening again -- that script and the suite serve
+the same built site, and they no longer have two opinions about where it lives.
+
+Verified: 108 browser tests against a build at the new base, the Pages preflight
+8/8, and the Kindle edition rebuilt -- 88 figures, 102 placements, 18/18.
+
 ### The README leads with the book
 
 It opened with the architecture. Anyone arriving from a shared link met the tech stack

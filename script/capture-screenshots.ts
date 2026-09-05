@@ -15,9 +15,13 @@
 import { chromium, type Page } from "@playwright/test";
 import { spawn } from "node:child_process";
 import { setTimeout as sleep } from "node:timers/promises";
+import { BASE_PATH } from "../playwright.config";
 
+// Its own port, so this can run while the tests are running. The base path is
+// imported rather than repeated: this script and the suite serve the same built
+// site, and when they disagreed about it every test failed at once for a reason
+// that looked like a hundred broken pages.
 const PORT = 4188;
-const BASE_PATH = "/TraumaRecovery";
 const BASE = `http://localhost:${PORT}${BASE_PATH}`;
 const OUT = "docs/images";
 const CHAPTER = `${BASE}/chapter/basic-recovery/subchapter/window-of-tolerance`;

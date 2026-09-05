@@ -7,7 +7,11 @@ import { defineConfig, devices } from "@playwright/test";
  * load, a deep link that 404s, a chart captured mid-animation) only appears
  * in the built, base-pathed site.
  */
-export const BASE_PATH = "/traumarecovery";
+// The casing matters and is not cosmetic: GitHub Pages serves a project site
+// from /<repo>/ and those paths are case-sensitive, so testing "/traumarecovery"
+// while deploying "/TraumaRecovery" exercises a configuration that is not the one
+// that ships. Everything else derives from here.
+export const BASE_PATH = "/TraumaRecovery";
 const PORT = 4173;
 
 /**

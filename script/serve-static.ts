@@ -8,7 +8,7 @@
  * behaviour instead — including the base path, since a project site lives at
  * `https://<owner>.github.io/<repo>/` and the router reads that prefix.
  *
- *   npx tsx script/serve-static.ts [--port 4173] [--base /traumarecovery]
+ *   npx tsx script/serve-static.ts [--port 4173] [--base /TraumaRecovery]
  */
 import http from "node:http";
 import fs from "node:fs";
@@ -25,7 +25,7 @@ function arg(name: string, fallback: string): string {
 
 const PORT = Number(arg("port", "4173"));
 /** Normalised to a leading slash and no trailing one; "" serves from the root. */
-const BASE = arg("base", "/traumarecovery").replace(/\/+$/, "");
+const BASE = arg("base", "/TraumaRecovery").replace(/\/+$/, "");
 
 const TYPES: Record<string, string> = {
   ".html": "text/html; charset=utf-8",

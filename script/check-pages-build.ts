@@ -3,12 +3,12 @@
  *
  * The failure this exists for is silent and total: build without
  * `VITE_BASE_PATH` and every asset URL comes out as `/assets/…` instead of
- * `/traumarecovery/assets/…`. The build succeeds, the HTML is valid, the files
+ * `/TraumaRecovery/assets/…`. The build succeeds, the HTML is valid, the files
  * are all there — and the deployed site is a blank white page, because the
  * browser asks the origin for a path Pages does not serve. Nothing in the build
  * log says a word about it.
  *
- *   npm run check:pages [--base /traumarecovery/]
+ *   npm run check:pages [--base /TraumaRecovery/]
  */
 import { existsSync, readFileSync, readdirSync, statSync } from "fs";
 import path from "path";

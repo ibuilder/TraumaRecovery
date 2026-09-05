@@ -178,7 +178,7 @@ npm run dev          # http://localhost:5173
 ## Tests
 
 ```bash
-VITE_BASE_PATH=/traumarecovery/ npm run build:pages
+VITE_BASE_PATH=/TraumaRecovery/ npm run build:pages
 npm test
 ```
 
@@ -307,7 +307,7 @@ does not, and what would have to change.
 ### The Kindle edition
 
 ```bash
-VITE_BASE_PATH=/traumarecovery/ npm run build:pages
+VITE_BASE_PATH=/TraumaRecovery/ npm run build:pages
 npm run epub && npm run check:epub
 ```
 
@@ -350,7 +350,7 @@ The workflow handles the three things a SPA needs on Pages:
 To build the static site locally:
 
 ```bash
-VITE_BASE_PATH=/traumarecovery/ npm run build:pages
+VITE_BASE_PATH=/TraumaRecovery/ npm run build:pages
 ```
 
 Deploying anywhere that serves from the domain root (Netlify, Vercel, S3) needs no base

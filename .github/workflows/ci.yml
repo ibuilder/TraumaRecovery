@@ -42,14 +42,14 @@ jobs:
       - name: Build static site
         run: npm run build:pages
         env:
-          VITE_BASE_PATH: /traumarecovery/
+          VITE_BASE_PATH: /TraumaRecovery/
 
       # The same check the deploy runs, so a base-path or chunking fault shows
       # up on the pull request rather than as a blank page after merge.
       - name: Check the build is servable
         run: npm run check:pages
         env:
-          VITE_BASE_PATH: /traumarecovery/
+          VITE_BASE_PATH: /TraumaRecovery/
 
   test:
     name: Browser tests
@@ -72,7 +72,7 @@ jobs:
       - name: Build static site
         run: npm run build:pages
         env:
-          VITE_BASE_PATH: /traumarecovery/
+          VITE_BASE_PATH: /TraumaRecovery/
 
       - name: Run tests
         run: npm test
@@ -144,7 +144,7 @@ jobs:
       - name: Build static site
         run: npm run build:pages
         env:
-          VITE_BASE_PATH: /traumarecovery/
+          VITE_BASE_PATH: /TraumaRecovery/
 
       # The ebook comes from the same chapter markdown and the same rendered
       # figures, so a change that breaks it breaks it here rather than at upload.
