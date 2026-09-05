@@ -29,7 +29,7 @@ const ROOT = path.resolve(import.meta.dirname, "..");
 const STAGE = path.join(ROOT, "dist", "epub");
 const OUT = path.join(ROOT, "dist", "healing-together.epub");
 const PORT = 4181;
-const BASE = "/traumarecovery";
+const BASE = "/TraumaRecovery";
 
 /** Stable across rebuilds so a reader's library entry is not duplicated. */
 const BOOK_ID = "urn:uuid:6f1b9e2c-3d47-4a58-9c1e-2b7f0a5d8e34";

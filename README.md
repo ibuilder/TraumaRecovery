@@ -1,13 +1,57 @@
-# Healing Together — Trauma Recovery Book Website
+<div align="center">
 
-*A Practical Guide to Trauma Recovery for Ordinary People* by Matthew M. Emma.
+![Healing Together — A Practical Guide to Trauma Recovery for Ordinary People](docs/images/social-card.png)
 
-A static-first React reading app that presents the full book: 14 chapters, 73 subchapters,
-88 figures placed across 102 positions, a downloadable print-ready PDF of the whole thing or
-of any single chapter, and a reflowable EPUB for Kindle.
+# Healing Together
 
-> **This content is educational and is not a substitute for professional mental health care.**
-> If you are in crisis, call or text **988** (US Suicide & Crisis Lifeline).
+**A Practical Guide to Trauma Recovery for Ordinary People**
+by Matthew M. Emma
+
+### [**→ Read the whole book, free**](https://ibuilder.github.io/TraumaRecovery/)
+
+14 chapters · 73 subchapters · ~119,000 words · 88 figures
+No account, no paywall, no tracking
+
+</div>
+
+> **This is educational writing, not a substitute for professional mental health care.**
+> If you are in crisis, call or text **988** (US Suicide & Crisis Lifeline), or find your
+> country's service at [findahelpline.com](https://findahelpline.com).
+
+The whole book is on the web, and it also leaves with you. From the site you can generate a
+typeset **734-page PDF** of the entire book, or of **any single chapter on its own** — both
+built in your browser, so nothing is uploaded and nothing is logged. A reflowable **EPUB for
+Kindle** is built by CI from the same source.
+
+---
+
+![The reading view: chapter sidebar, prose, and a figure with its source](docs/images/reading.png)
+
+<table>
+<tr>
+<td width="50%">
+
+**Every figure can be read without seeing it.** Each plot carries its numbers as a real
+table behind *Show the numbers*, and every diagram describes itself. This is not decoration:
+Recharts draws into an SVG marked `role="application"`, which a screen reader refuses to
+interpret — so for 68 figures the alternative was nothing at all.
+
+</td>
+<td width="50%">
+
+**Full-text search over every heading and paragraph.** `⌘K` anywhere, matched against an
+index built at compile time and loaded on first use. Results carry their chapter and
+subchapter, and land on the exact heading.
+
+</td>
+</tr>
+<tr>
+<td><img alt="A figure with its data table open, showing the numbers behind the chart" src="docs/images/figure-data-table.png"></td>
+<td><img alt="Full-text search in dark mode, showing results with chapter breadcrumbs" src="docs/images/search.png"></td>
+</tr>
+</table>
+
+---
 
 [Changelog](CHANGELOG.md) · [Architecture](docs/ARCHITECTURE.md) ·
 [Print and publishing](docs/PRINT-AND-PUBLISHING.md) · [Roadmap](docs/IMPROVEMENT-PLAN.md)
@@ -63,6 +107,27 @@ of any single chapter, and a reflowable EPUB for Kindle.
 
 `npm run validate:content` keeps this structure honest — see [Content rules](#content-rules).
 
+---
+
+### Images
+
+The screenshots above are not hand-taken. `npm run build:pages && npm run screenshots`
+regenerates all of them, plus the social card, against a real production build — the
+script spawns its own static server, so it needs nothing running first. Re-run it when
+the interface changes, or the README quietly starts advertising a version of the site
+that no longer exists.
+
+`docs/images/social-card.png` is also the repository's social preview — the card that
+appears when the link is shared. That one has to be uploaded by hand, once:
+**Settings → General → Social preview → Upload an image**. It cannot be set from a commit.
+
+---
+
+# For developers
+
+Everything below is about the implementation. If you came here for the book, the link at
+the top is all you need.
+
 ## Tech stack
 
 | Layer | Choice |
@@ -107,12 +172,13 @@ npm run dev          # http://localhost:5173
 | `npm run test:site` | Just the route sweep and search (~35 s) |
 | `npm run test:book` | Just the printed-book checks (~90 s) |
 | `npm run serve:static` | Serve `dist/public` the way GitHub Pages does |
+| `npm run screenshots` | Regenerate the README images from a built site (see [Images](#images)) |
 | `npm run build:pages` | The build. Static site → `dist/public/`; set `VITE_BASE_PATH` for a project site |
 
 ## Tests
 
 ```bash
-VITE_BASE_PATH=/traumarecovery/ npm run build:pages
+VITE_BASE_PATH=/TraumaRecovery/ npm run build:pages
 npm test
 ```
 
@@ -241,7 +307,7 @@ does not, and what would have to change.
 ### The Kindle edition
 
 ```bash
-VITE_BASE_PATH=/traumarecovery/ npm run build:pages
+VITE_BASE_PATH=/TraumaRecovery/ npm run build:pages
 npm run epub && npm run check:epub
 ```
 
@@ -284,7 +350,7 @@ The workflow handles the three things a SPA needs on Pages:
 To build the static site locally:
 
 ```bash
-VITE_BASE_PATH=/traumarecovery/ npm run build:pages
+VITE_BASE_PATH=/TraumaRecovery/ npm run build:pages
 ```
 
 Deploying anywhere that serves from the domain root (Netlify, Vercel, S3) needs no base
