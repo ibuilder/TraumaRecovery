@@ -35,7 +35,8 @@
     "test": "playwright test",
     "test:site": "playwright test tests/site.spec.ts",
     "test:book": "playwright test tests/book.spec.ts",
-    "check:pages": "tsx script/check-pages-build.ts"
+    "check:pages": "tsx script/check-pages-build.ts",
+    "check:deployed": "tsx script/check-deployed-site.ts"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.7",

@@ -167,6 +167,7 @@ npm run dev          # http://localhost:5173
 | `npm run epub` | Build the reflowable Kindle edition into `dist/` |
 | `npm run check:epub` | Preflight the EPUB against what a reading system enforces |
 | `npm run check:pages` | Check a built site is servable from Pages before deploying it |
+| `npm run check:deployed <url>` | Check a *published* URL is serving the book (runs after every deploy) |
 | `npm run search-index` | Regenerate `lib/search-index.json` from the chapter modules |
 | `npm test` | Browser tests — see [Tests](#tests) |
 | `npm run test:site` | Just the route sweep and search (~35 s) |
