@@ -31,6 +31,7 @@
     "check:epub": "tsx script/check-epub.ts",
     "validate:content": "tsx script/validate-content.ts",
     "serve:static": "tsx script/serve-static.ts",
+    "screenshots": "tsx script/capture-screenshots.ts",
     "test": "playwright test",
     "test:site": "playwright test tests/site.spec.ts",
     "test:book": "playwright test tests/book.spec.ts",

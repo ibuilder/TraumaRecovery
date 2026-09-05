@@ -7,6 +7,31 @@ decision for Matthew rather than a change anyone can make in code.
 
 ## Unreleased
 
+### The README leads with the book
+
+It opened with the architecture. Anyone arriving from a shared link met the tech stack
+and the chunking strategy before learning what the book was, or that they could read the
+whole thing for nothing. The book is the point; the implementation is the appendix.
+
+Now: a social card, the title, and one link -- **Read the whole book, free** -- above
+everything else, followed by the crisis disclaimer and three screenshots of the thing
+actually working. Every implementation heading is intact and still linkable, moved below
+a **For developers** divider.
+
+The screenshots are generated, not hand-taken. `npm run screenshots` drives a browser at
+a real production build -- the same build the tests use, served the way Pages serves it --
+and writes all four plus the social card. It spawns its own static server, so it needs
+nothing running first. A README image nobody can regenerate is a README image that goes
+stale the first time the interface moves.
+
+Page shots are captured at 1.5x rather than 2x. GitHub renders them about 900px wide, so
+2x was half a megabyte of detail nobody would see; the whole set is 1.1 MB. The social
+card stays at 2x because it is a published asset rather than a thumbnail, and it is built
+from the site's own colour tokens rather than a stock template.
+
+One piece cannot be done from a commit: the repository's social preview has to be uploaded
+by hand in Settings. The README says so, next to the card it wants.
+
 ### A chapter downloads as its own PDF
 
 From the chapter's own page. The chapter's cover under the book's name, its own
