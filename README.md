@@ -1,6 +1,6 @@
 <div align="center">
 
-![Healing Together — A Practical Guide to Trauma Recovery for Ordinary People](docs/images/social-card.png)
+![Healing Together — A Practical Guide to Trauma Recovery for Ordinary People](client/public/social-card.png)
 
 # Healing Together
 
@@ -117,7 +117,7 @@ script spawns its own static server, so it needs nothing running first. Re-run i
 the interface changes, or the README quietly starts advertising a version of the site
 that no longer exists.
 
-`docs/images/social-card.png` is also the repository's social preview — the card that
+`client/public/social-card.png` is also the repository's social preview — the card that
 appears when the link is shared. That one has to be uploaded by hand, once:
 **Settings → General → Social preview → Upload an image**. It cannot be set from a commit.
 
@@ -167,6 +167,7 @@ npm run dev          # http://localhost:5173
 | `npm run epub` | Build the reflowable Kindle edition into `dist/` |
 | `npm run check:epub` | Preflight the EPUB against what a reading system enforces |
 | `npm run check:pages` | Check a built site is servable from Pages before deploying it |
+| `npm run check:deployed <url>` | Check a *published* URL is serving the book (runs after every deploy) |
 | `npm run search-index` | Regenerate `lib/search-index.json` from the chapter modules |
 | `npm test` | Browser tests — see [Tests](#tests) |
 | `npm run test:site` | Just the route sweep and search (~35 s) |

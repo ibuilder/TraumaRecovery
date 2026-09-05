@@ -45,7 +45,16 @@ jobs:
         env:
           VITE_BASE_PATH: ${{ github.event.repository.name == format('{0}.github.io', github.repository_owner) && '/' || format('/{0}/', github.event.repository.name) }}
 
+      # `enablement` is not cosmetic. GitHub Pages was set to "Deploy from a
+      # branch", which meant every push to main ran two deployments: this
+      # workflow, uploading dist/public, and GitHub's built-in Jekyll build,
+      # publishing the repository root. They raced, Jekyll finished last, and
+      # the live site was a render of README.md instead of the book. This asks
+      # the API to set the build type to `workflow`, which is the setting that
+      # stops the Jekyll build being started at all.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -60,3 +69,20 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # `check:pages` proves the build is right. It cannot prove the build is
+      # what got published -- and for a while those were different things, with
+      # every workflow green while the live URL served something else entirely.
+      # The only symptom was a reader saying the book was gone. This is the step
+      # that makes that a red build instead of a message.
+      - name: Check the deployed site is the book
+        run: npx tsx script/check-deployed-site.ts "${{ steps.deployment.outputs.page_url }}"
