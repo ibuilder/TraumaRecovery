@@ -18,10 +18,14 @@ a reflowable EPUB for Kindle.
 
 - **14 chapters / 73 subchapters** of markdown content (~119,000 words) rendered with `react-markdown` + GFM
 - **91 figures** embedded in the prose via a ` ```chart:ChartName``` ` placeholder — Recharts plots for data, and hand-built SVG/markup for diagrams. Every one is readable without seeing it: the plots carry their numbers as a table, the diagrams describe themselves (see [Reading the figures](#reading-the-figures-without-seeing-them))
-- **Full-book PDF export** generated in the browser — a typeset 718-page book with a cover,
+- **PDF export** generated in the browser — a typeset 734-page book with a cover,
   copyright page, contents and list of figures with page numbers, PDF bookmarks, running heads,
   folios, floated figures, widow and orphan control, and one bibliography at the back
-  (see [Architecture → The printed book](docs/ARCHITECTURE.md#the-printed-book))
+  (see [Architecture → The printed book](docs/ARCHITECTURE.md#the-printed-book)).
+  **Any single chapter exports the same way**, from its own page: its own cover, its own
+  contents, only the references its text cites, and the crisis resources. The whole book takes
+  about 164 seconds because it screenshots 88 figures; one chapter takes 3 to 53, depending on
+  how many figures are in it
 - **Full-text search** over every chapter and heading (`⌘K` / `Ctrl-K`), against a search index
   built at compile time and loaded on first use
 - **Continue reading** — the last place you were is offered on the home page, kept in the browser
@@ -295,7 +299,7 @@ client/
     ├── App.tsx                     # routes, providers, base-path-aware router
     ├── components/
     │   ├── markdown-renderer.tsx   # markdown → React, resolves chart placeholders
-    │   ├── pdf-generator.tsx       # full-book PDF export and typesetting
+    │   ├── pdf-generator.tsx       # PDF export and typesetting, book or one chapter
     │   ├── trauma-charts.tsx       # all 81 figure components
     │   ├── search-dialog.tsx       # ⌘K search over the compile-time index
     │   ├── crisis-dialog.tsx       # crisis resources, reachable from the header

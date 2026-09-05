@@ -144,9 +144,12 @@ async function captureFigures(
     // a chart with the wrong numbers drawn on it.
     await page.waitForTimeout(1800);
 
-    const tagged = await page.locator("main [data-chart]").all();
+    // `data-chart-slot`, not `data-chart`: the vendored ChartContainer uses
+    // the latter for its own CSS scoping, so the bare name also matches chart
+    // internals. This only ever worked because unknown names are skipped below.
+    const tagged = await page.locator("main [data-chart-slot]").all();
     for (const holder of tagged) {
-      const component = (await holder.getAttribute("data-chart")) ?? "";
+      const component = (await holder.getAttribute("data-chart-slot")) ?? "";
       if (!component || !wanted.has(component) || found.has(component)) continue;
       const fig = holder.locator("figure").first();
       if (!(await fig.count())) continue;

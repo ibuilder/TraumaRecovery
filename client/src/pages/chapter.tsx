@@ -8,6 +8,12 @@ import { Badge } from "@/components/ui/badge";
 const MarkdownRenderer = lazy(() =>
   import("@/components/markdown-renderer").then((m) => ({ default: m.MarkdownRenderer }))
 );
+// The exporter pulls jsPDF and html2canvas, ~600 kB between them, so it is not
+// on the chapter page's critical path -- only the button's own module is, and
+// only once React gets to it.
+const ChapterPDFButton = lazy(() =>
+  import("@/components/pdf-generator").then((m) => ({ default: m.ChapterPDFButton }))
+);
 import { ChapterSidebar } from "@/components/chapter-sidebar";
 import { ReadingProgress } from "@/components/reading-progress";
 import { BackToTop } from "@/components/back-to-top";
@@ -198,7 +204,22 @@ export default function Chapter() {
                     {subchapter && <Badge variant="outline">{subchapter.title}</Badge>}
                   </div>
                   {!subchapter && (
-                    <p className="text-lg text-muted-foreground">{chapter.description}</p>
+                    <>
+                      <p className="text-lg text-muted-foreground">
+                        {chapter.description}
+                      </p>
+                      {/*
+                        Offered on the chapter's own page rather than on each
+                        subchapter: what it exports is the whole chapter, and
+                        "this chapter" reads as a mislabel when you are three
+                        subchapters in.
+                      */}
+                      <div className="mt-6">
+                        <Suspense fallback={null}>
+                          <ChapterPDFButton slug={chapter.slug} title={chapter.title} />
+                        </Suspense>
+                      </div>
+                    </>
                   )}
                 </header>
 

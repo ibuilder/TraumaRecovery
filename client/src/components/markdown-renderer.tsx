@@ -139,8 +139,15 @@ export function MarkdownRenderer({ content, showCharts = true }: MarkdownRendere
               // figure back to the placeholder that asked for it. Guessing
               // the mapping from the figure's visible title silently lost
               // sixty of the hundred placements in the EPUB build.
+              //
+              // `data-chart-slot` rather than `data-chart`: the vendored
+              // ChartContainer puts `data-chart={chartId}` on its own wrapper
+              // to scope the CSS variables it emits, so `[data-chart]` matches
+              // both, and the container ones sit *inside* the figure. Anything
+              // selecting on the bare name gets a mix of placements and
+              // internals -- which is exactly what it did.
               return (
-                <div data-chart={chartName} className="contents">
+                <div data-chart-slot={chartName} className="contents">
                   <Suspense fallback={<ChartPlaceholder />}>
                     <ChartComponent />
                   </Suspense>

@@ -60,6 +60,32 @@ export async function downloadBook(page: Page): Promise<Uint8Array> {
  * text relies on the PDF base-14 — fonts the reader's viewer is expected to
  * supply — which every print service rejects.
  */
+/**
+ * Downloads one chapter's offprint and returns it with the filename the
+ * browser was offered, which is part of what the feature promises.
+ */
+export async function downloadChapter(
+  page: Page,
+  slug: string
+): Promise<{ bytes: Uint8Array; filename: string }> {
+  await page.route("**://fonts.g*/**", (r) => r.abort());
+  await page.goto(sitePath(`/chapter/${slug}`), { waitUntil: "load" });
+
+  const button = page.getByTestId("button-download-chapter-pdf");
+  await button.waitFor();
+  const download = page.waitForEvent("download", { timeout: 4 * 60_000 });
+  await button.click();
+  const resolved = await download;
+
+  const file = await resolved.createReadStream();
+  const chunks: Buffer[] = [];
+  for await (const chunk of file) chunks.push(chunk as Buffer);
+  return {
+    bytes: new Uint8Array(Buffer.concat(chunks)),
+    filename: resolved.suggestedFilename(),
+  };
+}
+
 export function countEmbeddedFontPrograms(data: Uint8Array): number {
   return (
     Buffer.from(data)

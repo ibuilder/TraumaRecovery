@@ -329,6 +329,50 @@ What remains is a maintainability argument rather than a reader-facing one:
 `trauma-charts.tsx` is still 5,379 lines. Worth splitting when something else
 needs to touch it, not on its own account.
 
+### Per-chapter PDF export (done, 2026-09-05)
+
+A chapter downloads as its own PDF from its own page: the chapter's cover under
+the book's name, its own contents and list of figures, only the references its
+text cites, and the crisis resources. Not a filtered copy of the book — nothing
+about the other thirteen chapters is loaded, and only the figures on its pages
+are captured.
+
+Measured by clicking the real button on the built site:
+
+| | figures | time |
+|---|---|---|
+| Whole book | 88 | **164 s** |
+| Chapter 1, the figure-heaviest | 17 | 53 s |
+| Chapter 12 | 4 | 8.8 s |
+| Chapter 14 | 1 | 2.9 s |
+
+The item said the full book takes "about 90 seconds". It takes 164; that number
+was written when the book was 679 pages and 56 figures, and it is now 734 and 88.
+Export time is almost entirely figure capture, so a chapter costs roughly two
+seconds per figure it contains.
+
+The offprint drops the author's note, which speaks for the whole book, and keeps
+the crisis resources, which is the point — an excerpt of a trauma-recovery book
+that loses the 988 line is worse than no excerpt. `tests/chapter-pdf.spec.ts`
+holds that, and the first draft of it did not: it exported the Resources chapter,
+whose own prose lists crisis lines, so the assertion passed with the back matter
+deleted. It now exports a chapter that mentions neither, and reads the back
+matter specifically. Negative-tested by removing the crisis block and watching
+it fail.
+
+Two things fell out of the work:
+
+- **The accessibility sweep had been quietly under-covering since figures went
+  lazy.** `settle()` counted `figure` elements and skipped its own wait when it
+  found none — which is what happens before the chunk lands. It read 73 figures
+  instead of 90-odd under parallel load and passed anyway on a quiet machine. It
+  now waits for every placeholder to resolve.
+- **`data-chart` was two different attributes.** The vendored `ChartContainer`
+  puts `data-chart={chartId}` on its own wrapper to scope the CSS variables it
+  emits, so `[data-chart]` matched both figure placements and chart internals.
+  The EPUB build only survived it by filtering to known component names. The
+  placement marker is `data-chart-slot` now and the collision is gone.
+
 ## Phase 5 — The printed book (done)
 
 Not in the original plan, because the PDF was assumed to be a byproduct. It is the
@@ -431,12 +475,7 @@ stated twice: 734 pages fits no trim it could be printed at. See
 recommendation (two volumes at 6×9). A cover and an ISBN both wait on it. **Needs the
 author.** The Kindle EPUB depends on none of this and can go up today.
 
-### 4. Per-chapter PDF export
-
-The full book takes about 90 seconds; most readers want one chapter, and the generator
-already works chapter by chapter internally.
-
-### 5. An audio edition
+### 4. An audio edition
 
 A trauma-recovery book has readers who cannot comfortably read: people mid-crisis,
 people with dyslexia, people who would listen on a commute and never open a browser.

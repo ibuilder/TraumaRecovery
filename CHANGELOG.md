@@ -7,6 +7,55 @@ decision for Matthew rather than a change anyone can make in code.
 
 ## Unreleased
 
+### A chapter downloads as its own PDF
+
+From the chapter's own page. The chapter's cover under the book's name, its own
+contents and list of figures, only the references its text cites, and the crisis
+resources. Not a filtered copy of the book: nothing about the other thirteen
+chapters is loaded, and only the figures on its own pages are captured.
+
+Measured by clicking the real button on the built site:
+
+| | figures | time |
+|---|---|---|
+| Whole book | 88 | **164 s** |
+| Chapter 1, the figure-heaviest | 17 | 53 s |
+| Chapter 12 | 4 | 8.8 s |
+| Chapter 14 | 1 | 2.9 s |
+
+The roadmap said the full book took "about 90 seconds". It takes 164 -- that
+number dates from when the book was 679 pages and 56 figures, and it is now 734
+and 88. Export time is almost all figure capture, so a chapter costs roughly two
+seconds per figure it has.
+
+The offprint drops the author's note, which speaks for the whole book, and keeps
+the crisis resources, which is the point.
+
+**The test that guards that was vacuous on its first draft**, and it is worth
+recording why. It exported the Resources chapter -- the one whose own prose
+lists crisis lines -- so deleting the entire back matter still left "Crisis
+Resources" and "988" in the extracted text and the assertion passed. It now
+exports a chapter that mentions neither, and reads only the back matter.
+Negative-tested by removing the crisis block and watching it fail.
+
+Two things fell out of the work, both mine and both pre-existing by a day:
+
+- **The accessibility sweep had been under-covering since figures went lazy.**
+  Its `settle()` counted `figure` elements and skipped its own wait when it
+  found none -- which is exactly the state before a lazy chunk lands. It read 73
+  figures instead of 90-odd under parallel load, and passed on a quiet machine.
+  It now waits for every placeholder to resolve into a figure.
+- **`data-chart` was two different attributes.** The vendored `ChartContainer`
+  puts `data-chart={chartId}` on its own wrapper to scope the CSS variables it
+  emits, so `[data-chart]` matched both figure placements and chart internals --
+  and the internals live *inside* a figure, so a wait for "every one holds a
+  figure" could never be satisfied. The EPUB build survived it only by filtering
+  to known component names. The placement marker is `data-chart-slot` now.
+
+Verified: 108 browser tests against a real production build, the Kindle edition
+rebuilt (88 figures, 102 placements, 18/18 preflight), and the full book read
+back with pdf.js -- 734 pages, 15 bookmarks, unchanged.
+
 ### Figures load only on the pages that show one
 
 The chart registry is `import * as charts` over `trauma-charts`, so importing it

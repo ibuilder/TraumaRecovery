@@ -19,11 +19,36 @@ import { sitePath, allRoutes } from "./helpers/routes";
  * every drawing is inert, so none of them takes a Tab stop either.
  */
 
-/** Charts mount after Recharts has measured the container, so wait them out. */
+/**
+ * Waits until every figure the page is going to have is actually on it.
+ *
+ * This used to count `figure` elements and, if it found any, wait for the
+ * first drawing. That became unsound when figures started loading lazily: the
+ * count is taken before the chunk lands, comes back 0, and the wait is skipped
+ * entirely — so the sweep below silently checked a subset. It read 73 figures
+ * instead of 90 under parallel load, and passed anyway on a quiet machine.
+ *
+ * `[data-chart-slot]` is the placeholder the markdown renderer emits
+ * synchronously, before the figure's chunk has been fetched, so it is the
+ * honest count of how many figures to expect. Wait until each holds a real
+ * `<figure>`. Not `[data-chart]` — the vendored ChartContainer uses that for
+ * its own CSS scoping, so it also matches chart internals that never will.
+ */
 async function settle(page: import("@playwright/test").Page) {
   await page.waitForFunction(() => !!document.querySelector("h1"), null, {
     timeout: 20_000,
   });
+  await page.waitForFunction(
+    () => {
+      const placeholders = document.querySelectorAll("[data-chart-slot]");
+      return (
+        placeholders.length === 0 ||
+        Array.from(placeholders).every((p) => p.querySelector("figure"))
+      );
+    },
+    null,
+    { timeout: 30_000 }
+  );
   const figures = await page.locator("figure").count();
   if (figures > 0) {
     await page
