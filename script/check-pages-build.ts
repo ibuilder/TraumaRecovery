@@ -126,6 +126,23 @@ function main() {
   if (fonts.length > 0) pass("Fonts", `${fonts.length} self-hosted woff2 files`);
   else fail("Fonts", "no woff2 emitted; the site would fall back to a system face");
 
+  // The share card. og:image has to be an absolute URL -- Vite rewrites `href`
+  // and `src` for the base path but not `content`, and a crawler will not
+  // resolve a relative one -- which means nothing else in the build refers to
+  // the file, so nothing else would notice it going missing. A broken card
+  // fails silently and invisibly: the link just unfurls as grey text.
+  const ogImage = /<meta[^>]+property="og:image"[^>]+content="([^"]+)"/.exec(index)?.[1];
+  if (!ogImage) {
+    fail("Share card", "no og:image, so a shared link unfurls with no picture");
+  } else {
+    const file = ogImage.replace(/^https?:\/\/[^/]+/, "").replace(base, "");
+    if (existsSync(path.join(OUT, file))) {
+      pass("Share card", `og:image ${file} is in the build`);
+    } else {
+      fail("Share card", `og:image points at ${ogImage}, which is not in the build`);
+    }
+  }
+
   if (existsSync(assetDir)) {
     const chunks = assetFiles.filter((f) => f.endsWith(".js"));
     const empty = chunks.filter((f) => statSync(path.join(assetDir, f)).size === 0);

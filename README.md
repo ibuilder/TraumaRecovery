@@ -1,6 +1,6 @@
 <div align="center">
 
-![Healing Together — A Practical Guide to Trauma Recovery for Ordinary People](docs/images/social-card.png)
+![Healing Together — A Practical Guide to Trauma Recovery for Ordinary People](client/public/social-card.png)
 
 # Healing Together
 
@@ -117,7 +117,7 @@ script spawns its own static server, so it needs nothing running first. Re-run i
 the interface changes, or the README quietly starts advertising a version of the site
 that no longer exists.
 
-`docs/images/social-card.png` is also the repository's social preview — the card that
+`client/public/social-card.png` is also the repository's social preview — the card that
 appears when the link is shared. That one has to be uploaded by hand, once:
 **Settings → General → Social preview → Upload an image**. It cannot be set from a commit.
 

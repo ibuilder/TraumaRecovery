@@ -187,7 +187,8 @@ async function settle(p: Page) {
     </div>
   `);
   await p.waitForTimeout(400);
-  await p.screenshot({ path: `${OUT}/social-card.png` });
+  // Served by the site, not just shown in the README: it is the og:image.
+  await p.screenshot({ path: "client/public/social-card.png" });
   await p.context().close();
   console.log("social-card.png");
 }
