@@ -225,12 +225,11 @@ The original list follows.
   the directory and adding it to `.gitignore`; if the PDFs must go, they also need purging
   from git history (`git filter-repo`), which rewrites commit SHAs and so should be a
   deliberate, separate action.
-- **Three orphan charts.** `IPVPTSDChart`, `MeadowsTreatmentModelChart` and
-  `MeadowsOutcomeChart` are defined but referenced by no chapter. The two Meadows ones also
-  survived the commit that set out to remove Meadows branding, and carry unsupported
-  efficacy percentages for a named treatment provider; see the queue entry above for why
-  the recommendation is to delete those two rather than place them.
-  `validate:content` warns about all three today.
+- **Three orphan charts — deleted.** `IPVPTSDChart`, `MeadowsTreatmentModelChart` and
+  `MeadowsOutcomeChart` were defined but referenced by no chapter. The two Meadows ones
+  had survived the commit that set out to remove Meadows branding, and carried unsupported
+  efficacy percentages for a named treatment provider. All three are gone, along with their
+  data arrays and chart configs, and `validate:content` now reports no orphans at all.
 - **Photographs of the source journal are not committed**, deliberately: they are
   personal medical material. If they are ever needed for verification they live
   with the author, and `docs/source-notes/journal-transcription.md` is the record.
@@ -512,25 +511,29 @@ here that needs a budget. **Needs the author.**
   Principles*, Walker *Battered Woman Syndrome*, WHO ICD-11. Outbound access to
   publisher and journal sites is blocked from CI, so they stand rather than being
   guessed at.
-- **Three orphan charts** — `IPVPTSDChart`, `MeadowsTreatmentModelChart`,
-  `MeadowsOutcomeChart`. Complete, labelled, referenced by no chapter.
-  `validate:content` warns about them every build. The answer differs per chart,
-  and for two of them it is *delete*, not *place* — see below.
-  - `IPVPTSDChart` cites a real meta-analysis (Golding 1999) and hedges its
-    magnitudes. Placeable, if the published figures replace the illustrative ones.
-  - `MeadowsTreatmentModelChart` and `MeadowsOutcomeChart` **should not be placed
-    as written.** Each attributes percentages to a named commercial treatment
-    provider — an axis reading "Patient-Reported Benefit (%)" with Trauma Therapy
-    at 87%, and one reading "Sobriety Maintenance (%)" reaching 85% at two years.
-    The figcaption underneath says the numbers are illustrative, which contradicts
-    the axis label rather than qualifying it; a reader takes the axis. The cited
-    sources (Mellody 1989 *Facing Codependence*, Carnes 2005 *Facing the Shadow*)
-    describe the *model* and contain no outcome data, so they cannot support those
-    numbers even in principle. Publishing invented efficacy figures for a real,
-    named treatment centre in a book readers may use to choose care is a liability
-    to both the reader and the author. They reach no reader today, being orphans.
-    Recommend deleting both; keep the underlying model in prose, where it is
-    already taught with attribution.
+- **Three orphan charts — done, all three deleted.** `IPVPTSDChart`,
+  `MeadowsTreatmentModelChart` and `MeadowsOutcomeChart` were complete and labelled and
+  referenced by no chapter, so they reached no reader; `validate:content` warned about
+  them every build.
+
+  The two Meadows charts could not have been placed as written. Each attributed
+  percentages to a named commercial treatment provider — an axis reading
+  "Patient-Reported Benefit (%)" with Trauma Therapy at 87%, and one reading "Sobriety
+  Maintenance (%)" reaching 85% at two years. The figcaption underneath said the numbers
+  were illustrative, which contradicts the axis label rather than qualifying it, and a
+  reader takes the axis. The cited sources (Mellody 1989 *Facing Codependence*, Carnes
+  2005 *Facing the Shadow*) describe the *model* and contain no outcome data, so they
+  could not support those numbers even in principle. The model is still taught in prose,
+  with attribution, which is where it belongs.
+
+  `IPVPTSDChart` was the closer call, and the earlier recommendation here was to place it
+  rather than delete it: it cites a real meta-analysis (Golding 1999) and hedges its
+  magnitudes. It went too, on the author's instruction. The reasoning is that placing it
+  honestly would mean replacing every value with Golding's published figures — that is
+  writing a new chart, not placing this one — and until then it was a real citation
+  standing over invented numbers, which is the same defect as the Meadows pair in a
+  milder form. It is in git history if it is ever wanted as a starting point.
+
 - **Chapters 6 and 11 are thin** — three subchapters each against a book average of
   five, on two subjects that carry a lot of weight.
 

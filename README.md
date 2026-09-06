@@ -432,9 +432,10 @@ previously shipped:
 - `manifest.ts` and `search-index.json` are in step with the chapter modules — both are
   generated, and a stale one means chapters go missing from navigation or from search
 
-It also warns about charts that are defined but never referenced. Three currently are
-(`IPVPTSDChart`, `MeadowsTreatmentModelChart`, `MeadowsOutcomeChart`); they are complete
-and labelled, and are waiting on an editorial decision about whether they belong in the book.
+It also warns about charts that are defined but never referenced. None currently are.
+Three were, and all three have been deleted: each drew magnitudes it described in its own
+caption as illustrative, and two of them attributed efficacy percentages to a real named
+treatment provider. They are in git history if any of them is ever wanted back.
 
 ## Source notes
 
