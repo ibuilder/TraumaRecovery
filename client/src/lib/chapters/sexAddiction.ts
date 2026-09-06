@@ -11,6 +11,8 @@ export const sexAddictionChapter: Chapter = {
   readingTime: "90 min read",
   content: `# Sex & Love Addiction
 
+> **A note before you begin.** This chapter is frank about compulsive sexual behavior — what it is, how it works, and how people recover from it. It also spends time on shame, secrecy and betrayal, which many readers find harder going than the clinical material. None of it is written to judge you. If you need to talk to someone now, call or text **988** in the US, any hour.
+
 ## Understanding Compulsive Sexual Behavior
 
 Sex addiction — more formally called Compulsive Sexual Behavior Disorder (CSBD) or hypersexual disorder — is a pattern of intense preoccupation with sexual fantasies, urges, or behaviors that causes distress and functional impairment. Pioneered by Dr. Patrick Carnes in his landmark 1983 book *Out of the Shadows*, sex addiction is now recognized as a significant public health concern affecting an estimated 3–6% of adults in the United States.

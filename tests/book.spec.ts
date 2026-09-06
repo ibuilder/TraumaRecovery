@@ -52,6 +52,26 @@ function body(page: BookPage) {
   return bodyItems(page, LAYOUT.textTop, LAYOUT.pageFloor);
 }
 
+test("the content notes are printed as notices, not as quotations", () => {
+  const all = pages.map((p) => p.items.map((i) => i.text).join(" ")).join("\n");
+
+  // The four heaviest chapters carry one each. If a note stops reaching the
+  // printed book, a paperback reader loses the only crisis number they get
+  // before the back matter -- and unlike on the web there is no "Get help"
+  // button to fall back on.
+  const notes = all.match(/A note before you begin\./g) ?? [];
+  expect(notes.length, "one content note per heavy chapter").toBe(4);
+
+  // The exporter wraps blockquotes in quotation marks, which is right for the
+  // epigraphs and wrong here: a safety notice that opens with a quote mark
+  // invites the reader to wonder who is being quoted about the hotline.
+  expect(all, "the note is not quoted").not.toContain('"A note before you begin.');
+
+  // The numbers themselves, which are the part that has to survive.
+  expect(all, "the domestic violence hotline").toContain("1-800-799-7233");
+  expect(all, "the 988 lifeline").toContain("988");
+});
+
 test("the book is a whole book", () => {
   // A guard against the export silently truncating, not a target to hit.
   expect(pages.length).toBeGreaterThan(600);

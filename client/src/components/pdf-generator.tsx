@@ -7,6 +7,7 @@ import { Download, Loader2 } from "lucide-react";
 import {
   bookInfo,
   chapters as chapterManifest,
+  CONTENT_NOTE_LEAD,
   loadAllChapters,
   loadChapter,
 } from "@/lib/chapters";
@@ -319,8 +320,14 @@ function addChartImage(state: DocState, image: ChartImage): DocState {
 /**
  * Most quotes in the source already carry their own quotation marks; add a
  * pair only when neither end has one.
+ *
+ * A content note is a blockquote too, and must not be quoted: it is the book
+ * speaking to the reader about what is in the chapter and where the crisis
+ * line is, not somebody being cited. Quotation marks around the domestic
+ * violence hotline invite the reader to wonder who said it.
  */
 function quotedText(text: string): string {
+  if (text.startsWith(CONTENT_NOTE_LEAD)) return text;
   const already = /^["\u201c\u2018']/.test(text) || /["\u201d\u2019']$/.test(text);
   return already ? text : `"${text}"`;
 }

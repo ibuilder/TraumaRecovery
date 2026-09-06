@@ -11,6 +11,8 @@ export const childhoodTraumaChapter: Chapter = {
   readingTime: "50 min read",
   content: `# Healing Childhood Trauma
 
+> **A note before you begin.** This chapter is about childhood abuse and neglect, and what they do to a brain and a body that are still forming. If that is your history, some of it will land close to home. You are allowed to read one section and stop, to come back another day, or to read it with someone else nearby. If you need to talk to someone now, call or text **988** in the US, any hour.
+
 ## The Profound Impact of Early Trauma
 
 Childhood trauma is particularly devastating because it occurs while the brain and personality are still developing. Unlike adult trauma, which affects a formed person, childhood trauma shapes the very foundation of who we become.

@@ -8,6 +8,7 @@
  */
 import { readFile } from "fs/promises";
 import { chapters } from "../client/src/lib/chapters/index";
+import { CONTENT_NOTE_LEAD } from "../client/src/lib/chapters/types";
 import { buildManifestSource } from "./generate-manifest";
 import { buildSearchIndexSource } from "./generate-search-index";
 
@@ -148,6 +149,34 @@ for (const [body, name] of exportedComponents) {
 for (const chart of definedCharts) {
   if (!referencedCharts.has(chart)) {
     warnings.push(`chart "${chart}" is defined but never referenced by any chapter`);
+  }
+}
+
+// Content notes.
+//
+// The heaviest chapters open with a short note saying what is in them and
+// where the crisis line is. They are plain markdown blockquotes, so the web
+// page, the PDF and the EPUB all carry them without special handling -- except
+// that the PDF wraps blockquotes in quotation marks, which is right for an
+// epigraph and wrong for a safety notice. `quotedText` in pdf-generator.tsx
+// tells the two apart by this exact opening phrase, so if the prose is
+// reworded without updating CONTENT_NOTE_LEAD the note silently goes back to
+// being printed as a quotation. Fail instead of letting that happen quietly.
+for (const chapter of chapters) {
+  for (const { title, content } of [
+    { title: chapter.title, content: chapter.content },
+    ...chapter.subchapters.map((s) => ({ title: s.title, content: s.content })),
+  ]) {
+    for (const line of content.split("\n")) {
+      if (!/^>\s*\*\*A note/i.test(line)) continue;
+      check(
+        line.replace(/^>\s*/, "").startsWith(`**${CONTENT_NOTE_LEAD}**`),
+        `the content note in "${title}" does not open with ` +
+          `"${CONTENT_NOTE_LEAD}" in bold, so the PDF will print it as a ` +
+          `quotation — either match CONTENT_NOTE_LEAD or change it in ` +
+          `client/src/lib/chapters/types.ts`
+      );
+    }
   }
 }
 

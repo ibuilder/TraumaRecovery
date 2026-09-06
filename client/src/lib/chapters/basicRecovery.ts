@@ -1630,6 +1630,8 @@ Ogden, P., Minton, K., & Pain, C. (2006). *Trauma and the body: A sensorimotor a
       order: 7,
       content: `# Understanding Addiction and Self-Harm in Trauma Recovery
 
+> **A note before you begin.** This section is about self-harm and addictive behavior — the forms they take, and what they do for the people who use them. It names those forms plainly, though it does not go into detail beyond that. If you are hurting yourself, or close to it, you can call or text **988** in the US at any hour. You do not have to be in danger to call; not knowing what else to do is reason enough.
+
 ## The Connection Between Trauma and Addictive Behaviors
 
 When we experience trauma, our nervous system and emotional regulation capabilities can become deeply impaired. Addiction and self-destructive behaviors often emerge not as character flaws, but as desperate attempts to manage unbearable emotional states that trauma creates.

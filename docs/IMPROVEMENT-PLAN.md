@@ -167,8 +167,9 @@ landmarks and two heading-order skips. `tests/a11y.spec.ts` also asserts what ax
 cannot: that every figure is announced, that every drawing hands over its content,
 and that none of them takes a Tab stop.
 
-**Not done:** trigger warnings on the heaviest chapters. That one is editorial rather
-than technical — a content note is the author's voice, not a component.
+**Trigger warnings are drafted** and carried by four chapters, one more than this plan
+originally named. The wording is a first draft and still wants the author's eye — it is
+his voice, and nobody else gets the last word on it.
 
 The original proposals follow.
 
@@ -180,6 +181,12 @@ The original proposals follow.
   follow is already in the file.
 - **Trigger warnings.** Chapters on childhood trauma, sexual compulsivity and self-harm
   should carry a short content note above the fold, with the crisis line adjacent.
+  *Done, plus one.* Measuring the density of heavy material across all fourteen chapters
+  put relationship trauma second only to sex and love addiction — 117 mentions of abuse,
+  violence or coercion per ten thousand words — and it has a Safety Planning subchapter a
+  reader may reach while still living with the person it is about. It carries a note too,
+  and that note is the only one that leads with the domestic violence hotline rather
+  than 988, and says to read it on a device nobody else can see.
 - **A persistent, one-tap crisis affordance.** Crisis numbers are in the footer, which is
   ~10,000 words below the top of a chapter. A small fixed "Need help now?" control that opens
   a dialog with 988 / 741741 / SAMHSA belongs on every page.
@@ -464,13 +471,22 @@ over every commit that carries content, **no leaks**, 4.15 MB scanned. The resul
 and the reason the tool's commit count (69) is lower than the repository's (80)
 are recorded in the same file.
 
-### 2. Trigger warnings on the heaviest chapters
+### 2. Trigger warnings on the heaviest chapters — drafted, wants the author's eye
 
-Childhood trauma, sexual compulsivity, self-harm. The crisis dialog is one click away
-on every page and the figures are all sourced, but a reader can still arrive at the
-middle of chapter 4 from a search result with no warning. **Needs the author** — a
-content note is a voice, not a component. Second because it affects readers in distress
-and nothing else on this list does.
+Four chapters now open with one: childhood trauma (5), relationship trauma (7),
+self-harm (1.7) and sex and love addiction (13). Each says plainly what is in the
+chapter, gives the reader permission to stop, and carries a crisis number in its own
+text — which matters most in print, where there is no "Get help" button to fall back on.
+
+They are ordinary markdown blockquotes, so the web page, the PDF and the EPUB all carry
+them with no renderer needing to know they exist. The one exception is that the PDF
+wraps blockquotes in quotation marks, which is right for the epigraphs and wrong for a
+safety notice; `CONTENT_NOTE_LEAD` in `client/src/lib/chapters/types.ts` is how the
+exporter tells them apart, and `validate:content` fails if the prose and that constant
+drift.
+
+**Still needs the author.** The wording is a draft. Tone on this material is the
+author's call and nobody else's.
 
 ### 3. The paperback trim
 
