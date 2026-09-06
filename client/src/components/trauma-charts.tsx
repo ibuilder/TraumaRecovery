@@ -776,62 +776,6 @@ export function PostTraumaticGrowthChart() {
   );
 }
 
-const ipvPtsdData = [
-  { category: "Physical IPV + PTSD", percentage: 51 },
-  { category: "Sexual IPV + PTSD", percentage: 75 },
-  { category: "Psychological IPV + PTSD", percentage: 63 },
-  { category: "Complex PTSD in IPV", percentage: 42 },
-];
-
-const ipvConfig: ChartConfig = {
-  percentage: {
-    label: "PTSD Rate (%)",
-    color: "hsl(var(--primary))",
-  },
-};
-
-export function IPVPTSDChart() {
-  return (
-    <ChartFrame
-      data={ipvPtsdData}
-      config={ipvConfig}
-      title="PTSD Rates in Intimate Partner Violence Survivors"
-      subtitle="PTSD development rates by type of IPV exposure"
-      source={
-        <>
-          Golding, J. M. (1999). Intimate partner violence as a risk factor for mental
-          disorders: A meta-analysis. <em>Journal of Family Violence, 14</em>(2), 99–132.
-          Magnitudes are illustrative — they show the pattern clinicians describe, not
-          measured values.
-        </>
-      }
-    >
-      <ChartContainer config={ipvConfig} className="h-[280px] w-full">
-        <BarChart margin={{ top: 24, right: 8, bottom: 5, left: 5 }} data={ipvPtsdData}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="category" angle={-15} textAnchor="end" height={60} />
-          <YAxis tickFormatter={(v) => `${v}%`} domain={[0, 100]} />
-          <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar
-            isAnimationActive={!staticCharts}
-            dataKey="percentage"
-            fill="var(--color-percentage)"
-            radius={4}
-          >
-            <LabelList
-              dataKey="percentage"
-              position="top"
-              formatter={percentLabel}
-              className="fill-foreground"
-              fontSize={11}
-            />
-          </Bar>
-        </BarChart>
-      </ChartContainer>
-    </ChartFrame>
-  );
-}
-
 const dbtSkillsData = [
   { skill: "Mindfulness", effectiveness: 78 },
   { skill: "Distress Tolerance", effectiveness: 82 },
@@ -3607,131 +3551,6 @@ export function TraumaBondingCycleChart() {
   );
 }
 
-const meadowsTreatmentData = [
-  { component: "Trauma Therapy", effectiveness: 87 },
-  { component: "Psychodrama", effectiveness: 82 },
-  { component: "Equine Therapy", effectiveness: 79 },
-  { component: "EMDR", effectiveness: 85 },
-  { component: "Group Therapy", effectiveness: 88 },
-  { component: "12-Step Integration", effectiveness: 80 },
-  { component: "Grief Work", effectiveness: 83 },
-];
-
-const meadowsTreatmentConfig: ChartConfig = {
-  effectiveness: { label: "Patient-Reported Benefit (%)", color: "hsl(var(--chart-2))" },
-};
-
-export function MeadowsTreatmentModelChart() {
-  return (
-    <ChartFrame
-      data={meadowsTreatmentData}
-      config={meadowsTreatmentConfig}
-      title="Meadows Treatment Components & Effectiveness"
-      subtitle="Patient-reported benefit ratings for key Meadows treatment modalities"
-      source={
-        <>
-          Components after the Meadows model as described in Mellody, P. (1989).{" "}
-          <em>Facing Codependence</em>. Harper &amp; Row. Benefit ratings are illustrative
-          and not outcome data.
-        </>
-      }
-    >
-      <ChartContainer config={meadowsTreatmentConfig} className="h-[300px] w-full">
-        <BarChart
-          margin={{ top: 24, right: 8, bottom: 5, left: 5 }}
-          data={meadowsTreatmentData}
-        >
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="component" tick={{ fontSize: 10 }} />
-          <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
-          <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar
-            isAnimationActive={!staticCharts}
-            dataKey="effectiveness"
-            fill="var(--color-effectiveness)"
-            radius={4}
-          >
-            <LabelList
-              dataKey="effectiveness"
-              position="top"
-              formatter={percentLabel}
-              className="fill-foreground"
-              fontSize={11}
-            />
-          </Bar>
-        </BarChart>
-      </ChartContainer>
-    </ChartFrame>
-  );
-}
-
-const meadowsOutcomeData = [
-  { timepoint: "Intake", sobriety: 0, wellbeing: 30, relationships: 25 },
-  { timepoint: "30 Days", sobriety: 65, wellbeing: 45, relationships: 35 },
-  { timepoint: "90 Days", sobriety: 75, wellbeing: 58, relationships: 48 },
-  { timepoint: "6 Months", sobriety: 80, wellbeing: 68, relationships: 60 },
-  { timepoint: "1 Year", sobriety: 82, wellbeing: 75, relationships: 70 },
-  { timepoint: "2 Years", sobriety: 85, wellbeing: 82, relationships: 78 },
-];
-
-const meadowsOutcomeConfig: ChartConfig = {
-  sobriety: { label: "Sobriety Maintenance (%)", color: "hsl(var(--chart-1))" },
-  wellbeing: { label: "Overall Well-being (%)", color: "hsl(var(--chart-2))" },
-  relationships: { label: "Relationship Quality (%)", color: "hsl(var(--chart-3))" },
-};
-
-export function MeadowsOutcomeChart() {
-  return (
-    <ChartFrame
-      data={meadowsOutcomeData}
-      config={meadowsOutcomeConfig}
-      title="Recovery Outcomes Over Time"
-      subtitle="Trajectory of sobriety maintenance, well-being, and relationship quality during recovery"
-      source={
-        <>
-          Carnes, P., et al. (2005). <em>Facing the Shadow</em>. Gentle Path Press.
-          Magnitudes are illustrative — they show the pattern clinicians describe, not
-          measured values.
-        </>
-      }
-    >
-      <ChartContainer config={meadowsOutcomeConfig} className="h-[300px] w-full">
-        <LineChart data={meadowsOutcomeData}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="timepoint" />
-          <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
-          <ChartTooltip content={<ChartTooltipContent />} />
-          <ChartLegend content={<ChartLegendContent />} />
-          <Line
-            isAnimationActive={!staticCharts}
-            type="monotone"
-            dataKey="sobriety"
-            stroke="var(--color-sobriety)"
-            strokeWidth={2}
-            dot={{ r: 4 }}
-          />
-          <Line
-            isAnimationActive={!staticCharts}
-            type="monotone"
-            dataKey="wellbeing"
-            stroke="var(--color-wellbeing)"
-            strokeWidth={2}
-            dot={{ r: 4 }}
-          />
-          <Line
-            isAnimationActive={!staticCharts}
-            type="monotone"
-            dataKey="relationships"
-            stroke="var(--color-relationships)"
-            strokeWidth={2}
-            dot={{ r: 4 }}
-          />
-        </LineChart>
-      </ChartContainer>
-    </ChartFrame>
-  );
-}
-
 const sexAddictionRecoveryProgressData = [
   { stage: "Crisis", innerCircle: 90, middleCircle: 70, outerCircle: 10 },
   { stage: "Early Recovery", innerCircle: 60, middleCircle: 55, outerCircle: 30 },
@@ -3924,7 +3743,6 @@ export const ChartComponents = {
   AttachmentStylesChart,
   ACEsHealthRiskChart,
   PostTraumaticGrowthChart,
-  IPVPTSDChart,
   DBTSkillsChart,
   PhysicalWellnessChart,
   ExerciseImpactChart,
@@ -3966,8 +3784,6 @@ export const ChartComponents = {
   ThreeCirclesChart,
   LoveAddictionPatternsChart,
   TraumaBondingCycleChart,
-  MeadowsTreatmentModelChart,
-  MeadowsOutcomeChart,
   SexAddictionRecoveryProgressChart,
   SexAddictionRecoveryRoadmapChart,
   TreatmentAccessChart,
