@@ -28,6 +28,7 @@
     "book-fonts": "tsx script/generate-book-fonts.ts",
     "check:print": "tsx script/check-print-ready.ts",
     "epub": "tsx script/build-epub.ts",
+    "cover": "tsx script/build-cover.ts",
     "check:epub": "tsx script/check-epub.ts",
     "validate:content": "tsx script/validate-content.ts",
     "serve:static": "tsx script/serve-static.ts",

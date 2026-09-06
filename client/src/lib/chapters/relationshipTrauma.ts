@@ -10,6 +10,8 @@ export const relationshipTraumaChapter: Chapter = {
   readingTime: "50 min read",
   content: `# Healing from Relationship Trauma
 
+> **A note before you begin.** This chapter is about intimate partner violence, coercive control and emotional abuse, and it includes safety planning. If you are reading it about a relationship you are in now, consider doing that on a device nobody else can see — the chapter also describes how monitoring gets used. Leaving is the most dangerous period, and you do not have to plan it alone: the National Domestic Violence Hotline is **1-800-799-7233**, and thehotline.org has a quick-exit button. If you are in immediate danger, call 911.
+
 ## Understanding Relationship Trauma
 
 Relationship trauma occurs when the people who should provide safety and love instead cause harm. This includes intimate partner violence, betrayal, emotional abuse, and other violations of trust in close relationships.
