@@ -159,12 +159,106 @@ read one at all.
 
 ---
 
+## The Kindle submission pack
+
+Everything Amazon asks for at upload, so the answer to "what is still missing"
+is one line rather than an afternoon.
+
+### The cover
+
+```bash
+npm run cover
+```
+
+Writes `dist/cover/healing-together-cover.png` at **1600 × 2560** — Amazon's
+recommended size and the 1:1.6 ratio its store pages are laid out for. Anything
+squarer gets letterboxed in the carousel.
+
+It is generated from the book's own tokens, the same `--background`,
+`--foreground` and `--sidebar-primary` the site uses, so the cover, the share
+card and the website are recognisably one object rather than three.
+
+The command also writes `thumbnail-80px.png`. That is the point of it: a cover
+is met at about 80 pixels wide in a search result, and at that size a subtitle
+is gone and only the title and the author survive. The layout is built around
+surviving that, and the thumbnail is written so the claim can be looked at
+rather than assumed.
+
+### What KDP asks for, and what to answer
+
+| Field | Value |
+|---|---|
+| Title | Healing Together |
+| Subtitle | A Practical Guide to Trauma Recovery for Ordinary People |
+| Author | Matthew M. Emma |
+| Language | English |
+| ISBN | Leave blank — KDP assigns one free. An ebook does not need its own. |
+| Publishing rights | You own the copyright |
+| Categories | Self-Help › Post-Traumatic Stress Disorder (PTSD) · Self-Help › Abuse |
+| Age range | Adult |
+| DRM | Recommend **no** — it does not stop copying and it stops a reader moving the book between their own devices |
+| Interior | `dist/healing-together.epub`, 18/18 preflight |
+| Cover | `dist/cover/healing-together-cover.png` |
+
+### Keywords
+
+KDP takes seven, and they should be phrases a reader would actually type, not
+repeats of words already in the title — those are indexed anyway, so spending a
+slot on "trauma" wastes it.
+
+1. complex ptsd recovery workbook
+2. childhood trauma healing adults
+3. nervous system regulation
+4. window of tolerance
+5. dbt skills for emotional regulation
+6. codependency and boundaries
+7. sex and love addiction recovery
+
+### Description
+
+Reads as jacket copy, not as a feature list. HTML is allowed; keep it to a few
+paragraphs and one short list.
+
+> Trauma is not what happened to you. It is what your body still does about it.
+>
+> *Healing Together* is a practical guide for people who are not clinicians —
+> written for anyone trying to understand why they react the way they do, and
+> what can actually be done about it. It covers the neuroscience of trauma in
+> plain language, the therapies that have evidence behind them (CBT, DBT, ACT,
+> EMDR, somatic work), childhood and relationship trauma, addiction and
+> compulsive behaviour, and the slow practical business of building a life
+> after all of it.
+>
+> Fourteen chapters. Eighty-eight figures, each with its numbers printed
+> alongside it. Every claim sourced.
+>
+> The whole book is also free to read at
+> https://ibuilder.github.io/TraumaRecovery/ — this edition exists for people
+> who would rather read it on a Kindle.
+>
+> If you are in crisis in the US, call or text 988 at any hour.
+
+### Pricing
+
+The book is free on the web, which makes the ebook price a positioning decision
+rather than a revenue one. KDP's 70% royalty band starts at $2.99; below that it
+is 35%. $2.99–$4.99 is the usual range for a self-published guide of this
+length, and KDP Select's free-promotion days are the lever if the aim is reach
+rather than income — but Select demands digital exclusivity, which is
+incompatible with the book staying up on the website. **Do not enrol in KDP
+Select.**
+
+---
+
 ## Not yet done, whichever route is taken
 
-- **A cover.** KDP takes the cover as a separate upload, not as page 1 of the
-  interior — spine width calculated from the final page count and paper stock,
-  0.125 in bleed on all four sides, 300 DPI. The current page 1 is a title page
-  for the download and would need removing from a print interior.
+- **A print cover.** KDP takes the cover as a separate upload, not as page 1 of
+  the interior — spine width calculated from the final page count and paper
+  stock, 0.125 in bleed on all four sides, 300 DPI. The current page 1 is a
+  title page for the download and would need removing from a print interior.
+  *The Kindle cover is done* (see below); a print wrap is a different artefact
+  and waits on the trim, because the spine cannot be sized until the page count
+  is fixed.
 - **An ISBN.** KDP will assign one free, or you supply your own. The book
   deliberately carries none: it had a fabricated one, which is worse than
   nothing.
