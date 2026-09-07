@@ -13,15 +13,15 @@ updated in one place.
 ## Where the export stands
 
 ```
-[  ok  ] File size               23.6 MB, under the 650 MB limit
+[  ok  ] File size               23.8 MB, under the 650 MB limit
 [  ok  ] Trim size               8.50 x 11.00 in is a supported KDP trim
 [  ok  ] Uniform page size       every page matches page 1
-[  ok  ] Page parity             734 pages, even
-[ FAIL ] Page count              734 exceeds the 590-page maximum for 8.50 x 11.00 in
+[  ok  ] Page parity             736 pages, even
+[ FAIL ] Page count              736 exceeds the 590-page maximum for 8.50 x 11.00 in in black ink on white paper. A 6 x 9 trim allows 828.
 [  ok  ] Embedded fonts          4 font programs embedded in the file
-[  ok  ] Image resolution        101 images, lowest 315 DPI at placed size
-[ FAIL ] Colour page count       734 exceeds the 600-page maximum for a colour interior
-[  ok  ] Side margins            narrowest is 1.081 in, clearing the 0.875 in gutter
+[  ok  ] Image resolution        102 images, lowest 315 DPI at placed size
+[ FAIL ] Colour page count       the interior contains colour images, and 736 pages exceeds the 600-page maximum for a colour interior.
+[  ok  ] Side margins            narrowest is 1.081 in, clearing the 0.875 in gutter required at 736 pages
 [  ok  ] Top and bottom margins  narrowest is 0.606 in
 ```
 
@@ -93,7 +93,7 @@ All three are asserted in `tests/book.spec.ts`, so they cannot silently regress.
 | 6.14 x 9.21 | 828 |
 | 5.5 x 8.5 | 828 |
 
-At 734 pages the book does not fit on US Letter at all. That trim was chosen
+At 736 pages the book does not fit on US Letter at all. That trim was chosen
 deliberately — people print this at home, and a 6 x 9 would come out scaled or
 cropped — but the decision only ever applied to the download. It cannot also be
 the trim of a paperback.
@@ -114,11 +114,28 @@ to 10.5 pt with tighter leading brings it to roughly 770. That is a real edition
 and a real piece of work: a second print profile in the exporter and figures
 re-sized to a 120 mm measure.
 
-**2. Two volumes.** Chapters 1–7 and 8–14 are roughly 380 and 350 pages. Both fit
-comfortably at 6 x 9 without shrinking the type, both stay under the colour
-ceiling, and each becomes a book somebody might actually finish. It is more
-listing work and it splits the royalty, but it is by far the least destructive
-option typographically — and a 734-page paperback is a brick nobody reads in bed.
+**2. Two volumes.** Measured from the export rather than estimated, chapters 1–7
+run 389 pages and 8–14 run 337, plus ten pages of front matter.
+
+Those are pages *at the current 8.5 x 11 trim*, which is the comparison the
+earlier draft of this section got wrong: it put them beside the 828-page ceiling
+for 6 x 9, and the two numbers are in different units. Re-set at 6 x 9 the type
+reflows to a narrower measure and the count goes up — by the same factor option 1
+uses above, 736 becoming "900+", so about 1.22. That puts the volumes at roughly
+**490 and 430 pages** each once their own front and back matter is counted. Still
+comfortably under 828, so the conclusion survives; it just now rests on arithmetic
+rather than on two numbers that looked comparable and were not.
+
+Both stay under the colour ceiling, and each becomes a book somebody might
+actually finish. It is more listing work and it splits the royalty, but it is by
+far the least destructive option typographically — and a 736-page paperback is a
+brick nobody reads in bed.
+
+Splitting after chapter 6 instead would balance the halves better — 355 and 371,
+against 389 and 337 — but it separates relationship trauma from the other
+trauma-type chapters, and the break after 7 is the one that means something: what
+happened to you, then what to do about it. Sixteen pages of balance is not worth
+the seam landing in the wrong place.
 
 **3. Do not print it.** The download is free, works on any device, prints at home
 on the paper people own, and is already better typeset than most self-published

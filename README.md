@@ -19,7 +19,7 @@ No account, no paywall, no tracking
 > country's service at [findahelpline.com](https://findahelpline.com).
 
 The whole book is on the web, and it also leaves with you. From the site you can generate a
-typeset **734-page PDF** of the entire book, or of **any single chapter on its own** — both
+typeset **736-page PDF** of the entire book, or of **any single chapter on its own** — both
 built in your browser, so nothing is uploaded and nothing is logged. A reflowable **EPUB for
 Kindle** is built by CI from the same source.
 
@@ -62,7 +62,7 @@ subchapter, and land on the exact heading.
 
 - **14 chapters / 73 subchapters** of markdown content (~119,000 words) rendered with `react-markdown` + GFM
 - **88 figures** embedded in the prose via a ` ```chart:ChartName``` ` placeholder — 88 are defined and all 88 are placed, so `validate:content` has no orphans to warn about — Recharts plots for data, and hand-built SVG/markup for diagrams. Every one is readable without seeing it: the plots carry their numbers as a table, the diagrams describe themselves (see [Reading the figures](#reading-the-figures-without-seeing-them))
-- **PDF export** generated in the browser — a typeset 734-page book with a cover,
+- **PDF export** generated in the browser — a typeset 736-page book with a cover,
   copyright page, contents and list of figures with page numbers, PDF bookmarks, running heads,
   folios, floated figures, widow and orphan control, and one bibliography at the back
   (see [Architecture → The printed book](docs/ARCHITECTURE.md#the-printed-book)).
