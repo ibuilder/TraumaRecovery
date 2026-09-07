@@ -149,11 +149,11 @@ The original proposals follow.
 
 ---
 
-## Phase 3 — Accessibility and content safety (done, bar the editorial part)
+## Phase 3 — Accessibility and content safety (done)
 
 This is a mental-health resource, so both matter more than usual.
 
-**Done:** every one of the 91 figures sits in a shared `ChartFrame` — a real
+**Done:** every one of the 88 figures sits in a shared `ChartFrame` — a real
 `<figure>` with a stated source — the crisis dialog is one click away in the header
 on every page, `prefers-reduced-motion` is honoured in CSS and in the Recharts entry
 animations, and there is a skip-to-content link before the sticky header.
@@ -167,9 +167,10 @@ landmarks and two heading-order skips. `tests/a11y.spec.ts` also asserts what ax
 cannot: that every figure is announced, that every drawing hands over its content,
 and that none of them takes a Tab stop.
 
-**Trigger warnings are drafted** and carried by four chapters, one more than this plan
-originally named. The wording is a first draft and still wants the author's eye — it is
-his voice, and nobody else gets the last word on it.
+**Trigger warnings are done** and carried by four chapters, one more than this plan
+originally named. The wording is the author's, signed off on 2026-09-06, and revisable at
+any time: `validate:content` fails if the opening phrase changes without the constant the
+PDF exporter uses to tell a safety notice from an epigraph.
 
 The original proposals follow.
 
@@ -430,6 +431,56 @@ It found one defect on its first run: the chapter page rendered a second
 `<main>` inside the app shell's, so the page had two main landmarks and the new
 skip link had no single target.
 
+## Phase 7 — Editorial calls the author signed off (done)
+
+Two items that were never developer decisions. Both sat in the queue for weeks because
+the blocker was a judgement about the book rather than anything in the code, and both
+were settled on 2026-09-06.
+
+### Three orphan charts — done, all three deleted
+
+`IPVPTSDChart`, `MeadowsTreatmentModelChart` and `MeadowsOutcomeChart` were complete
+and labelled and referenced by no chapter, so they reached no reader, and
+`validate:content` warned about them on every build. All three are gone, along with
+their data arrays and chart configs — 184 lines — and the validator now reports 88/88
+charts referenced with no warnings at all.
+
+The two Meadows charts could not have been placed as written. Each attributed
+percentages to a named commercial treatment provider — an axis reading
+"Patient-Reported Benefit (%)" with Trauma Therapy at 87%, and one reading "Sobriety
+Maintenance (%)" reaching 85% at two years. The figcaption underneath said the numbers
+were illustrative, which contradicts the axis label rather than qualifying it, and a
+reader takes the axis. The cited sources (Mellody 1989 *Facing Codependence*, Carnes
+2005 *Facing the Shadow*) describe the *model* and contain no outcome data, so they
+could not support those numbers even in principle. The model is still taught in prose,
+with attribution, which is where it belongs.
+
+`IPVPTSDChart` was the closer call, and the earlier recommendation here was to place it
+rather than delete it: it cites a real meta-analysis (Golding 1999) and hedges its
+magnitudes. It went too, on the author's instruction. The reasoning is that placing it
+honestly would mean replacing every value with Golding's published figures — that is
+writing a new chart, not placing this one — and until then it was a real citation
+standing over invented numbers, which is the same defect as the Meadows pair in a
+milder form. It is in git history if it is ever wanted as a starting point.
+
+### Trigger warnings on the heaviest chapters — done
+
+Four chapters now open with one: childhood trauma (5), relationship trauma (7),
+self-harm (1.7) and sex and love addiction (13). Each says plainly what is in the
+chapter, gives the reader permission to stop, and carries a crisis number in its own
+text — which matters most in print, where there is no "Get help" button to fall back on.
+
+They are ordinary markdown blockquotes, so the web page, the PDF and the EPUB all carry
+them with no renderer needing to know they exist. The one exception is that the PDF
+wraps blockquotes in quotation marks, which is right for the epigraphs and wrong for a
+safety notice; `CONTENT_NOTE_LEAD` in `client/src/lib/chapters/types.ts` is how the
+exporter tells them apart, and `validate:content` fails if the prose and that constant
+drift.
+
+**Signed off and merged** on 2026-09-06. The wording can still be revised at any time:
+if the opening phrase changes, `validate:content` fails and names the file to change
+alongside it.
+
 ---
 
 ## Where to start
@@ -437,10 +488,11 @@ skip link had no single target.
 Everything above is history. This is the queue, top first. Each item says why it is
 where it is, so the order can be argued with.
 
-**Every item left needs the author.** The developer queue emptied on 2026-09-05: the
-linter, the Express server, the figure payload and per-chapter PDF export all landed,
-and nothing remaining can be done by reading the code. Item 1 is one email. Items 2 and
-3 are decisions only Matthew can make, and item 4 needs a budget.
+**Every item left needs the author.** The developer queue emptied on 2026-09-06, after
+the linter, the Express server, the figure payload, per-chapter PDF export, the live-site
+fix, the share card, the content notes, the Kindle cover and the orphan-chart deletion had
+all landed. Nothing remaining can be done by reading the code. Item 1 is one email,
+item 2 is a decision only Matthew can make, and item 3 needs a budget.
 
 ### 1. Ask GitHub to garbage-collect the old objects
 
@@ -470,24 +522,7 @@ over every commit that carries content, **no leaks**, 4.15 MB scanned. The resul
 and the reason the tool's commit count (69) is lower than the repository's (80)
 are recorded in the same file.
 
-### 2. Trigger warnings on the heaviest chapters — drafted, wants the author's eye
-
-Four chapters now open with one: childhood trauma (5), relationship trauma (7),
-self-harm (1.7) and sex and love addiction (13). Each says plainly what is in the
-chapter, gives the reader permission to stop, and carries a crisis number in its own
-text — which matters most in print, where there is no "Get help" button to fall back on.
-
-They are ordinary markdown blockquotes, so the web page, the PDF and the EPUB all carry
-them with no renderer needing to know they exist. The one exception is that the PDF
-wraps blockquotes in quotation marks, which is right for the epigraphs and wrong for a
-safety notice; `CONTENT_NOTE_LEAD` in `client/src/lib/chapters/types.ts` is how the
-exporter tells them apart, and `validate:content` fails if the prose and that constant
-drift.
-
-**Still needs the author.** The wording is a draft. Tone on this material is the
-author's call and nobody else's.
-
-### 3. The paperback trim
+### 2. The paperback trim
 
 The export passes eight of KDP's ten interior checks. The two failures are one fact
 stated twice: 734 pages fits no trim it could be printed at. See
@@ -495,7 +530,7 @@ stated twice: 734 pages fits no trim it could be printed at. See
 recommendation (two volumes at 6×9). A cover and an ISBN both wait on it. **Needs the
 author.** The Kindle EPUB depends on none of this and can go up today.
 
-### 4. An audio edition
+### 3. An audio edition
 
 A trauma-recovery book has readers who cannot comfortably read: people mid-crisis,
 people with dyslexia, people who would listen on a commute and never open a browser.
@@ -511,29 +546,6 @@ here that needs a budget. **Needs the author.**
   Principles*, Walker *Battered Woman Syndrome*, WHO ICD-11. Outbound access to
   publisher and journal sites is blocked from CI, so they stand rather than being
   guessed at.
-- **Three orphan charts — done, all three deleted.** `IPVPTSDChart`,
-  `MeadowsTreatmentModelChart` and `MeadowsOutcomeChart` were complete and labelled and
-  referenced by no chapter, so they reached no reader; `validate:content` warned about
-  them every build.
-
-  The two Meadows charts could not have been placed as written. Each attributed
-  percentages to a named commercial treatment provider — an axis reading
-  "Patient-Reported Benefit (%)" with Trauma Therapy at 87%, and one reading "Sobriety
-  Maintenance (%)" reaching 85% at two years. The figcaption underneath said the numbers
-  were illustrative, which contradicts the axis label rather than qualifying it, and a
-  reader takes the axis. The cited sources (Mellody 1989 *Facing Codependence*, Carnes
-  2005 *Facing the Shadow*) describe the *model* and contain no outcome data, so they
-  could not support those numbers even in principle. The model is still taught in prose,
-  with attribution, which is where it belongs.
-
-  `IPVPTSDChart` was the closer call, and the earlier recommendation here was to place it
-  rather than delete it: it cites a real meta-analysis (Golding 1999) and hedges its
-  magnitudes. It went too, on the author's instruction. The reasoning is that placing it
-  honestly would mean replacing every value with Golding's published figures — that is
-  writing a new chart, not placing this one — and until then it was a real citation
-  standing over invented numbers, which is the same defect as the Meadows pair in a
-  milder form. It is in git history if it is ever wanted as a starting point.
-
 - **Chapters 6 and 11 are thin** — three subchapters each against a book average of
   five, on two subjects that carry a lot of weight.
 

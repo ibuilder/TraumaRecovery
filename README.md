@@ -61,7 +61,7 @@ subchapter, and land on the exact heading.
 ## Features
 
 - **14 chapters / 73 subchapters** of markdown content (~119,000 words) rendered with `react-markdown` + GFM
-- **88 figures** embedded in the prose via a ` ```chart:ChartName``` ` placeholder (91 are defined; `validate:content` warns about the three no chapter places) — Recharts plots for data, and hand-built SVG/markup for diagrams. Every one is readable without seeing it: the plots carry their numbers as a table, the diagrams describe themselves (see [Reading the figures](#reading-the-figures-without-seeing-them))
+- **88 figures** embedded in the prose via a ` ```chart:ChartName``` ` placeholder — 88 are defined and all 88 are placed, so `validate:content` has no orphans to warn about — Recharts plots for data, and hand-built SVG/markup for diagrams. Every one is readable without seeing it: the plots carry their numbers as a table, the diagrams describe themselves (see [Reading the figures](#reading-the-figures-without-seeing-them))
 - **PDF export** generated in the browser — a typeset 734-page book with a cover,
   copyright page, contents and list of figures with page numbers, PDF bookmarks, running heads,
   folios, floated figures, widow and orphan control, and one bibliography at the back
@@ -189,8 +189,8 @@ built, base-pathed site.
 
 The build has to be the base-pathed one, so build with `VITE_BASE_PATH` set and run
 `npm run check:pages` between the build and the tests. A base-path mistake makes the
-static server answer every route with its 404 body, and all 108 tests fail for one
-reason that looks like 108 reasons.
+static server answer every route with its 404 body, and all 109 tests fail for one
+reason that looks like 109 reasons.
 
 There used to be a second way into that state: a `npm run build` that opened with
 `rm -rf dist` and rebuilt without a base path, silently undoing `build:pages`. It
