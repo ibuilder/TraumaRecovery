@@ -160,7 +160,7 @@ never had a database.
 ## The printed book
 
 `client/src/components/pdf-generator.tsx` is not a dump of the site into a PDF. It
-typesets a 734-page book in the browser, and most of what is in it is there because
+typesets a 736-page book in the browser, and most of what is in it is there because
 the alternative produced a page a reader would notice. The constants at the top of
 that file are the whole design; changing one of them changes the book, so a note on
 what each is for:

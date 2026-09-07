@@ -354,7 +354,7 @@ Measured by clicking the real button on the built site:
 | Chapter 14 | 1 | 2.9 s |
 
 The item said the full book takes "about 90 seconds". It takes 164; that number
-was written when the book was 679 pages and 56 figures, and it is now 734 and 88.
+was written when the book was 679 pages and 56 figures, and it is now 736 and 88.
 Export time is almost entirely figure capture, so a chapter costs roughly two
 seconds per figure it contains.
 
@@ -403,7 +403,7 @@ the repository.
 back with pdfjs, and pages are rendered to PNG and looked at. A clean text layer is not
 a clean book — mid-animation charts, stranded headings and the folio offset all extracted
 perfectly and were visibly wrong on the page. Current state, measured 2026-09-05:
-734 pages, 102 figure placements, 15 PDF bookmarks, 0 stranded headings, and every folio
+736 pages, 102 figure placements, 15 PDF bookmarks, 0 stranded headings, and every folio
 matching its physical page.
 
 ---
@@ -525,7 +525,7 @@ are recorded in the same file.
 ### 2. The paperback trim
 
 The export passes eight of KDP's ten interior checks. The two failures are one fact
-stated twice: 734 pages fits no trim it could be printed at. See
+stated twice: 736 pages fits no trim it could be printed at. See
 [PRINT-AND-PUBLISHING.md](./PRINT-AND-PUBLISHING.md) for three ways out and a
 recommendation (two volumes at 6×9). A cover and an ISBN both wait on it. **Needs the
 author.** The Kindle EPUB depends on none of this and can go up today.

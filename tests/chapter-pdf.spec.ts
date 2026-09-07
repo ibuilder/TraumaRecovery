@@ -31,7 +31,7 @@ test("a chapter exports as its own book", async ({ page }) => {
   const textOf = (p: (typeof pages)[number]) => p.items.map((i) => i.text).join(" ");
   const all = pages.map(textOf).join("\n");
 
-  // One chapter, not fourteen. The full book is 734 pages. The bound is loose
+  // One chapter, not fourteen. The full book is 736 pages. The bound is loose
   // on purpose: it is catching "the whole book came out", not pinning a length
   // that legitimately moves as the prose is edited.
   expect(pages.length).toBeGreaterThan(2);
