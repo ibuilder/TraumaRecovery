@@ -491,10 +491,35 @@ where it is, so the order can be argued with.
 **Every item left needs the author.** The developer queue emptied on 2026-09-06, after
 the linter, the Express server, the figure payload, per-chapter PDF export, the live-site
 fix, the share card, the content notes, the Kindle cover and the orphan-chart deletion had
-all landed. Nothing remaining can be done by reading the code. Item 1 is one email,
-item 2 is a decision only Matthew can make, and item 3 needs a budget.
+all landed. Nothing remaining can be done by reading the code. Item 1 is an upload, item 2
+is one email, item 3 is a decision only Matthew can make, and item 4 needs a budget.
 
-### 1. Ask GitHub to garbage-collect the old objects
+### 1. Publish the Kindle edition
+
+**Nothing is blocking this.** It is first because it is the only item on the list that
+puts the book in front of a reader who does not have it yet, and because every piece it
+needs already exists:
+
+| | |
+|---|---|
+| Interior | `npm run epub` → `dist/healing-together.epub`, 18/18 preflight |
+| Cover | `npm run cover` → 1600 × 2560, the size Amazon asks for |
+| Metadata | Every KDP field, seven keywords, jacket copy and pricing — [PRINT-AND-PUBLISHING.md](./PRINT-AND-PUBLISHING.md) |
+| ISBN | None needed. KDP assigns one free and an ebook does not require its own. |
+
+None of it waits on the trim: an EPUB has no pages, so it has no trim, no margins and no
+page count to exceed. The paperback question below is a separate decision that this does
+not depend on and should not wait for.
+
+The one recommendation worth reading before starting is **not to enrol in KDP Select**.
+It requires digital exclusivity, which the book cannot give while it stays free on the
+website, and the website is worth more than the free-promotion days.
+
+This entry exists because the plan previously described the ebook as ready in
+PRINT-AND-PUBLISHING.md and then never put it in the queue, so the queue implied the book
+could not ship yet. It can.
+
+### 2. Ask GitHub to garbage-collect the old objects
 
 **The history rewrite is done; this is the half that finishes it.**
 `git filter-repo` ran on 2026-09-04 and was force-pushed to both branches. 79
@@ -522,15 +547,17 @@ over every commit that carries content, **no leaks**, 4.15 MB scanned. The resul
 and the reason the tool's commit count (69) is lower than the repository's (80)
 are recorded in the same file.
 
-### 2. The paperback trim
+### 3. The paperback trim
 
 The export passes eight of KDP's ten interior checks. The two failures are one fact
 stated twice: 736 pages fits no trim it could be printed at. See
 [PRINT-AND-PUBLISHING.md](./PRINT-AND-PUBLISHING.md) for three ways out and a
-recommendation (two volumes at 6×9). A cover and an ISBN both wait on it. **Needs the
-author.** The Kindle EPUB depends on none of this and can go up today.
+recommendation (two volumes at 6×9, split after chapter 7, roughly 490 and 430 pages
+against a ceiling of 828). A *print* cover and an ISBN both wait on it — a spine cannot
+be sized until the page count is fixed, and the Kindle cover is a separate artefact that
+is already done. **Needs the author.** Item 1 depends on none of this.
 
-### 3. An audio edition
+### 4. An audio edition
 
 A trauma-recovery book has readers who cannot comfortably read: people mid-crisis,
 people with dyslexia, people who would listen on a commute and never open a browser.
