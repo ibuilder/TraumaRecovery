@@ -176,6 +176,32 @@ read one at all.
 
 ---
 
+## Two PDFs, because they are for two people
+
+`npm run build:pages` ships one exporter with two profiles, and the download
+offers both.
+
+| | Figures | Size | Time | For |
+|---|---|---:|---:|---|
+| **Reading** (the main button) | 150 DPI JPEG | 11.6 MB | ~107 s | Anyone who wants to read it |
+| **Print quality** (the link below it) | 300 DPI PNG | 22.7 MB | ~160 s | KDP, and this is the file `check:print` measures |
+
+The print file has not changed: same button id, same filename, same 315 DPI at
+placed size, same 8-passed-2-blocking preflight where both failures are the page
+count. What changed is that it is no longer the only thing on offer.
+
+Halving the DPI quarters the pixels and JPEG is about 60 per cent of PNG on top
+of that, but the file only halves rather than quartering, because 736 pages of
+text and four embedded font programs are a floor that image settings do not
+touch. 11.6 MB is that floor plus light figures.
+
+At 150 DPI a figure is still sharper than the screen it lands on, and the JPEG
+artefacts that make the format wrong for print — ringing around axis labels and
+thin rules — fall well under a display pixel. Those reasons apply to paper, not
+to a phone.
+
+---
+
 ## The Kindle submission pack
 
 Everything Amazon asks for at upload, so the answer to "what is still missing"

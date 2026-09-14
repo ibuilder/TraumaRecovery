@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { sitePath } from "./helpers/routes";
 import {
   bodyItems,
   countEmbeddedFontPrograms,
@@ -242,4 +243,49 @@ test("no fabricated identifiers survive into print", () => {
   // A placeholder ISBN and a placeholder article number both shipped.
   expect(text).not.toMatch(/978-0-000000-00-0/);
   expect(text).not.toMatch(/\b1234567\b/);
+});
+
+/**
+ * The reading export.
+ *
+ * One file cannot serve both readers: a printer needs 300 DPI lossless or KDP
+ * rejects the interior, and somebody downloading a free book about trauma on a
+ * phone needs it to arrive. This asserts the second file is genuinely the
+ * lighter one and still the whole book, so a change that quietly collapses the
+ * two profiles back together fails here rather than on someone's mobile data.
+ */
+test("the reading export is the same book at a lighter weight", async ({ browser }) => {
+  const page = await browser.newPage();
+  const button = page.getByTestId("button-download-pdf-reading");
+  await page.goto(sitePath("/"));
+  await button.waitFor({ state: "visible", timeout: 30_000 });
+
+  const dl = page.waitForEvent("download", { timeout: 10 * 60_000 });
+  await button.click();
+  const download = await dl;
+  expect(download.suggestedFilename()).toBe("healing-together-matthew-emma-reading.pdf");
+
+  const chunks: Buffer[] = [];
+  for await (const c of await download.createReadStream()) chunks.push(c as Buffer);
+  const bytes = Buffer.concat(chunks);
+  await page.close();
+
+  const light = await readBook(new Uint8Array(bytes));
+
+  // The same book, not an excerpt: every page the print file has.
+  expect(light.pages.length, "same page count as the print export").toBe(pages.length);
+
+  // The profile actually applied. Print measures ~315 DPI; this is half that by
+  // construction, and the gap is what the file size is bought with.
+  expect(light.lowestImageDpi).toBeLessThan(220);
+  expect(
+    light.lowestImageDpi,
+    "still sharper than the screen it lands on"
+  ).toBeGreaterThan(120);
+
+  // Loose on purpose -- it is catching "the profiles collapsed into one", not
+  // pinning a ratio that moves as the prose and the figures change.
+  expect(bytes.length, "materially lighter than the print file").toBeLessThan(
+    0.75 * 22_000_000
+  );
 });

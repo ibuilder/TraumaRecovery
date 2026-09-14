@@ -44,7 +44,7 @@ cut to the twelve components the site reaches. `CHANGELOG.md` has the detail.
 | PDF: React roots unmounted after chart capture | 59 live roots leaked per export |
 | PDF: only referenced charts captured | 3 orphan charts were rendered and screenshotted for nothing |
 | PDF: ordered lists keep their numbers; GFM tables render as grids | ~640 numbered steps became bullets and ~350 table rows were dumped as raw `\|` text |
-| PDF: image compression enabled | jsPDF was embedding each chart as a raw bitmap (1200x600x3 bytes); the book was **118 MB**, now 5.4 MB |
+| PDF: image compression enabled | jsPDF was embedding each chart as a raw bitmap (1200x600x3 bytes); the book was **118 MB**, and 5.4 MB after, at the 679 pages and 56 charts it had then. It is 23.8 MB now, because the figures are captured at 300 DPI for print — see the reading export below |
 | PDF: charts captured at natural height and sized from their real aspect | A fixed 400px capture box and a hardcoded 2:1 ratio cropped the axis off the taller charts |
 | PDF: chapter opener laid out before the tint band is painted | "CHAPTER 1" was drawn on top of the chapter title |
 | PDF: multi-line blockquotes buffered before quoting | Each line got its own pair of quote marks, so quotes read `""..."` |
