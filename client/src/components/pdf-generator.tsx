@@ -136,8 +136,50 @@ const PRINT_DPI = 300;
 /** A little over, so rounding at the printer's end never lands under the floor. */
 const PRINT_DPI_HEADROOM = 1.05;
 const CAPTURE_CSS_WIDTH = 800;
-const CAPTURE_SCALE =
-  (PRINT_DPI * PRINT_DPI_HEADROOM * (FIGURE_WIDTH / 25.4)) / CAPTURE_CSS_WIDTH;
+
+function captureScale(dpi: number): number {
+  return (dpi * PRINT_DPI_HEADROOM * (FIGURE_WIDTH / 25.4)) / CAPTURE_CSS_WIDTH;
+}
+
+/**
+ * The export serves two readers who want opposite things.
+ *
+ * A printer needs 300 DPI at placed size or KDP rejects the interior, and it
+ * needs the figures lossless, because JPEG rings around axis labels and thin
+ * rules and a chart is made of little else. That is the file this exporter has
+ * always produced, and it comes to about 24 MB.
+ *
+ * Somebody downloading a free book about trauma on a phone wants none of that.
+ * They want it to arrive. 150 DPI is still sharper than the screen it lands on,
+ * and at that size JPEG artefacts are well under a pixel of the display, so the
+ * reasons to insist on PNG stop applying.
+ *
+ * Measured on real figures: halving DPI quarters the pixels, and JPEG q0.9 is
+ * about 60 per cent of PNG on top of that.
+ */
+export type PdfProfile = {
+  label: string;
+  dpi: number;
+  format: "PNG" | "JPEG";
+  /** Only meaningful for JPEG. */
+  quality?: number;
+  suffix: string;
+};
+
+const PRINT_PROFILE: PdfProfile = {
+  label: "print",
+  dpi: PRINT_DPI,
+  format: "PNG",
+  suffix: "",
+};
+
+const READING_PROFILE: PdfProfile = {
+  label: "reading",
+  dpi: 150,
+  format: "JPEG",
+  quality: 0.9,
+  suffix: "-reading",
+};
 const FIGURE_GAP_ABOVE = 4;
 const FIGURE_GAP_BELOW = 6;
 /** Tables are a grid to scan, not a line to read, so they get the same room. */
@@ -305,7 +347,7 @@ function addChartImage(state: DocState, image: ChartImage): DocState {
   // (width x height x 3 bytes per chart), which pushed the book past 100 MB.
   state.doc.addImage(
     image.dataUrl,
-    "PNG",
+    image.format,
     xLeft,
     state.y,
     imgW,
@@ -1239,13 +1281,16 @@ type ChartsModule = typeof import("@/components/chart-registry");
 interface ChartImage {
   dataUrl: string;
   aspect: number;
+  /** Carried with the image so the page-drawing code needs no profile. */
+  format: "PNG" | "JPEG";
 }
 
 async function captureCharts(
   chartNames: string[],
   html2canvas: Html2Canvas,
   charts: ChartsModule,
-  onProgress: (msg: string) => void
+  onProgress: (msg: string) => void,
+  profile: PdfProfile
 ): Promise<Record<string, ChartImage>> {
   const { ALL_CHART_COMPONENTS, PRINT_CHART_PALETTE, setChartCaptureMode } = charts;
   const chartImages: Record<string, ChartImage> = {};
@@ -1293,14 +1338,18 @@ async function captureCharts(
         });
 
         const canvas = await html2canvas(chartDiv, {
-          scale: CAPTURE_SCALE,
+          scale: captureScale(profile.dpi),
           useCORS: true,
           backgroundColor: "#ffffff",
           logging: false,
         });
         chartImages[name] = {
-          dataUrl: canvas.toDataURL("image/png"),
+          dataUrl:
+            profile.format === "JPEG"
+              ? canvas.toDataURL("image/jpeg", profile.quality)
+              : canvas.toDataURL("image/png"),
           aspect: canvas.width / canvas.height,
+          format: profile.format,
         };
       } catch (err) {
         console.warn(`Failed to capture chart ${name}:`, err);
@@ -1332,7 +1381,8 @@ async function captureCharts(
  */
 async function generateBookPDF(
   onProgress: (msg: string) => void,
-  chapterSlug?: string
+  chapterSlug?: string,
+  profile: PdfProfile = PRINT_PROFILE
 ): Promise<{ url: string; filename: string; bytes: number }> {
   // jsPDF + html2canvas are ~600 kB, and the full book text is over a megabyte.
   // None of it is fetched until someone actually asks for the PDF.
@@ -1354,14 +1404,18 @@ async function generateBookPDF(
 
   const referencedCharts = collectReferencedCharts(chapters, charts.ALL_CHART_COMPONENTS);
   onProgress(
-    `Capturing ${referencedCharts.length} charts — the whole book takes about ` +
-      `three minutes, a single chapter a few seconds. The count below keeps moving.`
+    `Capturing ${referencedCharts.length} charts — ` +
+      (profile.dpi >= PRINT_DPI
+        ? "the whole book takes about three minutes at print resolution"
+        : "about a minute for the whole book") +
+      ", a single chapter a few seconds. The count below keeps moving."
   );
   const chartImages = await captureCharts(
     referencedCharts,
     html2canvas,
     charts,
-    onProgress
+    onProgress,
+    profile
   );
 
   onProgress("Building PDF...");
@@ -1685,8 +1739,8 @@ async function generateBookPDF(
 
   onProgress("Saving PDF...");
   const filename = only
-    ? `healing-together-${String(only.order).padStart(2, "0")}-${only.slug}.pdf`
-    : "healing-together-matthew-emma.pdf";
+    ? `healing-together-${String(only.order).padStart(2, "0")}-${only.slug}${profile.suffix}.pdf`
+    : `healing-together-matthew-emma${profile.suffix}.pdf`;
 
   // This used to be `doc.save(filename)`, which is jsPDF clicking an anchor for
   // you and telling you nothing about what happened next. A browser is free to
@@ -1720,7 +1774,7 @@ async function generateBookPDF(
  * turning a thrown error into something a reader can act on rather than a
  * button that silently goes back to idle.
  */
-function usePdfDownload(chapterSlug?: string) {
+function usePdfDownload(chapterSlug?: string, profile?: PdfProfile) {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
   const [failed, setFailed] = useState(false);
@@ -1744,7 +1798,7 @@ function usePdfDownload(chapterSlug?: string) {
     setReady(null);
     setStatus("Starting...");
     try {
-      const done = await generateBookPDF((msg) => setStatus(msg), chapterSlug);
+      const done = await generateBookPDF((msg) => setStatus(msg), chapterSlug, profile);
       // Deliberately not cleared. Clearing it was the bug: on success the
       // status vanished and the button reset, which is indistinguishable from
       // nothing having happened -- and it is what a reader sees when the
@@ -1845,8 +1899,20 @@ export function ChapterPDFButton({ slug, title }: { slug: string; title: string 
   );
 }
 
+/**
+ * Two files, because they are for two different people.
+ *
+ * The reading version leads, since almost everyone who clicks here wants to
+ * read the book rather than print it, and a phone on mobile data should not be
+ * asked for 24 MB to do that. The print-quality one keeps the original button
+ * id and the original filename: it is the file that goes to KDP, the one
+ * `check:print` measures, and nothing about it has changed.
+ */
 export function PDFDownloadButton() {
-  const { loading, status, failed, ready, start } = usePdfDownload();
+  const reading = usePdfDownload(undefined, READING_PROFILE);
+  const print = usePdfDownload(undefined, PRINT_PROFILE);
+  const busy = reading.loading || print.loading;
+  const { loading, status, failed, ready } = print;
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -1854,11 +1920,11 @@ export function PDFDownloadButton() {
         size="lg"
         variant="outline"
         className="gap-2"
-        disabled={loading}
-        onClick={start}
-        data-testid="button-download-pdf"
+        disabled={busy}
+        onClick={reading.start}
+        data-testid="button-download-pdf-reading"
       >
-        {loading ? (
+        {reading.loading ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
             Generating PDF...
@@ -1870,6 +1936,28 @@ export function PDFDownloadButton() {
           </>
         )}
       </Button>
+      {reading.status ? (
+        <p
+          className={`max-w-xs text-center text-xs ${reading.failed ? "text-destructive" : "text-muted-foreground"}`}
+          role="status"
+          aria-live="polite"
+        >
+          {reading.status}
+        </p>
+      ) : null}
+      {!reading.loading && reading.ready ? <SavedFile {...reading.ready} /> : null}
+
+      <button
+        type="button"
+        disabled={busy}
+        onClick={print.start}
+        className="text-xs text-muted-foreground underline underline-offset-2 disabled:opacity-50"
+        data-testid="button-download-pdf"
+      >
+        {print.loading
+          ? "Building the print-quality file..."
+          : "Print quality instead (larger)"}
+      </button>
       {status ? (
         <p
           className={`max-w-xs text-center text-xs ${failed ? "text-destructive" : "text-muted-foreground"}`}
