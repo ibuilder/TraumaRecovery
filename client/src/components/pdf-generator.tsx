@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import type { jsPDF } from "jspdf";
 import { BOOK_FONT, loadBookFontFaces } from "@/lib/book-fonts";
@@ -1333,7 +1333,7 @@ async function captureCharts(
 async function generateBookPDF(
   onProgress: (msg: string) => void,
   chapterSlug?: string
-): Promise<void> {
+): Promise<{ url: string; filename: string; bytes: number }> {
   // jsPDF + html2canvas are ~600 kB, and the full book text is over a megabyte.
   // None of it is fetched until someone actually asks for the PDF.
   onProgress(chapterSlug ? "Loading the chapter..." : "Loading the book...");
@@ -1353,7 +1353,10 @@ async function generateBookPDF(
   const only = chapterSlug ? chapters[0] : undefined;
 
   const referencedCharts = collectReferencedCharts(chapters, charts.ALL_CHART_COMPONENTS);
-  onProgress(`Capturing ${referencedCharts.length} charts (this takes a minute)...`);
+  onProgress(
+    `Capturing ${referencedCharts.length} charts — the whole book takes about ` +
+      `three minutes, a single chapter a few seconds. The count below keeps moving.`
+  );
   const chartImages = await captureCharts(
     referencedCharts,
     html2canvas,
@@ -1681,11 +1684,35 @@ async function generateBookPDF(
   if (doc.getNumberOfPages() % 2 === 1) doc.addPage("letter");
 
   onProgress("Saving PDF...");
-  doc.save(
-    only
-      ? `healing-together-${String(only.order).padStart(2, "0")}-${only.slug}.pdf`
-      : "healing-together-matthew-emma.pdf"
-  );
+  const filename = only
+    ? `healing-together-${String(only.order).padStart(2, "0")}-${only.slug}.pdf`
+    : "healing-together-matthew-emma.pdf";
+
+  // This used to be `doc.save(filename)`, which is jsPDF clicking an anchor for
+  // you and telling you nothing about what happened next. A browser is free to
+  // decline that -- a 24 MB automatic download is exactly the kind it queues
+  // behind a permission prompt or drops on the floor -- and when it did, the
+  // progress line cleared, the button went back to idle, and the reader was
+  // left with no file and no error, because as far as the code was concerned
+  // the export had succeeded.
+  //
+  // So the blob is built once, kept, and handed back. The click still happens
+  // and still works for almost everyone; the difference is that the URL
+  // survives it, so the button can offer a link when the download does not
+  // arrive. Built once rather than twice on purpose: `output` on the whole book
+  // is the peak-memory moment of the entire export, and doing it again for the
+  // fallback could be what tips a phone over.
+  const blob = doc.output("blob") as Blob;
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.style.display = "none";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  return { url, filename, bytes: blob.size };
 }
 
 /**
@@ -1697,13 +1724,32 @@ function usePdfDownload(chapterSlug?: string) {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
   const [failed, setFailed] = useState(false);
+  const [ready, setReady] = useState<{
+    url: string;
+    filename: string;
+    bytes: number;
+  } | null>(null);
+
+  // The object URL pins the whole PDF in memory -- 24 MB for the book -- so it
+  // is released when the component goes away or a second export replaces it.
+  useEffect(() => {
+    return () => {
+      if (ready) URL.revokeObjectURL(ready.url);
+    };
+  }, [ready]);
 
   const start = async () => {
     setLoading(true);
     setFailed(false);
+    setReady(null);
     setStatus("Starting...");
     try {
-      await generateBookPDF((msg) => setStatus(msg), chapterSlug);
+      const done = await generateBookPDF((msg) => setStatus(msg), chapterSlug);
+      // Deliberately not cleared. Clearing it was the bug: on success the
+      // status vanished and the button reset, which is indistinguishable from
+      // nothing having happened -- and it is what a reader sees when the
+      // browser quietly declines the download.
+      setReady(done);
       setStatus("");
     } catch (err) {
       console.error("PDF generation failed:", err);
@@ -1714,19 +1760,53 @@ function usePdfDownload(chapterSlug?: string) {
     }
   };
 
-  return { loading, status, failed, start };
+  return { loading, status, failed, ready, start };
+}
+
+/**
+ * Shown once the file exists. The download has almost certainly already
+ * started; this is for the case where it has not, which is otherwise silent.
+ */
+function SavedFile({
+  url,
+  filename,
+  bytes,
+}: {
+  url: string;
+  filename: string;
+  bytes: number;
+}) {
+  return (
+    <p
+      className="max-w-xs text-xs text-muted-foreground"
+      role="status"
+      aria-live="polite"
+    >
+      Done — {(bytes / 1024 / 1024).toFixed(1)} MB. If the download did not start,{" "}
+      <a
+        href={url}
+        download={filename}
+        className="text-primary underline underline-offset-2"
+        data-testid="link-pdf-fallback"
+      >
+        save it here
+      </a>
+      .
+    </p>
+  );
 }
 
 /**
  * One chapter as its own PDF.
  *
- * The full book takes about ninety seconds, nearly all of it capturing
- * ninety-one charts through an offscreen React root. A reader who wants the
+ * The full book takes about three minutes, nearly all of it capturing
+ * eighty-eight charts through an offscreen React root. A reader who wants the
  * grounding-techniques chapter should not wait for the other thirteen, and
- * mostly will not: a chapter captures only the figures on its own pages.
+ * mostly will not: a chapter captures only the figures on its own pages, which
+ * is three seconds for the lightest and under a minute for the heaviest.
  */
 export function ChapterPDFButton({ slug, title }: { slug: string; title: string }) {
-  const { loading, status, failed, start } = usePdfDownload(slug);
+  const { loading, status, failed, ready, start } = usePdfDownload(slug);
 
   return (
     <div className="flex flex-col gap-2">
@@ -1760,12 +1840,13 @@ export function ChapterPDFButton({ slug, title }: { slug: string; title: string 
           {status}
         </p>
       ) : null}
+      {!loading && ready ? <SavedFile {...ready} /> : null}
     </div>
   );
 }
 
 export function PDFDownloadButton() {
-  const { loading, status, failed, start } = usePdfDownload();
+  const { loading, status, failed, ready, start } = usePdfDownload();
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -1798,6 +1879,7 @@ export function PDFDownloadButton() {
           {status}
         </p>
       ) : null}
+      {!loading && ready ? <SavedFile {...ready} /> : null}
     </div>
   );
 }
