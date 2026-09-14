@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { downloadChapter, readBook } from "./helpers/book";
+import { sitePath } from "./helpers/routes";
 
 /**
  * One chapter as its own PDF.
@@ -60,4 +61,38 @@ test("a chapter exports as its own book", async ({ page }) => {
   const backMatter = pages.slice(-3).map(textOf).join("\n");
   expect(backMatter, "crisis resources in the back matter").toContain("Crisis Resources");
   expect(backMatter, "the 988 lifeline in the back matter").toContain("988");
+});
+
+/**
+ * The export used to end in silence. `doc.save()` asked the browser for a
+ * download and the UI cleared its progress line, so a success and a browser
+ * quietly declining a 24 MB automatic download looked identical: no file, no
+ * error, a button back at idle. This asserts the part that makes the two
+ * distinguishable.
+ */
+test("a finished export leaves a link to the file", async ({ page }) => {
+  await page.goto(sitePath("/chapter/alternative-therapies"));
+  const button = page.getByTestId("button-download-chapter-pdf");
+  await button.waitFor({ state: "visible", timeout: 30_000 });
+
+  const download = page.waitForEvent("download", { timeout: 4 * 60_000 });
+  await button.click();
+  await download;
+
+  const link = page.getByTestId("link-pdf-fallback");
+  await expect(
+    link,
+    "the file is still reachable after the download fires"
+  ).toBeVisible();
+  await expect(link).toHaveAttribute(
+    "download",
+    "healing-together-11-alternative-therapies.pdf"
+  );
+  expect(await link.getAttribute("href"), "an object URL, not a dead href").toMatch(
+    /^blob:/
+  );
+
+  // The size is stated so "nothing happened" and "a 3 MB file happened" read
+  // differently, which is the whole point.
+  await expect(page.getByText(/Done — \d+\.\d+ MB/)).toBeVisible();
 });
