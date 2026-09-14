@@ -7,6 +7,40 @@ decision for Matthew rather than a change anyone can make in code.
 
 ## Unreleased
 
+### The ebook's diagrams stopped being pictures of words
+
+Twenty-four of the Kindle edition's 102 figure placements arrived as an image and
+alt text and nothing else. **Nineteen of them are not plots at all -- they are
+diagrams laid out in HTML: boxes, a four-rung ladder, a side-by-side comparison
+table -- so their content is real text on the website, and a screen reader reads
+it there without difficulty.** Screenshotting one was the only place in this build
+where text became pixels, and the documentation claimed the opposite: that every
+figure arrives twice, as the picture and as the numbers behind it.
+
+The capture now walks the drawing's own markup and carries it across beside the
+image, the same way the 78 plots carry their data tables. Structure survives the
+trip: an `<ol>` stays an ordered list, the mutual-aid comparison stays a real
+table with its header and row scopes, and the arrows the page marks `aria-hidden`
+are dropped rather than read aloud as "up, up". The remaining five figures are
+hand-drawn SVGs whose labels are `<text>` nodes in paint order -- which is how the
+drawing looks, not how it reads -- so those emit the written description each one
+already carries, which had also been going nowhere.
+
+The walk is an explicit stack, not recursion, for the reason already written into
+this file: `tsx` builds with esbuild's `keepNames`, and a named function inside a
+browser callback is wrapped in a `__name` call that does not exist in the page.
+
+Two chart tables were missing `scope="col"` on their header cells. Fixed in the
+components, so the website gains it too.
+
+`check:epub` gained a nineteenth check that fails the build if any figure is a
+picture only, so the claim is now verified rather than maintained by hand.
+Negative-tested: stripping the text from one chapter fails it with the figure
+named.
+
+Verified: the ebook rebuilt -- 87 sections, 88 figures, 102 placements, 4.9 MB,
+19/19 preflight, 0 of 102 picture-only.
+
 ### The tests now use the base path the site is actually deployed at
 
 CI built and served the site at `/traumarecovery/`. The deploy workflow derives

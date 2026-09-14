@@ -158,7 +158,7 @@ separately, from the chapter markdown rather than from the PDF:
 npm run epub && npm run check:epub
 ```
 
-87 sections, 88 figures across 102 placements, 4.8 MB, and it passes all 18
+87 sections, 88 figures across 102 placements, 4.9 MB, and it passes all 19
 preflight checks. Two things about it are better than the PDF: the text reflows
 to whatever size the reader has set, and every figure carries real alt text
 taken from its own title and subtitle, which the PDF cannot do.
@@ -169,10 +169,22 @@ page count, no trim and no margins. It is ready to upload now.
 Both the build and the preflight run in CI, in their own job alongside the tests,
 and the ebook is uploaded as an artifact on every push.
 
-Every figure also arrives twice: as the picture, and as the numbers behind it in a
-real table. An ebook is read on a phone as often as anywhere, and a reader who has
-scaled the text up cannot scale up a bitmap of a bar chart — a screen reader cannot
-read one at all.
+Every figure arrives twice: as the picture, and as its content in text. An ebook is
+read on a phone as often as anywhere, and a reader who has scaled the text up cannot
+scale up a bitmap of a bar chart — a screen reader cannot read one at all.
+
+For 78 of the 102 placements the text is the data table behind the plot, and it has
+been there since the ebook was first built. The other 24 were a picture and nothing
+else, which is the worse case rather than the harmless one: nineteen of the book's
+figures are not plots at all but diagrams laid out in HTML — boxes, a ladder, a
+four-programme comparison table — so their content is real text on the website, read
+aloud there without trouble, and screenshotting one was the single place in this
+build where text became pixels. Those nineteen now carry their own markup across:
+the lists stay lists, the table stays a table. The remaining five are hand-drawn
+SVGs, and they carry the written description they already hold for a screen reader.
+
+`check:epub` fails the build if any figure is a picture only, so the claim in this
+paragraph is checked rather than maintained by hand.
 
 ---
 
@@ -240,7 +252,7 @@ rather than assumed.
 | Categories | Self-Help › Post-Traumatic Stress Disorder (PTSD) · Self-Help › Abuse |
 | Age range | Adult |
 | DRM | Recommend **no** — it does not stop copying and it stops a reader moving the book between their own devices |
-| Interior | `dist/healing-together.epub`, 18/18 preflight |
+| Interior | `dist/healing-together.epub`, 19/19 preflight |
 | Cover | `dist/cover/healing-together-cover.png` |
 
 ### Keywords
