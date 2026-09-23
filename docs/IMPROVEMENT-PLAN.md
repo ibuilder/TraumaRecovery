@@ -502,7 +502,7 @@ needs already exists:
 
 | | |
 |---|---|
-| Interior | `npm run epub` → `dist/healing-together.epub`, 18/18 preflight |
+| Interior | `npm run epub` → `dist/healing-together.epub`, 19/19 preflight |
 | Cover | `npm run cover` → 1600 × 2560, the size Amazon asks for |
 | Metadata | Every KDP field, seven keywords, jacket copy and pricing — [PRINT-AND-PUBLISHING.md](./PRINT-AND-PUBLISHING.md) |
 | ISBN | None needed. KDP assigns one free and an ebook does not require its own. |

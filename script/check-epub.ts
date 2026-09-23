@@ -199,6 +199,30 @@ function main() {
         }
       }
     }
+    // Every figure twice: the picture, and the same content as text. A chart is
+    // a bitmap in the ebook, and a reader who has scaled the type up cannot
+    // scale a bitmap — nor can a screen reader read one. The book claims this
+    // guarantee in its own documentation, so it is checked rather than assumed.
+    let figures = 0;
+    const pictureOnly: string[] = [];
+    for (const n of names.filter((x) => x.endsWith(".xhtml"))) {
+      for (const fig of read(n).match(/<figure class="chart">[\s\S]*?<\/figure>/g) ??
+        []) {
+        figures++;
+        if (!fig.includes('class="chart-data"') && !fig.includes('class="chart-text"')) {
+          pictureOnly.push(/\ssrc="[^"]*\/([^"/]+)"/.exec(fig)?.[1] ?? n);
+        }
+      }
+    }
+    if (figures === 0) fail("Figures", "no chart figures at all");
+    else if (pictureOnly.length === 0)
+      pass("Figures", `all ${figures} carry their content as text as well`);
+    else
+      fail(
+        "Figures",
+        `${pictureOnly.length} of ${figures} are a picture only, first ${pictureOnly[0]}`
+      );
+
     if (images === 0) pass("Images", "none");
     else {
       if (missingAlt === 0) pass("Images", `all ${images} carry alt text`);

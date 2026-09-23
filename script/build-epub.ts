@@ -71,12 +71,34 @@ function sections(): Section[] {
   return out;
 }
 
+/**
+ * One step of a walk over a diagram's own markup: an element opening, a run of
+ * text, or an element closing. Collected in the page and assembled into XHTML
+ * here, so that nothing has to be escaped inside the browser callback.
+ */
+type TextToken =
+  | { t: "open"; tag: string; scope?: string }
+  | { t: "text"; v: string }
+  | { t: "close"; tag: string };
+
 interface Figure {
   name: string;
   file: string;
   alt: string;
   /** Header row then body rows, when the figure has tabular data behind it. */
   table?: { head: string[]; rows: string[][] };
+  /**
+   * What the drawing says, for a figure with no data table behind it.
+   *
+   * Nineteen of the book's figures are not plots but diagrams laid out in HTML
+   * — boxes, ladders, a side-by-side table — so their content is text on the
+   * website and reaches a screen reader as text. Screenshotting one turns that
+   * text into pixels, which would be the one place in this build where the
+   * ebook is less accessible than the page it was made from. The other five are
+   * hand-drawn SVGs, and this carries the written description each already
+   * holds.
+   */
+  text?: TextToken[];
 }
 
 /**
@@ -89,7 +111,9 @@ interface Figure {
  * The numbers behind each figure come across as a real table rather than only
  * as pixels. An ebook is read on a phone as often as anywhere, and a reader who
  * has scaled the text up cannot scale up a bitmap of a bar chart; a screen
- * reader cannot read one at all.
+ * reader cannot read one at all. A figure with no table behind it is a diagram
+ * drawn in markup, and its own words come across the same way — as its markup
+ * where it has any, and as the written description a hand-drawn SVG carries.
  */
 async function captureFigures(
   names: string[],
@@ -178,6 +202,119 @@ async function captureFigures(
         return { head, rows: body };
       });
 
+      // No table means the figure is a diagram made of markup rather than a
+      // plot, and the words inside it are the figure. Walk the drawing and
+      // keep the structure worth keeping — its lists, its tables, its
+      // paragraphs — dropping the wrapper divs and the arrows the page itself
+      // marks `aria-hidden`. Tokens rather than a string: escaping happens
+      // where `xml` lives.
+      const diagramText = table
+        ? undefined
+        : await fig.evaluate((el) => {
+            const drawing = el.querySelector(":scope > div");
+            if (!drawing) return undefined;
+            const keep: Record<string, string> = {
+              TABLE: "table",
+              THEAD: "thead",
+              TBODY: "tbody",
+              TFOOT: "tbody",
+              TR: "tr",
+              TH: "th",
+              TD: "td",
+              CAPTION: "caption",
+              UL: "ul",
+              OL: "ol",
+              LI: "li",
+              DL: "ul",
+              DT: "li",
+              DD: "li",
+              BLOCKQUOTE: "blockquote",
+              CODE: "code",
+              EM: "em",
+              I: "em",
+              STRONG: "strong",
+              B: "strong",
+              P: "p",
+              H1: "p",
+              H2: "p",
+              H3: "p",
+              H4: "p",
+              H5: "p",
+              H6: "p",
+            };
+            const tokens: TextToken[] = [];
+            // A figure whose meaning no table can carry writes it out for a
+            // screen reader instead, in a paragraph the `<figure>` points at.
+            // On the website that is enough; here it would be thrown away with
+            // the rest of the page, so it goes in first.
+            const describedBy = el.getAttribute("aria-describedby");
+            const written = describedBy
+              ? (document.getElementById(describedBy)?.textContent ?? "")
+                  .replace(/\s+/g, " ")
+                  .trim()
+              : "";
+            if (written) {
+              tokens.push({ t: "open", tag: "p" });
+              tokens.push({ t: "text", v: written });
+              tokens.push({ t: "close", tag: "p" });
+            }
+            // An explicit stack, not recursion: a named inner function would be
+            // wrapped in the `__name` call described above and never run.
+            const stack: { node?: Node; close?: string }[] = [];
+            for (let i = drawing.childNodes.length - 1; i >= 0; i--)
+              stack.push({ node: drawing.childNodes[i]! });
+            while (stack.length) {
+              const item = stack.pop()!;
+              if (item.close) {
+                tokens.push({ t: "close", tag: item.close });
+                continue;
+              }
+              const node = item.node!;
+              if (node.nodeType === Node.TEXT_NODE) {
+                const v = (node.nodeValue ?? "").replace(/\s+/g, " ");
+                if (v.trim()) tokens.push({ t: "text", v });
+                continue;
+              }
+              if (node.nodeType !== Node.ELEMENT_NODE) continue;
+              const child = node as HTMLElement;
+              if (child.getAttribute("aria-hidden") === "true") continue;
+              if (child.tagName === "SCRIPT" || child.tagName === "STYLE") continue;
+              // A hand-drawn SVG has no markup to lift out — its labels are
+              // `<text>` nodes in paint order, which is how the drawing looks
+              // and not how it reads. It carries a written description instead,
+              // and that is the thing worth keeping.
+              if (child.tagName.toLowerCase() === "svg") {
+                const said =
+                  child.querySelector("desc")?.textContent ??
+                  child.querySelector("title")?.textContent ??
+                  "";
+                const v = said.replace(/\s+/g, " ").trim();
+                if (v) {
+                  tokens.push({ t: "open", tag: "p" });
+                  tokens.push({ t: "text", v });
+                  tokens.push({ t: "close", tag: "p" });
+                }
+                continue;
+              }
+              if (child.tagName === "BR") {
+                tokens.push({ t: "text", v: " " });
+                continue;
+              }
+              const tag = keep[child.tagName];
+              if (tag) {
+                const scope = child.getAttribute("scope");
+                tokens.push(
+                  tag === "th" && scope ? { t: "open", tag, scope } : { t: "open", tag }
+                );
+                // Pushed before the children so it pops after them.
+                stack.push({ close: tag });
+              }
+              for (let i = child.childNodes.length - 1; i >= 0; i--)
+                stack.push({ node: child.childNodes[i]! });
+            }
+            return tokens.length ? tokens : undefined;
+          });
+
       // The disclosure is a website affordance; in the ebook the table is laid
       // out as its own element, so it must not also appear inside the picture.
       await fig.evaluate((el) =>
@@ -193,6 +330,7 @@ async function captureFigures(
         file,
         alt: subtitle ? `${title}. ${subtitle}` : title || component,
         table,
+        text: diagramText,
       });
     }
   }
@@ -241,6 +379,50 @@ function renderFigureTable(fig: Figure): string {
   );
 }
 
+/** Tags that sit inside a paragraph rather than replacing one. */
+const INLINE_TAGS = new Set(["em", "strong", "code"]);
+
+/**
+ * The diagram's own words as XHTML, so they reflow and can be read aloud.
+ *
+ * The picture stays: it is the layout, and losing it would cost a sighted
+ * reader the shape of the thing. This goes underneath it, the same way the
+ * numbers do for a plot.
+ */
+function renderFigureText(fig: Figure): string {
+  if (!fig.text || fig.text.length === 0) return "";
+  let out = "";
+  let pending = "";
+  let depth = 0;
+  // Text that ended up outside any block — a bare run inside a layout div —
+  // still has to land in one, or the fragment is a paragraph the reader's
+  // stylesheet cannot touch.
+  const flush = () => {
+    if (pending.trim()) out += `<p>${pending.trim()}</p>`;
+    pending = "";
+  };
+  const write = (html: string) => {
+    if (depth === 0) pending += html;
+    else out += html;
+  };
+  for (const token of fig.text) {
+    if (token.t === "text") {
+      write(xml(token.v));
+    } else if (INLINE_TAGS.has(token.tag)) {
+      write(token.t === "open" ? `<${token.tag}>` : `</${token.tag}>`);
+    } else if (token.t === "open") {
+      if (depth === 0) flush();
+      depth++;
+      out += token.scope ? `<${token.tag} scope="${token.scope}">` : `<${token.tag}>`;
+    } else {
+      depth--;
+      out += `</${token.tag}>`;
+    }
+  }
+  flush();
+  return out.trim() ? `\n<div class="chart-text">${out}</div>\n` : "";
+}
+
 /** Renders one section's markdown, swapping chart placeholders for the images. */
 function renderSection(
   section: Section,
@@ -259,6 +441,7 @@ function renderSection(
         `\n<figure class="chart">` +
         `<img src="../images/${fig.file}" alt="${xml(fig.alt)}"/>` +
         renderFigureTable(fig) +
+        renderFigureText(fig) +
         `</figure>\n`
       );
     }
@@ -298,6 +481,12 @@ figure.chart img { max-width: 100%; height: auto; }
 /* The figure's own numbers. Left-aligned inside a centred figure, and allowed
    to break across pages — some of these run to a dozen rows. */
 table.chart-data { text-align: left; page-break-inside: auto; margin-top: 0.6em; }
+/* The words of a diagram that is markup rather than a plot. Left-aligned
+   inside a centred figure, like the tables, and set slightly back so it reads
+   as the figure's content and not as the chapter resuming. */
+div.chart-text { text-align: left; margin-top: 0.6em; font-size: 0.95em; }
+div.chart-text p { margin: 0 0 0.5em; }
+div.chart-text > :last-child { margin-bottom: 0; }
 table { border-collapse: collapse; width: 100%; margin: 1.2em 0; font-size: 0.9em; }
 th, td { border: 1px solid #bbb; padding: 0.35em 0.5em; text-align: left; vertical-align: top; }
 th { background: #f2f2f2; }

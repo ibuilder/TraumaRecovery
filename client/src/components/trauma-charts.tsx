@@ -4602,19 +4602,19 @@ export function CoreSymptomsChart() {
         <table className="w-full min-w-[620px] text-sm border-collapse">
           <thead>
             <tr className="text-left">
-              <th className="border-b border-border py-2 pr-3 font-semibold">
+              <th scope="col" className="border-b border-border py-2 pr-3 font-semibold">
                 The child is…
               </th>
-              <th className="border-b border-border py-2 pr-3 font-semibold">
+              <th scope="col" className="border-b border-border py-2 pr-3 font-semibold">
                 Core symptom
               </th>
-              <th className="border-b border-border py-2 pr-3 font-semibold">
+              <th scope="col" className="border-b border-border py-2 pr-3 font-semibold">
                 Which way it fails
               </th>
-              <th className="border-b border-border py-2 pr-3 font-semibold">
+              <th scope="col" className="border-b border-border py-2 pr-3 font-semibold">
                 Secondary
               </th>
-              <th className="border-b border-border py-2 font-semibold">
+              <th scope="col" className="border-b border-border py-2 font-semibold">
                 In relationship
               </th>
             </tr>
@@ -5182,11 +5182,18 @@ export function AskIntensityChart() {
         <table className="w-full min-w-[560px] text-sm border-collapse">
           <thead>
             <tr className="text-left">
-              <th className="border-b border-border py-2 pr-3 w-10 font-semibold">#</th>
-              <th className="border-b border-border py-2 pr-4 font-semibold">
+              <th
+                scope="col"
+                className="border-b border-border py-2 pr-3 w-10 font-semibold"
+              >
+                #
+              </th>
+              <th scope="col" className="border-b border-border py-2 pr-4 font-semibold">
                 Asking for something
               </th>
-              <th className="border-b border-border py-2 font-semibold">Saying no</th>
+              <th scope="col" className="border-b border-border py-2 font-semibold">
+                Saying no
+              </th>
             </tr>
           </thead>
           <tbody>
